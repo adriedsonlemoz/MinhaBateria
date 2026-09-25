@@ -30,7 +30,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Potência"
+            android:text="Potência calculada"
             android:textColor="@color/text_secondary"
             android:textSize="11sp" />
         <TextView
@@ -46,13 +46,15 @@
             android:textStyle="bold" />
         <TextView
             android:id="@+id/powerOrigin"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:layout_marginTop="1dp"
             android:text="Calculado"
             android:textAllCaps="true"
             android:textColor="@color/text_muted"
-            android:textSize="8sp"
+            android:textSize="7sp"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

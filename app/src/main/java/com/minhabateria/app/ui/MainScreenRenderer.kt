@@ -9,6 +9,7 @@ import com.minhabateria.app.battery.BatteryInfo
 import com.minhabateria.app.battery.ChargingSession
 import com.minhabateria.app.measurement.MeasurementCatalog
 import com.minhabateria.app.source.EnergySourceProfile
+import com.minhabateria.app.source.NominalPowerComparison
 import com.minhabateria.app.session.SessionFormatter
 import com.minhabateria.app.utils.BatteryFormatter
 import com.minhabateria.app.utils.TimeFormatter
@@ -25,11 +26,13 @@ class MainScreenRenderer(private val activity: Activity) {
     private val elapsed = activity.findViewById<TextView>(R.id.elapsedValue)
     private val energy = activity.findViewById<TextView>(R.id.energyValue)
     private val charge = activity.findViewById<TextView>(R.id.chargeValue)
+    private val powerOrigin = activity.findViewById<TextView>(R.id.powerOrigin)
+    private var sourceProfile: EnergySourceProfile? = null
 
     init {
         activity.findViewById<TextView>(R.id.voltageOrigin).text = MeasurementCatalog.voltage.origin.label
         activity.findViewById<TextView>(R.id.currentOrigin).text = MeasurementCatalog.current.origin.label
-        activity.findViewById<TextView>(R.id.powerOrigin).text = MeasurementCatalog.power.origin.label
+        powerOrigin.text = MeasurementCatalog.power.origin.label
         activity.findViewById<TextView>(R.id.temperatureOrigin).text = MeasurementCatalog.temperature.origin.label
     }
 
@@ -40,6 +43,9 @@ class MainScreenRenderer(private val activity: Activity) {
         renderMetric(voltage, BatteryFormatter.voltage(info.voltageMv), info.voltageMv != null, R.color.accent_green)
         renderMetric(current, BatteryFormatter.current(info.currentMa), info.currentMa != null, R.color.accent_green)
         renderMetric(power, BatteryFormatter.power(info.powerW), info.powerW != null, R.color.text_primary)
+        powerOrigin.text = NominalPowerComparison.compact(
+            info.powerW, session.peakPowerW, sourceProfile?.nominalPowerW
+        ) ?: MeasurementCatalog.power.origin.label
         renderMetric(temperature, BatteryFormatter.temperature(info.temperatureC), info.temperatureC != null, R.color.accent_orange)
         elapsed.text = TimeFormatter.elapsed(session.elapsedMs)
         renderMetric(energy, SessionFormatter.energy(session.energyWh), session.energyWh != null, R.color.text_primary)
@@ -47,6 +53,7 @@ class MainScreenRenderer(private val activity: Activity) {
     }
 
     fun renderSourceProfile(profile: EnergySourceProfile?) {
+        sourceProfile = profile
         profileSource.text = profile?.name ?: "Não configurado"
         profileSource.setTextColor(
             activity.getColor(if (profile == null) R.color.value_unavailable else R.color.accent_blue)

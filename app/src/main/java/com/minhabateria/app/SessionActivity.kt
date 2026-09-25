@@ -47,6 +47,7 @@ class SessionActivity : Activity() {
     override fun onResume() {
         super.onResume()
         renderer.renderSource(sourceStore.getProfile())
+        renderer.render(MonitoringStateStore.current().session)
     }
 
     override fun onStop() {

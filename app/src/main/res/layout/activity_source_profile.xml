@@ -88,11 +88,13 @@
                 android:textColor="@color/accent_blue"
                 android:textSize="12sp" />
 
+            <include layout="@layout/panel_source_suggestions" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:text="DADOS DA ETIQUETA"
+                android:text="AJUSTE MANUAL / DADOS DA ETIQUETA"
                 android:textColor="@color/text_muted"
                 android:textSize="11sp"
                 android:textStyle="bold" />
@@ -103,7 +105,7 @@
                 android:layout_height="52dp"
                 android:layout_marginTop="7dp"
                 android:background="@drawable/bg_input"
-                android:hint="Marca (ex.: Samsung, Xiaomi, Baseus)"
+                android:hint="Marca — use apenas se não estiver nas sugestões"
                 android:inputType="textCapWords"
                 android:maxLines="1"
                 android:textColor="@color/text_primary"
@@ -116,7 +118,7 @@
                 android:layout_height="52dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_input"
-                android:hint="Modelo da etiqueta (ex.: EP-TA800)"
+                android:hint="Modelo — ajuste manual se necessário"
                 android:inputType="textCapCharacters"
                 android:maxLines="1"
                 android:textColor="@color/text_primary"
@@ -129,7 +131,7 @@
                 android:layout_height="52dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_input"
-                android:hint="Potência máxima declarada em W (ex.: 25)"
+                android:hint="Potência em W — ajuste manual se necessário"
                 android:inputType="numberDecimal"
                 android:maxLines="1"
                 android:textColor="@color/text_primary"

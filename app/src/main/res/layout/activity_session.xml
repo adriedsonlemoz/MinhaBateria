@@ -67,6 +67,14 @@
                     android:textColor="@color/accent_blue"
                     android:textSize="17sp"
                     android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/sessionSourceReference"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Sem referência nominal"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <LinearLayout

@@ -36,6 +36,7 @@ class SourceProfileActivity : Activity() {
     private lateinit var cableDetails: View
     private lateinit var powerBankDetails: View
     private lateinit var solarDetails: View
+    private lateinit var suggestions: SourceProfileSuggestionBinder
     private var initialSetup = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +76,10 @@ class SourceProfileActivity : Activity() {
         cableDetails = findViewById(R.id.cableDetails)
         powerBankDetails = findViewById(R.id.powerBankDetails)
         solarDetails = findViewById(R.id.solarDetails)
+        suggestions = SourceProfileSuggestionBinder(
+            this, brandInput, modelInput, powerInput, outputsInput, technologyInput,
+            portInput, capacityInput
+        ) { updateNamePreview() }
     }
 
     private fun bindActions() {
@@ -158,10 +163,11 @@ class SourceProfileActivity : Activity() {
         cableDetails.visibility = if (type == EnergySourceType.CHARGER) View.VISIBLE else View.GONE
         powerBankDetails.visibility = if (type == EnergySourceType.POWER_BANK) View.VISIBLE else View.GONE
         solarDetails.visibility = if (type == EnergySourceType.SOLAR_PANEL) View.VISIBLE else View.GONE
+        suggestions.updateForType(type)
         sourceDataHint.text = when (type) {
-            EnergySourceType.CHARGER -> "Copie o que conseguir ler na etiqueta do carregador: marca, modelo, W, saídas e protocolos."
-            EnergySourceType.POWER_BANK -> "Use a etiqueta do power bank: marca, modelo, capacidade, potência e dados das saídas."
-            EnergySourceType.SOLAR_PANEL -> "Use a etiqueta do painel: potência nominal, tensão e corrente. Controlador/conversor são opcionais."
+            EnergySourceType.CHARGER -> "Escolha sugestões de marca, modelo, W, protocolo e saída. Digite somente se sua etiqueta tiver algo diferente."
+            EnergySourceType.POWER_BANK -> "Use os seletores para marca, capacidade, potência, protocolo e saída; ajuste manualmente apenas o que faltar."
+            EnergySourceType.SOLAR_PANEL -> "Escolha marca e potência sugeridas do painel; tensão, corrente e controlador continuam opcionais."
             EnergySourceType.OTHER -> "Preencha somente os dados que você conhece. O nome será montado automaticamente."
             null -> "Escolha o tipo da fonte para receber orientação de preenchimento."
         }

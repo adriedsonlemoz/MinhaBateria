@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.12+13
+
+- Adicionado preenchimento rápido do Perfil da fonte com seletores de marca, modelo/preset, potência, protocolo, porta e saídas comuns, reduzindo a necessidade de digitação.
+- Incluídas sugestões como Samsung EP-TA800 25 W, Samsung EP-T4510 45 W, Apple A2305 20 W, presets de painéis por potência e power banks por capacidade; opções manuais continuam disponíveis.
+- Protocolos comuns agora podem ser selecionados, incluindo USB-PD, USB-PD 3.0, USB-PD 3.1, PPS, Quick Charge e outros.
+- Tela Agora passou a comparar a potência calculada com a potência nominal configurada, identificando o resultado como observado no aparelho.
+- Aba Sessão passou a contextualizar o pico da sessão em relação à potência nominal sem declarar eficiência ou potência direta da fonte.
+- Mantidos publicação somente do APK no Works, assinatura permanente e limite de 500 linhas por arquivo.
+
 ## 1.0.11+12
 
 - Ativada a aba Sessão na navegação inferior, mantendo Agora como tela principal sem rolagem.

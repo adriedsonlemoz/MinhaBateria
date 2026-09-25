@@ -68,6 +68,8 @@ class MainActivity : Activity() {
     override fun onResume() {
         super.onResume()
         renderer.renderSourceProfile(sourceProfileStore.getProfile())
+        val state = MonitoringStateStore.current()
+        state.info?.let { info -> state.session?.let { session -> renderer.render(info, session) } }
     }
 
     override fun onStop() {

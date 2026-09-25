@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.11
-- versionCode: 12
-- versão completa: 1.0.11+12
+- versionName: 1.0.12
+- versionCode: 13
+- versão completa: 1.0.12+13
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -27,7 +27,7 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - tensão, corrente, potência calculada e temperatura;
 - tempo da sessão, Wh/mAh estimados e picos observados;
 - monitoramento contínuo por foreground service;
-- perfil técnico da fonte usada no teste;
+- perfil técnico da fonte usada no teste com preenchimento rápido por sugestões;
 - aba Sessão funcional com estatísticas detalhadas da sessão atual;
 - Configurações, Sobre e Doação;
 - build release assinado e publicação direta do APK.
@@ -53,6 +53,14 @@ Registra potência nominal e pode guardar tensão/corrente da etiqueta e o contr
 Aceita os dados conhecidos sem exigir especificações inexistentes.
 
 Os dados de etiqueta são referência nominal e permanecem separados da conexão detectada pelo Android. Eles não são tratados como medição direta da energia entregue ao aparelho.
+
+### Preenchimento rápido
+
+O formulário oferece seletores de marca, modelo/preset, potência, protocolo, porta e saídas comuns. Entre as opções de protocolo estão USB-PD, USB-PD 3.0, USB-PD 3.1, PPS e combinações comuns. Para Samsung há presets de modelos conhecidos como EP-TA800 25 W e EP-T4510 45 W; para painéis e power banks há presets por potência/capacidade. Digitação manual fica como alternativa quando a etiqueta não corresponder às sugestões.
+
+### Comparação com a referência nominal
+
+Quando o perfil possui potência nominal, a tela Agora mostra quanto da referência configurada está sendo observado no aparelho. A aba Sessão contextualiza o pico da sessão da mesma forma. Essa comparação não é apresentada como eficiência nem como medição direta da saída da fonte.
 
 ## Origem e confiabilidade dos dados
 
@@ -90,8 +98,8 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.11.apk`
+APK final: `Minha-Bateria-1.0.12.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.11.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.12.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
