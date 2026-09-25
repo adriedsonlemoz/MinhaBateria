@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.16
-- versionCode: 16
-- versão completa: 1.0.16+17
+- versionName: 1.0.17
+- versionCode: 18
+- versão completa: 1.0.17+18
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -30,6 +30,7 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - perfil técnico da fonte usada no teste com preenchimento rápido por sugestões;
 - abas Gráficos, Sessão e Histórico funcionais;
 - gráficos leves de potência, corrente, temperatura e bateria em 5, 15 e 60 minutos;
+- diagnóstico técnico copiável com estado do monitoramento, leituras, sessão, histórico e gráficos;
 - Configurações, Sobre e Doação;
 - build release assinado e publicação direta do APK.
 
@@ -103,6 +104,14 @@ Os gráficos armazenam no máximo uma amostra a cada 10 segundos, embora a leitu
 
 O foreground service é iniciado somente quando solicitado. O app não utiliza `WAKE_LOCK`. A retomada após reiniciar é opcional.
 
+## Diagnóstico e validação
+
+Em Configurações, a tela **Diagnóstico** reúne versão, aparelho/Android, estado do monitoramento contínuo, permissão de notificações, perfil da fonte, leitura atual, resumo da sessão, quantidade de sessões do Histórico e amostras dos Gráficos. O relatório pode ser atualizado e copiado para facilitar análise de problemas, sem incluir keystore, Secrets ou chaves de assinatura.
+
+O projeto inclui `tools/validate_project.py`. O Works executa essa validação antes do build release e bloqueia a publicação se encontrar versão dessincronizada, XML inválido, recurso/ID ausente, launcher incorreto, artefatos proibidos no source ou arquivo de código acima de 500 linhas.
+
+Durante a revisão final também foi corrigido o encerramento manual do monitoramento contínuo: ao parar o serviço, o estado persistido da sessão ativa é limpo para impedir que uma sessão antiga seja retomada indevidamente quando o monitoramento for iniciado novamente.
+
 ## Assinatura e atualização
 
 O APK usa a chave release permanente introduzida na versão 1.0.3+4. Use sempre o mesmo `Minha-Bateria-GitHub-Secrets.txt` para instalar atualizações por cima da versão existente.
@@ -117,11 +126,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.16.apk`
+APK final: `Minha-Bateria-1.0.17.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.16.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.17.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões

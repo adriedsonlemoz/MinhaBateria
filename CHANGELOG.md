@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.17+18
+
+- Adicionada tela Diagnóstico em Configurações com versão, aparelho/Android, estado do monitoramento, permissão de notificações, fonte configurada, leitura atual, sessão, Histórico e amostras dos Gráficos.
+- Diagnóstico pode ser atualizado e copiado para facilitar suporte sem incluir keystore, Secrets ou chaves de assinatura.
+- Adicionado `tools/validate_project.py` e integrado ao Works antes do build para validar versão, XML, recursos/IDs, launcher, limpeza do source e limite de 500 linhas.
+- Corrigido o encerramento manual do monitoramento contínuo para limpar a sessão persistida e impedir retomada indevida de uma sessão antiga ao iniciar o serviço novamente.
+- Revisados os fluxos conectar/desconectar, carga completa, histórico automático, comparação, gráficos e persistência da sessão.
+
 ## 1.0.16+17
 
 - Histórico agora permite selecionar exatamente duas sessões e abrir uma comparação lado a lado.

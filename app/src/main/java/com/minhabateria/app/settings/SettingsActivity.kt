@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import com.minhabateria.app.R
+import com.minhabateria.app.diagnostics.DiagnosticsActivity
 import com.minhabateria.app.monitoring.MonitorPreferences
 import com.minhabateria.app.monitoring.MonitoringServiceController
 import com.minhabateria.app.monitoring.MonitoringState
@@ -46,6 +47,9 @@ class SettingsActivity : Activity() {
         findViewById<TextView>(R.id.versionValue).text = AppVersionInfo.fullVersion(this)
         findViewById<Button>(R.id.editSourceProfileButton).setOnClickListener {
             startActivity(Intent(this, SourceProfileActivity::class.java))
+        }
+        findViewById<Button>(R.id.openDiagnosticsButton).setOnClickListener {
+            startActivity(Intent(this, DiagnosticsActivity::class.java))
         }
 
         controls.setResumeAfterBoot(preferences.shouldResumeAfterBoot())

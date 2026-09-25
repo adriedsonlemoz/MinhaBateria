@@ -57,6 +57,7 @@ class BatteryMonitorService : Service() {
     override fun onDestroy() {
         monitor.stop()
         ChartSampleRepository.flush(this)
+        if (!preferences.isMonitoringRequested()) sessionStore.clear()
         MonitoringStateStore.publish(running = false)
         super.onDestroy()
     }

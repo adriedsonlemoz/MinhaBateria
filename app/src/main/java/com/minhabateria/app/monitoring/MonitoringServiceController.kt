@@ -15,6 +15,7 @@ object MonitoringServiceController {
     fun stop(context: Context) {
         val appContext = context.applicationContext
         MonitorPreferences(appContext).setMonitoringRequested(false)
+        ContinuousSessionStore(appContext).clear()
         appContext.stopService(Intent(appContext, BatteryMonitorService::class.java))
         MonitoringStateStore.publish(running = false)
     }
