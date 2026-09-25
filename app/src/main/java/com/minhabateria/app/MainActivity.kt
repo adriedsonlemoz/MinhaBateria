@@ -50,6 +50,7 @@ class MainActivity : Activity() {
         BottomTabsBinder(this).bind(
             active = BottomTab.NOW,
             openNow = {},
+            openCharts = { startActivity(Intent(this, ChartsActivity::class.java)) },
             openSession = { startActivity(Intent(this, SessionActivity::class.java)) }
         )
 

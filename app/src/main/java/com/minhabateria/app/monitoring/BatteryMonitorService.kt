@@ -8,6 +8,7 @@ import android.os.IBinder
 import com.minhabateria.app.battery.BatteryMonitor
 import com.minhabateria.app.battery.BatteryStatusReader
 import com.minhabateria.app.battery.ChargingSession
+import com.minhabateria.app.charts.ChartSampleRepository
 
 class BatteryMonitorService : Service() {
     private lateinit var monitor: BatteryMonitor
@@ -27,6 +28,7 @@ class BatteryMonitorService : Service() {
             reader = BatteryStatusReader(this),
             session = chargingSession,
             onUpdate = { info, session ->
+                ChartSampleRepository.record(this, info)
                 sessionStore.save(chargingSession.savedState())
                 MonitoringStateStore.publish(true, info, session)
                 updateNotificationIfNeeded(info)
@@ -49,6 +51,7 @@ class BatteryMonitorService : Service() {
 
     override fun onDestroy() {
         monitor.stop()
+        ChartSampleRepository.flush(this)
         MonitoringStateStore.publish(running = false)
         super.onDestroy()
     }

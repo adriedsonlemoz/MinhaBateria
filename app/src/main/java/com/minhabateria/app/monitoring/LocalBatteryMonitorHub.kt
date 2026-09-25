@@ -4,6 +4,7 @@ import android.content.Context
 import com.minhabateria.app.battery.BatteryMonitor
 import com.minhabateria.app.battery.BatteryStatusReader
 import com.minhabateria.app.battery.ChargingSession
+import com.minhabateria.app.charts.ChartSampleRepository
 
 object LocalBatteryMonitorHub {
     private val clients = mutableSetOf<Any>()
@@ -32,6 +33,7 @@ object LocalBatteryMonitorHub {
             reader = BatteryStatusReader(context),
             session = session,
             onUpdate = { info, snapshot ->
+                ChartSampleRepository.record(context, info)
                 MonitoringStateStore.publish(
                     running = MonitoringStateStore.current().running,
                     info = info,

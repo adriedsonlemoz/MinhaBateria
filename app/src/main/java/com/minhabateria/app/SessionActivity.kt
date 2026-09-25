@@ -32,6 +32,10 @@ class SessionActivity : Activity() {
         BottomTabsBinder(this).bind(
             active = BottomTab.SESSION,
             openNow = { finish() },
+            openCharts = {
+                startActivity(android.content.Intent(this, ChartsActivity::class.java))
+                finish()
+            },
             openSession = {}
         )
         renderer.renderSource(sourceStore.getProfile())

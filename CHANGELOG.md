@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.13+14
+
+- Ativada a aba Gráficos com visualizações leves de potência, corrente, temperatura e porcentagem da bateria.
+- Adicionados períodos de 5, 15 e 60 minutos, mantendo a tela compacta em grade 2×2 e sem dependência externa de gráficos.
+- Separada a frequência de leitura da frequência de armazenamento: o monitor continua lendo normalmente, enquanto os gráficos guardam no máximo uma amostra a cada 10 segundos.
+- Amostras são limitadas aos últimos 60 minutos e persistidas em lote aproximadamente uma vez por minuto, reduzindo escritas, memória e consumo.
+- Navegação Agora ↔ Gráficos ↔ Sessão agora está funcional; Histórico permanece reservado para a próxima etapa correspondente.
+- Mantidos assinatura permanente, publicação somente do APK no Works e limite de 500 linhas por arquivo.
+
 ## 1.0.12+13
 
 - Adicionado preenchimento rápido do Perfil da fonte com seletores de marca, modelo/preset, potência, protocolo, porta e saídas comuns, reduzindo a necessidade de digitação.

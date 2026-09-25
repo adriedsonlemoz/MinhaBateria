@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chartsRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_app"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gráficos"
+            android:textColor="@color/text_primary"
+            android:textSize="27sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/chartWindowLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 amostra a cada 10 s • últimos 5 min"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/range5"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="5 min"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <Space android:layout_width="7dp" android:layout_height="1dp" />
+        <TextView
+            android:id="@+id/range15"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="15 min"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <Space android:layout_width="7dp" android:layout_height="1dp" />
+        <TextView
+            android:id="@+id/range60"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="60 min"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="14dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="14dp"
+        android:paddingBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <com.minhabateria.app.ui.MetricChartView
+                android:id="@+id/powerChart"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card" />
+            <Space android:layout_width="8dp" android:layout_height="1dp" />
+            <com.minhabateria.app.ui.MetricChartView
+                android:id="@+id/currentChart"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card" />
+        </LinearLayout>
+
+        <Space android:layout_width="1dp" android:layout_height="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <com.minhabateria.app.ui.MetricChartView
+                android:id="@+id/temperatureChart"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card" />
+            <Space android:layout_width="8dp" android:layout_height="1dp" />
+            <com.minhabateria.app.ui.MetricChartView
+                android:id="@+id/batteryChart"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        layout="@layout/bottom_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_tabs_height" />
+</LinearLayout>

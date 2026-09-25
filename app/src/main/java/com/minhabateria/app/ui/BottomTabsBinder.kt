@@ -2,18 +2,23 @@ package com.minhabateria.app.ui
 
 import android.app.Activity
 import android.graphics.PorterDuff
-import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.minhabateria.app.R
 
-enum class BottomTab { NOW, SESSION }
+enum class BottomTab { NOW, CHARTS, SESSION }
 
 class BottomTabsBinder(private val activity: Activity) {
-    fun bind(active: BottomTab, openNow: () -> Unit, openSession: () -> Unit) {
+    fun bind(
+        active: BottomTab,
+        openNow: () -> Unit,
+        openCharts: () -> Unit,
+        openSession: () -> Unit
+    ) {
         val tabs = listOf(
             TabViews(R.id.tabNow, R.id.tabNowIcon, R.id.tabNowLabel, BottomTab.NOW),
+            TabViews(R.id.tabCharts, R.id.tabChartsIcon, R.id.tabChartsLabel, BottomTab.CHARTS),
             TabViews(R.id.tabSession, R.id.tabSessionIcon, R.id.tabSessionLabel, BottomTab.SESSION)
         )
         tabs.forEach { style(it, it.tab == active) }
@@ -21,11 +26,12 @@ class BottomTabsBinder(private val activity: Activity) {
         activity.findViewById<LinearLayout>(R.id.tabNow).setOnClickListener {
             if (active != BottomTab.NOW) openNow()
         }
+        activity.findViewById<LinearLayout>(R.id.tabCharts).setOnClickListener {
+            if (active != BottomTab.CHARTS) openCharts()
+        }
         activity.findViewById<LinearLayout>(R.id.tabSession).setOnClickListener {
             if (active != BottomTab.SESSION) openSession()
         }
-
-        disable(R.id.tabCharts, R.id.tabChartsIcon, R.id.tabChartsLabel)
         disable(R.id.tabHistory, R.id.tabHistoryIcon, R.id.tabHistoryLabel)
     }
 
