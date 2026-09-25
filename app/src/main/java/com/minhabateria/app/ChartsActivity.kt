@@ -43,6 +43,10 @@ class ChartsActivity : Activity() {
             openSession = {
                 startActivity(Intent(this, SessionActivity::class.java))
                 finish()
+            },
+            openHistory = {
+                startActivity(Intent(this, HistoryActivity::class.java))
+                finish()
             }
         )
         renderRangeButtons()

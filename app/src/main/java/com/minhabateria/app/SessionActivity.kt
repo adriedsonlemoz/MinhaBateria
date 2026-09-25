@@ -36,7 +36,11 @@ class SessionActivity : Activity() {
                 startActivity(android.content.Intent(this, ChartsActivity::class.java))
                 finish()
             },
-            openSession = {}
+            openSession = {},
+            openHistory = {
+                startActivity(android.content.Intent(this, HistoryActivity::class.java))
+                finish()
+            }
         )
         renderer.renderSource(sourceStore.getProfile())
         MonitoringStateStore.current().let { renderer.render(it.info, it.session) }

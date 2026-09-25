@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.15+16
+
+- Ativada a aba Histórico e integrado o salvamento automático ao ciclo real da sessão: conectou inicia, desconectou salva.
+- Cada registro preserva data/hora, perfil configurado, fonte detectada, duração, tempo carregando, Wh, mAh, potência média/pico, corrente/tensão, temperatura, interrupções e ganho de bateria.
+- Histórico funciona tanto com o monitor local quanto com o Foreground Service, evitando exigir botão manual de salvar.
+- Lista é ordenada da sessão mais recente para a mais antiga e limitada às 100 sessões mais recentes para controlar o armazenamento.
+- A aba Histórico mantém o monitor local ativo quando necessário, permitindo registrar a desconexão mesmo enquanto o usuário consulta a própria lista.
+- Preparada a estrutura persistente para a próxima etapa de comparação entre sessões.
+- Mantidos assinatura permanente, publicação somente do APK no Works e limite de 500 linhas por arquivo.
+
 ## 1.0.14+15
 
 - Corrigido o ciclo da sessão: uma nova sessão começa ao conectar a fonte e a tela Agora volta a `00:00:00`, sem carregar o tempo da sessão anterior.

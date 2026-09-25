@@ -15,6 +15,12 @@ class ChargingSession(savedState: SavedState? = null) {
         val accumulator: SessionAccumulator.State
     )
 
+    data class CompletedSession(
+        val startedAtMs: Long,
+        val endedAtMs: Long,
+        val snapshot: Snapshot
+    )
+
     data class Snapshot(
         val elapsedMs: Long?,
         val chargingTimeMs: Long?,
@@ -52,7 +58,7 @@ class ChargingSession(savedState: SavedState? = null) {
     private var previousInfo: BatteryInfo? = null
     private var previousAtMs: Long? = null
     private var previousCharging: Boolean? = savedState?.previousCharging
-    private var completedSnapshot: Snapshot? = null
+    private var completedSession: CompletedSession? = null
 
     fun update(info: BatteryInfo, nowMs: Long = System.currentTimeMillis()): Snapshot {
         if (!active && isConnected(info)) start(info, nowMs)
@@ -61,7 +67,9 @@ class ChargingSession(savedState: SavedState? = null) {
         currentPercent = info.percent ?: currentPercent
         if (info.isPlugged == false) {
             val finalSnapshot = snapshot(nowMs)
-            completedSnapshot = finalSnapshot
+            startedAtMs?.let { started ->
+                completedSession = CompletedSession(started, nowMs, finalSnapshot)
+            }
             resetCurrent()
             return emptySnapshot()
         }
@@ -77,7 +85,9 @@ class ChargingSession(savedState: SavedState? = null) {
         return snapshot(nowMs)
     }
 
-    fun takeCompletedSnapshot(): Snapshot? = completedSnapshot.also { completedSnapshot = null }
+    fun takeCompletedSession(): CompletedSession? = completedSession.also { completedSession = null }
+
+    fun takeCompletedSnapshot(): Snapshot? = takeCompletedSession()?.snapshot
 
     fun savedState(): SavedState = SavedState(
         active = active,

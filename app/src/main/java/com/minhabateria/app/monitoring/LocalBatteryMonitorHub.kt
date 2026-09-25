@@ -5,6 +5,7 @@ import com.minhabateria.app.battery.BatteryMonitor
 import com.minhabateria.app.battery.BatteryStatusReader
 import com.minhabateria.app.battery.ChargingSession
 import com.minhabateria.app.charts.ChartSampleRepository
+import com.minhabateria.app.history.HistoryRecorder
 
 object LocalBatteryMonitorHub {
     private val clients = mutableSetOf<Any>()
@@ -29,6 +30,7 @@ object LocalBatteryMonitorHub {
 
     private fun ensureMonitor(context: Context) {
         if (monitor != null) return
+        val historyRecorder = HistoryRecorder(context)
         monitor = BatteryMonitor(
             reader = BatteryStatusReader(context),
             session = session,
@@ -39,6 +41,9 @@ object LocalBatteryMonitorHub {
                     info = info,
                     session = snapshot
                 )
+            },
+            onSessionCompleted = { source, completed ->
+                historyRecorder.record(completed, source)
             }
         )
     }

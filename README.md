@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.14
-- versionCode: 15
-- versão completa: 1.0.14+15
+- versionName: 1.0.15
+- versionCode: 16
+- versão completa: 1.0.15+16
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -28,7 +28,7 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - tempo da sessão, Wh/mAh estimados e picos observados;
 - monitoramento contínuo por foreground service;
 - perfil técnico da fonte usada no teste com preenchimento rápido por sugestões;
-- abas Gráficos e Sessão funcionais;
+- abas Gráficos, Sessão e Histórico funcionais;
 - gráficos leves de potência, corrente, temperatura e bateria em 5, 15 e 60 minutos;
 - Configurações, Sobre e Doação;
 - build release assinado e publicação direta do APK.
@@ -79,7 +79,7 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
-A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. As abas Gráficos e Sessão são funcionais. A aba Sessão ganhou um resumo inteligente com potência atual/média/pico, comparação contextual com a referência nominal e estabilidade baseada nas oscilações observadas. Histórico permanece reservado para a próxima etapa e será alimentado automaticamente ao desconectar a fonte.
+A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. As abas Gráficos, Sessão e Histórico são funcionais. A aba Histórico salva automaticamente cada sessão quando a fonte é desconectada e mostra os resultados mais recentes primeiro.
 
 ## Ciclo automático da sessão
 
@@ -88,7 +88,8 @@ A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medid
 - ao atingir 100%, duração e acumulados são congelados para preservar o resultado final;
 - desconectar a fonte encerra a sessão atual;
 - a próxima conexão sempre inicia uma sessão nova;
-- o motor já expõe o evento de sessão concluída para a próxima etapa de Histórico salvar automaticamente cada desconexão.
+- o Histórico salva automaticamente a sessão concluída quando a fonte é desconectada, sem botão manual de salvar;
+- são mantidas até 100 sessões recentes para consulta e futura comparação.
 
 ## Resumo inteligente
 
@@ -116,8 +117,8 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.14.apk`
+APK final: `Minha-Bateria-1.0.15.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.14.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.15.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.

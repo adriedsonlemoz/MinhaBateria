@@ -7,19 +7,21 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.minhabateria.app.R
 
-enum class BottomTab { NOW, CHARTS, SESSION }
+enum class BottomTab { NOW, CHARTS, SESSION, HISTORY }
 
 class BottomTabsBinder(private val activity: Activity) {
     fun bind(
         active: BottomTab,
         openNow: () -> Unit,
         openCharts: () -> Unit,
-        openSession: () -> Unit
+        openSession: () -> Unit,
+        openHistory: () -> Unit
     ) {
         val tabs = listOf(
             TabViews(R.id.tabNow, R.id.tabNowIcon, R.id.tabNowLabel, BottomTab.NOW),
             TabViews(R.id.tabCharts, R.id.tabChartsIcon, R.id.tabChartsLabel, BottomTab.CHARTS),
-            TabViews(R.id.tabSession, R.id.tabSessionIcon, R.id.tabSessionLabel, BottomTab.SESSION)
+            TabViews(R.id.tabSession, R.id.tabSessionIcon, R.id.tabSessionLabel, BottomTab.SESSION),
+            TabViews(R.id.tabHistory, R.id.tabHistoryIcon, R.id.tabHistoryLabel, BottomTab.HISTORY)
         )
         tabs.forEach { style(it, it.tab == active) }
 
@@ -32,7 +34,9 @@ class BottomTabsBinder(private val activity: Activity) {
         activity.findViewById<LinearLayout>(R.id.tabSession).setOnClickListener {
             if (active != BottomTab.SESSION) openSession()
         }
-        disable(R.id.tabHistory, R.id.tabHistoryIcon, R.id.tabHistoryLabel)
+        activity.findViewById<LinearLayout>(R.id.tabHistory).setOnClickListener {
+            if (active != BottomTab.HISTORY) openHistory()
+        }
     }
 
     private fun style(views: TabViews, active: Boolean) {
@@ -47,17 +51,6 @@ class BottomTabsBinder(private val activity: Activity) {
         icon.setColorFilter(color, PorterDuff.Mode.SRC_IN)
         label.setTextColor(color)
         label.setTypeface(null, if (active) android.graphics.Typeface.BOLD else android.graphics.Typeface.NORMAL)
-    }
-
-    private fun disable(containerId: Int, iconId: Int, labelId: Int) {
-        val container = activity.findViewById<LinearLayout>(containerId)
-        container.background = null
-        container.isClickable = false
-        container.isFocusable = false
-        container.alpha = 0.55f
-        val color = activity.getColor(R.color.text_tab_inactive)
-        activity.findViewById<ImageView>(iconId).setColorFilter(color, PorterDuff.Mode.SRC_IN)
-        activity.findViewById<TextView>(labelId).setTextColor(color)
     }
 
     private data class TabViews(

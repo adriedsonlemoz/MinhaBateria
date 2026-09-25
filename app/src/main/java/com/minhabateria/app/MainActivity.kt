@@ -51,7 +51,8 @@ class MainActivity : Activity() {
             active = BottomTab.NOW,
             openNow = {},
             openCharts = { startActivity(Intent(this, ChartsActivity::class.java)) },
-            openSession = { startActivity(Intent(this, SessionActivity::class.java)) }
+            openSession = { startActivity(Intent(this, SessionActivity::class.java)) },
+            openHistory = { startActivity(Intent(this, HistoryActivity::class.java)) }
         )
 
         renderer.renderSourceProfile(sourceProfileStore.getProfile())

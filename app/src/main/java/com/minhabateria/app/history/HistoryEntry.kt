@@ -1,0 +1,32 @@
+package com.minhabateria.app.history
+
+data class HistoryEntry(
+    val id: String,
+    val startedAtMs: Long,
+    val endedAtMs: Long,
+    val profileName: String?,
+    val profileType: String?,
+    val nominalPowerW: Double?,
+    val detectedSource: String?,
+    val elapsedMs: Long?,
+    val chargingTimeMs: Long?,
+    val energyWh: Double?,
+    val chargeMah: Double?,
+    val averagePowerW: Double?,
+    val averageCurrentMa: Double?,
+    val averageVoltageV: Double?,
+    val minPowerW: Double?,
+    val maxPowerW: Double?,
+    val minCurrentMa: Double?,
+    val maxCurrentMa: Double?,
+    val minVoltageV: Double?,
+    val maxVoltageV: Double?,
+    val averageTemperatureC: Double?,
+    val maxTemperatureC: Double?,
+    val powerVariationRatio: Double?,
+    val interruptions: Int,
+    val startPercent: Int?,
+    val endPercent: Int?,
+    val gainPercent: Int?,
+    val reachedFull: Boolean
+)

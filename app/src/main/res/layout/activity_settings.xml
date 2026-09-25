@@ -160,11 +160,11 @@
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/app_name" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold" />
-                    <TextView android:id="@+id/versionValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_status_chip" android:paddingStart="10dp" android:paddingTop="5dp" android:paddingEnd="10dp" android:paddingBottom="5dp" android:text="1.0.14+15" android:textColor="@color/accent_blue" android:textSize="11sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/versionValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_status_chip" android:paddingStart="10dp" android:paddingTop="5dp" android:paddingEnd="10dp" android:paddingBottom="5dp" android:text="1.0.15+16" android:textColor="@color/accent_blue" android:textSize="11sp" android:textStyle="bold" />
                 </LinearLayout>
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="13dp" android:text="Últimas alterações" android:textColor="@color/text_secondary" android:textSize="12sp" android:textStyle="bold" />
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="• Sessões agora iniciam ao conectar a fonte e encerram ao desconectar, zerando corretamente na próxima conexão.\n• Ao chegar a 100%, duração e acumulados são congelados até a fonte ser desconectada.\n• Aba Sessão ganhou resumo inteligente com comparação nominal e indicador de estabilidade das leituras." android:textColor="@color/text_primary" android:textSize="13sp" android:lineSpacingExtra="4dp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="• Histórico agora salva automaticamente cada sessão quando a fonte é desconectada.\n• Registros guardam energia, carga, médias, pico, temperatura, bateria e interrupções.\n• Aba Histórico foi ativada e mostra primeiro as sessões mais recentes." android:textColor="@color/text_primary" android:textSize="13sp" android:lineSpacingExtra="4dp" />
             </LinearLayout>
 
             <TextView
