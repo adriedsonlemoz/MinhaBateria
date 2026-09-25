@@ -44,5 +44,15 @@
             android:textColor="@color/value_unavailable"
             android:textSize="15sp"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/powerOrigin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="Calculado"
+            android:textAllCaps="true"
+            android:textColor="@color/text_muted"
+            android:textSize="8sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.8+9
+
+- Corrigido o nome do aplicativo no launcher: `Minha Bateria` agora é declarado por `@string/app_name` tanto no `application` quanto na Activity MAIN/LAUNCHER.
+- Criada classificação central de origem das medições em Sistema, Calculado e Estimado.
+- Tensão, corrente e temperatura são identificadas como dados do sistema; potência é identificada como valor calculado.
+- Porcentagem e status indisponíveis deixaram de ser convertidos silenciosamente em `0%` ou `não carregando`; o app preserva estado indisponível.
+- Adicionada em Configurações a seção Dados e medições, explicando a origem dos valores e que leituras ausentes permanecem como `Indisponível`.
+- Mantidos monitoramento contínuo, perfil da fonte, assinatura release permanente e publicação somente do APK no Works/GitHub.
+
 ## 1.0.7+8
 
 - Adicionado Perfil da fonte de energia com Painel solar, Carregador, Power bank e Outra fonte.

@@ -13,18 +13,18 @@ class ChargingSession {
     private var peakPowerW: Double? = null
 
     fun update(info: BatteryInfo, nowMs: Long = System.currentTimeMillis()): Snapshot {
-        if (info.isCharging && !charging) {
-            charging = true
-            startedAt = nowMs
-            peakCurrentMa = null
-            peakPowerW = null
-        } else if (!info.isCharging) {
-            charging = false
+        when (info.isCharging) {
+            true -> if (!charging) {
+                charging = true
+                startedAt = nowMs
+                peakCurrentMa = null
+                peakPowerW = null
+            }
+            false -> charging = false
+            null -> Unit
         }
 
-        if (!charging) {
-            return Snapshot(null, null, null)
-        }
+        if (!charging) return Snapshot(null, null, null)
 
         info.currentMa?.let { current ->
             peakCurrentMa = maxOf(peakCurrentMa ?: current, current)

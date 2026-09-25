@@ -34,7 +34,7 @@ class MonitoringNotification(private val context: Context) {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val title = info?.let { "Minha Bateria — ${it.percent}%" } ?: "Minha Bateria"
+        val title = info?.percent?.let { "Minha Bateria — $it%" } ?: "Minha Bateria"
         val text = info?.let(::statusText) ?: "Monitoramento contínuo ativo"
 
         return Notification.Builder(context, CHANNEL_ID)
@@ -54,7 +54,11 @@ class MonitoringNotification(private val context: Context) {
     }
 
     private fun statusText(info: BatteryInfo): String {
-        val status = if (info.isCharging) "Carregando" else "Bateria"
+        val status = when (info.isCharging) {
+            true -> "Carregando"
+            false -> "Bateria"
+            null -> "Status indisponível"
+        }
         val current = BatteryFormatter.current(info.currentMa)
         val power = BatteryFormatter.power(info.powerW)
         val temperature = BatteryFormatter.temperature(info.temperatureC)

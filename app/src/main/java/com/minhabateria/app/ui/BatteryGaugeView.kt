@@ -56,11 +56,11 @@ class BatteryGaugeView @JvmOverloads constructor(
         typeface = android.graphics.Typeface.DEFAULT_BOLD
     }
 
-    private var percent = 0
+    private var percent: Int? = null
     private var charging = false
 
-    fun setBattery(percent: Int, charging: Boolean) {
-        this.percent = percent.coerceIn(0, 100)
+    fun setBattery(percent: Int?, charging: Boolean) {
+        this.percent = percent?.coerceIn(0, 100)
         this.charging = charging
         invalidate()
     }
@@ -98,7 +98,8 @@ class BatteryGaugeView @JvmOverloads constructor(
         )
         val start = 128f
         val sweepMax = 284f
-        val sweep = sweepMax * (percent / 100f)
+        val safePercent = percent ?: 0
+        val sweep = sweepMax * (safePercent / 100f)
         canvas.drawArc(arc, start, sweepMax, false, trackPaint)
         canvas.drawArc(arc, start, sweep, false, progressHaloPaint)
         canvas.drawArc(arc, start, sweep, false, progressPaint)
@@ -107,7 +108,7 @@ class BatteryGaugeView @JvmOverloads constructor(
 
         textPaint.textSize = size * 0.185f
         canvas.drawText(
-            "$percent%",
+            percent?.let { "$it%" } ?: "—",
             centerX,
             originY + size * 0.75f,
             textPaint
@@ -146,7 +147,7 @@ class BatteryGaugeView @JvmOverloads constructor(
         )
 
         val innerPadding = size * 0.026f
-        val innerHeight = (batteryHeight - innerPadding * 2f) * (percent / 100f)
+        val innerHeight = (batteryHeight - innerPadding * 2f) * ((percent ?: 0) / 100f)
         if (innerHeight > 0f) {
             fillPaint.color = accent
             canvas.drawRoundRect(

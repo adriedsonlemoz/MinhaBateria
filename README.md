@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.7
+- versionName: 1.0.8
 - versionCode: 8
-- versão completa: 1.0.7+8
+- versão completa: 1.0.8+9
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -81,7 +81,7 @@ Requisitos: JDK 17, Android SDK 35 e os quatro Secrets de assinatura configurado
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.7.apk`
+APK final: `Minha-Bateria-1.0.8.apk`
 
 ## Observação de medição
 
@@ -89,6 +89,20 @@ APK final: `Minha-Bateria-1.0.7.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow gera e publica **somente** `Minha-Bateria-1.0.7.apk` como arquivo de entrega. Ele não cria nem publica um source ZIP e não usa `actions/upload-artifact` para o APK.
+O workflow gera e publica **somente** `Minha-Bateria-1.0.8.apk` como arquivo de entrega. Ele não cria nem publica um source ZIP e não usa `actions/upload-artifact` para o APK.
 
 O ZIP de código-fonte usado para desenvolvimento é mantido fora do fluxo de entrega do Works/GitHub Actions.
+
+## Origem e confiabilidade dos dados
+
+A versão 1.0.8+9 classifica as medições por origem:
+
+- **Sistema:** porcentagem, estado de carga, conexão detectada, tensão, corrente e temperatura quando o Android disponibiliza o dado;
+- **Calculado:** potência (`V × A`), duração e picos derivados das amostras válidas;
+- **Estimado:** categoria reservada para integrações futuras, como Wh e mAh acumulados.
+
+Leituras ausentes não são substituídas por zero. Quando o sistema não fornece um valor válido, a interface apresenta `Indisponível`. A corrente continua dependendo do suporte do fabricante ao `BATTERY_PROPERTY_CURRENT_NOW`.
+
+## Nome no launcher
+
+O nome `Minha Bateria` é declarado pelo recurso `@string/app_name` no aplicativo e explicitamente na Activity MAIN/LAUNCHER, evitando launchers que não exibam corretamente um rótulo apenas herdado.

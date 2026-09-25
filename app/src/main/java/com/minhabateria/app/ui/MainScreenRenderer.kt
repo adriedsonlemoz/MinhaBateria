@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.minhabateria.app.R
 import com.minhabateria.app.battery.BatteryInfo
 import com.minhabateria.app.battery.ChargingSession
+import com.minhabateria.app.measurement.MeasurementCatalog
 import com.minhabateria.app.source.EnergySourceProfile
 import com.minhabateria.app.utils.BatteryFormatter
 import com.minhabateria.app.utils.TimeFormatter
@@ -24,8 +25,15 @@ class MainScreenRenderer(private val activity: Activity) {
     private val peakCurrent = activity.findViewById<TextView>(R.id.peakCurrentValue)
     private val peakPower = activity.findViewById<TextView>(R.id.peakPowerValue)
 
+    init {
+        activity.findViewById<TextView>(R.id.voltageOrigin).text = MeasurementCatalog.voltage.origin.label
+        activity.findViewById<TextView>(R.id.currentOrigin).text = MeasurementCatalog.current.origin.label
+        activity.findViewById<TextView>(R.id.powerOrigin).text = MeasurementCatalog.power.origin.label
+        activity.findViewById<TextView>(R.id.temperatureOrigin).text = MeasurementCatalog.temperature.origin.label
+    }
+
     fun render(info: BatteryInfo, session: ChargingSession.Snapshot) {
-        gauge.setBattery(info.percent, info.isCharging)
+        gauge.setBattery(info.percent, info.isCharging == true)
         renderStatus(info.isCharging)
         detectedSource.text = BatteryFormatter.source(info.source)
         renderMetric(voltage, BatteryFormatter.voltage(info.voltageMv), info.voltageMv != null, R.color.accent_green)
@@ -49,11 +57,15 @@ class MainScreenRenderer(private val activity: Activity) {
         view.setTextColor(activity.getColor(if (available) colorRes else R.color.value_unavailable))
     }
 
-    private fun renderStatus(charging: Boolean) {
-        status.text = if (charging) "Carregando" else "Não está carregando"
-        status.setTextColor(if (charging) Color.rgb(6, 35, 20) else Color.WHITE)
+    private fun renderStatus(charging: Boolean?) {
+        status.text = when (charging) {
+            true -> "Carregando"
+            false -> "Não está carregando"
+            null -> "Status indisponível"
+        }
+        status.setTextColor(if (charging == true) Color.rgb(6, 35, 20) else Color.WHITE)
         status.setCompoundDrawablesRelativeWithIntrinsicBounds(
-            if (charging) R.drawable.ic_status_charging else R.drawable.ic_status_idle,
+            if (charging == true) R.drawable.ic_status_charging else R.drawable.ic_status_idle,
             0,
             0,
             0
@@ -61,8 +73,8 @@ class MainScreenRenderer(private val activity: Activity) {
         status.background = statusBackground(charging)
     }
 
-    private fun statusBackground(charging: Boolean): GradientDrawable {
-        val colors = if (charging) {
+    private fun statusBackground(charging: Boolean?): GradientDrawable {
+        val colors = if (charging == true) {
             intArrayOf(Color.rgb(41, 235, 113), Color.rgb(21, 196, 89))
         } else {
             intArrayOf(Color.rgb(46, 64, 81), Color.rgb(34, 48, 62))
@@ -70,7 +82,7 @@ class MainScreenRenderer(private val activity: Activity) {
         return GradientDrawable(GradientDrawable.Orientation.TL_BR, colors).apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadius = 100f
-            setStroke(1, activity.getColor(if (charging) R.color.accent_green else R.color.status_idle_border))
+            setStroke(1, activity.getColor(if (charging == true) R.color.accent_green else R.color.status_idle_border))
         }
     }
 }

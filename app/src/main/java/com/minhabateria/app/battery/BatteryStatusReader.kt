@@ -14,14 +14,23 @@ class BatteryStatusReader(private val context: Context) {
         val intent = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
         val level = intent?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
-        val scale = intent?.getIntExtra(BatteryManager.EXTRA_SCALE, 100) ?: 100
-        val percent = if (level >= 0 && scale > 0) (level * 100 / scale).coerceIn(0, 100) else 0
+        val scale = intent?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
+        val percent = if (level >= 0 && scale > 0) {
+            (level * 100 / scale).coerceIn(0, 100)
+        } else {
+            null
+        }
 
         val status = intent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
-        val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-            status == BatteryManager.BATTERY_STATUS_FULL
+        val isCharging = when (status) {
+            BatteryManager.BATTERY_STATUS_CHARGING,
+            BatteryManager.BATTERY_STATUS_FULL -> true
+            BatteryManager.BATTERY_STATUS_DISCHARGING,
+            BatteryManager.BATTERY_STATUS_NOT_CHARGING -> false
+            else -> null
+        }
 
-        val plugged = intent?.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) ?: 0
+        val plugged = intent?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: -1
         val source = readSource(plugged, isCharging)
 
         val voltageMv = intent?.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1)
@@ -45,17 +54,20 @@ class BatteryStatusReader(private val context: Context) {
         )
     }
 
-    private fun readChargingCurrent(isCharging: Boolean): Double? {
-        if (!isCharging) return null
+    private fun readChargingCurrent(isCharging: Boolean?): Double? {
+        if (isCharging != true) return null
 
         val currentUa = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
         if (currentUa == Int.MIN_VALUE || currentUa == 0) return null
 
-        return abs(currentUa.toDouble()) / 1000.0
+        return abs(currentUa.toDouble())
+            .div(1000.0)
+            .takeIf { it.isFinite() && it > 0.0 }
     }
 
-    private fun readSource(plugged: Int, isCharging: Boolean): ChargingSource {
-        if (!isCharging) return ChargingSource.BATTERY
+    private fun readSource(plugged: Int, isCharging: Boolean?): ChargingSource {
+        if (isCharging == false) return ChargingSource.BATTERY
+        if (isCharging == null) return ChargingSource.UNKNOWN
         return when (plugged) {
             BatteryManager.BATTERY_PLUGGED_AC -> ChargingSource.AC
             BatteryManager.BATTERY_PLUGGED_USB -> ChargingSource.USB

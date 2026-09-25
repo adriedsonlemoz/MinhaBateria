@@ -1,6 +1,6 @@
 # Works — Minha Bateria
 
-Versão atual: `1.0.7+8`.
+Versão atual: `1.0.8+9`.
 
 ## Build recomendado
 
@@ -19,7 +19,7 @@ gradle :app:assembleRelease
 
 Saída original: `app/build/outputs/apk/release/app-release.apk`
 
-Nome de entrega: `Minha-Bateria-1.0.7.apk`
+Nome de entrega: `Minha-Bateria-1.0.8.apk`
 
 ## GitHub Manager
 
@@ -38,8 +38,8 @@ Use o mesmo arquivo separado `Minha-Bateria-GitHub-Secrets.txt` criado anteriorm
 
 O workflow publica **somente**:
 
-- `Minha-Bateria-1.0.7.apk` — instalação direta.
+- `Minha-Bateria-1.0.8.apk` — instalação direta.
 
-O workflow não cria, não publica e não oferece `Minha-Bateria-1.0.7-source.zip` como saída. O source ZIP é apenas o pacote de desenvolvimento entregue separadamente fora do Works.
+O workflow não cria, não publica e não oferece `Minha-Bateria-1.0.8-source.zip` como saída. O source ZIP é apenas o pacote de desenvolvimento entregue separadamente fora do Works.
 
 Não usar `actions/upload-artifact` para o APK.
