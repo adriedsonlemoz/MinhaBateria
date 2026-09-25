@@ -5,9 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
-import com.minhabateria.app.battery.BatteryMonitor
-import com.minhabateria.app.battery.BatteryStatusReader
-import com.minhabateria.app.battery.ChargingSession
+import com.minhabateria.app.monitoring.LocalBatteryMonitorHub
 import com.minhabateria.app.monitoring.MonitorPreferences
 import com.minhabateria.app.monitoring.MonitoringServiceController
 import com.minhabateria.app.monitoring.MonitoringState
@@ -15,16 +13,16 @@ import com.minhabateria.app.monitoring.MonitoringStateStore
 import com.minhabateria.app.settings.SettingsActivity
 import com.minhabateria.app.source.SourceProfileActivity
 import com.minhabateria.app.source.SourceProfileStore
+import com.minhabateria.app.ui.BottomTab
+import com.minhabateria.app.ui.BottomTabsBinder
 import com.minhabateria.app.ui.MainScreenRenderer
 import com.minhabateria.app.ui.SystemBars
 
 class MainActivity : Activity() {
-    private lateinit var localMonitor: BatteryMonitor
     private lateinit var renderer: MainScreenRenderer
     private lateinit var preferences: MonitorPreferences
     private lateinit var sourceProfileStore: SourceProfileStore
     private lateinit var monitoringStatus: TextView
-    private var activityStarted = false
 
     private val stateListener: (MonitoringState) -> Unit = { state ->
         runOnUiThread {
@@ -32,7 +30,7 @@ class MainActivity : Activity() {
                 state.session?.let { session -> renderer.render(info, session) }
             }
             renderMonitoringStatus(state.running)
-            syncLocalMonitor()
+            LocalBatteryMonitorHub.sync(this)
         }
     }
 
@@ -45,15 +43,15 @@ class MainActivity : Activity() {
         sourceProfileStore = SourceProfileStore(this)
         renderer = MainScreenRenderer(this)
         monitoringStatus = findViewById(R.id.monitoringStateValue)
-        localMonitor = BatteryMonitor(
-            reader = BatteryStatusReader(this),
-            session = ChargingSession(),
-            onUpdate = renderer::render
-        )
 
         findViewById<ImageButton>(R.id.settingsButton).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
+        BottomTabsBinder(this).bind(
+            active = BottomTab.NOW,
+            openNow = {},
+            openSession = { startActivity(Intent(this, SessionActivity::class.java)) }
+        )
 
         renderer.renderSourceProfile(sourceProfileStore.getProfile())
         renderMonitoringStatus(MonitoringStateStore.current().running)
@@ -63,9 +61,8 @@ class MainActivity : Activity() {
 
     override fun onStart() {
         super.onStart()
-        activityStarted = true
         MonitoringStateStore.addListener(stateListener)
-        syncLocalMonitor()
+        LocalBatteryMonitorHub.attach(this, this)
     }
 
     override fun onResume() {
@@ -74,8 +71,7 @@ class MainActivity : Activity() {
     }
 
     override fun onStop() {
-        activityStarted = false
-        localMonitor.stop()
+        LocalBatteryMonitorHub.detach(this)
         MonitoringStateStore.removeListener(stateListener)
         super.onStop()
     }
@@ -86,11 +82,6 @@ class MainActivity : Activity() {
             Intent(this, SourceProfileActivity::class.java)
                 .putExtra(SourceProfileActivity.EXTRA_INITIAL_SETUP, true)
         )
-    }
-
-    private fun syncLocalMonitor() {
-        if (!activityStarted) return
-        if (preferences.isMonitoringRequested()) localMonitor.stop() else localMonitor.start()
     }
 
     private fun renderMonitoringStatus(running: Boolean) {

@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.10
-- versionCode: 11
-- versão completa: 1.0.10+11
+- versionName: 1.0.11
+- versionCode: 12
+- versão completa: 1.0.11+12
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -28,6 +28,7 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - tempo da sessão, Wh/mAh estimados e picos observados;
 - monitoramento contínuo por foreground service;
 - perfil técnico da fonte usada no teste;
+- aba Sessão funcional com estatísticas detalhadas da sessão atual;
 - Configurações, Sobre e Doação;
 - build release assinado e publicação direta do APK.
 
@@ -69,7 +70,7 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
-A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. Configurações e formulários auxiliares podem rolar quando necessário.
+A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. A aba Sessão é funcional e apresenta duração, energia, carga, médias, faixas, temperatura, interrupções e ganho da bateria. Gráficos e Histórico permanecem reservados para etapas posteriores. Configurações e formulários auxiliares podem rolar quando necessário.
 
 ## Monitoramento contínuo
 
@@ -89,8 +90,8 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.10.apk`
+APK final: `Minha-Bateria-1.0.11.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.10.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.11.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.

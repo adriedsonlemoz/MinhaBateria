@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.11+12
+
+- Ativada a aba Sessão na navegação inferior, mantendo Agora como tela principal sem rolagem.
+- Criada tela detalhada da sessão atual com duração, tempo carregando, interrupções, Wh, mAh, potência média/pico, corrente e tensão médias/mínimas/máximas, temperatura e ganho de bateria.
+- Navegação Agora ↔ Sessão passou a funcionar com destaque visual da aba ativa; Gráficos e Histórico continuam reservados para próximas etapas.
+- A tela Sessão reutiliza o snapshot do motor de sessão já existente e deixa explícito que Wh/mAh e médias são estimados a partir das leituras do aparelho.
+- Mantidos perfil técnico da fonte, assinatura permanente, publicação somente do APK no Works e limite de 500 linhas por arquivo.
+
 ## 1.0.10+11
 
 - Criado motor de sessão com integração temporal das amostras para estimar Wh e mAh, sem multiplicar o último valor pela duração total.

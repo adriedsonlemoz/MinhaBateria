@@ -16,22 +16,24 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/bg_tab_active"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center"
         android:orientation="vertical">
         <ImageView
+            android:id="@+id/tabNowIcon"
             android:layout_width="@dimen/bottom_icon_size"
             android:layout_height="@dimen/bottom_icon_size"
             android:contentDescription="Agora"
             android:src="@drawable/ic_tab_home" />
         <TextView
+            android:id="@+id/tabNowLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:text="Agora"
-            android:textColor="@color/accent_green"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+            android:textColor="@color/text_tab_inactive"
+            android:textSize="10sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -39,15 +41,16 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:clickable="false"
         android:gravity="center"
         android:orientation="vertical">
         <ImageView
+            android:id="@+id/tabChartsIcon"
             android:layout_width="@dimen/bottom_icon_size"
             android:layout_height="@dimen/bottom_icon_size"
             android:contentDescription="Gráficos"
             android:src="@drawable/ic_tab_charts" />
         <TextView
+            android:id="@+id/tabChartsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -61,15 +64,18 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:clickable="false"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center"
         android:orientation="vertical">
         <ImageView
+            android:id="@+id/tabSessionIcon"
             android:layout_width="@dimen/bottom_icon_size"
             android:layout_height="@dimen/bottom_icon_size"
             android:contentDescription="Sessão"
             android:src="@drawable/ic_tab_session" />
         <TextView
+            android:id="@+id/tabSessionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -83,15 +89,16 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:clickable="false"
         android:gravity="center"
         android:orientation="vertical">
         <ImageView
+            android:id="@+id/tabHistoryIcon"
             android:layout_width="@dimen/bottom_icon_size"
             android:layout_height="@dimen/bottom_icon_size"
             android:contentDescription="Histórico"
             android:src="@drawable/ic_tab_history" />
         <TextView
+            android:id="@+id/tabHistoryLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
