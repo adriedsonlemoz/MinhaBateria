@@ -13,6 +13,7 @@ import com.minhabateria.app.monitoring.MonitoringServiceController
 import com.minhabateria.app.monitoring.MonitoringState
 import com.minhabateria.app.monitoring.MonitoringStateStore
 import com.minhabateria.app.ui.MonitoringControls
+import com.minhabateria.app.ui.SystemBars
 
 class SettingsActivity : Activity() {
     private lateinit var controls: MonitoringControls
@@ -28,6 +29,7 @@ class SettingsActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        SystemBars.apply(this, findViewById(R.id.settingsRoot))
 
         preferences = MonitorPreferences(this)
         controls = MonitoringControls(this)

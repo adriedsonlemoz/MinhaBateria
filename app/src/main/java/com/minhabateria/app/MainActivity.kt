@@ -14,6 +14,7 @@ import com.minhabateria.app.monitoring.MonitoringState
 import com.minhabateria.app.monitoring.MonitoringStateStore
 import com.minhabateria.app.settings.SettingsActivity
 import com.minhabateria.app.ui.MainScreenRenderer
+import com.minhabateria.app.ui.SystemBars
 
 class MainActivity : Activity() {
     private lateinit var localMonitor: BatteryMonitor
@@ -35,6 +36,7 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        SystemBars.apply(this, findViewById(R.id.mainRoot))
 
         preferences = MonitorPreferences(this)
         renderer = MainScreenRenderer(this)

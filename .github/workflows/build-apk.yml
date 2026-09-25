@@ -39,10 +39,10 @@ jobs:
         run: gradle :app:assembleRelease
 
       - name: Rename APK
-        run: cp app/build/outputs/apk/release/app-release.apk Minha-Bateria-1.0.3.apk
+        run: cp app/build/outputs/apk/release/app-release.apk Minha-Bateria-1.0.4.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Minha-Bateria-1.0.3
-          path: Minha-Bateria-1.0.3.apk
+          name: Minha-Bateria-1.0.4
+          path: Minha-Bateria-1.0.4.apk

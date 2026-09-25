@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.4+5
+
+- Corrigidos os insets da barra de status e da barra de navegação para impedir sobreposição com relógio, rede, bateria e botões do Android.
+- Reagrupada a tela Agora para eliminar os grandes espaços vazios ao redor do medidor sem reintroduzir rolagem.
+- Medidor, status, fonte, métricas e resumo da sessão ficaram visualmente mais próximos e compactos.
+- Reduzidas alturas e espaçamentos dos painéis para melhorar o aproveitamento vertical em telas menores.
+- Adicionados tamanhos responsivos por altura de tela, mantendo a tela Agora sem rolagem também em aparelhos mais compactos.
+- Valores `Indisponível` passaram a usar cor neutra em vez de verde ou laranja.
+- A barra inferior ganhou melhor contraste e indicação visual própria para a aba Agora, mantendo as abas futuras sem funcionalidade fictícia.
+- A mesma correção de insets foi aplicada à tela de Configurações.
+- Mantidos foreground service, assinatura release permanente e demais funcionalidades da versão anterior.
+- Mantida arquitetura modular e limite máximo de 500 linhas por arquivo de código.
+
 ## 1.0.3+4
 
 - Modernizado o visual da tela principal com fundo sutil em gradiente e cards com maior separação visual.

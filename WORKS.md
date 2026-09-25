@@ -1,6 +1,6 @@
 # Works — Minha Bateria
 
-Versão atual: `1.0.3+4`.
+Versão atual: `1.0.4+5`.
 
 ## Build recomendado
 
@@ -23,7 +23,7 @@ Saída original:
 
 Nome de entrega:
 
-`Minha-Bateria-1.0.3.apk`
+`Minha-Bateria-1.0.4.apk`
 
 ## GitHub Manager
 

@@ -7,6 +7,8 @@
     <color name="text_primary">#F5F7F8</color>
     <color name="text_secondary">#B8C4CB</color>
     <color name="text_muted">#6F818C</color>
+    <color name="text_tab_inactive">#82939D</color>
+    <color name="value_unavailable">#9AA8B0</color>
     <color name="accent_green">#2AE54F</color>
     <color name="accent_green_soft">#173C26</color>
     <color name="accent_blue">#45B7FF</color>

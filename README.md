@@ -4,9 +4,9 @@ Aplicativo Android em Kotlin para acompanhar dados de bateria e carregamento loc
 
 ## Versão
 
-- versionName: 1.0.3
-- versionCode: 4
-- versão completa: 1.0.3+4
+- versionName: 1.0.4
+- versionCode: 5
+- versão completa: 1.0.4+5
 - package: `com.minhabateria.app`
 
 ## Recursos atuais
@@ -30,7 +30,7 @@ Aplicativo Android em Kotlin para acompanhar dados de bateria e carregamento loc
 
 ## Interface
 
-A tela Agora mantém apenas as informações essenciais. Os controles do monitoramento contínuo foram movidos para Configurações para reduzir poluição visual. O visual usa superfícies escuras com contraste sutil, cards separados e uma hierarquia mais clara, sem efeitos pesados.
+A tela Agora mantém apenas as informações essenciais, sem rolagem, com dimensões responsivas para alturas de tela menores. O conteúdo respeita as áreas da barra de status e da navegação do Android, mantém medidor e status agrupados e usa o espaço excedente abaixo das informações em vez de separar artificialmente os elementos. Valores indisponíveis usam cor neutra e as abas futuras permanecem legíveis sem aparentar erro.
 
 As abas Gráficos, Sessão e Histórico continuam reservadas para as próximas etapas e não possuem lógica fictícia nesta versão.
 
@@ -65,7 +65,7 @@ gradle :app:assembleRelease
 
 Artefato final do workflow:
 
-`Minha-Bateria-1.0.3.apk`
+`Minha-Bateria-1.0.4.apk`
 
 ## Observação de medição
 

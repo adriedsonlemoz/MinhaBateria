@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_header_height">48dp</dimen>
+    <dimen name="gauge_size">150dp</dimen>
+    <dimen name="status_chip_height">34dp</dimen>
+    <dimen name="measurements_height">136dp</dimen>
+    <dimen name="source_row_height">42dp</dimen>
+    <dimen name="metrics_grid_height">88dp</dimen>
+    <dimen name="session_summary_height">50dp</dimen>
+    <dimen name="bottom_tabs_height">46dp</dimen>
+</resources>

@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@color/surface"
+    android:layout_height="@dimen/bottom_tabs_height"
+    android:background="@drawable/bg_bottom_tabs"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingStart="8dp"
-    android:paddingEnd="8dp">
+    android:paddingTop="5dp"
+    android:paddingEnd="8dp"
+    android:paddingBottom="5dp">
 
     <TextView
         android:id="@+id/tabNow"
         android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
-        android:gravity="center" android:text="Agora" android:textColor="@color/accent_green" android:textSize="12sp" android:textStyle="bold" />
+        android:background="@drawable/bg_tab_active" android:gravity="center"
+        android:text="Agora" android:textColor="@color/accent_green" android:textSize="11sp" android:textStyle="bold" />
     <TextView
         android:id="@+id/tabCharts"
         android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
-        android:enabled="false" android:gravity="center" android:text="Gráficos" android:textColor="@color/text_muted" android:textSize="12sp" />
+        android:clickable="false" android:gravity="center" android:text="Gráficos" android:textColor="@color/text_tab_inactive" android:textSize="11sp" />
     <TextView
         android:id="@+id/tabSession"
         android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
-        android:enabled="false" android:gravity="center" android:text="Sessão" android:textColor="@color/text_muted" android:textSize="12sp" />
+        android:clickable="false" android:gravity="center" android:text="Sessão" android:textColor="@color/text_tab_inactive" android:textSize="11sp" />
     <TextView
         android:id="@+id/tabHistory"
         android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
-        android:enabled="false" android:gravity="center" android:text="Histórico" android:textColor="@color/text_muted" android:textSize="12sp" />
+        android:clickable="false" android:gravity="center" android:text="Histórico" android:textColor="@color/text_tab_inactive" android:textSize="11sp" />
 </LinearLayout>

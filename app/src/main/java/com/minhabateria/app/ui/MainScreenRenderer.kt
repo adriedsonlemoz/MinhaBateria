@@ -10,7 +10,7 @@ import com.minhabateria.app.battery.ChargingSession
 import com.minhabateria.app.utils.BatteryFormatter
 import com.minhabateria.app.utils.TimeFormatter
 
-class MainScreenRenderer(activity: Activity) {
+class MainScreenRenderer(private val activity: Activity) {
     private val gauge = activity.findViewById<BatteryGaugeView>(R.id.batteryGauge)
     private val status = activity.findViewById<TextView>(R.id.statusText)
     private val source = activity.findViewById<TextView>(R.id.sourceValue)
@@ -27,13 +27,19 @@ class MainScreenRenderer(activity: Activity) {
         renderStatus(info.isCharging)
 
         source.text = BatteryFormatter.source(info.source)
-        voltage.text = BatteryFormatter.voltage(info.voltageMv)
-        current.text = BatteryFormatter.current(info.currentMa)
-        power.text = BatteryFormatter.power(info.powerW)
-        temperature.text = BatteryFormatter.temperature(info.temperatureC)
+        renderMetric(voltage, BatteryFormatter.voltage(info.voltageMv), info.voltageMv != null, R.color.accent_green)
+        renderMetric(current, BatteryFormatter.current(info.currentMa), info.currentMa != null, R.color.accent_green)
+        renderMetric(power, BatteryFormatter.power(info.powerW), info.powerW != null, R.color.accent_green)
+        renderMetric(temperature, BatteryFormatter.temperature(info.temperatureC), info.temperatureC != null, R.color.accent_orange)
+
         elapsed.text = TimeFormatter.elapsed(session.elapsedMs)
-        peakCurrent.text = BatteryFormatter.current(session.peakCurrentMa)
-        peakPower.text = BatteryFormatter.power(session.peakPowerW)
+        renderMetric(peakCurrent, BatteryFormatter.current(session.peakCurrentMa), session.peakCurrentMa != null, R.color.text_primary)
+        renderMetric(peakPower, BatteryFormatter.power(session.peakPowerW), session.peakPowerW != null, R.color.text_primary)
+    }
+
+    private fun renderMetric(view: TextView, text: String, available: Boolean, colorRes: Int) {
+        view.text = text
+        view.setTextColor(activity.getColor(if (available) colorRes else R.color.value_unavailable))
     }
 
     private fun renderStatus(charging: Boolean) {
