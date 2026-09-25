@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.13
-- versionCode: 14
-- versão completa: 1.0.13+14
+- versionName: 1.0.14
+- versionCode: 15
+- versão completa: 1.0.14+15
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -73,13 +73,26 @@ Valores ausentes permanecem como `Indisponível`.
 
 ## Motor da sessão
 
-A sessão começa na primeira amostra confirmada como carregando e mantém duração total, tempo efetivamente carregando, interrupções, bateria inicial/atual, ganho percentual, Wh e mAh estimados, médias temporais, mínimos, máximos e temperatura média/máxima.
+A sessão começa quando uma fonte física é conectada e zera os contadores da sessão anterior. Ao atingir 100%, os totais são congelados como carga completa; ao desconectar a fonte, a sessão atual é encerrada. Duração total e tempo efetivamente carregando permanecem separados.
 
 Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos acima de 15 segundos, leituras ausentes, períodos sem carregamento e mudança da fonte detectada não são integrados, evitando extrapolações falsas. O monitoramento contínuo persiste o estado da sessão para recuperação após reinício do serviço; uma reinicialização completa do aparelho inicia uma nova sessão.
 
 ## Interface
 
-A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. As abas Gráficos e Sessão são funcionais. Gráficos usa uma grade 2×2 sem rolagem para potência, corrente, temperatura e bateria; Sessão apresenta duração, energia, carga, médias, faixas, temperatura, interrupções e ganho da bateria. Histórico permanece reservado para etapa posterior. Configurações e formulários auxiliares podem rolar quando necessário.
+A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. As abas Gráficos e Sessão são funcionais. A aba Sessão ganhou um resumo inteligente com potência atual/média/pico, comparação contextual com a referência nominal e estabilidade baseada nas oscilações observadas. Histórico permanece reservado para a próxima etapa e será alimentado automaticamente ao desconectar a fonte.
+
+## Ciclo automático da sessão
+
+- conectar uma fonte inicia uma nova sessão em `00:00:00`;
+- pausas de carregamento com o cabo ainda conectado contam como interrupções, sem encerrar a sessão;
+- ao atingir 100%, duração e acumulados são congelados para preservar o resultado final;
+- desconectar a fonte encerra a sessão atual;
+- a próxima conexão sempre inicia uma sessão nova;
+- o motor já expõe o evento de sessão concluída para a próxima etapa de Histórico salvar automaticamente cada desconexão.
+
+## Resumo inteligente
+
+A aba Sessão contextualiza potência atual, média e pico, compara o valor observado com a referência nominal configurada e classifica a estabilidade pelas oscilações das amostras válidas. Essas classificações são interpretações do comportamento observado no aparelho, não medições científicas da fonte.
 
 ## Gráficos
 
@@ -103,8 +116,8 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.13.apk`
+APK final: `Minha-Bateria-1.0.14.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.13.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.14.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.

@@ -6,6 +6,7 @@ class ChargingSession(savedState: SavedState? = null) {
     data class SavedState(
         val active: Boolean,
         val startedAtMs: Long?,
+        val fullReachedAtMs: Long?,
         val chargingTimeMs: Long,
         val interruptions: Int,
         val startPercent: Int?,
@@ -32,15 +33,18 @@ class ChargingSession(savedState: SavedState? = null) {
         val peakPowerW: Double?,
         val averageTemperatureC: Double?,
         val maxTemperatureC: Double?,
+        val powerVariationRatio: Double?,
         val interruptions: Int,
         val startPercent: Int?,
         val currentPercent: Int?,
-        val gainPercent: Int?
+        val gainPercent: Int?,
+        val reachedFull: Boolean
     )
 
-    private val accumulator = SessionAccumulator(savedState?.accumulator)
+    private var accumulator = SessionAccumulator(savedState?.accumulator)
     private var active = savedState?.active ?: false
     private var startedAtMs: Long? = savedState?.startedAtMs
+    private var fullReachedAtMs: Long? = savedState?.fullReachedAtMs
     private var chargingTimeMs = savedState?.chargingTimeMs ?: 0L
     private var interruptions = savedState?.interruptions ?: 0
     private var startPercent: Int? = savedState?.startPercent
@@ -48,25 +52,24 @@ class ChargingSession(savedState: SavedState? = null) {
     private var previousInfo: BatteryInfo? = null
     private var previousAtMs: Long? = null
     private var previousCharging: Boolean? = savedState?.previousCharging
+    private var completedSnapshot: Snapshot? = null
 
     fun update(info: BatteryInfo, nowMs: Long = System.currentTimeMillis()): Snapshot {
-        if (!active && info.isCharging == true) start(info, nowMs)
+        if (!active && isConnected(info)) start(info, nowMs)
         if (!active) return emptySnapshot()
 
         currentPercent = info.percent ?: currentPercent
-        val previous = previousInfo
-        val previousAt = previousAtMs
-
-        if (previous != null && previousAt != null) {
-            val intervalMs = nowMs - previousAt
-            if (isSafeInterval(intervalMs) && canIntegrate(previous, info)) {
-                chargingTimeMs += intervalMs
-                accumulator.integrate(previous, info, intervalMs)
-            }
+        if (info.isPlugged == false) {
+            val finalSnapshot = snapshot(nowMs)
+            completedSnapshot = finalSnapshot
+            resetCurrent()
+            return emptySnapshot()
         }
 
-        if (previousCharging == true && info.isCharging == false) interruptions += 1
-        if (info.isCharging == true) accumulator.observe(info)
+        if (fullReachedAtMs == null) updateActiveMeasurements(info, nowMs)
+        if (fullReachedAtMs == null && currentPercent == 100 && isConnected(info)) {
+            fullReachedAtMs = nowMs
+        }
 
         previousInfo = info
         previousAtMs = nowMs
@@ -74,10 +77,12 @@ class ChargingSession(savedState: SavedState? = null) {
         return snapshot(nowMs)
     }
 
+    fun takeCompletedSnapshot(): Snapshot? = completedSnapshot.also { completedSnapshot = null }
 
     fun savedState(): SavedState = SavedState(
         active = active,
         startedAtMs = startedAtMs,
+        fullReachedAtMs = fullReachedAtMs,
         chargingTimeMs = chargingTimeMs,
         interruptions = interruptions,
         startPercent = startPercent,
@@ -89,15 +94,39 @@ class ChargingSession(savedState: SavedState? = null) {
     private fun start(info: BatteryInfo, nowMs: Long) {
         active = true
         startedAtMs = nowMs
+        fullReachedAtMs = null
+        chargingTimeMs = 0L
+        interruptions = 0
         startPercent = info.percent
         currentPercent = info.percent
-        accumulator.observe(info)
+        previousInfo = null
+        previousAtMs = null
+        previousCharging = info.isCharging
+        accumulator = SessionAccumulator()
+        if (info.isCharging == true) accumulator.observe(info)
+    }
+
+    private fun updateActiveMeasurements(info: BatteryInfo, nowMs: Long) {
+        val previous = previousInfo
+        val previousAt = previousAtMs
+        if (previous != null && previousAt != null) {
+            val intervalMs = nowMs - previousAt
+            if (isSafeInterval(intervalMs) && canIntegrate(previous, info)) {
+                chargingTimeMs += intervalMs
+                accumulator.integrate(previous, info, intervalMs)
+            }
+        }
+        if (previousCharging == true && info.isCharging == false && info.isPlugged == true) {
+            interruptions += 1
+        }
+        if (info.isCharging == true) accumulator.observe(info)
     }
 
     private fun snapshot(nowMs: Long): Snapshot {
         val accumulated = accumulator.snapshot()
+        val effectiveEnd = fullReachedAtMs ?: nowMs
         return Snapshot(
-            elapsedMs = startedAtMs?.let { (nowMs - it).coerceAtLeast(0L) },
+            elapsedMs = startedAtMs?.let { (effectiveEnd - it).coerceAtLeast(0L) },
             chargingTimeMs = chargingTimeMs,
             energyWh = accumulated.energyWh,
             chargeMah = accumulated.chargeMah,
@@ -114,11 +143,27 @@ class ChargingSession(savedState: SavedState? = null) {
             peakPowerW = accumulated.maxPowerW,
             averageTemperatureC = accumulated.averageTemperatureC,
             maxTemperatureC = accumulated.maxTemperatureC,
+            powerVariationRatio = accumulated.powerVariationRatio,
             interruptions = interruptions,
             startPercent = startPercent,
             currentPercent = currentPercent,
-            gainPercent = batteryGain()
+            gainPercent = batteryGain(),
+            reachedFull = fullReachedAtMs != null
         )
+    }
+
+    private fun resetCurrent() {
+        active = false
+        startedAtMs = null
+        fullReachedAtMs = null
+        chargingTimeMs = 0L
+        interruptions = 0
+        startPercent = null
+        currentPercent = null
+        previousInfo = null
+        previousAtMs = null
+        previousCharging = null
+        accumulator = SessionAccumulator()
     }
 
     private fun emptySnapshot(): Snapshot = Snapshot(
@@ -139,10 +184,12 @@ class ChargingSession(savedState: SavedState? = null) {
         peakPowerW = null,
         averageTemperatureC = null,
         maxTemperatureC = null,
+        powerVariationRatio = null,
         interruptions = 0,
         startPercent = null,
         currentPercent = null,
-        gainPercent = null
+        gainPercent = null,
+        reachedFull = false
     )
 
     private fun batteryGain(): Int? {
@@ -151,10 +198,11 @@ class ChargingSession(savedState: SavedState? = null) {
         return current - start
     }
 
+    private fun isConnected(info: BatteryInfo): Boolean =
+        info.isPlugged == true || (info.isPlugged == null && info.isCharging == true)
+
     private fun canIntegrate(previous: BatteryInfo, current: BatteryInfo): Boolean =
-        previous.isCharging == true &&
-            current.isCharging == true &&
-            previous.source == current.source
+        previous.isCharging == true && current.isCharging == true && previous.source == current.source
 
     private fun isSafeInterval(intervalMs: Long): Boolean =
         intervalMs in 1..MAX_INTEGRATION_INTERVAL_MS

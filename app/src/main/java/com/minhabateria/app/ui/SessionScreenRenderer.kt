@@ -3,15 +3,21 @@ package com.minhabateria.app.ui
 import android.app.Activity
 import android.widget.TextView
 import com.minhabateria.app.R
+import com.minhabateria.app.battery.BatteryInfo
 import com.minhabateria.app.battery.ChargingSession
 import com.minhabateria.app.session.SessionFormatter
+import com.minhabateria.app.session.SessionInsightBuilder
 import com.minhabateria.app.source.EnergySourceProfile
 import com.minhabateria.app.source.NominalPowerComparison
 
 class SessionScreenRenderer(private val activity: Activity) {
     private val sourceName = text(R.id.sessionSourceName)
     private val sourceReference = text(R.id.sessionSourceReference)
-    private var sourceProfile: EnergySourceProfile? = null
+    private val insightState = text(R.id.sessionInsightState)
+    private val insightHeadline = text(R.id.sessionInsightHeadline)
+    private val insightPower = text(R.id.sessionInsightPower)
+    private val insightStability = text(R.id.sessionInsightStability)
+    private val insightDetail = text(R.id.sessionInsightDetail)
     private val elapsed = text(R.id.sessionElapsed)
     private val chargingTime = text(R.id.sessionChargingTime)
     private val interruptions = text(R.id.sessionInterruptions)
@@ -27,29 +33,27 @@ class SessionScreenRenderer(private val activity: Activity) {
     private val maxTemperature = text(R.id.sessionMaxTemperature)
     private val batteryRange = text(R.id.sessionBatteryRange)
     private val batteryGain = text(R.id.sessionBatteryGain)
+    private var sourceProfile: EnergySourceProfile? = null
 
     fun renderSource(profile: EnergySourceProfile?) {
         sourceProfile = profile
         sourceName.text = profile?.name ?: "Perfil não configurado"
         sourceName.setTextColor(activity.getColor(if (profile == null) R.color.value_unavailable else R.color.accent_blue))
-        sourceReference.text = profile?.nominalPowerW?.let { "Referência nominal configurada: ${SessionFormatter.power(it)}" }
-            ?: "Sem referência nominal configurada"
+        sourceReference.text = profile?.nominalPowerW?.let {
+            "Referência nominal configurada: ${SessionFormatter.power(it)}"
+        } ?: "Sem referência nominal configurada"
     }
 
-    fun render(snapshot: ChargingSession.Snapshot?) {
+    fun render(info: BatteryInfo?, snapshot: ChargingSession.Snapshot?) {
+        renderInsight(info, snapshot)
         elapsed.text = SessionFormatter.duration(snapshot?.elapsedMs)
         chargingTime.text = SessionFormatter.duration(snapshot?.chargingTimeMs)
-        interruptions.text = snapshot?.interruptions?.toString() ?: "—"
+        interruptions.text = snapshot?.takeIf { it.elapsedMs != null }?.interruptions?.toString() ?: "—"
         energy.text = SessionFormatter.energy(snapshot?.energyWh)
         charge.text = SessionFormatter.charge(snapshot?.chargeMah)
         averagePower.text = SessionFormatter.power(snapshot?.averagePowerW)
         peakPower.text = SessionFormatter.power(snapshot?.peakPowerW)
-        val comparison = NominalPowerComparison.detailed(snapshot?.peakPowerW, sourceProfile?.nominalPowerW)
-        sourceReference.text = when {
-            comparison != null -> "Pico: ${SessionFormatter.power(snapshot?.peakPowerW)} • $comparison"
-            sourceProfile?.nominalPowerW != null -> "Referência nominal configurada: ${SessionFormatter.power(sourceProfile?.nominalPowerW)}"
-            else -> "Sem referência nominal configurada"
-        }
+        renderPowerReference(snapshot)
         averageCurrent.text = SessionFormatter.current(snapshot?.averageCurrentMa)
         currentRange.text = SessionFormatter.currentRange(snapshot?.minCurrentMa, snapshot?.maxCurrentMa)
         averageVoltage.text = SessionFormatter.voltage(snapshot?.averageVoltageV)
@@ -58,6 +62,27 @@ class SessionScreenRenderer(private val activity: Activity) {
         maxTemperature.text = SessionFormatter.temperature(snapshot?.maxTemperatureC)
         batteryRange.text = SessionFormatter.batteryRange(snapshot?.startPercent, snapshot?.currentPercent)
         batteryGain.text = SessionFormatter.gain(snapshot?.gainPercent)
+    }
+
+    private fun renderInsight(info: BatteryInfo?, snapshot: ChargingSession.Snapshot?) {
+        val insight = SessionInsightBuilder.build(info, snapshot, sourceProfile?.nominalPowerW)
+        insightState.text = insight.sessionState
+        insightHeadline.text = insight.headline
+        insightPower.text = insight.powerContext
+        insightStability.text = insight.stability
+        insightDetail.text = insight.detail
+        insightState.setTextColor(
+            activity.getColor(if (snapshot?.reachedFull == true) R.color.accent_green else R.color.text_primary)
+        )
+    }
+
+    private fun renderPowerReference(snapshot: ChargingSession.Snapshot?) {
+        val comparison = NominalPowerComparison.detailed(snapshot?.peakPowerW, sourceProfile?.nominalPowerW)
+        sourceReference.text = when {
+            comparison != null -> "Pico: ${SessionFormatter.power(snapshot?.peakPowerW)} • $comparison"
+            sourceProfile?.nominalPowerW != null -> "Referência nominal configurada: ${SessionFormatter.power(sourceProfile?.nominalPowerW)}"
+            else -> "Sem referência nominal configurada"
+        }
     }
 
     private fun text(id: Int): TextView = activity.findViewById(id)

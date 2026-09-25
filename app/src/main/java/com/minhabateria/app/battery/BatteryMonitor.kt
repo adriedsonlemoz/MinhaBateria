@@ -6,7 +6,8 @@ import android.os.Looper
 class BatteryMonitor(
     private val reader: BatteryStatusReader,
     private val session: ChargingSession,
-    private val onUpdate: (BatteryInfo, ChargingSession.Snapshot) -> Unit
+    private val onUpdate: (BatteryInfo, ChargingSession.Snapshot) -> Unit,
+    private val onSessionCompleted: (ChargingSession.Snapshot) -> Unit = {}
 ) {
     private val handler = Handler(Looper.getMainLooper())
     private var running = false
@@ -16,6 +17,7 @@ class BatteryMonitor(
             if (!running) return
             val info = reader.read()
             val snapshot = session.update(info)
+            session.takeCompletedSnapshot()?.let(onSessionCompleted)
             onUpdate(info, snapshot)
             handler.postDelayed(this, UPDATE_INTERVAL_MS)
         }

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.14+15
+
+- Corrigido o ciclo da sessão: uma nova sessão começa ao conectar a fonte e a tela Agora volta a `00:00:00`, sem carregar o tempo da sessão anterior.
+- Ao desconectar fisicamente a fonte, a sessão atual é encerrada e o motor disponibiliza o snapshot concluído para o Histórico salvar automaticamente na próxima etapa.
+- Pausas com a fonte ainda conectada permanecem na mesma sessão e são contabilizadas como interrupções.
+- Ao atingir 100%, duração, Wh, mAh e estatísticas ficam congelados como carga completa até a desconexão, preservando o resultado final.
+- Adicionado resumo inteligente na aba Sessão com potência atual/média/pico, comparação com a referência nominal e indicador de estabilidade baseado nas oscilações observadas.
+- A leitura de conexão física foi separada do status de carregamento para diferenciar cabo conectado de carregamento temporariamente pausado.
+- Mantidos assinatura permanente, publicação somente do APK no Works e limite de 500 linhas por arquivo.
+
 ## 1.0.13+14
 
 - Ativada a aba Gráficos com visualizações leves de potência, corrente, temperatura e porcentagem da bateria.

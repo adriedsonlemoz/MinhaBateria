@@ -31,21 +31,25 @@ class BatteryStatusReader(private val context: Context) {
         }
 
         val plugged = intent?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: -1
-        val source = readSource(plugged, isCharging)
+        val isPlugged = when {
+            plugged == 0 -> false
+            plugged > 0 -> true
+            else -> null
+        }
+        val source = readSource(plugged)
 
         val voltageMv = intent?.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1)
             ?.takeIf { it > 0 }
-
         val temperatureC = intent?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, Int.MIN_VALUE)
             ?.takeIf { it != Int.MIN_VALUE }
             ?.div(10.0)
-
         val currentMa = readChargingCurrent(isCharging)
         val powerW = PowerCalculator.watts(voltageMv, currentMa)
 
         return BatteryInfo(
             percent = percent,
             isCharging = isCharging,
+            isPlugged = isPlugged,
             source = source,
             voltageMv = voltageMv,
             currentMa = currentMa,
@@ -56,23 +60,18 @@ class BatteryStatusReader(private val context: Context) {
 
     private fun readChargingCurrent(isCharging: Boolean?): Double? {
         if (isCharging != true) return null
-
         val currentUa = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
         if (currentUa == Int.MIN_VALUE || currentUa == 0) return null
-
         return abs(currentUa.toDouble())
             .div(1000.0)
             .takeIf { it.isFinite() && it > 0.0 }
     }
 
-    private fun readSource(plugged: Int, isCharging: Boolean?): ChargingSource {
-        if (isCharging == false) return ChargingSource.BATTERY
-        if (isCharging == null) return ChargingSource.UNKNOWN
-        return when (plugged) {
-            BatteryManager.BATTERY_PLUGGED_AC -> ChargingSource.AC
-            BatteryManager.BATTERY_PLUGGED_USB -> ChargingSource.USB
-            BatteryManager.BATTERY_PLUGGED_WIRELESS -> ChargingSource.WIRELESS
-            else -> ChargingSource.UNKNOWN
-        }
+    private fun readSource(plugged: Int): ChargingSource = when (plugged) {
+        BatteryManager.BATTERY_PLUGGED_AC -> ChargingSource.AC
+        BatteryManager.BATTERY_PLUGGED_USB -> ChargingSource.USB
+        BatteryManager.BATTERY_PLUGGED_WIRELESS -> ChargingSource.WIRELESS
+        0 -> ChargingSource.BATTERY
+        else -> ChargingSource.UNKNOWN
     }
 }

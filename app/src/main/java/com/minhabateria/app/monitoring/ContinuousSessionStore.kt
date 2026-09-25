@@ -13,6 +13,7 @@ class ContinuousSessionStore(context: Context) {
         return ChargingSession.SavedState(
             active = true,
             startedAtMs = preferences.longOrNull(KEY_STARTED_AT),
+            fullReachedAtMs = preferences.longOrNull(KEY_FULL_REACHED_AT),
             chargingTimeMs = preferences.getLong(KEY_CHARGING_TIME, 0L),
             interruptions = preferences.getInt(KEY_INTERRUPTION_COUNT, 0),
             startPercent = preferences.intOrNull(KEY_START_PERCENT),
@@ -27,6 +28,7 @@ class ContinuousSessionStore(context: Context) {
         preferences.edit()
             .putBoolean(KEY_ACTIVE, state.active)
             .putNullableLong(KEY_STARTED_AT, state.startedAtMs)
+            .putNullableLong(KEY_FULL_REACHED_AT, state.fullReachedAtMs)
             .putLong(KEY_CHARGING_TIME, state.chargingTimeMs)
             .putInt(KEY_INTERRUPTION_COUNT, state.interruptions)
             .putNullableInt(KEY_START_PERCENT, state.startPercent)
@@ -47,6 +49,9 @@ class ContinuousSessionStore(context: Context) {
             .putNullableDouble(KEY_MIN_VOLTAGE, a.minVoltageV)
             .putNullableDouble(KEY_MAX_VOLTAGE, a.maxVoltageV)
             .putNullableDouble(KEY_MAX_TEMPERATURE, a.maxTemperatureC)
+            .putInt(KEY_POWER_SAMPLE_COUNT, a.powerSampleCount)
+            .putDouble(KEY_POWER_MEAN, a.powerMeanW)
+            .putDouble(KEY_POWER_M2, a.powerM2W)
             .apply()
     }
 
@@ -69,7 +74,10 @@ class ContinuousSessionStore(context: Context) {
         maxCurrentMa = preferences.doubleOrNull(KEY_MAX_CURRENT),
         minVoltageV = preferences.doubleOrNull(KEY_MIN_VOLTAGE),
         maxVoltageV = preferences.doubleOrNull(KEY_MAX_VOLTAGE),
-        maxTemperatureC = preferences.doubleOrNull(KEY_MAX_TEMPERATURE)
+        maxTemperatureC = preferences.doubleOrNull(KEY_MAX_TEMPERATURE),
+        powerSampleCount = preferences.getInt(KEY_POWER_SAMPLE_COUNT, 0),
+        powerMeanW = preferences.double(KEY_POWER_MEAN),
+        powerM2W = preferences.double(KEY_POWER_M2)
     )
 
     private fun SharedPreferences.double(key: String): Double =
@@ -106,6 +114,7 @@ class ContinuousSessionStore(context: Context) {
         const val PREFS_NAME = "continuous_session"
         const val KEY_ACTIVE = "active"
         const val KEY_STARTED_AT = "started_at"
+        const val KEY_FULL_REACHED_AT = "full_reached_at"
         const val KEY_CHARGING_TIME = "charging_time"
         const val KEY_INTERRUPTION_COUNT = "interruptions"
         const val KEY_START_PERCENT = "start_percent"
@@ -126,5 +135,8 @@ class ContinuousSessionStore(context: Context) {
         const val KEY_MIN_VOLTAGE = "min_voltage"
         const val KEY_MAX_VOLTAGE = "max_voltage"
         const val KEY_MAX_TEMPERATURE = "max_temperature"
+        const val KEY_POWER_SAMPLE_COUNT = "power_sample_count"
+        const val KEY_POWER_MEAN = "power_mean"
+        const val KEY_POWER_M2 = "power_m2"
     }
 }

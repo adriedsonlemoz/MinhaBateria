@@ -1,6 +1,7 @@
 package com.minhabateria.app.session
 
 import com.minhabateria.app.battery.BatteryInfo
+import kotlin.math.sqrt
 
 class SessionAccumulator(savedState: State? = null) {
     data class State(
@@ -18,7 +19,10 @@ class SessionAccumulator(savedState: State? = null) {
         val maxCurrentMa: Double?,
         val minVoltageV: Double?,
         val maxVoltageV: Double?,
-        val maxTemperatureC: Double?
+        val maxTemperatureC: Double?,
+        val powerSampleCount: Int,
+        val powerMeanW: Double,
+        val powerM2W: Double
     )
 
     data class Snapshot(
@@ -34,19 +38,18 @@ class SessionAccumulator(savedState: State? = null) {
         val minVoltageV: Double?,
         val maxVoltageV: Double?,
         val averageTemperatureC: Double?,
-        val maxTemperatureC: Double?
+        val maxTemperatureC: Double?,
+        val powerVariationRatio: Double?
     )
 
     private var energyWh = 0.0
     private var chargeMah = 0.0
     private var voltageVoltMs = 0.0
     private var temperatureCelsiusMs = 0.0
-
     private var powerDurationMs = 0L
     private var currentDurationMs = 0L
     private var voltageDurationMs = 0L
     private var temperatureDurationMs = 0L
-
     private var minPowerW: Double? = null
     private var maxPowerW: Double? = null
     private var minCurrentMa: Double? = null
@@ -54,6 +57,9 @@ class SessionAccumulator(savedState: State? = null) {
     private var minVoltageV: Double? = null
     private var maxVoltageV: Double? = null
     private var maxTemperatureC: Double? = null
+    private var powerSampleCount = 0
+    private var powerMeanW = 0.0
+    private var powerM2W = 0.0
 
     init {
         savedState?.let(::restore)
@@ -64,6 +70,7 @@ class SessionAccumulator(savedState: State? = null) {
         info.powerW?.validPositive()?.let { value ->
             minPowerW = minOf(minPowerW ?: value, value)
             maxPowerW = maxOf(maxPowerW ?: value, value)
+            observePowerVariation(value)
         }
         info.currentMa?.validPositive()?.let { value ->
             minCurrentMa = minOf(minCurrentMa ?: value, value)
@@ -119,9 +126,9 @@ class SessionAccumulator(savedState: State? = null) {
         minVoltageV = minVoltageV,
         maxVoltageV = maxVoltageV,
         averageTemperatureC = averageWeighted(temperatureCelsiusMs, temperatureDurationMs),
-        maxTemperatureC = maxTemperatureC
+        maxTemperatureC = maxTemperatureC,
+        powerVariationRatio = powerVariationRatio()
     )
-
 
     fun savedState(): State = State(
         energyWh = energyWh,
@@ -138,7 +145,10 @@ class SessionAccumulator(savedState: State? = null) {
         maxCurrentMa = maxCurrentMa,
         minVoltageV = minVoltageV,
         maxVoltageV = maxVoltageV,
-        maxTemperatureC = maxTemperatureC
+        maxTemperatureC = maxTemperatureC,
+        powerSampleCount = powerSampleCount,
+        powerMeanW = powerMeanW,
+        powerM2W = powerM2W
     )
 
     private fun restore(state: State) {
@@ -157,13 +167,25 @@ class SessionAccumulator(savedState: State? = null) {
         minVoltageV = state.minVoltageV
         maxVoltageV = state.maxVoltageV
         maxTemperatureC = state.maxTemperatureC
+        powerSampleCount = state.powerSampleCount
+        powerMeanW = state.powerMeanW
+        powerM2W = state.powerM2W
     }
 
-    private fun integratePositive(
-        previous: Double?,
-        current: Double?,
-        block: (Double) -> Unit
-    ) {
+    private fun observePowerVariation(value: Double) {
+        powerSampleCount += 1
+        val delta = value - powerMeanW
+        powerMeanW += delta / powerSampleCount
+        powerM2W += delta * (value - powerMeanW)
+    }
+
+    private fun powerVariationRatio(): Double? {
+        if (powerSampleCount < MIN_STABILITY_SAMPLES || powerMeanW <= 0.0) return null
+        val variance = powerM2W / (powerSampleCount - 1)
+        return sqrt(variance.coerceAtLeast(0.0)) / powerMeanW
+    }
+
+    private fun integratePositive(previous: Double?, current: Double?, block: (Double) -> Unit) {
         val start = previous?.validPositive() ?: return
         val end = current?.validPositive() ?: return
         block((start + end) / 2.0)
@@ -182,5 +204,6 @@ class SessionAccumulator(savedState: State? = null) {
     private companion object {
         const val MAX_INTERVAL_MS = 15_000L
         const val MILLIS_PER_HOUR = 3_600_000.0
+        const val MIN_STABILITY_SAMPLES = 5
     }
 }

@@ -17,7 +17,7 @@ class SessionActivity : Activity() {
 
     private val stateListener: (MonitoringState) -> Unit = { state ->
         runOnUiThread {
-            renderer.render(state.session)
+            renderer.render(state.info, state.session)
             LocalBatteryMonitorHub.sync(this)
         }
     }
@@ -39,7 +39,7 @@ class SessionActivity : Activity() {
             openSession = {}
         )
         renderer.renderSource(sourceStore.getProfile())
-        renderer.render(MonitoringStateStore.current().session)
+        MonitoringStateStore.current().let { renderer.render(it.info, it.session) }
     }
 
     override fun onStart() {
@@ -51,7 +51,7 @@ class SessionActivity : Activity() {
     override fun onResume() {
         super.onResume()
         renderer.renderSource(sourceStore.getProfile())
-        renderer.render(MonitoringStateStore.current().session)
+        MonitoringStateStore.current().let { renderer.render(it.info, it.session) }
     }
 
     override fun onStop() {

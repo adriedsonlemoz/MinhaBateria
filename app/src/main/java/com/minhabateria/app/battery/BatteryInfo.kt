@@ -3,6 +3,7 @@ package com.minhabateria.app.battery
 data class BatteryInfo(
     val percent: Int?,
     val isCharging: Boolean?,
+    val isPlugged: Boolean?,
     val source: ChargingSource,
     val voltageMv: Int?,
     val currentMa: Double?,
