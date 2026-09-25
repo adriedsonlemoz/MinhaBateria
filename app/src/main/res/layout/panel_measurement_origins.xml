@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
-        android:text="CALCULADO  •  potência, tempo e picos derivados das leituras"
+        android:text="CALCULADO  •  potência, tempo, picos e ganho percentual"
         android:textColor="@color/text_primary"
         android:textSize="12sp"
         android:textStyle="bold" />
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
-        android:text="ESTIMADO  •  reservado para integrações futuras, como Wh e mAh"
+        android:text="ESTIMADO  •  Wh, mAh e médias temporais integradas somente em amostras válidas"
         android:textColor="@color/text_muted"
         android:textSize="12sp"
         android:textStyle="bold" />

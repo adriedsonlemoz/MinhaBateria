@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.9
-- versionCode: 10
-- versão completa: 1.0.9+10
+- versionName: 1.0.10
+- versionCode: 11
+- versão completa: 1.0.10+11
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -25,7 +25,7 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - porcentagem e estado da bateria;
 - fonte detectada pelo Android;
 - tensão, corrente, potência calculada e temperatura;
-- tempo conectado e picos observados;
+- tempo da sessão, Wh/mAh estimados e picos observados;
 - monitoramento contínuo por foreground service;
 - perfil técnico da fonte usada no teste;
 - Configurações, Sobre e Doação;
@@ -57,9 +57,15 @@ Os dados de etiqueta são referência nominal e permanecem separados da conexão
 
 - **Sistema:** valores fornecidos pelo Android quando disponíveis;
 - **Calculado:** valores derivados das leituras, como potência;
-- **Estimado:** reservado para integrações futuras, como Wh e mAh acumulados.
+- **Estimado:** Wh, mAh e médias temporais integradas somente em intervalos com leituras válidas.
 
 Valores ausentes permanecem como `Indisponível`.
+
+## Motor da sessão
+
+A sessão começa na primeira amostra confirmada como carregando e mantém duração total, tempo efetivamente carregando, interrupções, bateria inicial/atual, ganho percentual, Wh e mAh estimados, médias temporais, mínimos, máximos e temperatura média/máxima.
+
+Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos acima de 15 segundos, leituras ausentes, períodos sem carregamento e mudança da fonte detectada não são integrados, evitando extrapolações falsas. O monitoramento contínuo persiste o estado da sessão para recuperação após reinício do serviço; uma reinicialização completa do aparelho inicia uma nova sessão.
 
 ## Interface
 
@@ -83,8 +89,8 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.9.apk`
+APK final: `Minha-Bateria-1.0.10.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.9.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.10.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.

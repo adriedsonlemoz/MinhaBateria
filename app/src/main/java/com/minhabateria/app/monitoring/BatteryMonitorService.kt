@@ -13,6 +13,7 @@ class BatteryMonitorService : Service() {
     private lateinit var monitor: BatteryMonitor
     private lateinit var preferences: MonitorPreferences
     private lateinit var notification: MonitoringNotification
+    private lateinit var sessionStore: ContinuousSessionStore
     private var foregroundStarted = false
     private var lastNotificationUpdateMs = 0L
 
@@ -20,10 +21,13 @@ class BatteryMonitorService : Service() {
         super.onCreate()
         preferences = MonitorPreferences(this)
         notification = MonitoringNotification(this)
+        sessionStore = ContinuousSessionStore(this)
+        val chargingSession = ChargingSession(sessionStore.load())
         monitor = BatteryMonitor(
             reader = BatteryStatusReader(this),
-            session = ChargingSession(),
+            session = chargingSession,
             onUpdate = { info, session ->
+                sessionStore.save(chargingSession.savedState())
                 MonitoringStateStore.publish(true, info, session)
                 updateNotificationIfNeeded(info)
             }
@@ -76,6 +80,7 @@ class BatteryMonitorService : Service() {
     private fun stopMonitoring() {
         preferences.setMonitoringRequested(false)
         monitor.stop()
+        sessionStore.clear()
         MonitoringStateStore.publish(running = false)
         if (foregroundStarted) {
             stopForeground(STOP_FOREGROUND_REMOVE)

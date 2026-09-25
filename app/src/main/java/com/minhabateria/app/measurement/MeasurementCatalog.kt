@@ -41,4 +41,16 @@ object MeasurementCatalog {
         MeasurementOrigin.CALCULATED,
         "Maior potência calculada durante a sessão."
     )
+    val energy = MeasurementDefinition(
+        MeasurementOrigin.ESTIMATED,
+        "Wh estimados pela integração das amostras válidas de potência ao longo do tempo."
+    )
+    val charge = MeasurementDefinition(
+        MeasurementOrigin.ESTIMATED,
+        "mAh estimados pela integração das amostras válidas de corrente ao longo do tempo."
+    )
+    val sessionAverages = MeasurementDefinition(
+        MeasurementOrigin.ESTIMATED,
+        "Médias temporais calculadas apenas nos intervalos com leituras válidas."
+    )
 }

@@ -18,7 +18,7 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:background="@drawable/bg_source_icon"
-            android:contentDescription="Tempo"
+            android:contentDescription="Tempo da sessão"
             android:padding="4dp"
             android:src="@drawable/ic_summary_clock" />
         <TextView
@@ -55,18 +55,18 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:background="@drawable/bg_source_icon"
-            android:contentDescription="Pico corrente"
+            android:contentDescription="Energia estimada"
             android:padding="4dp"
-            android:src="@drawable/ic_summary_peak" />
+            android:src="@drawable/ic_summary_power" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="Pico corrente"
+            android:text="Energia"
             android:textColor="@color/text_secondary"
             android:textSize="9sp" />
         <TextView
-            android:id="@+id/peakCurrentValue"
+            android:id="@+id/energyValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -95,18 +95,18 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:background="@drawable/bg_source_icon"
-            android:contentDescription="Pico potência"
+            android:contentDescription="Carga estimada"
             android:padding="4dp"
-            android:src="@drawable/ic_summary_power" />
+            android:src="@drawable/ic_metric_current" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="Pico potência"
+            android:text="Carga"
             android:textColor="@color/text_secondary"
             android:textSize="9sp" />
         <TextView
-            android:id="@+id/peakPowerValue"
+            android:id="@+id/chargeValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"

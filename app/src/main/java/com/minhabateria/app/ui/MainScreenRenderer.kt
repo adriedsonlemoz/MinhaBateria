@@ -9,6 +9,7 @@ import com.minhabateria.app.battery.BatteryInfo
 import com.minhabateria.app.battery.ChargingSession
 import com.minhabateria.app.measurement.MeasurementCatalog
 import com.minhabateria.app.source.EnergySourceProfile
+import com.minhabateria.app.session.SessionFormatter
 import com.minhabateria.app.utils.BatteryFormatter
 import com.minhabateria.app.utils.TimeFormatter
 
@@ -22,8 +23,8 @@ class MainScreenRenderer(private val activity: Activity) {
     private val power = activity.findViewById<TextView>(R.id.powerValue)
     private val temperature = activity.findViewById<TextView>(R.id.temperatureValue)
     private val elapsed = activity.findViewById<TextView>(R.id.elapsedValue)
-    private val peakCurrent = activity.findViewById<TextView>(R.id.peakCurrentValue)
-    private val peakPower = activity.findViewById<TextView>(R.id.peakPowerValue)
+    private val energy = activity.findViewById<TextView>(R.id.energyValue)
+    private val charge = activity.findViewById<TextView>(R.id.chargeValue)
 
     init {
         activity.findViewById<TextView>(R.id.voltageOrigin).text = MeasurementCatalog.voltage.origin.label
@@ -41,8 +42,8 @@ class MainScreenRenderer(private val activity: Activity) {
         renderMetric(power, BatteryFormatter.power(info.powerW), info.powerW != null, R.color.text_primary)
         renderMetric(temperature, BatteryFormatter.temperature(info.temperatureC), info.temperatureC != null, R.color.accent_orange)
         elapsed.text = TimeFormatter.elapsed(session.elapsedMs)
-        renderMetric(peakCurrent, BatteryFormatter.current(session.peakCurrentMa), session.peakCurrentMa != null, R.color.text_primary)
-        renderMetric(peakPower, BatteryFormatter.power(session.peakPowerW), session.peakPowerW != null, R.color.text_primary)
+        renderMetric(energy, SessionFormatter.energy(session.energyWh), session.energyWh != null, R.color.text_primary)
+        renderMetric(charge, SessionFormatter.charge(session.chargeMah), session.chargeMah != null, R.color.text_primary)
     }
 
     fun renderSourceProfile(profile: EnergySourceProfile?) {

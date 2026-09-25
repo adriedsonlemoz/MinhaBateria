@@ -10,6 +10,7 @@ class BootCompletedReceiver : BroadcastReceiver() {
 
         val preferences = MonitorPreferences(context)
         if (preferences.shouldResumeAfterBoot() && preferences.isMonitoringRequested()) {
+            ContinuousSessionStore(context).clear()
             MonitoringServiceController.start(context)
         }
     }

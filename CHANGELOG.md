@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.10+11
+
+- Criado motor de sessão com integração temporal das amostras para estimar Wh e mAh, sem multiplicar o último valor pela duração total.
+- Adicionadas potência/corrente/tensão médias, mínimos e máximos, temperatura média/máxima, tempo efetivamente carregando, interrupções, bateria inicial/atual e ganho percentual.
+- Intervalos longos, leituras ausentes, períodos sem carga e mudança da fonte detectada não são integrados, reduzindo valores falsos.
+- Tela Agora passou a mostrar Tempo, Energia (Wh) e Carga (mAh) no resumo compacto, mantendo a tela sem rolagem.
+- Estado da sessão do monitoramento contínuo é persistido para recuperação após reinício do serviço; após reinicialização completa do aparelho uma nova sessão é iniciada.
+- Mantidos perfil técnico da fonte, assinatura permanente, publicação somente do APK no Works e limite de 500 linhas por arquivo.
+
 ## 1.0.9+10
 
 - Aprimorado o Perfil da fonte para orientar o preenchimento com dados reais da etiqueta, sem exigir nome manual do carregador.
