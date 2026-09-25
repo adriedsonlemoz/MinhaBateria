@@ -27,6 +27,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".HistoryComparisonActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".source.SourceProfileActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

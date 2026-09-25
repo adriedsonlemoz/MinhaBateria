@@ -31,6 +31,40 @@
             android:textSize="12sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_card"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/historySelectionText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Selecione 2 sessões • 0/2"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/compareSessionsButton"
+            android:layout_width="104dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_primary_button"
+            android:enabled="false"
+            android:minHeight="0dp"
+            android:text="Comparar"
+            android:textAllCaps="false"
+            android:textColor="#07110A"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +73,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/bg_card"
         android:padding="12dp"
-        android:text="Cada conexão inicia uma sessão. Ao retirar o carregador, o resultado é salvo automaticamente aqui."
+        android:text="Cada conexão inicia uma sessão. Ao retirar o carregador, o resultado é salvo automaticamente aqui. Toque em duas sessões para compará-las."
         android:textColor="@color/text_secondary"
         android:textSize="11sp" />
 

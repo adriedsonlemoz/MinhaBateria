@@ -18,8 +18,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             android:text="Carregador"
             android:textColor="@color/text_primary"
             android:textSize="16sp"
@@ -80,4 +80,15 @@
         android:text="Máx. 44,0 °C • Estável • 2 interrupções"
         android:textColor="@color/text_muted"
         android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/historyItemSelect"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical|end"
+        android:text="Selecionar para comparar"
+        android:textColor="@color/accent_blue"
+        android:textSize="11sp"
+        android:textStyle="bold" />
 </LinearLayout>

@@ -44,16 +44,16 @@ jobs:
       - name: Preparar APK de entrega
         run: |
           mkdir -p release
-          cp app/build/outputs/apk/release/app-release.apk release/Minha-Bateria-1.0.15.apk
-          test -f release/Minha-Bateria-1.0.15.apk
+          cp app/build/outputs/apk/release/app-release.apk release/Minha-Bateria-1.0.16.apk
+          test -f release/Minha-Bateria-1.0.16.apk
 
       - name: Publicar somente o APK no GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TAG="v1.0.15"
-          TITLE="Minha Bateria 1.0.15"
-          APK="release/Minha-Bateria-1.0.15.apk"
+          TAG="v1.0.16"
+          TITLE="Minha Bateria 1.0.16"
+          APK="release/Minha-Bateria-1.0.16.apk"
 
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" "$APK" --clobber

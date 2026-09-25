@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.16+17
+
+- Histórico agora permite selecionar exatamente duas sessões e abrir uma comparação lado a lado.
+- Comparação inclui duração, tempo carregando, Wh, mAh, potência, corrente, tensão, temperatura, interrupções, ganho de bateria, estabilidade e relação com a potência nominal configurada.
+- A tela mostra sempre a diferença B − A e evita declarar automaticamente uma sessão ou fonte como melhor.
+
 ## 1.0.15+16
 
 - Ativada a aba Histórico e integrado o salvamento automático ao ciclo real da sessão: conectou inicia, desconectou salva.
