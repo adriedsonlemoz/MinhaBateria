@@ -127,11 +127,11 @@
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Minha Bateria" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold" />
-                    <TextView android:id="@+id/versionValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_status_chip" android:paddingStart="10dp" android:paddingTop="5dp" android:paddingEnd="10dp" android:paddingBottom="5dp" android:text="1.0.4+5" android:textColor="@color/accent_blue" android:textSize="11sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/versionValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_status_chip" android:paddingStart="10dp" android:paddingTop="5dp" android:paddingEnd="10dp" android:paddingBottom="5dp" android:text="1.0.5+6" android:textColor="@color/accent_blue" android:textSize="11sp" android:textStyle="bold" />
                 </LinearLayout>
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="13dp" android:text="Últimas alterações" android:textColor="@color/text_secondary" android:textSize="12sp" android:textStyle="bold" />
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="• Corrigidos topo e rodapé para respeitar as barras do Android.\n• Tela Agora reagrupada sem rolagem e sem grandes espaços vazios.\n• Valores indisponíveis e abas receberam contraste visual mais claro." android:textColor="@color/text_primary" android:textSize="13sp" android:lineSpacingExtra="4dp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="• APK agora é publicado diretamente em GitHub Releases, sem ZIP de Artifact.\n• Código-fonte continua separado em um ZIP próprio, sem incluir o APK.\n• Assinatura release permanente foi preservada para permitir atualizações por cima." android:textColor="@color/text_primary" android:textSize="13sp" android:lineSpacingExtra="4dp" />
             </LinearLayout>
 
             <TextView

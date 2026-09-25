@@ -1,12 +1,15 @@
-name: Build Minha Bateria APK
+name: Build e publicar Minha Bateria
 
 on:
   workflow_dispatch:
   push:
     branches: [ main, master ]
 
+permissions:
+  contents: write
+
 jobs:
-  build:
+  build-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,14 +26,27 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Restore release keystore
+      - name: Preparar pacote de código-fonte
+        run: |
+          mkdir -p release
+          zip -qr release/Minha-Bateria-1.0.5-source.zip . \
+            -x '.git/*' \
+               '.gradle/*' \
+               'app/build/*' \
+               'build/*' \
+               'release/*' \
+               '*.apk' \
+               '*.jks' \
+               'local.properties'
+
+      - name: Restaurar keystore release
         env:
           KEYSTORE_BASE64: ${{ secrets.MINHA_BATERIA_KEYSTORE_BASE64 }}
         run: |
           test -n "$KEYSTORE_BASE64"
           echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/minha-bateria-release.jks"
 
-      - name: Build signed release APK
+      - name: Compilar APK release assinado
         env:
           MINHA_BATERIA_KEYSTORE_PATH: ${{ runner.temp }}/minha-bateria-release.jks
           MINHA_BATERIA_KEYSTORE_PASSWORD: ${{ secrets.MINHA_BATERIA_KEYSTORE_PASSWORD }}
@@ -38,11 +54,26 @@ jobs:
           MINHA_BATERIA_KEY_PASSWORD: ${{ secrets.MINHA_BATERIA_KEY_PASSWORD }}
         run: gradle :app:assembleRelease
 
-      - name: Rename APK
-        run: cp app/build/outputs/apk/release/app-release.apk Minha-Bateria-1.0.4.apk
+      - name: Preparar APK de entrega
+        run: |
+          cp app/build/outputs/apk/release/app-release.apk release/Minha-Bateria-1.0.5.apk
+          test -f release/Minha-Bateria-1.0.5.apk
+          test -f release/Minha-Bateria-1.0.5-source.zip
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Minha-Bateria-1.0.4
-          path: Minha-Bateria-1.0.4.apk
+      - name: Publicar arquivos diretamente no GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="v1.0.5"
+          TITLE="Minha Bateria 1.0.5"
+          APK="release/Minha-Bateria-1.0.5.apk"
+          SOURCE="release/Minha-Bateria-1.0.5-source.zip"
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$APK" "$SOURCE" --clobber
+          else
+            gh release create "$TAG" "$APK" "$SOURCE" \
+              --target "$GITHUB_SHA" \
+              --title "$TITLE" \
+              --notes "APK release assinado para instalação direta. O APK é publicado fora do ZIP do código-fonte."
+          fi

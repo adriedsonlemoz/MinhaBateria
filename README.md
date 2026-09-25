@@ -4,9 +4,9 @@ Aplicativo Android em Kotlin para acompanhar dados de bateria e carregamento loc
 
 ## Versão
 
-- versionName: 1.0.4
+- versionName: 1.0.5
 - versionCode: 5
-- versão completa: 1.0.4+5
+- versão completa: 1.0.5+6
 - package: `com.minhabateria.app`
 
 ## Recursos atuais
@@ -65,8 +65,12 @@ gradle :app:assembleRelease
 
 Artefato final do workflow:
 
-`Minha-Bateria-1.0.4.apk`
+`Minha-Bateria-1.0.5.apk`
 
 ## Observação de medição
 
 `BATTERY_PROPERTY_CURRENT_NOW` depende do suporte do fabricante e representa a corrente observada na bateria pelo sistema, não uma medição direta da saída do painel, carregador ou power bank. Quando o aparelho não fornece uma leitura válida, o aplicativo mostra `Indisponível`.
+
+## Distribuição no GitHub
+
+O APK é publicado diretamente em GitHub Releases como `Minha-Bateria-1.0.5.apk`. O código-fonte é separado em `Minha-Bateria-1.0.5-source.zip`. O workflow não usa `actions/upload-artifact` para o APK.
