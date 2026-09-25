@@ -1,0 +1,11 @@
+{
+  "public_name": "Minha Bateria",
+  "technical_name": "minhabateria",
+  "package": "com.minhabateria.app",
+  "platform": "Android",
+  "language": "Kotlin",
+  "version_name": "1.0.0",
+  "version_code": 1,
+  "distribution": "private_apk",
+  "max_source_lines_per_file": 500
+}
