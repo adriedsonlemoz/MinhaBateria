@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.7+8
+
+- Adicionado Perfil da fonte de energia com Painel solar, Carregador, Power bank e Outra fonte.
+- Adicionados nome personalizado e potência nominal persistidos; para painel solar, a potência nominal é obrigatória.
+- A primeira configuração é oferecida uma vez e pode ser ignorada; o perfil continua editável em Configurações.
+- A tela Agora agora separa claramente o perfil informado pelo usuário da conexão detectada pelo Android.
+- O workflow foi corrigido para publicar somente `Minha-Bateria-1.0.7.apk` como saída de entrega, sem criar ou publicar source ZIP no Works.
+- Mantidos assinatura release permanente, layout principal sem rolagem e limite de 500 linhas por arquivo.
+
 ## 1.0.6+7
 
 - Redesenhada a tela Agora com identidade visual azul-profundo inspirada na referência aprovada, sem alterar a lógica de monitoramento.
@@ -12,9 +21,7 @@
 ## 1.0.5+6
 
 - Removido `actions/upload-artifact` para o APK, evitando que o download seja empacotado automaticamente como ZIP.
-- APK release agora é publicado diretamente em GitHub Releases como `Minha-Bateria-1.0.5.apk`.
-- Código-fonte é publicado separadamente como `Minha-Bateria-1.0.5-source.zip`, sem APK, keystore, builds ou Secrets.
-- Mantida a assinatura release permanente introduzida anteriormente, permitindo atualização por cima da instalação existente.
+- APK release passou a ser publicado diretamente em GitHub Releases.
 
 ## 1.0.4+5
 

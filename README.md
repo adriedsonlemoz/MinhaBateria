@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.6
-- versionCode: 7
-- versão completa: 1.0.6+7
+- versionName: 1.0.7
+- versionCode: 8
+- versão completa: 1.0.7+8
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -25,6 +25,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - porcentagem da bateria;
 - carregando / não carregando;
 - fonte detectada pelo Android;
+- perfil configurável da fonte usada no teste;
+- tipos: painel solar, carregador, power bank e outra fonte;
+- nome personalizado e potência nominal opcional, obrigatória para painel solar;
 - tensão;
 - corrente quando o dispositivo disponibiliza a leitura;
 - potência calculada;
@@ -35,14 +38,24 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - notificação permanente;
 - retomada opcional após reiniciar;
 - Configurações separadas da tela principal;
-- seção Sobre com versão e alterações recentes;
-- botão Doação que copia a chave Pix para a área de transferência.
+- seção Sobre e botão Doação.
 
-## Interface 1.0.6
+## Perfil da fonte
 
-A tela Agora foi redesenhada com fundo azul-profundo, cards em camadas, bordas discretas, medidor circular com destaque luminoso, métricas com ícones próprios e navegação inferior com ícones. O layout continua sem rolagem e usa dimensões responsivas para acomodar telas menores.
+Na primeira abertura sem perfil configurado, o app oferece a configuração uma vez. O usuário pode escolher `Agora não` e configurar posteriormente em Configurações.
 
-As abas Gráficos, Sessão e Histórico continuam reservadas para etapas futuras e não possuem lógica fictícia.
+O perfil informado pelo usuário é mantido separado da conexão detectada pelo Android. Exemplo:
+
+- perfil: `Painel 8W`;
+- detectado pelo Android: `USB`.
+
+O perfil é salvo localmente e não precisa ser preenchido novamente a cada abertura.
+
+## Interface
+
+A tela Agora usa identidade visual azul-profundo, cards em camadas, medidor circular, métricas com ícones e navegação inferior. O layout principal continua sem rolagem.
+
+As abas Gráficos, Sessão e Histórico permanecem reservadas para etapas futuras e não possuem lógica fictícia.
 
 ## Monitoramento contínuo
 
@@ -58,7 +71,7 @@ Use sempre o mesmo arquivo `Minha-Bateria-GitHub-Secrets.txt` para permitir atua
 
 ## Arquitetura
 
-O código é dividido por responsabilidade em `battery`, `calculation`, `monitoring`, `settings`, `ui` e `utils`. Nenhum arquivo de código deve ultrapassar 500 linhas.
+O código é dividido por responsabilidade em `battery`, `calculation`, `monitoring`, `settings`, `source`, `ui` e `utils`. Nenhum arquivo de código deve ultrapassar 500 linhas.
 
 ## Build release
 
@@ -68,12 +81,14 @@ Requisitos: JDK 17, Android SDK 35 e os quatro Secrets de assinatura configurado
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.6.apk`
+APK final: `Minha-Bateria-1.0.7.apk`
 
 ## Observação de medição
 
 `BATTERY_PROPERTY_CURRENT_NOW` depende do suporte do fabricante e representa a corrente observada na bateria pelo sistema, não uma medição direta da saída do painel, carregador ou power bank. Quando o aparelho não fornece uma leitura válida, o aplicativo mostra `Indisponível`.
 
-## Distribuição no GitHub
+## Distribuição no GitHub / Works
 
-O APK é publicado diretamente em GitHub Releases como `Minha-Bateria-1.0.6.apk`. O código-fonte é publicado separadamente como `Minha-Bateria-1.0.6-source.zip`. O workflow não usa `actions/upload-artifact` para o APK.
+O workflow gera e publica **somente** `Minha-Bateria-1.0.7.apk` como arquivo de entrega. Ele não cria nem publica um source ZIP e não usa `actions/upload-artifact` para o APK.
+
+O ZIP de código-fonte usado para desenvolvimento é mantido fora do fluxo de entrega do Works/GitHub Actions.

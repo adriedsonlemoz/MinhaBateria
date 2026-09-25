@@ -26,19 +26,6 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Preparar pacote de código-fonte
-        run: |
-          mkdir -p release
-          zip -qr release/Minha-Bateria-1.0.6-source.zip . \
-            -x '.git/*' \
-               '.gradle/*' \
-               'app/build/*' \
-               'build/*' \
-               'release/*' \
-               '*.apk' \
-               '*.jks' \
-               'local.properties'
-
       - name: Restaurar keystore release
         env:
           KEYSTORE_BASE64: ${{ secrets.MINHA_BATERIA_KEYSTORE_BASE64 }}
@@ -56,24 +43,23 @@ jobs:
 
       - name: Preparar APK de entrega
         run: |
-          cp app/build/outputs/apk/release/app-release.apk release/Minha-Bateria-1.0.6.apk
-          test -f release/Minha-Bateria-1.0.6.apk
-          test -f release/Minha-Bateria-1.0.6-source.zip
+          mkdir -p release
+          cp app/build/outputs/apk/release/app-release.apk release/Minha-Bateria-1.0.7.apk
+          test -f release/Minha-Bateria-1.0.7.apk
 
-      - name: Publicar arquivos diretamente no GitHub Release
+      - name: Publicar somente o APK no GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TAG="v1.0.6"
-          TITLE="Minha Bateria 1.0.6"
-          APK="release/Minha-Bateria-1.0.6.apk"
-          SOURCE="release/Minha-Bateria-1.0.6-source.zip"
+          TAG="v1.0.7"
+          TITLE="Minha Bateria 1.0.7"
+          APK="release/Minha-Bateria-1.0.7.apk"
 
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" "$APK" "$SOURCE" --clobber
+            gh release upload "$TAG" "$APK" --clobber
           else
-            gh release create "$TAG" "$APK" "$SOURCE" \
+            gh release create "$TAG" "$APK" \
               --target "$GITHUB_SHA" \
               --title "$TITLE" \
-              --notes "APK release assinado para instalação direta. O APK é publicado fora do ZIP do código-fonte."
+              --notes "APK release assinado para instalação direta. O workflow publica somente o APK como arquivo de entrega."
           fi
