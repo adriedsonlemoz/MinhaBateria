@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.18+19
+
+- Adicionada estimativa aproximada de tempo até 100% acima do status de carregamento; Android 9+ prioriza a previsão do sistema e há fallback conservador pelo ritmo da sessão quando houver dados suficientes.
+- Tela Agora ganhou linguagem mais simples: `Potência calculada` passa a ser apresentada como `Velocidade de carga` e há ajuda explicando W, mA, Wh, mAh, tensão, temperatura e tempo.
+- Aba Sessão foi reorganizada para abrir com um resumo fácil de bateria, tempo, energia, velocidade média e temperatura máxima; métricas avançadas ficam recolhidas em `Ver detalhes técnicos`.
+- Ao atingir 100%, a tela Agora mostra `Carga completa` em vez de continuar exibindo apenas `Carregando`.
+- Mantidos os cálculos originais, histórico, gráficos, diagnóstico, assinatura permanente, publicação somente do APK e limite de 500 linhas.
+
 ## 1.0.17+18
 
 - Adicionada tela Diagnóstico em Configurações com versão, aparelho/Android, estado do monitoramento, permissão de notificações, fonte configurada, leitura atual, sessão, Histórico e amostras dos Gráficos.

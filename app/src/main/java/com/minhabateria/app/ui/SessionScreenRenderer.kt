@@ -33,6 +33,11 @@ class SessionScreenRenderer(private val activity: Activity) {
     private val maxTemperature = text(R.id.sessionMaxTemperature)
     private val batteryRange = text(R.id.sessionBatteryRange)
     private val batteryGain = text(R.id.sessionBatteryGain)
+    private val simpleBattery = text(R.id.sessionSimpleBattery)
+    private val simpleTime = text(R.id.sessionSimpleTime)
+    private val simpleEnergy = text(R.id.sessionSimpleEnergy)
+    private val simplePower = text(R.id.sessionSimplePower)
+    private val simpleTemperature = text(R.id.sessionSimpleTemperature)
     private var sourceProfile: EnergySourceProfile? = null
 
     fun renderSource(profile: EnergySourceProfile?) {
@@ -62,6 +67,21 @@ class SessionScreenRenderer(private val activity: Activity) {
         maxTemperature.text = SessionFormatter.temperature(snapshot?.maxTemperatureC)
         batteryRange.text = SessionFormatter.batteryRange(snapshot?.startPercent, snapshot?.currentPercent)
         batteryGain.text = SessionFormatter.gain(snapshot?.gainPercent)
+        renderSimpleSummary(snapshot)
+    }
+
+    private fun renderSimpleSummary(snapshot: ChargingSession.Snapshot?) {
+        val range = SessionFormatter.batteryRange(snapshot?.startPercent, snapshot?.currentPercent)
+        val gain = snapshot?.gainPercent
+        simpleBattery.text = if (range != "Indisponível" && gain != null) {
+            "$range (${SessionFormatter.gain(gain)})"
+        } else {
+            range
+        }
+        simpleTime.text = SessionFormatter.duration(snapshot?.elapsedMs)
+        simpleEnergy.text = SessionFormatter.energy(snapshot?.energyWh)
+        simplePower.text = SessionFormatter.power(snapshot?.averagePowerW)
+        simpleTemperature.text = SessionFormatter.temperature(snapshot?.maxTemperatureC)
     }
 
     private fun renderInsight(info: BatteryInfo?, snapshot: ChargingSession.Snapshot?) {

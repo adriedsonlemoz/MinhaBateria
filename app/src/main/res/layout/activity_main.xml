@@ -47,6 +47,19 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/measurementHelpButton"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="7dp"
+                android:background="@drawable/bg_settings_circle"
+                android:contentDescription="Entenda os dados"
+                android:gravity="center"
+                android:text="i"
+                android:textColor="@color/accent_blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <ImageButton
                 android:id="@+id/settingsButton"
                 android:layout_width="46dp"
@@ -70,6 +83,18 @@
                 android:layout_height="@dimen/gauge_size"
                 android:layout_gravity="center" />
         </FrameLayout>
+
+        <TextView
+            android:id="@+id/remainingTimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/text_secondary"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/statusText"

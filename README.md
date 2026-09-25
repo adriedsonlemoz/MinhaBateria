@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.17
-- versionCode: 18
-- versão completa: 1.0.17+18
+- versionName: 1.0.18
+- versionCode: 19
+- versão completa: 1.0.18+19
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -24,8 +24,8 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 - porcentagem e estado da bateria;
 - fonte detectada pelo Android;
-- tensão, corrente, potência calculada e temperatura;
-- tempo da sessão, Wh/mAh estimados e picos observados;
+- tensão, corrente, velocidade de carga calculada e temperatura;
+- tempo da sessão, Wh/mAh estimados, picos observados e estimativa de tempo até 100% quando disponível;
 - monitoramento contínuo por foreground service;
 - perfil técnico da fonte usada no teste com preenchimento rápido por sugestões;
 - abas Gráficos, Sessão e Histórico funcionais;
@@ -80,7 +80,13 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
-A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. As abas Gráficos, Sessão e Histórico são funcionais. A aba Histórico salva automaticamente cada sessão quando a fonte é desconectada e mostra os resultados mais recentes primeiro.
+A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. A potência instantânea é apresentada ao usuário como **Velocidade de carga**, mantendo a indicação de que o valor é calculado. Um atalho **Entenda W, mA, Wh e mAh** explica os dados em linguagem simples.
+
+Quando o aparelho está carregando, a tela mostra uma estimativa aproximada do tempo até 100%. Em Android 9 ou superior, o app prioriza a previsão fornecida pelo próprio sistema; quando ela não está disponível, pode estimar pelo ritmo observado na sessão somente após pelo menos 2 pontos percentuais e 2 minutos de carga. Se não houver dados suficientes, mostra `Calculando tempo restante…` em vez de inventar um valor.
+
+A aba Sessão agora abre em modo simplificado, com bateria inicial/atual, tempo, energia recebida, velocidade média e temperatura máxima. Corrente, tensão, mínimos/máximos, interrupções e demais métricas ficam em **Ver detalhes técnicos**, recolhidos por padrão.
+
+As abas Gráficos, Sessão e Histórico são funcionais. A aba Histórico salva automaticamente cada sessão quando a fonte é desconectada e mostra os resultados mais recentes primeiro.
 
 ## Ciclo automático da sessão
 
@@ -126,11 +132,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.17.apk`
+APK final: `Minha-Bateria-1.0.18.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.17.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.18.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
+import android.os.Build
 import com.minhabateria.app.calculation.PowerCalculator
 import kotlin.math.abs
 
@@ -45,6 +46,7 @@ class BatteryStatusReader(private val context: Context) {
             ?.div(10.0)
         val currentMa = readChargingCurrent(isCharging)
         val powerW = PowerCalculator.watts(voltageMv, currentMa)
+        val chargeTimeRemainingMs = readChargeTimeRemaining(isCharging, percent)
 
         return BatteryInfo(
             percent = percent,
@@ -54,8 +56,15 @@ class BatteryStatusReader(private val context: Context) {
             voltageMv = voltageMv,
             currentMa = currentMa,
             temperatureC = temperatureC,
-            powerW = powerW
+            powerW = powerW,
+            chargeTimeRemainingMs = chargeTimeRemainingMs
         )
+    }
+
+    private fun readChargeTimeRemaining(isCharging: Boolean?, percent: Int?): Long? {
+        if (isCharging != true || percent == 100 || Build.VERSION.SDK_INT < Build.VERSION_CODES.P) return null
+        return batteryManager.computeChargeTimeRemaining()
+            .takeIf { it > 0L }
     }
 
     private fun readChargingCurrent(isCharging: Boolean?): Double? {

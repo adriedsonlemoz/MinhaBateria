@@ -8,7 +8,8 @@ data class BatteryInfo(
     val voltageMv: Int?,
     val currentMa: Double?,
     val temperatureC: Double?,
-    val powerW: Double?
+    val powerW: Double?,
+    val chargeTimeRemainingMs: Long?
 )
 
 enum class ChargingSource {

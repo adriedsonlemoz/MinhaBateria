@@ -41,10 +41,13 @@ object SessionInsightBuilder {
     }
 
     private fun summaryLine(info: BatteryInfo?, session: ChargingSession.Snapshot): String {
-        val now = SessionFormatter.power(info?.powerW)
-        val average = SessionFormatter.power(session.averagePowerW)
-        val peak = SessionFormatter.power(session.peakPowerW)
-        return "Agora $now • média $average • pico $peak"
+        val range = SessionFormatter.batteryRange(session.startPercent, session.currentPercent)
+        val duration = SessionFormatter.duration(session.elapsedMs)
+        return when {
+            range != "Indisponível" -> "Bateria $range • $duration de sessão"
+            info?.isCharging == true -> "Carga em andamento • $duration de sessão"
+            else -> "Sessão em andamento • $duration"
+        }
     }
 
     private fun powerContext(currentPowerW: Double?, nominalPowerW: Double?): String {

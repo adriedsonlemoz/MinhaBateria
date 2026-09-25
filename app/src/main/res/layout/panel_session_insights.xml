@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RESUMO INTELIGENTE"
+        android:text="RESUMO"
         android:textColor="@color/accent_green"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -43,7 +43,8 @@
         android:text="Potência: sem referência suficiente"
         android:textColor="@color/accent_blue"
         android:textSize="12sp"
-        android:textStyle="bold" />
+        android:textStyle="bold" 
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/sessionInsightStability"
@@ -55,7 +56,8 @@
         android:text="Estabilidade: aguardando amostras"
         android:textColor="@color/accent_green"
         android:textSize="12sp"
-        android:textStyle="bold" />
+        android:textStyle="bold" 
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/sessionInsightDetail"
@@ -64,5 +66,6 @@
         android:layout_marginTop="8dp"
         android:text="As classificações usam somente leituras observadas no aparelho."
         android:textColor="@color/text_muted"
-        android:textSize="10sp" />
+        android:textSize="10sp" 
+        android:visibility="gone" />
 </LinearLayout>

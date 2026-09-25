@@ -16,6 +16,7 @@ import com.minhabateria.app.source.SourceProfileStore
 import com.minhabateria.app.ui.BottomTab
 import com.minhabateria.app.ui.BottomTabsBinder
 import com.minhabateria.app.ui.MainScreenRenderer
+import com.minhabateria.app.ui.MeasurementHelpDialog
 import com.minhabateria.app.ui.SystemBars
 
 class MainActivity : Activity() {
@@ -46,6 +47,9 @@ class MainActivity : Activity() {
 
         findViewById<ImageButton>(R.id.settingsButton).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
+        }
+        findViewById<TextView>(R.id.measurementHelpButton).setOnClickListener {
+            MeasurementHelpDialog.show(this)
         }
         BottomTabsBinder(this).bind(
             active = BottomTab.NOW,

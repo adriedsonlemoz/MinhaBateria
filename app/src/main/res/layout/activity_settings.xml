@@ -207,11 +207,11 @@
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/app_name" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold" />
-                    <TextView android:id="@+id/versionValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_status_chip" android:paddingStart="10dp" android:paddingTop="5dp" android:paddingEnd="10dp" android:paddingBottom="5dp" android:text="1.0.17+18" android:textColor="@color/accent_blue" android:textSize="11sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/versionValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_status_chip" android:paddingStart="10dp" android:paddingTop="5dp" android:paddingEnd="10dp" android:paddingBottom="5dp" android:text="1.0.18+19" android:textColor="@color/accent_blue" android:textSize="11sp" android:textStyle="bold" />
                 </LinearLayout>
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="13dp" android:text="Últimas alterações" android:textColor="@color/text_secondary" android:textSize="12sp" android:textStyle="bold" />
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="• Adicionada tela Diagnóstico com estado do monitoramento, leituras, sessão, histórico, gráficos e informações do aparelho.\n• Diagnóstico pode ser atualizado e copiado sem incluir chaves, assinatura ou Secrets.\n• Validação automatizada bloqueia o build quando versão, XML, recursos, launcher, limpeza do source ou limite de 500 linhas estiverem incorretos." android:textColor="@color/text_primary" android:textSize="13sp" android:lineSpacingExtra="4dp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="• Adicionado tempo aproximado até 100%, priorizando a estimativa do Android e usando o ritmo da sessão apenas quando houver dados suficientes.\n• Tela Agora ganhou nomes mais simples e uma ajuda que explica W, mA, Wh e mAh.\n• Tela Sessão agora começa com um resumo fácil e deixa os detalhes técnicos recolhidos por padrão." android:textColor="@color/text_primary" android:textSize="13sp" android:lineSpacingExtra="4dp" />
             </LinearLayout>
 
             <TextView

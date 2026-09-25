@@ -7,6 +7,7 @@ import android.os.Build
 import com.minhabateria.app.battery.BatteryInfo
 import com.minhabateria.app.battery.ChargingSource
 import com.minhabateria.app.charts.ChartRange
+import com.minhabateria.app.charging.ChargeTimeFormatter
 import com.minhabateria.app.charts.ChartSampleRepository
 import com.minhabateria.app.history.HistoryStore
 import com.minhabateria.app.monitoring.ContinuousSessionStore
@@ -79,6 +80,7 @@ object DiagnosticReportBuilder {
         appendLine("Corrente: ${SessionFormatter.current(info.currentMa)}")
         appendLine("Potência: ${SessionFormatter.power(info.powerW)}")
         appendLine("Temperatura: ${SessionFormatter.temperature(info.temperatureC)}")
+        appendLine("Tempo restante informado pelo Android: ${info.chargeTimeRemainingMs?.let(ChargeTimeFormatter::compact) ?: "Indisponível"}")
     }
 
     private fun StringBuilder.appendSession(state: MonitoringState) {
