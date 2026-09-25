@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="main_header_height">44dp</dimen>
-    <dimen name="gauge_size">132dp</dimen>
-    <dimen name="status_chip_height">32dp</dimen>
-    <dimen name="measurements_height">126dp</dimen>
-    <dimen name="source_row_height">40dp</dimen>
-    <dimen name="metrics_grid_height">80dp</dimen>
-    <dimen name="session_summary_height">46dp</dimen>
-    <dimen name="bottom_tabs_height">44dp</dimen>
+    <dimen name="screen_horizontal_padding">14dp</dimen>
+    <dimen name="main_header_height">48dp</dimen>
+    <dimen name="gauge_size">154dp</dimen>
+    <dimen name="status_chip_height">38dp</dimen>
+    <dimen name="measurements_height">166dp</dimen>
+    <dimen name="source_row_height">48dp</dimen>
+    <dimen name="metrics_grid_height">112dp</dimen>
+    <dimen name="session_summary_height">60dp</dimen>
+    <dimen name="bottom_tabs_height">58dp</dimen>
+    <dimen name="card_gap">7dp</dimen>
+    <dimen name="section_gap">8dp</dimen>
+    <dimen name="metric_icon_size">34dp</dimen>
+    <dimen name="bottom_icon_size">20dp</dimen>
 </resources>

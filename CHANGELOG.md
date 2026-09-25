@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.6+7
+
+- Redesenhada a tela Agora com identidade visual azul-profundo inspirada na referência aprovada, sem alterar a lógica de monitoramento.
+- Medidor circular ganhou aro externo, brilho sutil e melhor contraste; status de carregamento passou a usar ícone e cápsula com gradiente.
+- Cards de fonte, tensão, corrente, potência, temperatura e resumo receberam nova hierarquia, ícones e bordas discretas.
+- Navegação inferior foi refeita com ícones e destaque visual para a aba Agora, mantendo Gráficos, Sessão e Histórico reservados.
+- Mantida a tela Agora sem rolagem, com dimensões responsivas para alturas menores e todos os arquivos abaixo de 500 linhas.
+- Mantida a assinatura release permanente e a publicação direta do APK em GitHub Releases.
+
 ## 1.0.5+6
 
 - Removido `actions/upload-artifact` para o APK, evitando que o download seja empacotado automaticamente como ZIP.

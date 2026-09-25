@@ -76,9 +76,9 @@ class MainActivity : Activity() {
 
     private fun renderMonitoringStatus(running: Boolean) {
         monitoringStatus.text = when {
-            running -> "Monitoramento ativo"
-            preferences.isMonitoringRequested() -> "Iniciando monitoramento…"
-            else -> "Monitoramento inativo"
+            running -> "● Monitoramento ativo"
+            preferences.isMonitoringRequested() -> "● Iniciando monitoramento…"
+            else -> "● Monitoramento inativo"
         }
         monitoringStatus.setTextColor(
             getColor(if (running) R.color.accent_green else R.color.accent_blue)

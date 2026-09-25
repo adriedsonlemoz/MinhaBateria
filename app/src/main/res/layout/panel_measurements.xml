@@ -8,37 +8,52 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/source_row_height"
         android:background="@drawable/bg_card"
+        android:elevation="2dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="14dp"
+        android:paddingStart="12dp"
         android:paddingEnd="14dp">
+
+        <FrameLayout
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_source_icon">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:contentDescription="Fonte"
+                android:src="@drawable/ic_source_battery" />
+        </FrameLayout>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:singleLine="true"
             android:text="Fonte de energia"
             android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/sourceValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxWidth="170dp"
+            android:maxWidth="150dp"
             android:singleLine="true"
             android:text="—"
             android:textColor="@color/accent_blue"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/metrics_grid_height"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="@dimen/card_gap"
         android:orientation="vertical">
 
         <LinearLayout
@@ -48,11 +63,11 @@
             android:orientation="horizontal">
 
             <include layout="@layout/tile_voltage" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
-            <Space android:layout_width="6dp" android:layout_height="1dp" />
+            <Space android:layout_width="@dimen/card_gap" android:layout_height="1dp" />
             <include layout="@layout/tile_current" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
         </LinearLayout>
 
-        <Space android:layout_width="1dp" android:layout_height="6dp" />
+        <Space android:layout_width="1dp" android:layout_height="@dimen/card_gap" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,7 +76,7 @@
             android:orientation="horizontal">
 
             <include layout="@layout/tile_power" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
-            <Space android:layout_width="6dp" android:layout_height="1dp" />
+            <Space android:layout_width="@dimen/card_gap" android:layout_height="1dp" />
             <include layout="@layout/tile_temperature" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>

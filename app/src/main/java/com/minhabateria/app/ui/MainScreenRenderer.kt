@@ -29,7 +29,7 @@ class MainScreenRenderer(private val activity: Activity) {
         source.text = BatteryFormatter.source(info.source)
         renderMetric(voltage, BatteryFormatter.voltage(info.voltageMv), info.voltageMv != null, R.color.accent_green)
         renderMetric(current, BatteryFormatter.current(info.currentMa), info.currentMa != null, R.color.accent_green)
-        renderMetric(power, BatteryFormatter.power(info.powerW), info.powerW != null, R.color.accent_green)
+        renderMetric(power, BatteryFormatter.power(info.powerW), info.powerW != null, R.color.text_primary)
         renderMetric(temperature, BatteryFormatter.temperature(info.temperatureC), info.temperatureC != null, R.color.accent_orange)
 
         elapsed.text = TimeFormatter.elapsed(session.elapsedMs)
@@ -43,18 +43,30 @@ class MainScreenRenderer(private val activity: Activity) {
     }
 
     private fun renderStatus(charging: Boolean) {
-        status.text = if (charging) "⚡ Carregando" else "Não está carregando"
-        status.setTextColor(if (charging) Color.BLACK else Color.WHITE)
-        status.background = roundedBackground(
-            if (charging) Color.rgb(42, 229, 79) else Color.rgb(47, 58, 67)
+        status.text = if (charging) "Carregando" else "Não está carregando"
+        status.setTextColor(if (charging) Color.rgb(6, 35, 20) else Color.WHITE)
+        status.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            if (charging) R.drawable.ic_status_charging else R.drawable.ic_status_idle,
+            0,
+            0,
+            0
         )
+        status.background = statusBackground(charging)
     }
 
-    private fun roundedBackground(color: Int): GradientDrawable {
-        return GradientDrawable().apply {
+    private fun statusBackground(charging: Boolean): GradientDrawable {
+        val colors = if (charging) {
+            intArrayOf(Color.rgb(41, 235, 113), Color.rgb(21, 196, 89))
+        } else {
+            intArrayOf(Color.rgb(46, 64, 81), Color.rgb(34, 48, 62))
+        }
+        return GradientDrawable(GradientDrawable.Orientation.TL_BR, colors).apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadius = 100f
-            setColor(color)
+            setStroke(
+                1,
+                activity.getColor(if (charging) R.color.accent_green else R.color.status_idle_border)
+            )
         }
     }
 }

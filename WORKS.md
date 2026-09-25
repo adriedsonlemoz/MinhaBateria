@@ -1,12 +1,12 @@
 # Works — Minha Bateria
 
-Versão atual: `1.0.5+6`.
+Versão atual: `1.0.6+7`.
 
 ## Build recomendado
 
-O projeto passou a usar build `release` assinado. Antes do build, disponibilize estas variáveis de ambiente:
+O projeto usa build `release` assinado. Antes do build, disponibilize:
 
-- `MINHA_BATERIA_KEYSTORE_PATH`: caminho do keystore recriado a partir do Secret Base64;
+- `MINHA_BATERIA_KEYSTORE_PATH`;
 - `MINHA_BATERIA_KEYSTORE_PASSWORD`;
 - `MINHA_BATERIA_KEY_ALIAS`;
 - `MINHA_BATERIA_KEY_PASSWORD`.
@@ -17,35 +17,28 @@ Com os Secrets configurados:
 gradle :app:assembleRelease
 ```
 
-Saída original:
+Saída original: `app/build/outputs/apk/release/app-release.apk`
 
-`app/build/outputs/apk/release/app-release.apk`
-
-Nome de entrega:
-
-`Minha-Bateria-1.0.5.apk`
+Nome de entrega: `Minha-Bateria-1.0.6.apk`
 
 ## GitHub Manager
 
-Importe o arquivo separado `Minha-Bateria-GitHub-Secrets.txt`. Ele contém os quatro Secrets no formato `NOME=VALOR` utilizado pelo workflow.
-
-A mesma chave de assinatura deve ser preservada em todas as próximas versões. Trocar a chave impedirá a atualização sobre o APK já instalado.
+Use o mesmo arquivo separado `Minha-Bateria-GitHub-Secrets.txt` criado anteriormente. A mesma chave de assinatura deve ser preservada em todas as versões futuras.
 
 ## Regras do projeto
 
-- não ultrapassar 500 linhas por arquivo de código;
+- nenhum arquivo de código acima de 500 linhas;
 - incrementar e sincronizar a versão a cada entrega;
 - manter APK fora do ZIP de código-fonte;
-- não adicionar o keystore ou o arquivo de Secrets ao repositório;
-- validar XML, Manifest, IDs e integridade do ZIP antes da entrega.
+- não adicionar keystore ou Secrets ao repositório;
+- validar XML, Manifest, IDs e integridade do ZIP antes da entrega;
+- preservar a tela Agora sem rolagem.
 
 ## Entrega no GitHub
 
-O APK não deve ser enviado por `actions/upload-artifact`, pois o GitHub baixa Artifacts como ZIP.
+O workflow publica diretamente em GitHub Releases:
 
-O workflow publica diretamente em **GitHub Releases**:
+- `Minha-Bateria-1.0.6.apk` — instalação direta;
+- `Minha-Bateria-1.0.6-source.zip` — somente código-fonte.
 
-- `Minha-Bateria-1.0.5.apk` — instalação direta;
-- `Minha-Bateria-1.0.5-source.zip` — somente código-fonte.
-
-No GitHub Manager, priorize os assets da Release em vez da seção Actions Artifacts.
+Não usar `actions/upload-artifact` para o APK.

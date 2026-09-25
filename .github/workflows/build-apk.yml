@@ -29,7 +29,7 @@ jobs:
       - name: Preparar pacote de código-fonte
         run: |
           mkdir -p release
-          zip -qr release/Minha-Bateria-1.0.5-source.zip . \
+          zip -qr release/Minha-Bateria-1.0.6-source.zip . \
             -x '.git/*' \
                '.gradle/*' \
                'app/build/*' \
@@ -56,18 +56,18 @@ jobs:
 
       - name: Preparar APK de entrega
         run: |
-          cp app/build/outputs/apk/release/app-release.apk release/Minha-Bateria-1.0.5.apk
-          test -f release/Minha-Bateria-1.0.5.apk
-          test -f release/Minha-Bateria-1.0.5-source.zip
+          cp app/build/outputs/apk/release/app-release.apk release/Minha-Bateria-1.0.6.apk
+          test -f release/Minha-Bateria-1.0.6.apk
+          test -f release/Minha-Bateria-1.0.6-source.zip
 
       - name: Publicar arquivos diretamente no GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TAG="v1.0.5"
-          TITLE="Minha Bateria 1.0.5"
-          APK="release/Minha-Bateria-1.0.5.apk"
-          SOURCE="release/Minha-Bateria-1.0.5-source.zip"
+          TAG="v1.0.6"
+          TITLE="Minha Bateria 1.0.6"
+          APK="release/Minha-Bateria-1.0.6.apk"
+          SOURCE="release/Minha-Bateria-1.0.6-source.zip"
 
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" "$APK" "$SOURCE" --clobber
