@@ -1,10 +1,17 @@
-# Works - instruções de build
+# Works
 
-1. Usar JDK 17.
-2. Instalar/usar Android SDK 35.
-3. Executar `gradle :app:assembleDebug` na raiz.
-4. O APK fica em `app/build/outputs/apk/debug/app-debug.apk`.
-5. Renomear o APK final para `Minha-Bateria-1.0.0.apk`.
-6. APK deve permanecer fora do ZIP de código-fonte.
-7. Antes de cada nova entrega, incrementar `versionName` e `versionCode` e sincronizar VERSION, app_identity.json, README e CHANGELOG.
-8. Não permitir arquivos Kotlin acima de 500 linhas.
+Projeto preparado para build Android/Kotlin com JDK 17 e Android SDK 35.
+
+Comando de build:
+
+```bash
+gradle :app:assembleDebug
+```
+
+Versão atual: `1.0.1+2`
+
+APK esperado após renomear o artefato de debug:
+
+`Minha-Bateria-1.0.1.apk`
+
+O APK deve permanecer fora do ZIP do código-fonte.
