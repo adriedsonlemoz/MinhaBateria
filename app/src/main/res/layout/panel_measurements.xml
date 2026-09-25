@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="165dp"
+    android:layout_height="158dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="46dp"
         android:background="@drawable/bg_card"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp">
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:singleLine="true"
-            android:text="🔌  Fonte de energia"
+            android:text="Fonte de energia"
             android:textColor="@color/text_secondary"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/sourceValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxWidth="150dp"
+            android:maxWidth="170dp"
             android:singleLine="true"
             android:text="—"
             android:textColor="@color/accent_blue"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="105dp"
         android:layout_marginTop="7dp"
-        android:background="@drawable/bg_card"
         android:orientation="vertical">
 
         <LinearLayout
@@ -48,68 +47,22 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <include
+                layout="@layout/tile_voltage"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingStart="14dp">
+                android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="◉  Tensão"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
+            <Space android:layout_width="7dp" android:layout_height="1dp" />
 
-                <TextView
-                    android:id="@+id/voltageValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="—"
-                    android:textColor="@color/accent_green"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/card_border" />
-
-            <LinearLayout
+            <include
+                layout="@layout/tile_current"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingStart="14dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="↯  Corrente"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/currentValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="—"
-                    android:textColor="@color/accent_green"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:layout_weight="1" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/card_border" />
+        <Space android:layout_width="1dp" android:layout_height="7dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,62 +70,19 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <include
+                layout="@layout/tile_power"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingStart="14dp">
+                android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="⚡  Potência"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
+            <Space android:layout_width="7dp" android:layout_height="1dp" />
 
-                <TextView
-                    android:id="@+id/powerValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="—"
-                    android:textColor="@color/accent_green"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/card_border" />
-
-            <LinearLayout
+            <include
+                layout="@layout/tile_temperature"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingStart="14dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="♨  Temperatura"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/temperatureValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="—"
-                    android:textColor="@color/accent_orange"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

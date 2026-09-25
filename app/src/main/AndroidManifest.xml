@@ -12,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MinhaBateria">
         <activity
+            android:name=".settings.SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">

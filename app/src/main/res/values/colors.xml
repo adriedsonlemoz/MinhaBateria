@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background">#061016</color>
-    <color name="card">#111A20</color>
-    <color name="card_border">#26343D</color>
+    <color name="surface">#0C171E</color>
+    <color name="card">#111D24</color>
+    <color name="card_border">#2A3D48</color>
     <color name="text_primary">#F5F7F8</color>
-    <color name="text_secondary">#C3CBD0</color>
-    <color name="text_muted">#73808A</color>
+    <color name="text_secondary">#B8C4CB</color>
+    <color name="text_muted">#6F818C</color>
     <color name="accent_green">#2AE54F</color>
+    <color name="accent_green_soft">#173C26</color>
     <color name="accent_blue">#45B7FF</color>
     <color name="accent_orange">#FFB11B</color>
 </resources>

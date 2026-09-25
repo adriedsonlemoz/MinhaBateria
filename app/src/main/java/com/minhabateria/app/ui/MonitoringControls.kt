@@ -34,7 +34,12 @@ class MonitoringControls(activity: Activity) {
             requested -> "Iniciando…"
             else -> "Inativo"
         }
+        status.setTextColor(
+            status.context.getColor(if (running) R.color.accent_green else R.color.accent_blue)
+        )
         startButton.isEnabled = !requested
         stopButton.isEnabled = requested
+        startButton.alpha = if (startButton.isEnabled) 1f else 0.45f
+        stopButton.alpha = if (stopButton.isEnabled) 1f else 0.45f
     }
 }

@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.3+4
+
+- Modernizado o visual da tela principal com fundo sutil em gradiente e cards com maior separação visual.
+- Reorganizadas as quatro métricas em blocos individuais sem adicionar rolagem à tela Agora.
+- Adicionada engrenagem de Configurações no canto superior direito.
+- Removidos os controles de monitoramento contínuo da tela principal.
+- Criada tela de Configurações reutilizando o serviço e as preferências já existentes.
+- Monitoramento contínuo, iniciar/parar e retomar após reiniciar foram movidos para Configurações.
+- Adicionada seção Sobre o app com versão instalada e as três alterações mais recentes.
+- Adicionada seção Doação com cópia da chave Pix para a área de transferência e confirmação por mensagem.
+- Alterado o workflow de `assembleDebug` para `assembleRelease` assinado.
+- Configurada assinatura permanente por GitHub Secrets para permitir atualização sobre versões futuras assinadas com a mesma chave.
+- Adicionada documentação de assinatura em `SIGNING.md`.
+- Mantida arquitetura modular e limite máximo de 500 linhas por arquivo de código.
+
 ## 1.0.2+3
 
 - Removido o `ScrollView` da tela principal.

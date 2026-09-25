@@ -1,71 +1,72 @@
 # Minha Bateria
 
-Aplicativo Android simples em Kotlin para acompanhar o carregamento do celular.
+Aplicativo Android em Kotlin para acompanhar dados de bateria e carregamento localmente.
 
 ## Versão
 
-- versionName: 1.0.2
-- versionCode: 3
-- versão completa: 1.0.2+3
+- versionName: 1.0.3
+- versionCode: 4
+- versão completa: 1.0.3+4
 - package: `com.minhabateria.app`
 
 ## Recursos atuais
 
 - porcentagem da bateria;
 - carregando / não carregando;
-- fonte detectada: tomada, USB, sem fio ou bateria;
+- fonte detectada pelo Android;
 - tensão;
-- corrente quando o aparelho disponibiliza a leitura;
-- potência calculada a partir de tensão e corrente;
+- corrente quando o dispositivo disponibiliza a leitura;
+- potência calculada;
 - temperatura da bateria;
-- tempo conectado na sessão atual;
-- pico de corrente e potência da sessão;
+- tempo conectado;
+- pico de corrente e potência;
 - monitoramento contínuo por foreground service;
-- notificação permanente com dados resumidos;
-- controles para iniciar e parar o monitoramento;
-- opção de retomar o monitoramento após reiniciar o aparelho;
-- tela principal compacta, sem rolagem vertical;
-- métricas organizadas em grade 2x2;
-- resumo compacto de tempo e picos;
-- barra inferior reservada para Agora, Gráficos, Sessão e Histórico.
+- notificação permanente;
+- retomada opcional após reiniciar;
+- tela Agora compacta e sem rolagem;
+- Configurações separadas da tela principal;
+- seção Sobre com versão e alterações recentes;
+- botão Doação que copia a chave Pix para a área de transferência.
 
-## Tela Agora
+## Interface
 
-A tela principal foi reorganizada para manter os dados essenciais visíveis sem `ScrollView`. O medidor circular se adapta ao espaço vertical disponível, enquanto os blocos de fonte, métricas, sessão e monitoramento possuem alturas compactas e previsíveis.
+A tela Agora mantém apenas as informações essenciais. Os controles do monitoramento contínuo foram movidos para Configurações para reduzir poluição visual. O visual usa superfícies escuras com contraste sutil, cards separados e uma hierarquia mais clara, sem efeitos pesados.
 
-As seções `Gráficos`, `Sessão` e `Histórico` aparecem apenas como estrutura visual reservada nesta versão e permanecem inativas até suas respectivas etapas de desenvolvimento.
+As abas Gráficos, Sessão e Histórico continuam reservadas para as próximas etapas e não possuem lógica fictícia nesta versão.
 
 ## Monitoramento contínuo
 
-O serviço só é iniciado quando solicitado pelo usuário. No Android 13 ou superior, o app solicita permissão para notificações. O foreground service continua podendo ser iniciado se a permissão for negada, sujeito ao comportamento do Android para notificações de serviços em primeiro plano.
+O foreground service continua sendo iniciado somente quando solicitado pelo usuário. No Android 13 ou superior, o app solicita permissão para notificações. A opção de retomar após reiniciar permanece opcional e depende da preferência salva pelo usuário.
 
-A opção `Retomar após reiniciar` usa `BOOT_COMPLETED` e somente tenta restaurar o serviço se o monitoramento estava ativo antes da reinicialização.
+O app não utiliza `WAKE_LOCK` e não mantém a tela ligada artificialmente.
 
-O app não usa `WAKE_LOCK`. A tela também não é mantida artificialmente ligada, evitando alterar desnecessariamente o consumo observado durante os testes.
+## Assinatura e atualização
+
+A partir desta versão, o workflow gera um APK `release` assinado com uma chave permanente. Os dados da chave não ficam no repositório: são fornecidos por GitHub Secrets.
+
+O arquivo `Minha-Bateria-GitHub-Secrets.txt` é entregue separadamente do ZIP do código. Guarde esse arquivo com segurança. As próximas versões devem usar os mesmos Secrets para que o Android reconheça a assinatura e permita instalar a atualização por cima da versão instalada.
+
+Consulte `SIGNING.md`.
 
 ## Arquitetura
 
-O código é dividido por responsabilidade em `battery`, `calculation`, `monitoring`, `ui` e `utils`.
+O código é dividido por responsabilidade em `battery`, `calculation`, `monitoring`, `settings`, `ui` e `utils`.
 Nenhum arquivo de código deve ultrapassar 500 linhas.
 
-## Build
+## Build release
 
-Requisitos: JDK 17 e Android SDK 35.
+Requisitos: JDK 17, Android SDK 35 e os quatro Secrets de assinatura configurados no ambiente/GitHub.
 
-No Works ou em ambiente Android configurado:
+O workflow executa:
 
 ```bash
-gradle :app:assembleDebug
+gradle :app:assembleRelease
 ```
 
-APK gerado originalmente em:
+Artefato final do workflow:
 
-`app/build/outputs/apk/debug/app-debug.apk`
-
-O workflow incluído copia o artefato com o nome:
-
-`Minha-Bateria-1.0.2.apk`
+`Minha-Bateria-1.0.3.apk`
 
 ## Observação de medição
 
-`BATTERY_PROPERTY_CURRENT_NOW` depende do suporte do fabricante e representa a corrente observada na bateria pelo sistema, não uma medição direta da saída do painel, carregador ou power bank. Alguns aparelhos podem não fornecer corrente válida. Nesses casos, o aplicativo mostra `Indisponível` e não inventa um valor.
+`BATTERY_PROPERTY_CURRENT_NOW` depende do suporte do fabricante e representa a corrente observada na bateria pelo sistema, não uma medição direta da saída do painel, carregador ou power bank. Quando o aparelho não fornece uma leitura válida, o aplicativo mostra `Indisponível`.

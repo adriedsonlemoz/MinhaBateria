@@ -23,14 +23,26 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Build debug APK
-        run: gradle :app:assembleDebug
+      - name: Restore release keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.MINHA_BATERIA_KEYSTORE_BASE64 }}
+        run: |
+          test -n "$KEYSTORE_BASE64"
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/minha-bateria-release.jks"
+
+      - name: Build signed release APK
+        env:
+          MINHA_BATERIA_KEYSTORE_PATH: ${{ runner.temp }}/minha-bateria-release.jks
+          MINHA_BATERIA_KEYSTORE_PASSWORD: ${{ secrets.MINHA_BATERIA_KEYSTORE_PASSWORD }}
+          MINHA_BATERIA_KEY_ALIAS: ${{ secrets.MINHA_BATERIA_KEY_ALIAS }}
+          MINHA_BATERIA_KEY_PASSWORD: ${{ secrets.MINHA_BATERIA_KEY_PASSWORD }}
+        run: gradle :app:assembleRelease
 
       - name: Rename APK
-        run: cp app/build/outputs/apk/debug/app-debug.apk Minha-Bateria-1.0.2.apk
+        run: cp app/build/outputs/apk/release/app-release.apk Minha-Bateria-1.0.3.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Minha-Bateria-1.0.2
-          path: Minha-Bateria-1.0.2.apk
+          name: Minha-Bateria-1.0.3
+          path: Minha-Bateria-1.0.3.apk
