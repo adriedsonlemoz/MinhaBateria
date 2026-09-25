@@ -28,7 +28,6 @@ class BatteryGaugeView @JvmOverloads constructor(
     private val batteryPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.WHITE
         style = Paint.Style.STROKE
-        strokeWidth = dp(4f)
     }
 
     private val fillPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -52,27 +51,48 @@ class BatteryGaugeView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        if (width <= 0 || height <= 0) return
+
         val size = min(width, height).toFloat()
+        val originX = (width - size) / 2f
+        val originY = (height - size) / 2f
         val stroke = size * 0.055f
+
         trackPaint.strokeWidth = stroke
         progressPaint.strokeWidth = stroke
         progressPaint.color = accentColor()
+        batteryPaint.strokeWidth = size * 0.018f
 
         val inset = stroke * 1.3f
-        val arc = RectF(inset, inset, width - inset, height - inset)
+        val arc = RectF(
+            originX + inset,
+            originY + inset,
+            originX + size - inset,
+            originY + size - inset
+        )
         val sweepMax = 290f
         canvas.drawArc(arc, 125f, sweepMax, false, trackPaint)
         canvas.drawArc(arc, 125f, sweepMax * (percent / 100f), false, progressPaint)
 
-        drawBatteryIcon(canvas, size)
+        drawBatteryIcon(canvas, size, originX, originY)
 
         textPaint.textSize = size * 0.17f
-        canvas.drawText("$percent%", width / 2f, height * 0.77f, textPaint)
+        canvas.drawText(
+            "$percent%",
+            originX + size / 2f,
+            originY + size * 0.77f,
+            textPaint
+        )
     }
 
-    private fun drawBatteryIcon(canvas: Canvas, size: Float) {
-        val centerX = width / 2f
-        val top = height * 0.29f
+    private fun drawBatteryIcon(
+        canvas: Canvas,
+        size: Float,
+        originX: Float,
+        originY: Float
+    ) {
+        val centerX = originX + size / 2f
+        val top = originY + size * 0.29f
         val batteryWidth = size * 0.20f
         val batteryHeight = size * 0.24f
         val left = centerX - batteryWidth / 2f
@@ -80,7 +100,7 @@ class BatteryGaugeView @JvmOverloads constructor(
         val bottom = top + batteryHeight
 
         val body = RectF(left, top, right, bottom)
-        canvas.drawRoundRect(body, dp(7f), dp(7f), batteryPaint)
+        canvas.drawRoundRect(body, size * 0.025f, size * 0.025f, batteryPaint)
 
         val capWidth = batteryWidth * 0.38f
         val capHeight = size * 0.025f
@@ -90,9 +110,9 @@ class BatteryGaugeView @JvmOverloads constructor(
             centerX + capWidth / 2f,
             top
         )
-        canvas.drawRoundRect(cap, dp(3f), dp(3f), batteryPaint)
+        canvas.drawRoundRect(cap, size * 0.01f, size * 0.01f, batteryPaint)
 
-        val innerPadding = dp(7f)
+        val innerPadding = size * 0.025f
         val innerHeight = (batteryHeight - innerPadding * 2f) * (percent / 100f)
         if (innerHeight > 0f) {
             fillPaint.color = accentColor()
@@ -102,7 +122,7 @@ class BatteryGaugeView @JvmOverloads constructor(
                 right - innerPadding,
                 bottom - innerPadding
             )
-            canvas.drawRoundRect(fill, dp(3f), dp(3f), fillPaint)
+            canvas.drawRoundRect(fill, size * 0.01f, size * 0.01f, fillPaint)
         }
     }
 
@@ -111,6 +131,4 @@ class BatteryGaugeView @JvmOverloads constructor(
     } else {
         Color.rgb(69, 183, 255)
     }
-
-    private fun dp(value: Float): Float = value * resources.displayMetrics.density
 }

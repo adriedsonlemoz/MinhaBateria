@@ -4,9 +4,9 @@ Aplicativo Android simples em Kotlin para acompanhar o carregamento do celular.
 
 ## Versão
 
-- versionName: 1.0.1
-- versionCode: 2
-- versão completa: 1.0.1+2
+- versionName: 1.0.2
+- versionCode: 3
+- versão completa: 1.0.2+3
 - package: `com.minhabateria.app`
 
 ## Recursos atuais
@@ -23,7 +23,17 @@ Aplicativo Android simples em Kotlin para acompanhar o carregamento do celular.
 - monitoramento contínuo por foreground service;
 - notificação permanente com dados resumidos;
 - controles para iniciar e parar o monitoramento;
-- opção de retomar o monitoramento após reiniciar o aparelho.
+- opção de retomar o monitoramento após reiniciar o aparelho;
+- tela principal compacta, sem rolagem vertical;
+- métricas organizadas em grade 2x2;
+- resumo compacto de tempo e picos;
+- barra inferior reservada para Agora, Gráficos, Sessão e Histórico.
+
+## Tela Agora
+
+A tela principal foi reorganizada para manter os dados essenciais visíveis sem `ScrollView`. O medidor circular se adapta ao espaço vertical disponível, enquanto os blocos de fonte, métricas, sessão e monitoramento possuem alturas compactas e previsíveis.
+
+As seções `Gráficos`, `Sessão` e `Histórico` aparecem apenas como estrutura visual reservada nesta versão e permanecem inativas até suas respectivas etapas de desenvolvimento.
 
 ## Monitoramento contínuo
 
@@ -36,7 +46,7 @@ O app não usa `WAKE_LOCK`. A tela também não é mantida artificialmente ligad
 ## Arquitetura
 
 O código é dividido por responsabilidade em `battery`, `calculation`, `monitoring`, `ui` e `utils`.
-Nenhum arquivo Kotlin deve ultrapassar 500 linhas.
+Nenhum arquivo de código deve ultrapassar 500 linhas.
 
 ## Build
 
@@ -54,7 +64,7 @@ APK gerado originalmente em:
 
 O workflow incluído copia o artefato com o nome:
 
-`Minha-Bateria-1.0.1.apk`
+`Minha-Bateria-1.0.2.apk`
 
 ## Observação de medição
 

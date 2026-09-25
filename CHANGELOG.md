@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.0.2+3
+
+- Removido o `ScrollView` da tela principal.
+- Reorganizada a tela Agora para caber integralmente na área útil disponível.
+- Medidor circular reduzido e tornado responsivo à altura disponível.
+- Corrigido o desenho do medidor para permanecer circular mesmo em containers não quadrados.
+- Tensão, corrente, potência e temperatura reorganizadas em grade compacta 2x2.
+- Tempo conectado e picos reunidos em um único resumo horizontal.
+- Controles do monitoramento contínuo compactados sem remover funcionalidades.
+- Adicionada barra inferior fixa reservando Agora, Gráficos, Sessão e Histórico.
+- Layout principal dividido em painéis XML menores para evitar crescimento de um único arquivo.
+- Gráficos, Sessão e Histórico permanecem inativos nesta versão; nenhuma lógica fictícia foi adicionada.
+- Removidos layouts de linhas antigas que ficaram sem uso após a reorganização.
+- Mantido o foreground service e toda a lógica de monitoramento da versão anterior.
+- Mantido o limite de 500 linhas por arquivo.
+
 ## 1.0.1+2
 
 - Adicionado foreground service para monitoramento contínuo.
