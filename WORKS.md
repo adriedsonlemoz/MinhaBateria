@@ -1,17 +1,10 @@
 # Works — Minha Bateria
 
-Versão atual: `1.0.8+9`.
+Versão atual: `1.0.9+10`.
 
 ## Build recomendado
 
-O projeto usa build `release` assinado. Antes do build, disponibilize:
-
-- `MINHA_BATERIA_KEYSTORE_PATH`;
-- `MINHA_BATERIA_KEYSTORE_PASSWORD`;
-- `MINHA_BATERIA_KEY_ALIAS`;
-- `MINHA_BATERIA_KEY_PASSWORD`.
-
-Com os Secrets configurados:
+O projeto usa build `release` assinado com os Secrets permanentes do Minha Bateria.
 
 ```bash
 gradle :app:assembleRelease
@@ -19,27 +12,21 @@ gradle :app:assembleRelease
 
 Saída original: `app/build/outputs/apk/release/app-release.apk`
 
-Nome de entrega: `Minha-Bateria-1.0.8.apk`
+Nome de entrega: `Minha-Bateria-1.0.9.apk`
 
 ## GitHub Manager
 
-Use o mesmo arquivo separado `Minha-Bateria-GitHub-Secrets.txt` criado anteriormente. A mesma chave de assinatura deve ser preservada em todas as versões futuras.
+Use o mesmo `Minha-Bateria-GitHub-Secrets.txt` já criado. A assinatura não deve ser trocada.
 
-## Regras do projeto
+## Regras
 
 - nenhum arquivo de código acima de 500 linhas;
 - incrementar e sincronizar a versão a cada entrega;
-- manter APK fora do ZIP de código-fonte;
-- não adicionar keystore ou Secrets ao repositório;
-- validar XML, Manifest, IDs e integridade do ZIP antes da entrega;
-- preservar a tela Agora sem rolagem.
+- APK fora do ZIP de código-fonte;
+- não incluir keystore ou Secrets no repositório;
+- validar XML, Manifest, IDs e ZIP antes da entrega;
+- tela Agora sem rolagem.
 
-## Entrega do Works / GitHub Actions
+## Entrega
 
-O workflow publica **somente**:
-
-- `Minha-Bateria-1.0.8.apk` — instalação direta.
-
-O workflow não cria, não publica e não oferece `Minha-Bateria-1.0.8-source.zip` como saída. O source ZIP é apenas o pacote de desenvolvimento entregue separadamente fora do Works.
-
-Não usar `actions/upload-artifact` para o APK.
+O Works/GitHub Actions publica somente `Minha-Bateria-1.0.9.apk`. O source ZIP é apenas o pacote de desenvolvimento entregue separadamente no chat.

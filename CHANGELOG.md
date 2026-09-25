@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.9+10
+
+- Aprimorado o Perfil da fonte para orientar o preenchimento com dados reais da etiqueta, sem exigir nome manual do carregador.
+- Nome do perfil agora pode ser gerado automaticamente a partir de marca, modelo e potência, mantendo nome personalizado apenas como opção.
+- Carregador passou a aceitar marca, modelo, potência máxima, saídas, protocolo/tecnologia, porta e dados opcionais do cabo.
+- Power bank passou a aceitar capacidade, potência, saídas, protocolo e porta; painel solar ganhou tensão, corrente e controlador/conversor opcionais.
+- Perfis antigos continuam compatíveis e são migrados ao serem lidos, sem apagar a configuração existente.
+- Dados da etiqueta são tratados como referência nominal e não como medição direta da saída da fonte.
+- Mantidos assinatura permanente, publicação somente do APK no Works e limite de 500 linhas por arquivo.
+
 ## 1.0.8+9
 
 - Corrigido o nome do aplicativo no launcher: `Minha Bateria` agora é declarado por `@string/app_name` tanto no `application` quanto na Activity MAIN/LAUNCHER.

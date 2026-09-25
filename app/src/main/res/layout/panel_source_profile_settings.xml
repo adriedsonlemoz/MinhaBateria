@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="O perfil é informado por você e fica separado da conexão detectada pelo Android."
+        android:text="Use os dados da etiqueta da fonte. O perfil continua separado da conexão detectada pelo Android."
         android:textColor="@color/text_muted"
         android:textSize="11sp" />
 

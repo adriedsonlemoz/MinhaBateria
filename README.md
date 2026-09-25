@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.8
-- versionCode: 8
-- versão completa: 1.0.8+9
+- versionName: 1.0.9
+- versionCode: 10
+- versão completa: 1.0.9+10
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -22,87 +22,69 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Recursos atuais
 
-- porcentagem da bateria;
-- carregando / não carregando;
+- porcentagem e estado da bateria;
 - fonte detectada pelo Android;
-- perfil configurável da fonte usada no teste;
-- tipos: painel solar, carregador, power bank e outra fonte;
-- nome personalizado e potência nominal opcional, obrigatória para painel solar;
-- tensão;
-- corrente quando o dispositivo disponibiliza a leitura;
-- potência calculada;
-- temperatura da bateria;
-- tempo conectado;
-- pico de corrente e potência;
+- tensão, corrente, potência calculada e temperatura;
+- tempo conectado e picos observados;
 - monitoramento contínuo por foreground service;
-- notificação permanente;
-- retomada opcional após reiniciar;
-- Configurações separadas da tela principal;
-- seção Sobre e botão Doação.
+- perfil técnico da fonte usada no teste;
+- Configurações, Sobre e Doação;
+- build release assinado e publicação direta do APK.
 
-## Perfil da fonte
+## Perfil técnico da fonte
 
-Na primeira abertura sem perfil configurado, o app oferece a configuração uma vez. O usuário pode escolher `Agora não` e configurar posteriormente em Configurações.
+O perfil não exige mais um nome inventado. O usuário escolhe o tipo da fonte e copia os dados que conseguir ler na etiqueta. O nome pode ser gerado automaticamente, por exemplo `Samsung EP-TA800 • 25 W`.
 
-O perfil informado pelo usuário é mantido separado da conexão detectada pelo Android. Exemplo:
+### Carregador
 
-- perfil: `Painel 8W`;
-- detectado pelo Android: `USB`.
+Pode registrar marca, modelo, potência máxima declarada, saídas da etiqueta, tecnologia/protocolo, porta usada e informação do cabo.
 
-O perfil é salvo localmente e não precisa ser preenchido novamente a cada abertura.
+### Power bank
+
+Pode registrar marca, modelo, capacidade em mAh, potência máxima, saídas, protocolo e porta.
+
+### Painel solar
+
+Registra potência nominal e pode guardar tensão/corrente da etiqueta e o controlador ou conversor usado. A potência nominal continua obrigatória para painel solar.
+
+### Outra fonte
+
+Aceita os dados conhecidos sem exigir especificações inexistentes.
+
+Os dados de etiqueta são referência nominal e permanecem separados da conexão detectada pelo Android. Eles não são tratados como medição direta da energia entregue ao aparelho.
+
+## Origem e confiabilidade dos dados
+
+- **Sistema:** valores fornecidos pelo Android quando disponíveis;
+- **Calculado:** valores derivados das leituras, como potência;
+- **Estimado:** reservado para integrações futuras, como Wh e mAh acumulados.
+
+Valores ausentes permanecem como `Indisponível`.
 
 ## Interface
 
-A tela Agora usa identidade visual azul-profundo, cards em camadas, medidor circular, métricas com ícones e navegação inferior. O layout principal continua sem rolagem.
-
-As abas Gráficos, Sessão e Histórico permanecem reservadas para etapas futuras e não possuem lógica fictícia.
+A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. Configurações e formulários auxiliares podem rolar quando necessário.
 
 ## Monitoramento contínuo
 
-O foreground service é iniciado somente quando solicitado pelo usuário. No Android 13 ou superior, o app solicita permissão para notificações. A retomada após reiniciar é opcional.
-
-O app não utiliza `WAKE_LOCK` e não mantém a tela ligada artificialmente.
+O foreground service é iniciado somente quando solicitado. O app não utiliza `WAKE_LOCK`. A retomada após reiniciar é opcional.
 
 ## Assinatura e atualização
 
-O APK de distribuição é `release` e usa a chave permanente introduzida na versão 1.0.3+4. Os dados da chave são fornecidos por GitHub Secrets e não ficam no ZIP do código-fonte.
-
-Use sempre o mesmo arquivo `Minha-Bateria-GitHub-Secrets.txt` para permitir atualização por cima da instalação existente.
+O APK usa a chave release permanente introduzida na versão 1.0.3+4. Use sempre o mesmo `Minha-Bateria-GitHub-Secrets.txt` para instalar atualizações por cima da versão existente.
 
 ## Arquitetura
 
-O código é dividido por responsabilidade em `battery`, `calculation`, `monitoring`, `settings`, `source`, `ui` e `utils`. Nenhum arquivo de código deve ultrapassar 500 linhas.
+O código é dividido por responsabilidade em módulos. Nenhum arquivo de código deve ultrapassar 500 linhas.
 
 ## Build release
-
-Requisitos: JDK 17, Android SDK 35 e os quatro Secrets de assinatura configurados.
 
 ```bash
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.8.apk`
-
-## Observação de medição
-
-`BATTERY_PROPERTY_CURRENT_NOW` depende do suporte do fabricante e representa a corrente observada na bateria pelo sistema, não uma medição direta da saída do painel, carregador ou power bank. Quando o aparelho não fornece uma leitura válida, o aplicativo mostra `Indisponível`.
+APK final: `Minha-Bateria-1.0.9.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow gera e publica **somente** `Minha-Bateria-1.0.8.apk` como arquivo de entrega. Ele não cria nem publica um source ZIP e não usa `actions/upload-artifact` para o APK.
-
-O ZIP de código-fonte usado para desenvolvimento é mantido fora do fluxo de entrega do Works/GitHub Actions.
-
-## Origem e confiabilidade dos dados
-
-A versão 1.0.8+9 classifica as medições por origem:
-
-- **Sistema:** porcentagem, estado de carga, conexão detectada, tensão, corrente e temperatura quando o Android disponibiliza o dado;
-- **Calculado:** potência (`V × A`), duração e picos derivados das amostras válidas;
-- **Estimado:** categoria reservada para integrações futuras, como Wh e mAh acumulados.
-
-Leituras ausentes não são substituídas por zero. Quando o sistema não fornece um valor válido, a interface apresenta `Indisponível`. A corrente continua dependendo do suporte do fabricante ao `BATTERY_PROPERTY_CURRENT_NOW`.
-
-## Nome no launcher
-
-O nome `Minha Bateria` é declarado pelo recurso `@string/app_name` no aplicativo e explicitamente na Activity MAIN/LAUNCHER, evitando launchers que não exibam corretamente um rótulo apenas herdado.
+O workflow publica somente `Minha-Bateria-1.0.9.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.

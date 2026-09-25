@@ -16,10 +16,10 @@ import com.minhabateria.app.monitoring.MonitoringState
 import com.minhabateria.app.monitoring.MonitoringStateStore
 import com.minhabateria.app.source.EnergySourceProfile
 import com.minhabateria.app.source.SourceProfileActivity
+import com.minhabateria.app.source.SourceProfileFormatter
 import com.minhabateria.app.source.SourceProfileStore
 import com.minhabateria.app.ui.MonitoringControls
 import com.minhabateria.app.ui.SystemBars
-import java.util.Locale
 
 class SettingsActivity : Activity() {
     private lateinit var controls: MonitoringControls
@@ -86,17 +86,8 @@ class SettingsActivity : Activity() {
     }
 
     private fun renderSourceProfile(profile: EnergySourceProfile?) {
-        sourceProfileSummary.text = profile?.let {
-            val power = it.nominalPowerW?.let(::formatPower).orEmpty()
-            "${it.name} • ${it.type.label}$power"
-        } ?: "Nenhum perfil configurado"
-    }
-
-    private fun formatPower(watts: Double): String {
-        val text = String.format(Locale.getDefault(), "%.1f", watts)
-            .removeSuffix(",0")
-            .removeSuffix(".0")
-        return " • $text W"
+        sourceProfileSummary.text = profile?.let(SourceProfileFormatter::settingsSummary)
+            ?: "Nenhum perfil configurado"
     }
 
     private fun requestContinuousMonitoring() {
