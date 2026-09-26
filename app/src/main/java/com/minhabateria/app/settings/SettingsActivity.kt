@@ -93,7 +93,11 @@ class SettingsActivity : Activity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_NOTIFICATIONS && pendingServiceStart) {
             pendingServiceStart = false
-            MonitoringServiceController.start(this)
+            val granted = grantResults.isNotEmpty() &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED
+            if (granted) {
+                MonitoringServiceController.start(this, MonitoringServiceController.ORIGIN_USER)
+            }
         }
     }
 
@@ -111,7 +115,7 @@ class SettingsActivity : Activity() {
             requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), REQUEST_NOTIFICATIONS)
             return
         }
-        MonitoringServiceController.start(this)
+        MonitoringServiceController.start(this, MonitoringServiceController.ORIGIN_USER)
     }
 
     private companion object {

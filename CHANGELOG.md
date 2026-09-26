@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.29+30
+
+- Corrigido fechamento no Android 16 causado por `ForegroundServiceStartNotAllowedException` durante restauração automática do `BatteryMonitorService`.
+- Recriações `START_STICKY` com `intent == null` agora verificam se o monitoramento continua solicitado e encerram com segurança quando a promoção para foreground é recusada.
+- Inicialização do serviço ganhou proteção também no controlador; recusas recuperáveis deixam o monitoramento pendente para nova tentativa quando o app voltar ao primeiro plano.
+- Diagnóstico passa a registrar data, origem, exceção e detalhe da última recusa ao iniciar o serviço, sem contabilizá-la como crash fatal.
+- Corrigido o fluxo de `POST_NOTIFICATIONS`: o serviço só é iniciado após confirmação de permissão concedida.
+- Versão, identidade, documentação, novidades e workflow sincronizados para 1.0.29+30.
+
 ## 1.0.28+29
 
 - Tela Gráficos redesenhada: removida a grade 2×2 e adotado um gráfico amplo com seleção entre Bateria, Corrente, Potência e Temperatura.

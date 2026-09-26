@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.28+29"
+        android:text="Versão 1.0.29+30"
         android:textColor="@color/accent_blue"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• A tela Gráficos agora mostra uma métrica grande por vez, com seletores para Bateria, Corrente, Potência e Temperatura.\n\n• As janelas de 5, 15 e 60 minutos continuam disponíveis e a seleção é preservada durante recriações da tela.\n\n• O gráfico ganhou grade, preenchimento suave, marcador da leitura mais recente, mínimo/máximo e eixo de tempo mais legível.\n\n• Lacunas de leitura não são ligadas artificialmente; períodos sem amostras permanecem visualmente interrompidos."
+        android:text="• Corrigido um fechamento no Android 16 ao restaurar automaticamente o monitoramento contínuo.\n\n• Se o Android bloquear temporariamente a promoção para serviço em primeiro plano, a tentativa é encerrada com segurança e pode ser refeita ao abrir o app.\n\n• O Diagnóstico agora registra a última recusa de inicialização do monitoramento sem tratá-la como falha fatal.\n\n• Corrigido o fluxo de permissão: negar notificações não inicia mais o serviço por engano."
         android:textColor="@color/text_primary"
         android:textSize="13sp" />
 

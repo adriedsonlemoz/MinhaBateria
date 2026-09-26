@@ -12,6 +12,7 @@ import com.minhabateria.app.charts.ChartSampleRepository
 import com.minhabateria.app.history.HistoryStore
 import com.minhabateria.app.monitoring.ContinuousSessionStore
 import com.minhabateria.app.monitoring.MonitorPreferences
+import com.minhabateria.app.monitoring.MonitoringStartIssueStore
 import com.minhabateria.app.monitoring.MonitoringState
 import com.minhabateria.app.session.SessionFormatter
 import com.minhabateria.app.settings.AppVersionInfo
@@ -45,6 +46,7 @@ object DiagnosticReportBuilder {
             appendLine("Retomar após reiniciar: ${yesNo(preferences.shouldResumeAfterBoot())}")
             appendLine("Notificações: ${notificationPermission(context)}")
             appendLine("Sessão contínua persistida: ${yesNo(savedSession?.active == true)}")
+            appendMonitoringStartIssue(appContext)
             appendLine()
             appendLine("FONTE CONFIGURADA")
             appendLine(profile?.let(SourceProfileFormatter::settingsSummary) ?: "Nenhum perfil configurado")
@@ -68,6 +70,14 @@ object DiagnosticReportBuilder {
             appendLine("• Wh, mAh e médias da sessão são estimados por integração temporal.")
             appendLine("• Valores indisponíveis não são substituídos por zero.")
         }.trimEnd()
+    }
+
+    private fun StringBuilder.appendMonitoringStartIssue(context: Context) {
+        val issue = MonitoringStartIssueStore(context).latest() ?: return
+        appendLine("Última recusa ao iniciar serviço: ${DateFormat.getDateTimeInstance().format(Date(issue.timestampMs))}")
+        appendLine("Origem da tentativa: ${issue.origin.ifBlank { "Indisponível" }}")
+        appendLine("Motivo: ${issue.exceptionName.ifBlank { "Indisponível" }}")
+        if (issue.message.isNotBlank()) appendLine("Detalhe: ${issue.message}")
     }
 
     private fun StringBuilder.appendCrashReport(context: Context) {

@@ -18,6 +18,7 @@ class BatteryMonitorService : Service() {
     private lateinit var notification: MonitoringNotification
     private lateinit var sessionStore: ContinuousSessionStore
     private lateinit var dischargeRecorder: DischargeRecorder
+    private lateinit var startIssueStore: MonitoringStartIssueStore
     private var foregroundStarted = false
     private var lastNotificationUpdateMs = 0L
 
@@ -27,6 +28,7 @@ class BatteryMonitorService : Service() {
         notification = MonitoringNotification(this)
         sessionStore = ContinuousSessionStore(this)
         dischargeRecorder = DischargeRecorder(this)
+        startIssueStore = MonitoringStartIssueStore(this)
         val chargingSession = ChargingSession(sessionStore.load())
         val historyRecorder = HistoryRecorder(this)
         monitor = BatteryMonitor(
@@ -51,8 +53,27 @@ class BatteryMonitorService : Service() {
             return START_NOT_STICKY
         }
 
-        preferences.setMonitoringRequested(true)
-        startInForeground()
+        val automaticRestore = intent == null
+        if (automaticRestore) {
+            if (!preferences.isMonitoringRequested()) {
+                stopSelfResult(startId)
+                return START_NOT_STICKY
+            }
+        } else {
+            preferences.setMonitoringRequested(true)
+        }
+
+        val origin = if (automaticRestore) {
+            ORIGIN_SYSTEM_RESTORE
+        } else {
+            intent?.getStringExtra(EXTRA_START_ORIGIN).orEmpty().ifBlank { ORIGIN_SERVICE_REQUEST }
+        }
+        if (!startInForeground(origin)) {
+            MonitoringStateStore.publish(running = false)
+            stopSelfResult(startId)
+            return START_NOT_STICKY
+        }
+
         MonitoringStateStore.publish(running = true)
         monitor.start()
         return START_STICKY
@@ -68,20 +89,27 @@ class BatteryMonitorService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
-    private fun startInForeground() {
-        if (foregroundStarted) return
+    private fun startInForeground(origin: String): Boolean {
+        if (foregroundStarted) return true
         val state = MonitoringStateStore.current()
         val initialNotification = notification.build(state.info, state.session, dischargeRecorder.current())
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            startForeground(
-                MonitoringNotification.NOTIFICATION_ID,
-                initialNotification,
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
-            )
-        } else {
-            startForeground(MonitoringNotification.NOTIFICATION_ID, initialNotification)
+        return try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                startForeground(
+                    MonitoringNotification.NOTIFICATION_ID,
+                    initialNotification,
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
+                )
+            } else {
+                startForeground(MonitoringNotification.NOTIFICATION_ID, initialNotification)
+            }
+            foregroundStarted = true
+            true
+        } catch (error: RuntimeException) {
+            if (!ForegroundServiceStartGuard.isRecoverable(error)) throw error
+            startIssueStore.record(origin, error)
+            false
         }
-        foregroundStarted = true
     }
 
     private fun updateNotificationIfNeeded(
@@ -109,6 +137,9 @@ class BatteryMonitorService : Service() {
     companion object {
         const val ACTION_START = "com.minhabateria.app.action.START_MONITORING"
         const val ACTION_STOP = "com.minhabateria.app.action.STOP_MONITORING"
+        const val EXTRA_START_ORIGIN = "com.minhabateria.app.extra.START_ORIGIN"
         private const val NOTIFICATION_UPDATE_MS = 5_000L
+        private const val ORIGIN_SYSTEM_RESTORE = "Restauração automática do serviço pelo Android"
+        private const val ORIGIN_SERVICE_REQUEST = "Inicialização do serviço"
     }
 }
