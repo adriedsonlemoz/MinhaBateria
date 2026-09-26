@@ -6,7 +6,6 @@ import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.Build
 import com.minhabateria.app.calculation.PowerCalculator
-import kotlin.math.abs
 
 class BatteryStatusReader(private val context: Context) {
     private val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
@@ -44,8 +43,9 @@ class BatteryStatusReader(private val context: Context) {
         val temperatureC = intent?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, Int.MIN_VALUE)
             ?.takeIf { it != Int.MIN_VALUE }
             ?.div(10.0)
-        val currentMa = readChargingCurrent(isCharging)
-        val powerW = PowerCalculator.watts(voltageMv, currentMa)
+        val currentMa = readCurrent()
+        val chargingCurrentMa = currentMa?.takeIf { isCharging == true && it > 0.0 }
+        val powerW = PowerCalculator.watts(voltageMv, chargingCurrentMa)
         val chargeTimeRemainingMs = readChargeTimeRemaining(isCharging, percent)
 
         return BatteryInfo(
@@ -67,13 +67,11 @@ class BatteryStatusReader(private val context: Context) {
             .takeIf { it > 0L }
     }
 
-    private fun readChargingCurrent(isCharging: Boolean?): Double? {
-        if (isCharging != true) return null
+    private fun readCurrent(): Double? {
         val currentUa = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
-        if (currentUa == Int.MIN_VALUE || currentUa == 0) return null
-        return abs(currentUa.toDouble())
-            .div(1000.0)
-            .takeIf { it.isFinite() && it > 0.0 }
+        if (currentUa == Int.MIN_VALUE) return null
+        return (currentUa.toDouble() / 1000.0)
+            .takeIf { it.isFinite() }
     }
 
     private fun readSource(plugged: Int): ChargingSource = when (plugged) {

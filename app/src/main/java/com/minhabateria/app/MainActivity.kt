@@ -33,7 +33,7 @@ class MainActivity : Activity() {
     private val stateListener: (MonitoringState) -> Unit = { state ->
         runOnUiThread {
             state.info?.let { info ->
-                state.session?.let { session -> renderer.render(info, session) }
+                state.session?.let { session -> renderer.render(info, session, state.discharge) }
             }
             renderMonitoringStatus(state.running)
             LocalBatteryMonitorHub.sync(this)
@@ -92,7 +92,7 @@ class MainActivity : Activity() {
             ).show()
         }
         val state = MonitoringStateStore.current()
-        state.info?.let { info -> state.session?.let { session -> renderer.render(info, session) } }
+        state.info?.let { info -> state.session?.let { session -> renderer.render(info, session, state.discharge) } }
         if (!sourceProfileStore.shouldOfferInitialSetup()) UpdateNotesDialog.showIfNeeded(this)
     }
 

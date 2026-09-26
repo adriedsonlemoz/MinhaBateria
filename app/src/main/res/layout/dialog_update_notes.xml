@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.23+24"
+        android:text="Versão 1.0.24+25"
         android:textColor="@color/accent_blue"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• A notificação agora mostra autonomia durante a descarga, previsão até 100% durante a carga e elimina campos Indisponível.\n\n• Ao expandir a notificação, aparecem dados úteis da sessão e a corrente instantânea quando disponível.\n\n• Em Consumo de bateria, a corrente fica negativa/vermelha ao descarregar e positiva/verde ao carregar."
+        android:text="• A tela Agora passa a estimar a autonomia fora da tomada somente após uma amostra real mínima; antes disso mostra Calculando autonomia…\n\n• Corrente passa a preservar o sinal bruto do Android: negativa/vermelha na descarga e positiva/verde na entrada de energia, sem inversão artificial.\n\n• Velocidade de carga muda automaticamente para Velocidade de descarga ao desconectar, exibindo a taxa observada em %/h.\n\n• Removidos valores fictícios dos layouts e ajustado o ranking de apps para representar atividade observada, não consumo elétrico."
         android:textColor="@color/text_primary"
         android:textSize="13sp" />
 

@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.23
-- versionCode: 24
-- versão completa: 1.0.23+24
+- versionName: 1.0.24
+- versionCode: 25
+- versão completa: 1.0.24+25
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -24,7 +24,7 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 - porcentagem e estado da bateria;
 - fonte detectada pelo Android;
-- tensão, corrente, velocidade de carga calculada e temperatura;
+- tensão, corrente bruta com sinal, velocidade de carga e velocidade de descarga observada, além de temperatura;
 - tempo da sessão, Wh/mAh estimados, picos observados e estimativa de tempo até 100% quando disponível;
 - monitoramento contínuo por foreground service;
 - perfil técnico da fonte usada no teste com preenchimento rápido por sugestões;
@@ -96,7 +96,7 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
-A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. A potência instantânea é apresentada ao usuário como **Velocidade de carga**, mantendo a indicação de que o valor é calculado. Um atalho **Entenda W, mA, Wh e mAh** explica os dados em linguagem simples.
+A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. Com a fonte conectada, a potência instantânea é apresentada como **Velocidade de carga**. Fora da tomada, o mesmo card muda para **Velocidade de descarga** e passa a mostrar a taxa real observada em `%/h` somente depois de uma amostra mínima. Um atalho **Entenda W, mA, Wh e mAh** explica os dados em linguagem simples.
 
 Quando o aparelho está carregando, o próprio indicador verde mostra a estimativa aproximada, por exemplo `100% em aproximadamente 3 h 12 min`, evitando o texto genérico `Carregando`. Em Android 9 ou superior, o app prioriza a previsão fornecida pelo próprio sistema; quando ela não está disponível, pode estimar pelo ritmo observado na sessão somente após pelo menos 2 pontos percentuais e 2 minutos de carga. Se não houver dados suficientes, mostra `Calculando tempo restante…` em vez de inventar um valor.
 
@@ -104,7 +104,7 @@ A aba Sessão agora abre em modo simplificado, com bateria inicial/atual, tempo,
 
 A navegação inferior mantém Agora, Gráficos, Sessão, Descarga e Histórico no mesmo nível. A aba Descarga registra o consumo fora da tomada e a aba Histórico salva automaticamente cada sessão de carregamento quando a fonte é desconectada.
 
-Na parte inferior da tela Agora há um card **Consumo de bateria**. A tela dedicada cruza a taxa de descarga observada com as estatísticas de tempo em primeiro plano das últimas 6 horas. A corrente instantânea é exibida com sinal: negativa e vermelha quando a bateria está fornecendo energia, positiva e verde durante a carga. Para consultar outros aplicativos, o usuário precisa conceder manualmente **Acesso ao uso** nas Configurações do Android. O ranking é apresentado como indicador de atividade e possível pista de consumo, não como medição elétrica exata por aplicativo.
+Na parte inferior da tela Agora há um card **Consumo de bateria**. A tela dedicada cruza a taxa de descarga observada com as estatísticas de tempo em primeiro plano das últimas 6 horas. A corrente instantânea preserva o sinal bruto informado pelo Android: negativo indica saída de energia e positivo indica entrada. O app não inverte o sinal para forçar coerência com o estado de carga; divergências são sinalizadas na interface. Para consultar outros aplicativos, o usuário precisa conceder manualmente **Acesso ao uso** nas Configurações do Android. O ranking é apresentado como indicador de atividade e possível pista de consumo, não como medição elétrica exata por aplicativo.
 
 ## Ciclo automático da sessão
 
@@ -126,7 +126,7 @@ Os gráficos armazenam no máximo uma amostra a cada 10 segundos, embora a leitu
 
 ## Monitoramento contínuo
 
-O foreground service é iniciado somente quando solicitado. O app não utiliza `WAKE_LOCK`. A retomada após reiniciar é opcional. A notificação persistente funciona como resumo vivo: durante a descarga mostra autonomia estimada e ritmo quando já existe amostra confiável; durante a carga mostra previsão até 100%; ao expandir, inclui dados úteis da sessão e corrente instantânea quando disponíveis, sem preencher a linha com campos `Indisponível`.
+O foreground service é iniciado somente quando solicitado. O app não utiliza `WAKE_LOCK`. A retomada após reiniciar é opcional. A notificação persistente funciona como resumo vivo: durante a descarga mostra autonomia estimada e ritmo apenas após pelo menos 3 minutos e 1% de queda real; durante a carga mostra previsão até 100%; ao expandir, inclui dados úteis da sessão e corrente instantânea quando disponíveis, sem preencher a linha com campos `Indisponível`.
 
 ## Diagnóstico e validação
 
@@ -150,11 +150,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.23.apk`
+APK final: `Minha-Bateria-1.0.24.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.23.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.24.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -163,4 +163,4 @@ O Histórico permite selecionar duas sessões para comparar lado a lado os valor
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.23.apk` na GitHub Release `v1.0.23`.
+O workflow publica diretamente `Minha-Bateria-1.0.24.apk` na GitHub Release `v1.0.24`.

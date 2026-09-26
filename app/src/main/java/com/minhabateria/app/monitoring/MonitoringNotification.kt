@@ -16,7 +16,7 @@ import com.minhabateria.app.discharge.ActiveDischarge
 
 class MonitoringNotification(private val context: Context) {
     private val manager = context.getSystemService(NotificationManager::class.java)
-    private val currentReader = BatteryCurrentReader(context)
+    private val currentReader = BatteryCurrentReader()
 
     init {
         createChannel()

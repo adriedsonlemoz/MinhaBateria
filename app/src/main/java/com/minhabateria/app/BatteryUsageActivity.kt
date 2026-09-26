@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.minhabateria.app.battery.BatteryCurrentReader
 import com.minhabateria.app.battery.BatteryStatusReader
+import com.minhabateria.app.calculation.BatteryRateEstimator
 import com.minhabateria.app.discharge.DischargeStore
 import com.minhabateria.app.monitoring.LocalBatteryMonitorHub
 import com.minhabateria.app.monitoring.MonitoringState
@@ -36,7 +37,7 @@ class BatteryUsageActivity : Activity() {
         setContentView(R.layout.activity_battery_usage)
         SystemBars.apply(this, findViewById(R.id.batteryUsageRoot))
         repository = BatteryUsageRepository(this)
-        currentReader = BatteryCurrentReader(this)
+        currentReader = BatteryCurrentReader()
         appsList = findViewById(R.id.batteryUsageAppsList)
         accessCard = findViewById(R.id.usageAccessCard)
         emptyText = findViewById(R.id.usageEmptyText)
@@ -69,15 +70,16 @@ class BatteryUsageActivity : Activity() {
     }
 
     private fun renderSummary() {
-        val info = MonitoringStateStore.current().info ?: BatteryStatusReader(this).read()
-        val active = DischargeStore(this).active()
+        val state = MonitoringStateStore.current()
+        val info = state.info ?: BatteryStatusReader(this).read()
+        val active = state.discharge ?: DischargeStore(this).active()
         val currentMa = currentReader.readSignedMa(info)
         val currentView = findViewById<TextView>(R.id.usageCurrentValue)
 
         findViewById<TextView>(R.id.usageBatteryValue).text = info.percent?.let { "$it%" } ?: "—"
         findViewById<TextView>(R.id.usageRateValue).text = when {
             info.isPlugged == true -> "—"
-            else -> BatteryUsageFormatter.rate(active?.ratePercentPerHour)
+            else -> BatteryUsageFormatter.rate(BatteryRateEstimator.dischargePercentPerHour(active))
         }
         currentView.text = BatteryUsageFormatter.signedCurrent(currentMa)
         currentView.setTextColor(
@@ -91,10 +93,16 @@ class BatteryUsageActivity : Activity() {
             )
         )
         findViewById<TextView>(R.id.usageLiveHint).text = when {
-            info.isCharging == true -> "Corrente positiva indica energia entrando na bateria; a análise de descarga fica pausada durante a carga."
+            info.isCharging == true && currentMa != null && currentMa < 0.0 ->
+                "O Android informa carregamento, mas a corrente bruta veio negativa. O app mantém a leitura sem inverter o sinal."
+            info.isPlugged == false && currentMa != null && currentMa > 0.0 ->
+                "O aparelho está fora da tomada, mas a corrente bruta veio positiva. O app mantém a leitura sem alterar o sinal."
+            info.isCharging == true ->
+                "Corrente positiva indica energia entrando na bateria; a análise de descarga fica pausada durante a carga."
             info.isPlugged == true -> "Fonte conectada, mas a bateria não está carregando agora."
-            active?.ratePercentPerHour != null -> "Corrente negativa indica energia saindo da bateria. Ritmo medido pela sessão de descarga atual."
-            else -> "Corrente negativa indica descarga. A taxa fica mais confiável depois de alguns minutos e de queda real da bateria."
+            BatteryRateEstimator.dischargePercentPerHour(active) != null ->
+                "Corrente negativa indica energia saindo da bateria. Ritmo medido pela sessão de descarga atual."
+            else -> "Corrente negativa indica descarga. A taxa aparece após pelo menos 3 min e 1% de queda real."
         }
     }
 
@@ -146,7 +154,7 @@ class BatteryUsageActivity : Activity() {
             row.findViewById<TextView>(R.id.usageAppRank).text = "${index + 1}"
             row.findViewById<TextView>(R.id.usageAppName).text = app.label
             row.findViewById<TextView>(R.id.usageAppDetail).text =
-                "${BatteryUsageFormatter.duration(app.foregroundMs)} em primeiro plano • ${app.sharePercent}% do uso observado"
+                "${BatteryUsageFormatter.duration(app.foregroundMs)} em primeiro plano • ${app.sharePercent}% da atividade observada"
             row.findViewById<TextView>(R.id.usageAppImpact).text = BatteryUsageFormatter.impactLabel(app.sharePercent)
             app.icon?.let { row.findViewById<ImageView>(R.id.usageAppIcon).setImageDrawable(it) }
             appsList.addView(row)

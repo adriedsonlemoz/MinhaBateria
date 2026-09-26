@@ -2,6 +2,7 @@ package com.minhabateria.app.monitoring
 
 import com.minhabateria.app.battery.BatteryInfo
 import com.minhabateria.app.battery.ChargingSession
+import com.minhabateria.app.calculation.BatteryRateEstimator
 import com.minhabateria.app.charging.ChargeTimeEstimator
 import com.minhabateria.app.charging.ChargeTimeFormatter
 import com.minhabateria.app.discharge.ActiveDischarge
@@ -40,8 +41,8 @@ object MonitoringNotificationFormatter {
     }
 
     private fun dischargeSummary(info: BatteryInfo, discharge: ActiveDischarge?): String {
-        val rate = reliableDischargeRate(discharge)
-        val remaining = reliableRemaining(discharge)
+        val rate = BatteryRateEstimator.dischargePercentPerHour(discharge)
+        val remaining = BatteryRateEstimator.dischargeRemainingMs(discharge)?.let(ChargeTimeFormatter::compact)
         val temp = info.temperatureC
         return when {
             temp != null && temp >= HIGH_TEMPERATURE_C ->
@@ -65,7 +66,7 @@ object MonitoringNotificationFormatter {
                 session?.elapsedMs?.let { elapsed ->
                     val parts = mutableListOf("Sessão: ${compactElapsed(elapsed)}")
                     session.gainPercent?.takeIf { it != 0 }?.let { parts += signedPercent(it) }
-                    chargeRateValue(session)?.let { parts += "média ${signedRate(it)}" }
+                    BatteryRateEstimator.chargingPercentPerHour(session)?.let { parts += "média ${signedRate(it)}" }
                     lines += parts.joinToString(" • ")
                 }
             }
@@ -73,7 +74,7 @@ object MonitoringNotificationFormatter {
                 discharge?.let {
                     val parts = mutableListOf("Sessão: ${compactElapsed(it.durationMs)}")
                     if (it.dropPercent > 0) parts += "-${it.dropPercent}%"
-                    reliableDischargeRate(it)?.let { rate -> parts += "média ${formatRate(rate)}" }
+                    BatteryRateEstimator.dischargePercentPerHour(it)?.let { rate -> parts += "média ${formatRate(rate)}" }
                     lines += parts.joinToString(" • ")
                 }
             }
@@ -82,30 +83,8 @@ object MonitoringNotificationFormatter {
         return lines.joinToString("\n")
     }
 
-    private fun reliableDischargeRate(discharge: ActiveDischarge?): Double? {
-        discharge ?: return null
-        if (discharge.durationMs < MIN_ESTIMATE_DURATION_MS || discharge.dropPercent < 1) return null
-        return discharge.ratePercentPerHour?.takeIf { it in 0.1..MAX_REASONABLE_RATE_PERCENT_PER_HOUR }
-    }
-
-    private fun reliableRemaining(discharge: ActiveDischarge?): String? {
-        val rate = reliableDischargeRate(discharge) ?: return null
-        val percent = discharge?.currentPercent ?: return null
-        if (percent <= 0) return null
-        val remainingMs = (percent / rate * 3_600_000.0).toLong()
-        return remainingMs.takeIf { it in 1..MAX_REASONABLE_REMAINING_MS }?.let(ChargeTimeFormatter::compact)
-    }
-
     private fun chargeRate(session: ChargingSession.Snapshot?): String? =
-        chargeRateValue(session)?.let(::signedRate)
-
-    private fun chargeRateValue(session: ChargingSession.Snapshot?): Double? {
-        val gain = session?.gainPercent ?: return null
-        val chargingTimeMs = session.chargingTimeMs ?: return null
-        if (gain <= 0 || chargingTimeMs < MIN_ESTIMATE_DURATION_MS) return null
-        val hours = chargingTimeMs / 3_600_000.0
-        return (gain / hours).takeIf { it in 0.1..MAX_REASONABLE_RATE_PERCENT_PER_HOUR }
-    }
+        BatteryRateEstimator.chargingPercentPerHour(session)?.let(::signedRate)
 
     private fun isFull(info: BatteryInfo, session: ChargingSession.Snapshot?): Boolean =
         info.percent == 100 || session?.reachedFull == true
@@ -124,7 +103,7 @@ object MonitoringNotificationFormatter {
         String.format(Locale("pt", "BR"), "+%.1f%%/h", value)
 
     private fun signedCurrent(value: Double): String =
-        String.format(Locale("pt", "BR"), "%+.0f mA", value)
+        if (value == 0.0) "0 mA" else String.format(Locale("pt", "BR"), "%+.0f mA", value)
 
     private fun signedPercent(value: Int): String = if (value > 0) "+$value%" else "$value%"
 
@@ -142,9 +121,6 @@ object MonitoringNotificationFormatter {
     private fun join(vararg parts: String?): String =
         parts.filterNot { it.isNullOrBlank() }.joinToString(" • ")
 
-    private const val MIN_ESTIMATE_DURATION_MS = 3 * 60 * 1000L
-    private const val MAX_REASONABLE_REMAINING_MS = 48 * 60 * 60 * 1000L
-    private const val MAX_REASONABLE_RATE_PERCENT_PER_HOUR = 100.0
     private const val HIGH_DISCHARGE_RATE_PERCENT_PER_HOUR = 15.0
     private const val HIGH_TEMPERATURE_C = 43.0
 }

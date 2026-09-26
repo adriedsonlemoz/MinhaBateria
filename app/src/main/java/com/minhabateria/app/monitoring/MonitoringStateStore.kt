@@ -2,6 +2,7 @@ package com.minhabateria.app.monitoring
 
 import com.minhabateria.app.battery.BatteryInfo
 import com.minhabateria.app.battery.ChargingSession
+import com.minhabateria.app.discharge.ActiveDischarge
 import java.util.concurrent.CopyOnWriteArraySet
 
 object MonitoringStateStore {
@@ -24,9 +25,10 @@ object MonitoringStateStore {
     fun publish(
         running: Boolean,
         info: BatteryInfo? = state.info,
-        session: ChargingSession.Snapshot? = state.session
+        session: ChargingSession.Snapshot? = state.session,
+        discharge: ActiveDischarge? = state.discharge
     ) {
-        state = MonitoringState(running, info, session)
+        state = MonitoringState(running, info, session, discharge)
         listeners.forEach { it(state) }
     }
 }

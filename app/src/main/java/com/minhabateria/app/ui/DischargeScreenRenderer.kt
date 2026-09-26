@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.minhabateria.app.R
+import com.minhabateria.app.calculation.BatteryRateEstimator
 import com.minhabateria.app.discharge.ActiveDischarge
 import com.minhabateria.app.discharge.CompletedDischarge
 import com.minhabateria.app.discharge.DischargeFormatter
@@ -47,21 +48,21 @@ class DischargeScreenRenderer(private val activity: Activity) {
             range.text = "Nenhuma descarga em andamento"
             quality.text = "Aguardando"
             oneHour.text = "—"
-            estimateHint.text = "A estimativa aparece depois que a bateria cair pelo menos 1%."
+            estimateHint.text = "A estimativa aparece após pelo menos 3 min e 1% de queda real da bateria."
             headerSummary.text = "Acompanhe quanto a bateria consome fora da tomada"
             return
         }
 
-        val currentRate = active.ratePercentPerHour
-        status.text = if (active.dropPercent == 0) {
-            "Medição ativa. A taxa aparece após a bateria cair pelo menos 1%."
+        val currentRate = BatteryRateEstimator.dischargePercentPerHour(active)
+        status.text = if (currentRate == null) {
+            "Medição ativa. A taxa aparece após pelo menos 3 min e 1% de queda real."
         } else {
             "Medição automática ativa • média calculada desde ${active.startPercent}%"
         }
         rate.text = DischargeFormatter.rate(currentRate)
         drop.text = "${active.dropPercent}%"
         elapsed.text = DischargeFormatter.duration(active.durationMs)
-        autonomy.text = DischargeFormatter.remaining(active.estimatedRemainingMs)
+        autonomy.text = DischargeFormatter.remaining(BatteryRateEstimator.dischargeRemainingMs(active))
         range.text = "Bateria ${active.startPercent}% → ${active.currentPercent}%"
         quality.text = qualityLabel(active)
         oneHour.text = projectedAfterOneHour(active, currentRate)
@@ -87,7 +88,8 @@ class DischargeScreenRenderer(private val activity: Activity) {
     }
 
     private fun qualityHint(active: ActiveDischarge): String = when {
-        active.dropPercent <= 0 -> "A estimativa aparece depois que a bateria cair pelo menos 1%."
+        !BatteryRateEstimator.hasEnoughDischargeSample(active) ->
+            "A estimativa aparece após pelo menos 3 min e 1% de queda real da bateria."
         active.dropPercent >= 5 || active.durationMs >= 60 * 60_000L ->
             "Amostra mais estável. Mudanças de brilho, sinal, tela e uso ainda podem alterar o consumo."
         else -> "A média ainda pode variar bastante. Deixe a medição rodar por mais tempo para melhorar a referência."

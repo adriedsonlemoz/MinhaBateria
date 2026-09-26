@@ -17,7 +17,7 @@ object MonitoringServiceController {
         MonitorPreferences(appContext).setMonitoringRequested(false)
         ContinuousSessionStore(appContext).clear()
         appContext.stopService(Intent(appContext, BatteryMonitorService::class.java))
-        MonitoringStateStore.publish(running = false)
+        MonitoringStateStore.publish(running = false, discharge = null)
     }
 
     fun restoreIfRequested(context: Context) {

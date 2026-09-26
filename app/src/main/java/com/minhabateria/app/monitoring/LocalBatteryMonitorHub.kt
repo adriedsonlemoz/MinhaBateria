@@ -43,7 +43,8 @@ object LocalBatteryMonitorHub {
                 MonitoringStateStore.publish(
                     running = MonitoringStateStore.current().running,
                     info = info,
-                    session = snapshot
+                    session = snapshot,
+                    discharge = dischargeRecorder?.current()
                 )
             },
             onSessionCompleted = { source, completed ->

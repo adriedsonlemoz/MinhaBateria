@@ -20,6 +20,10 @@ object BatteryFormatter {
         String.format(Locale.getDefault(), "%.0f mA", it)
     } ?: "Indisponível"
 
+    fun signedCurrent(milliamps: Double?): String = milliamps?.let {
+        if (it == 0.0) "0 mA" else String.format(Locale.getDefault(), "%+.0f mA", it)
+    } ?: "Indisponível"
+
     fun power(watts: Double?): String = watts?.let {
         String.format(Locale.getDefault(), "%.2f W", it)
     } ?: "Indisponível"

@@ -36,7 +36,7 @@ class BatteryMonitorService : Service() {
                 ChartSampleRepository.record(this, info)
                 dischargeRecorder.update(info)
                 sessionStore.save(chargingSession.savedState())
-                MonitoringStateStore.publish(true, info, session)
+                MonitoringStateStore.publish(true, info, session, dischargeRecorder.current())
                 updateNotificationIfNeeded(info, session)
             },
             onSessionCompleted = { source, completed ->
@@ -98,7 +98,7 @@ class BatteryMonitorService : Service() {
         preferences.setMonitoringRequested(false)
         monitor.stop()
         sessionStore.clear()
-        MonitoringStateStore.publish(running = false)
+        MonitoringStateStore.publish(running = false, discharge = null)
         if (foregroundStarted) {
             stopForeground(STOP_FOREGROUND_REMOVE)
             foregroundStarted = false

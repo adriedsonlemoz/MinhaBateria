@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.24+25
+
+- Corrigida a leitura de corrente para preservar exatamente o sinal retornado por `BATTERY_PROPERTY_CURRENT_NOW`; removida a inversão artificial por estado de carregamento.
+- Potência de carga só é calculada quando a corrente bruta é positiva e o Android informa estado de carregamento, evitando mascarar leituras inconsistentes.
+- Tela Agora passa a mostrar autonomia estimada fora da tomada apenas com amostra mínima de 3 minutos e 1% de queda real; antes disso exibe `Calculando autonomia…`.
+- Card `Velocidade de carga` muda automaticamente para `Velocidade de descarga` ao desconectar e mostra a taxa observada em `%/h`; o card de corrente passa a exibir a leitura instantânea com sinal e cor correspondente.
+- A mesma regra de confiabilidade foi centralizada para Agora, Descarga, Consumo de bateria e notificação, evitando projeções precoces divergentes entre telas.
+- Ranking de apps deixa de forçar participação mínima de 1% e passa a descrever a porcentagem como `atividade observada`, não como consumo elétrico.
+- Removidos valores fictícios usados como placeholders em linhas de histórico, comparação e uso de apps; campos dinâmicos iniciam com `—`.
+- Versão, identidade, documentação, novidades e workflow sincronizados para 1.0.24+25.
+
 ## 1.0.23+24
 
 - Notificação persistente redesenhada como resumo vivo da bateria: na descarga mostra autonomia estimada e ritmo quando a amostra já é confiável; na carga mostra previsão aproximada até 100%.

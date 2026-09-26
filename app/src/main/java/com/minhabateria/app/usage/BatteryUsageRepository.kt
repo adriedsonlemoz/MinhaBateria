@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Process
 import android.provider.Settings
+import kotlin.math.roundToInt
 
 class BatteryUsageRepository(private val context: Context) {
     data class AppUsage(
@@ -63,7 +64,7 @@ class BatteryUsageRepository(private val context: Context) {
                 packageName = packageName,
                 label = packageManager.getApplicationLabel(appInfo).toString(),
                 foregroundMs = foregroundMs,
-                sharePercent = ((foregroundMs * 100.0) / total).toInt().coerceIn(1, 100),
+                sharePercent = ((foregroundMs * 100.0) / total).roundToInt().coerceIn(0, 100),
                 icon = runCatching { packageManager.getApplicationIcon(appInfo) }.getOrNull()
             )
         }
