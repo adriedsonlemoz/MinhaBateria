@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.27
-- versionCode: 28
-- versão completa: 1.0.27+28
+- versionName: 1.0.28
+- versionCode: 29
+- versão completa: 1.0.28+29
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -31,7 +31,7 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - navegação principal com Agora, Gráficos, Sessão, Descarga e Histórico;
 - tela Descarga com consumo em %/h, autonomia estimada, projeção da bateria em 1 hora, qualidade da amostra, média histórica e histórico próprio;
 - módulo Consumo de bateria com taxa atual, corrente instantânea com direção visual (+ entrada / − descarga) e ranking de apps mais ativos nas últimas 6 horas mediante Acesso ao uso;
-- gráficos leves de potência, corrente, temperatura e bateria em 5, 15 e 60 minutos;
+- gráficos de bateria, corrente, potência e temperatura em visualização ampla, com seleção de 5, 15 e 60 minutos;
 - diagnóstico técnico copiável/exportável com estado do monitoramento, leituras, sessão, histórico, gráficos e falhas capturadas;
 - capturador global de exceções fatais com até 10 relatórios locais, incluindo stack trace, tela aberta, versão, aparelho, memória e estado da bateria;
 - Configurações, Sobre e Doação;
@@ -96,7 +96,9 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
-A versão 1.0.27 refina a tela **Consumo de bateria**. O ranking por aplicativo deixa de usar selos genéricos e passa a mostrar barras proporcionais da participação no tempo em primeiro plano, com porcentagem destacada e duração separada. A tela reforça visualmente que esse percentual representa **atividade observada**, não consumo elétrico individual, mantendo a análise fiel ao que o Android realmente disponibiliza. O resumo de descarga e os avisos também ganharam melhor hierarquia e leitura no tema escuro.
+A versão 1.0.28 redesenha a tela **Gráficos** para priorizar leitura e espaço útil. Em vez da grade 2×2, a tela mostra uma métrica grande por vez e oferece seletores rápidos para **Bateria, Corrente, Potência e Temperatura**, mantendo as janelas de 5, 15 e 60 minutos. O gráfico ganhou grade mais legível, marcador da amostra mais recente, mínimo/máximo, eixo temporal e preenchimento visual discreto. Lacunas reais de amostragem permanecem interrompidas em vez de serem ligadas artificialmente. Para bateria, a escala permanece de 0 a 100%; corrente e potência mantêm referência em zero quando aplicável, reduzindo exageros visuais de pequenas oscilações.
+
+A versão 1.0.27 havia refinado a tela **Consumo de bateria**, com barras proporcionais da atividade observada, porcentagem destacada e tempo em primeiro plano separado, sem apresentar esses valores como consumo elétrico medido por aplicativo.
 
 A versão 1.0.26 havia avançado o refinamento visual da tela **Agora**. O medidor circular passa a concentrar percentual e previsão útil no mesmo ponto: na descarga mostra a autonomia apenas quando a amostra mínima real já é válida; durante a carga mostra o tempo aproximado até 100% quando há uma estimativa confiável. Enquanto ainda não há dados suficientes, exibe apenas o estado de cálculo, sem inventar números. O chip abaixo do medidor foi reduzido a um estado curto como `Na bateria`, `Carregando` ou `Carga completa`.
 
@@ -158,11 +160,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.27.apk`
+APK final: `Minha-Bateria-1.0.28.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.27.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.28.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -171,4 +173,4 @@ O Histórico permite selecionar duas sessões para comparar lado a lado os valor
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.27.apk` na GitHub Release `v1.0.27`.
+O workflow publica diretamente `Minha-Bateria-1.0.28.apk` na GitHub Release `v1.0.28`.

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.28+29
+
+- Tela Gráficos redesenhada: removida a grade 2×2 e adotado um gráfico amplo com seleção entre Bateria, Corrente, Potência e Temperatura.
+- Mantidos os intervalos de 5, 15 e 60 minutos, com seleção preservada durante recriações da tela.
+- Gráfico ganhou mínimo/máximo, grade, eixo de tempo, preenchimento discreto e marcador da leitura mais recente.
+- Corrente usa vermelho quando a última leitura é negativa e verde quando positiva, preservando o sinal bruto recebido.
+- Escala da bateria usa 0–100%; corrente e potência mantêm a referência em zero quando aplicável para reduzir exageros visuais.
+- Lacunas de leitura e intervalos maiores que 30 segundos não são conectados artificialmente no traçado.
+- Versão, identidade, documentação, novidades e workflow sincronizados para 1.0.28+29.
+
 ## 1.0.27+28
 
 - Tela Consumo de bateria refinada visualmente com hierarquia mais clara no resumo de descarga, avisos compactos e melhor leitura no tema escuro.
