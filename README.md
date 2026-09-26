@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.25
-- versionCode: 26
-- versão completa: 1.0.25+26
+- versionName: 1.0.26
+- versionCode: 27
+- versão completa: 1.0.26+27
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -96,7 +96,9 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
-A versão 1.0.25 inicia o refinamento visual da tela **Agora**. Os cards usam contornos mais discretos, a fonte atual e o perfil configurado ficam separados visualmente, e métricas sem leitura ficam atenuadas em vez de competir com dados válidos. A navegação inferior também recebeu um estado ativo mais compacto.
+A versão 1.0.26 avança o refinamento visual da tela **Agora**. O medidor circular passa a concentrar percentual e previsão útil no mesmo ponto: na descarga mostra a autonomia apenas quando a amostra mínima real já é válida; durante a carga mostra o tempo aproximado até 100% quando há uma estimativa confiável. Enquanto ainda não há dados suficientes, exibe apenas o estado de cálculo, sem inventar números. O chip abaixo do medidor foi reduzido a um estado curto como `Na bateria`, `Carregando` ou `Carga completa`.
+
+A etapa anterior já havia deixado os cards com contornos mais discretos, separado a fonte realmente detectada do perfil configurado e atenuado métricas sem leitura. Esses ajustes permanecem.
 
 O resumo central agora muda de contexto sem inventar medições: conectado mostra tempo, energia e carga da sessão; fora da tomada mostra tempo na bateria, queda percentual real e média de descarga somente quando a amostra mínima já é válida.
 
@@ -154,11 +156,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.25.apk`
+APK final: `Minha-Bateria-1.0.26.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.25.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.26.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -167,4 +169,4 @@ O Histórico permite selecionar duas sessões para comparar lado a lado os valor
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.25.apk` na GitHub Release `v1.0.25`.
+O workflow publica diretamente `Minha-Bateria-1.0.26.apk` na GitHub Release `v1.0.26`.

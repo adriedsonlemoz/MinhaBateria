@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.26+27
+
+- Segunda etapa do refinamento visual da tela Agora aplicada ao medidor circular e à área de autonomia.
+- Medidor passa a exibir percentual e previsão no mesmo componente: autonomia restante na descarga ou tempo até 100% durante a carga.
+- Nenhuma previsão é inventada: sem amostra suficiente, o medidor mostra `Calculando autonomia…` ou `Calculando tempo…`; carga pausada e carga completa têm estados próprios.
+- Chip abaixo do medidor foi simplificado para um estado curto (`Na bateria`, `Carregando`, `Conectado • carga pausada` ou `Carga completa`), reduzindo duplicação visual.
+- Contraste do aro e do halo do medidor foi suavizado e o conteúdo interno reorganizado para abrir espaço à previsão sem aumentar o componente.
+- Acessibilidade do medidor e do status foi atualizada para anunciar percentual e previsão quando aplicável.
+- Placeholder visual antigo da versão em Configurações foi removido; o número exibido continua vindo em tempo de execução do pacote instalado.
+- Versão, identidade, documentação, novidades e workflow sincronizados para 1.0.26+27.
+
 ## 1.0.25+26
 
 - Iniciado o refinamento visual da tela Agora com superfícies e contornos mais discretos, reduzindo a competição visual entre os cards.

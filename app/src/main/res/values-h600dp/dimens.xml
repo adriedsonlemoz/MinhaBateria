@@ -3,7 +3,7 @@
     <dimen name="screen_horizontal_padding">16dp</dimen>
     <dimen name="main_header_height">52dp</dimen>
     <dimen name="gauge_size">178dp</dimen>
-    <dimen name="status_chip_height">42dp</dimen>
+    <dimen name="status_chip_height">36dp</dimen>
     <dimen name="measurements_height">184dp</dimen>
     <dimen name="source_row_height">52dp</dimen>
     <dimen name="metrics_grid_height">124dp</dimen>

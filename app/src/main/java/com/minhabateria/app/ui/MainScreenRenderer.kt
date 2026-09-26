@@ -61,8 +61,8 @@ class MainScreenRenderer(private val activity: Activity) {
         session: ChargingSession.Snapshot,
         discharge: ActiveDischarge? = null
     ) {
-        gauge.setBattery(info.percent, info.isCharging == true)
         val chargeEstimate = ChargeTimeEstimator.estimate(info, session)
+        renderGauge(info, session.reachedFull, chargeEstimate, discharge)
         renderStatus(info, session.reachedFull, chargeEstimate, discharge)
         renderDetectedSource(info)
 
@@ -219,6 +219,28 @@ class MainScreenRenderer(private val activity: Activity) {
         card.alpha = if (available) 1f else 0.68f
     }
 
+    private fun renderGauge(
+        info: BatteryInfo,
+        reachedFull: Boolean,
+        estimate: ChargeTimeEstimator.Estimate?,
+        discharge: ActiveDischarge?
+    ) {
+        val full = info.percent == 100 || reachedFull
+        val dischargeRemainingMs = BatteryRateEstimator.dischargeRemainingMs(discharge)
+        val secondary = when {
+            full -> "Carga completa"
+            info.isCharging == true && estimate != null ->
+                "~${ChargeTimeFormatter.compact(estimate.remainingMs)} até 100%"
+            info.isCharging == true -> "Calculando tempo…"
+            info.isPlugged == true -> "Carga pausada"
+            info.isPlugged == false && dischargeRemainingMs != null ->
+                "~${ChargeTimeFormatter.compact(dischargeRemainingMs)} restantes"
+            info.isPlugged == false -> "Calculando autonomia…"
+            else -> null
+        }
+        gauge.setBattery(info.percent, info.isCharging == true, secondary)
+    }
+
     private fun renderStatus(
         info: BatteryInfo,
         reachedFull: Boolean,
@@ -228,15 +250,12 @@ class MainScreenRenderer(private val activity: Activity) {
         val full = info.percent == 100 || reachedFull
         val dischargeRemainingMs = BatteryRateEstimator.dischargeRemainingMs(discharge)
         status.text = when {
-            full -> "100% • carga completa"
-            info.isCharging == true && estimate != null -> ChargeTimeFormatter.mainLabel(estimate)
-            info.isCharging == true -> "Calculando tempo até 100%…"
+            full -> "Carga completa"
+            info.isCharging == true -> "Carregando"
             info.isPlugged == true -> "Conectado • carga pausada"
-            info.isPlugged == false && dischargeRemainingMs != null ->
-                "Na bateria • ~${ChargeTimeFormatter.compact(dischargeRemainingMs)} restantes"
-            info.isPlugged == false -> "Na bateria • Calculando autonomia…"
-            info.percent != null -> "Bateria • ${info.percent}%"
-            else -> "Status da bateria indisponível"
+            info.isPlugged == false -> "Na bateria"
+            info.percent != null -> "Bateria"
+            else -> "Status da bateria"
         }
         val active = info.isCharging == true || full
         status.setTextColor(activity.getColor(if (active) R.color.accent_green else R.color.text_primary))
@@ -248,9 +267,13 @@ class MainScreenRenderer(private val activity: Activity) {
         )
         status.background = statusBackground(if (active) true else info.isCharging)
         status.contentDescription = when {
-            active && estimate != null -> "${status.text}. ${ChargeTimeFormatter.sourceLabel(estimate)}"
+            full -> "Carga completa. Bateria em 100 por cento."
+            active && estimate != null ->
+                "Carregando. Aproximadamente ${ChargeTimeFormatter.compact(estimate.remainingMs)} até 100 por cento. ${ChargeTimeFormatter.sourceLabel(estimate)}"
+            info.isCharging == true -> "Carregando. Calculando tempo até 100 por cento."
             info.isPlugged == false && dischargeRemainingMs != null ->
-                "${status.text}. Estimativa calculada pelo ritmo real da sessão de descarga."
+                "Na bateria. Aproximadamente ${ChargeTimeFormatter.compact(dischargeRemainingMs)} restantes. Estimativa calculada pelo ritmo real da sessão de descarga."
+            info.isPlugged == false -> "Na bateria. Calculando autonomia."
             else -> status.text
         }
     }
