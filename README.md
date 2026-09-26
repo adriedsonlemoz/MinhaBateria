@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.24
-- versionCode: 25
-- versão completa: 1.0.24+25
+- versionName: 1.0.25
+- versionCode: 26
+- versão completa: 1.0.25+26
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -96,6 +96,10 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
+A versão 1.0.25 inicia o refinamento visual da tela **Agora**. Os cards usam contornos mais discretos, a fonte atual e o perfil configurado ficam separados visualmente, e métricas sem leitura ficam atenuadas em vez de competir com dados válidos. A navegação inferior também recebeu um estado ativo mais compacto.
+
+O resumo central agora muda de contexto sem inventar medições: conectado mostra tempo, energia e carga da sessão; fora da tomada mostra tempo na bateria, queda percentual real e média de descarga somente quando a amostra mínima já é válida.
+
 A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. Com a fonte conectada, a potência instantânea é apresentada como **Velocidade de carga**. Fora da tomada, o mesmo card muda para **Velocidade de descarga** e passa a mostrar a taxa real observada em `%/h` somente depois de uma amostra mínima. Um atalho **Entenda W, mA, Wh e mAh** explica os dados em linguagem simples.
 
 Quando o aparelho está carregando, o próprio indicador verde mostra a estimativa aproximada, por exemplo `100% em aproximadamente 3 h 12 min`, evitando o texto genérico `Carregando`. Em Android 9 ou superior, o app prioriza a previsão fornecida pelo próprio sistema; quando ela não está disponível, pode estimar pelo ritmo observado na sessão somente após pelo menos 2 pontos percentuais e 2 minutos de carga. Se não houver dados suficientes, mostra `Calculando tempo restante…` em vez de inventar um valor.
@@ -150,11 +154,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.24.apk`
+APK final: `Minha-Bateria-1.0.25.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.24.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.25.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -163,4 +167,4 @@ O Histórico permite selecionar duas sessões para comparar lado a lado os valor
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.24.apk` na GitHub Release `v1.0.24`.
+O workflow publica diretamente `Minha-Bateria-1.0.25.apk` na GitHub Release `v1.0.25`.

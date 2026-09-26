@@ -16,8 +16,8 @@ android {
         applicationId = "com.minhabateria.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 25
-        versionName = "1.0.24"
+        versionCode = 26
+        versionName = "1.0.25"
     }
 
     signingConfigs {

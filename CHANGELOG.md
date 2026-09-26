@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.25+26
+
+- Iniciado o refinamento visual da tela Agora com superfícies e contornos mais discretos, reduzindo a competição visual entre os cards.
+- Card de fonte reorganizado: `Fonte atual` passa a destacar o que o Android detectou e `Perfil configurado` fica separado como referência definida pelo usuário.
+- Cards de Tensão, Corrente, Velocidade e Temperatura ganharam hierarquia mais limpa, etiquetas de origem discretas e estado visual atenuado quando a leitura não está disponível.
+- Resumo da sessão passou a mudar conforme o estado: conectado mostra Tempo/Energia/Carga; fora da tomada mostra Tempo na bateria/Queda/Média de descarga usando somente dados reais da sessão.
+- Navegação inferior recebeu contorno mais suave, seleção ativa mais compacta e tipografia padronizada em todas as abas.
+- Status de carregamento deixou de usar uma cápsula verde excessivamente brilhante e passou a usar fundo verde escuro com texto de destaque, mantendo legibilidade no tema escuro.
+- Valores ausentes na tela Agora passam a usar `—` e o card é atenuado, evitando poluição com a palavra `Indisponível`.
+- Versão, identidade, documentação, novidades e workflow sincronizados para 1.0.25+26.
+
 ## 1.0.24+25
 
 - Corrigida a leitura de corrente para preservar exatamente o sinal retornado por `BATTERY_PROPERTY_CURRENT_NOW`; removida a inversão artificial por estado de carregamento.

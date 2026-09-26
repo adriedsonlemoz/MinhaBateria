@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/session_summary_height"
     android:background="@drawable/bg_card"
-    android:elevation="2dp"
+    android:elevation="1dp"
     android:orientation="horizontal"
     android:paddingStart="6dp"
     android:paddingEnd="6dp">
@@ -18,16 +18,17 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:background="@drawable/bg_source_icon"
-            android:contentDescription="Tempo da sessão"
+            android:contentDescription="Tempo observado"
             android:padding="4dp"
             android:src="@drawable/ic_summary_clock" />
         <TextView
+            android:id="@+id/elapsedLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:text="Tempo"
             android:textColor="@color/text_secondary"
-            android:textSize="9sp" />
+            android:textSize="10sp" />
         <TextView
             android:id="@+id/elapsedValue"
             android:layout_width="wrap_content"
@@ -41,9 +42,9 @@
 
     <View
         android:layout_width="1dp"
-        android:layout_height="42dp"
+        android:layout_height="38dp"
         android:layout_gravity="center_vertical"
-        android:background="@color/divider" />
+        android:background="@color/card_border_soft" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -55,16 +56,17 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:background="@drawable/bg_source_icon"
-            android:contentDescription="Energia estimada"
+            android:contentDescription="Variação de energia"
             android:padding="4dp"
             android:src="@drawable/ic_summary_power" />
         <TextView
+            android:id="@+id/energyLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:text="Energia"
             android:textColor="@color/text_secondary"
-            android:textSize="9sp" />
+            android:textSize="10sp" />
         <TextView
             android:id="@+id/energyValue"
             android:layout_width="match_parent"
@@ -81,9 +83,9 @@
 
     <View
         android:layout_width="1dp"
-        android:layout_height="42dp"
+        android:layout_height="38dp"
         android:layout_gravity="center_vertical"
-        android:background="@color/divider" />
+        android:background="@color/card_border_soft" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -95,16 +97,17 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:background="@drawable/bg_source_icon"
-            android:contentDescription="Carga estimada"
+            android:contentDescription="Métrica média da sessão"
             android:padding="4dp"
             android:src="@drawable/ic_metric_current" />
         <TextView
+            android:id="@+id/chargeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:text="Carga"
             android:textColor="@color/text_secondary"
-            android:textSize="9sp" />
+            android:textSize="10sp" />
         <TextView
             android:id="@+id/chargeValue"
             android:layout_width="match_parent"

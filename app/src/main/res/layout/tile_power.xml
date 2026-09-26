@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/powerCard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_metric_card"
-    android:elevation="2dp"
+    android:elevation="1dp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingStart="10dp"
@@ -17,7 +18,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center"
-            android:contentDescription="Potência"
+            android:contentDescription="Velocidade"
             android:src="@drawable/ic_metric_power" />
     </FrameLayout>
 
@@ -31,6 +32,8 @@
             android:id="@+id/powerLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="Velocidade de carga"
             android:textColor="@color/text_secondary"
             android:textSize="11sp" />
@@ -38,7 +41,7 @@
             android:id="@+id/powerValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
             android:ellipsize="end"
             android:singleLine="true"
             android:text="—"
@@ -49,13 +52,22 @@
             android:id="@+id/powerOrigin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:autoSizeMaxTextSize="9sp"
+            android:autoSizeMinTextSize="7sp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/bg_measurement_origin"
             android:ellipsize="end"
             android:maxLines="1"
-            android:layout_marginTop="1dp"
+            android:paddingStart="5dp"
+            android:paddingTop="1dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="1dp"
             android:text="Calculado"
             android:textAllCaps="true"
             android:textColor="@color/text_muted"
-            android:textSize="7sp"
+            android:textSize="9sp"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

@@ -1,29 +1,28 @@
-# Validação — Minha Bateria 1.0.24+25
+# Validação — Minha Bateria 1.0.25+26
 
 Data: 2026-09-26
 
 ## Alterações desta etapa
 
-- corrente instantânea mantém o sinal bruto informado pelo Android, sem `abs()` ou inversão baseada no estado de carga;
-- potência de carga só usa corrente positiva válida enquanto o sistema informa carregamento;
-- autonomia de descarga e taxa em `%/h` só aparecem após pelo menos 3 minutos e 1% de queda real;
-- tela Agora recebeu autonomia no status, `Velocidade de descarga` dinâmica e corrente de descarga com sinal/cor;
-- regra de taxa/autonomia centralizada entre Agora, Descarga, Consumo de bateria e notificação;
-- participação dos apps não força mais mínimo artificial de 1% e o texto explicita `atividade observada`;
-- placeholders numéricos fictícios removidos dos layouts dinâmicos;
-- documentação, novidades e workflow atualizados para a nova versão.
+- primeira etapa do refinamento visual concentrada na tela Agora;
+- contornos e superfícies dos cards tornados mais discretos para reduzir excesso de azul;
+- fonte atual e perfil configurado reorganizados para não parecerem informações contraditórias;
+- métricas sem leitura passam a usar `—` e ficam visualmente atenuadas;
+- origem das medições ganhou etiqueta compacta, mantendo a informação técnica sem competir com o valor principal;
+- resumo de três colunas ficou contextual: carga mostra Tempo/Energia/Carga; descarga mostra Tempo na bateria/Queda/Média;
+- navegação inferior recebeu seleção ativa mais compacta e tipografia padronizada;
+- status de carregamento ganhou tratamento verde escuro mais equilibrado no tema escuro;
+- nenhum cálculo novo foi criado para preencher dados ausentes: o resumo de descarga usa somente `ActiveDischarge` e `BatteryRateEstimator` já existentes.
 
 ## Validações executadas
 
-- `versionName 1.0.24` e `versionCode 25` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README e workflow;
+- `versionName 1.0.25` e `versionCode 26` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README, Works e workflow;
 - XMLs analisados e bem formados;
 - IDs e resources usados pelo Kotlin validados;
 - source sem APK, AAB, keystore, Secrets, `build` ou `.gradle`;
 - nenhum arquivo de código acima de 500 linhas;
-- varredura por `Random`, mocks, dados demo e placeholders numéricos de bateria;
-- subconjunto Kotlin sem dependências Android compilado com `kotlinc`, incluindo estimador de taxa/autonomia e formatadores;
-- teste do estimador confirmou bloqueio antes de 3 min e cálculo correto após amostra válida;
-- Works configurado para publicar somente `Minha-Bateria-1.0.24.apk`.
+- revisão dos estados conectado, carregando, carga pausada e fora da tomada na renderização da tela Agora;
+- Works configurado para publicar somente `Minha-Bateria-1.0.25.apk`.
 
 ## Build Android
 

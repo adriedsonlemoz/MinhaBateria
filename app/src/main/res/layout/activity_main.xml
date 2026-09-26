@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/app_name"
                     android:textColor="@color/text_primary"
-                    android:textSize="28sp"
+                    android:textSize="27sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -49,24 +49,24 @@
 
             <TextView
                 android:id="@+id/measurementHelpButton"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="7dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/bg_settings_circle"
                 android:contentDescription="Entenda os dados"
                 android:gravity="center"
                 android:text="i"
                 android:textColor="@color/accent_blue"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/settingsButton"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:background="@drawable/bg_settings_circle"
                 android:contentDescription="Configurações"
-                android:elevation="3dp"
+                android:elevation="2dp"
                 android:padding="11dp"
                 android:src="@drawable/ic_settings" />
         </LinearLayout>
@@ -90,18 +90,18 @@
             android:layout_height="@dimen/status_chip_height"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="4dp"
-            android:drawablePadding="9dp"
+            android:autoSizeMaxTextSize="14sp"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
+            android:drawablePadding="8dp"
             android:gravity="center"
             android:maxLines="1"
             android:maxWidth="360dp"
-            android:minWidth="240dp"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="10sp"
-            android:autoSizeMaxTextSize="14sp"
-            android:autoSizeStepGranularity="1sp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:text="Não está carregando"
+            android:minWidth="220dp"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:text="Status da bateria"
             android:textColor="@color/text_primary"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -121,24 +121,25 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginTop="@dimen/section_gap"
+            android:layout_weight="1"
             android:foregroundGravity="center_vertical">
 
             <LinearLayout
-                    android:id="@+id/batteryUsagePreviewCard"
+                android:id="@+id/batteryUsagePreviewCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                                android:background="@drawable/bg_card"
+                android:background="@drawable/bg_card"
                 android:clickable="true"
+                android:elevation="1dp"
                 android:focusable="true"
                 android:gravity="center_vertical"
-                                android:orientation="horizontal"
+                android:orientation="horizontal"
                 android:paddingStart="14dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="14dp"
                 android:paddingBottom="8dp">
-    
+
                 <TextView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
@@ -146,14 +147,14 @@
                     android:gravity="center"
                     android:text="⚡"
                     android:textSize="18sp" />
-    
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="11dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
-    
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -161,7 +162,7 @@
                         android:textColor="@color/accent_orange"
                         android:textSize="11sp"
                         android:textStyle="bold" />
-    
+
                     <TextView
                         android:id="@+id/batteryUsagePreviewValue"
                         android:layout_width="match_parent"
@@ -173,7 +174,7 @@
                         android:textColor="@color/text_primary"
                         android:textSize="13sp"
                         android:textStyle="bold" />
-    
+
                     <TextView
                         android:id="@+id/batteryUsagePreviewHint"
                         android:layout_width="match_parent"
@@ -185,14 +186,14 @@
                         android:textColor="@color/text_muted"
                         android:textSize="10sp" />
                 </LinearLayout>
-    
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="›"
                     android:textColor="@color/accent_blue"
-                    android:textSize="28sp" />
+                    android:textSize="26sp" />
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>

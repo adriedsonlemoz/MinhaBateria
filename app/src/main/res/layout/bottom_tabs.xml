@@ -107,7 +107,7 @@
             android:layout_marginTop="1dp"
             android:text="Descarga"
             android:textColor="@color/text_tab_inactive"
-            android:textSize="9sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
     <LinearLayout

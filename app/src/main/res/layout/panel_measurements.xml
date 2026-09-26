@@ -5,10 +5,11 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/sourceOverviewCard"
         android:layout_width="match_parent"
         android:layout_height="@dimen/source_row_height"
         android:background="@drawable/bg_card"
-        android:elevation="2dp"
+        android:elevation="1dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="12dp"
@@ -23,7 +24,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-                android:contentDescription="Fonte"
+                android:contentDescription="Fonte de energia atual"
                 android:src="@drawable/ic_source_battery" />
         </FrameLayout>
 
@@ -37,46 +38,46 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Perfil da fonte"
-                android:textColor="@color/text_secondary"
-                android:textSize="10sp" />
+                android:text="Fonte atual"
+                android:textColor="@color/text_muted"
+                android:textSize="11sp" />
 
             <TextView
-                android:id="@+id/profileSourceValue"
+                android:id="@+id/detectedSourceValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:text="Não configurado"
-                android:textColor="@color/value_unavailable"
-                android:textSize="13sp"
+                android:text="—"
+                android:textColor="@color/accent_blue"
+                android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="10dp"
             android:gravity="end"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Detectado"
+                android:text="Perfil configurado"
                 android:textColor="@color/text_muted"
                 android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/detectedSourceValue"
+                android:id="@+id/profileSourceValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxWidth="100dp"
+                android:maxWidth="132dp"
                 android:singleLine="true"
-                android:text="—"
-                android:textColor="@color/accent_blue"
-                android:textSize="13sp"
+                android:text="Não configurado"
+                android:textColor="@color/value_unavailable"
+                android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
