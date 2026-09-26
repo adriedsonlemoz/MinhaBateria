@@ -9,17 +9,24 @@ import android.content.Intent
 import android.os.Build
 import com.minhabateria.app.MainActivity
 import com.minhabateria.app.R
+import com.minhabateria.app.battery.BatteryCurrentReader
 import com.minhabateria.app.battery.BatteryInfo
-import com.minhabateria.app.utils.BatteryFormatter
+import com.minhabateria.app.battery.ChargingSession
+import com.minhabateria.app.discharge.ActiveDischarge
 
 class MonitoringNotification(private val context: Context) {
     private val manager = context.getSystemService(NotificationManager::class.java)
+    private val currentReader = BatteryCurrentReader(context)
 
     init {
         createChannel()
     }
 
-    fun build(info: BatteryInfo?): Notification {
+    fun build(
+        info: BatteryInfo?,
+        session: ChargingSession.Snapshot? = null,
+        discharge: ActiveDischarge? = null
+    ): Notification {
         val openApp = PendingIntent.getActivity(
             context,
             10,
@@ -35,12 +42,22 @@ class MonitoringNotification(private val context: Context) {
         )
 
         val title = info?.percent?.let { "Minha Bateria — $it%" } ?: "Minha Bateria"
-        val text = info?.let(::statusText) ?: "Monitoramento contínuo ativo"
+        val content = info?.let {
+            MonitoringNotificationFormatter.format(
+                info = it,
+                session = session,
+                discharge = discharge,
+                instantCurrentMa = currentReader.readSignedMa(it)
+            )
+        }
+        val summary = content?.summary ?: "Monitoramento contínuo ativo"
+        val expanded = content?.expanded ?: summary
 
         return Notification.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(title)
-            .setContentText(text)
+            .setContentText(summary)
+            .setStyle(Notification.BigTextStyle().bigText(expanded))
             .setContentIntent(openApp)
             .setOngoing(true)
             .setOnlyAlertOnce(true)
@@ -49,20 +66,12 @@ class MonitoringNotification(private val context: Context) {
             .build()
     }
 
-    fun update(info: BatteryInfo?) {
-        manager.notify(NOTIFICATION_ID, build(info))
-    }
-
-    private fun statusText(info: BatteryInfo): String {
-        val status = when (info.isCharging) {
-            true -> "Carregando"
-            false -> "Bateria"
-            null -> "Status indisponível"
-        }
-        val current = BatteryFormatter.current(info.currentMa)
-        val power = BatteryFormatter.power(info.powerW)
-        val temperature = BatteryFormatter.temperature(info.temperatureC)
-        return "$status • $current • $power • $temperature"
+    fun update(
+        info: BatteryInfo?,
+        session: ChargingSession.Snapshot? = null,
+        discharge: ActiveDischarge? = null
+    ) {
+        manager.notify(NOTIFICATION_ID, build(info, session, discharge))
     }
 
     private fun createChannel() {

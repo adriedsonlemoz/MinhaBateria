@@ -39,6 +39,8 @@ class DischargeRecorder(context: Context) {
         }
     }
 
+    fun current(): ActiveDischarge? = active
+
     fun reset(info: BatteryInfo?, nowMs: Long = System.currentTimeMillis()) {
         val percent = info?.percent
         val unplugged = info?.isPlugged == false || (info?.isPlugged == null && info?.isCharging == false)

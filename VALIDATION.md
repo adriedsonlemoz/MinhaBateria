@@ -1,27 +1,26 @@
-# Validação — Minha Bateria 1.0.22+23
+# Validação — Minha Bateria 1.0.23+24
 
-Data: 2026-09-25
+Data: 2026-09-26
 
 ## Alterações desta etapa
 
-- indicador verde de carregamento passa a mostrar diretamente a previsão até 100%;
-- removido o texto genérico `Carregando` quando há previsão disponível;
-- card `Consumo de bateria` adicionado ao espaço inferior da tela Agora;
-- nova tela de consumo com taxa de descarga, corrente instantânea e ranking de apps mais ativos nas últimas 6 horas;
-- fluxo de `Acesso ao uso` integrado para consultar estatísticas de atividade dos aplicativos;
-- ranking descrito explicitamente como indicador de atividade, não como consumo elétrico exato por app;
-- Configurações, pop-up de novidades, documentação e workflow atualizados.
+- notificação persistente transformada em resumo vivo, sem preencher a linha principal com `Indisponível`;
+- descarga mostra `Calculando autonomia…` até existir amostra mínima e depois apresenta autonomia aproximada e ritmo observado;
+- carregamento mostra previsão até 100% quando disponível e mantém estado próprio para carga completa ou pausada;
+- notificação expandida inclui resumo da sessão e corrente instantânea quando disponível;
+- corrente instantânea da tela Consumo de bateria passa a usar sinal visual: negativa/vermelha na descarga e positiva/verde na carga;
+- leitura de corrente foi isolada em componente próprio para normalizar a direção exibida sem alterar o acumulador das sessões de carregamento;
+- documentação, novidades e workflow atualizados para a nova versão.
 
 ## Validações executadas
 
-- `versionName 1.0.22` e `versionCode 23` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README e workflow;
+- `versionName 1.0.23` e `versionCode 24` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README e workflow;
 - XMLs analisados e bem formados;
 - IDs e resources usados pelo Kotlin validados;
-- nova activity declarada no Manifest e permissão `PACKAGE_USAGE_STATS` presente;
 - source sem APK, AAB, keystore, Secrets, `build` ou `.gradle`;
 - nenhum arquivo de código acima de 500 linhas;
-- Works configurado para publicar somente `Minha-Bateria-1.0.22.apk`.
+- Works configurado para publicar somente `Minha-Bateria-1.0.23.apk`.
 
 ## Build Android
 
-O ambiente desta entrega não possui Gradle instalado para executar a compilação Android local. O workflow permanece preparado para executar a validação e o build `release` assinado no runner do GitHub Actions.
+O ambiente desta entrega não possui Gradle/Android SDK configurado para executar a compilação Android local. O workflow permanece preparado para executar a validação e o build `release` assinado no runner do GitHub Actions.

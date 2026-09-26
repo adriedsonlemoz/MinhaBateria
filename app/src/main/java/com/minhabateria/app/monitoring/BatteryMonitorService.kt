@@ -37,7 +37,7 @@ class BatteryMonitorService : Service() {
                 dischargeRecorder.update(info)
                 sessionStore.save(chargingSession.savedState())
                 MonitoringStateStore.publish(true, info, session)
-                updateNotificationIfNeeded(info)
+                updateNotificationIfNeeded(info, session)
             },
             onSessionCompleted = { source, completed ->
                 historyRecorder.record(completed, source)
@@ -70,7 +70,8 @@ class BatteryMonitorService : Service() {
 
     private fun startInForeground() {
         if (foregroundStarted) return
-        val initialNotification = notification.build(MonitoringStateStore.current().info)
+        val state = MonitoringStateStore.current()
+        val initialNotification = notification.build(state.info, state.session, dischargeRecorder.current())
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             startForeground(
                 MonitoringNotification.NOTIFICATION_ID,
@@ -83,11 +84,14 @@ class BatteryMonitorService : Service() {
         foregroundStarted = true
     }
 
-    private fun updateNotificationIfNeeded(info: com.minhabateria.app.battery.BatteryInfo) {
+    private fun updateNotificationIfNeeded(
+        info: com.minhabateria.app.battery.BatteryInfo,
+        session: ChargingSession.Snapshot
+    ) {
         val now = System.currentTimeMillis()
         if (now - lastNotificationUpdateMs < NOTIFICATION_UPDATE_MS) return
         lastNotificationUpdateMs = now
-        notification.update(info)
+        notification.update(info, session, dischargeRecorder.current())
     }
 
     private fun stopMonitoring() {

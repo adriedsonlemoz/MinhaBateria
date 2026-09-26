@@ -1,7 +1,6 @@
 package com.minhabateria.app
 
 import android.app.Activity
-import android.os.BatteryManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.minhabateria.app.battery.BatteryCurrentReader
 import com.minhabateria.app.battery.BatteryStatusReader
 import com.minhabateria.app.discharge.DischargeStore
 import com.minhabateria.app.monitoring.LocalBatteryMonitorHub
@@ -18,10 +18,10 @@ import com.minhabateria.app.monitoring.MonitoringStateStore
 import com.minhabateria.app.ui.SystemBars
 import com.minhabateria.app.usage.BatteryUsageFormatter
 import com.minhabateria.app.usage.BatteryUsageRepository
-import kotlin.math.abs
 
 class BatteryUsageActivity : Activity() {
     private lateinit var repository: BatteryUsageRepository
+    private lateinit var currentReader: BatteryCurrentReader
     private lateinit var appsList: LinearLayout
     private lateinit var accessCard: View
     private lateinit var emptyText: TextView
@@ -36,6 +36,7 @@ class BatteryUsageActivity : Activity() {
         setContentView(R.layout.activity_battery_usage)
         SystemBars.apply(this, findViewById(R.id.batteryUsageRoot))
         repository = BatteryUsageRepository(this)
+        currentReader = BatteryCurrentReader(this)
         appsList = findViewById(R.id.batteryUsageAppsList)
         accessCard = findViewById(R.id.usageAccessCard)
         emptyText = findViewById(R.id.usageEmptyText)
@@ -70,16 +71,30 @@ class BatteryUsageActivity : Activity() {
     private fun renderSummary() {
         val info = MonitoringStateStore.current().info ?: BatteryStatusReader(this).read()
         val active = DischargeStore(this).active()
+        val currentMa = currentReader.readSignedMa(info)
+        val currentView = findViewById<TextView>(R.id.usageCurrentValue)
+
         findViewById<TextView>(R.id.usageBatteryValue).text = info.percent?.let { "$it%" } ?: "—"
-        findViewById<TextView>(R.id.usageRateValue).text = BatteryUsageFormatter.rate(active?.ratePercentPerHour)
-        findViewById<TextView>(R.id.usageCurrentValue).text = when {
-            info.isPlugged == true -> "Pausado"
-            else -> BatteryUsageFormatter.current(readInstantCurrentMa())
+        findViewById<TextView>(R.id.usageRateValue).text = when {
+            info.isPlugged == true -> "—"
+            else -> BatteryUsageFormatter.rate(active?.ratePercentPerHour)
         }
+        currentView.text = BatteryUsageFormatter.signedCurrent(currentMa)
+        currentView.setTextColor(
+            getColor(
+                when {
+                    currentMa == null -> R.color.value_unavailable
+                    currentMa < 0.0 -> R.color.accent_red
+                    currentMa > 0.0 -> R.color.accent_green
+                    else -> R.color.text_secondary
+                }
+            )
+        )
         findViewById<TextView>(R.id.usageLiveHint).text = when {
-            info.isPlugged == true -> "A análise de descarga fica pausada enquanto o carregador está conectado."
-            active?.ratePercentPerHour != null -> "Ritmo medido pela sessão de descarga atual."
-            else -> "A taxa fica mais confiável depois de alguns minutos e de queda real da bateria."
+            info.isCharging == true -> "Corrente positiva indica energia entrando na bateria; a análise de descarga fica pausada durante a carga."
+            info.isPlugged == true -> "Fonte conectada, mas a bateria não está carregando agora."
+            active?.ratePercentPerHour != null -> "Corrente negativa indica energia saindo da bateria. Ritmo medido pela sessão de descarga atual."
+            else -> "Corrente negativa indica descarga. A taxa fica mais confiável depois de alguns minutos e de queda real da bateria."
         }
     }
 
@@ -138,10 +153,5 @@ class BatteryUsageActivity : Activity() {
         }
     }
 
-    private fun readInstantCurrentMa(): Double? {
-        val manager = getSystemService(BatteryManager::class.java)
-        val currentUa = manager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
-        if (currentUa == Int.MIN_VALUE || currentUa == 0) return null
-        return abs(currentUa.toDouble() / 1000.0).takeIf { it.isFinite() && it > 0.0 }
-    }
+
 }

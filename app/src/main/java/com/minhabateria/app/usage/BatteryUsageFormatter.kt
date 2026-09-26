@@ -22,6 +22,10 @@ object BatteryUsageFormatter {
         String.format(Locale("pt", "BR"), "%.0f mA", it)
     } ?: "Indisponível"
 
+    fun signedCurrent(value: Double?): String = value?.let {
+        String.format(Locale("pt", "BR"), "%+.0f mA", it)
+    } ?: "—"
+
     fun impactLabel(sharePercent: Int): String = when {
         sharePercent >= 40 -> "Maior atividade"
         sharePercent >= 20 -> "Uso elevado"

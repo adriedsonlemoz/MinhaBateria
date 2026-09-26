@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.23+24
+
+- Notificação persistente redesenhada como resumo vivo da bateria: na descarga mostra autonomia estimada e ritmo quando a amostra já é confiável; na carga mostra previsão aproximada até 100%.
+- Removidos campos `Indisponível` da linha principal da notificação; leituras ausentes passam a ser simplesmente omitidas.
+- Notificação expandida passa a exibir informações da sessão, como duração, variação percentual, média observada e corrente instantânea quando disponível.
+- Adicionados estados específicos para carga completa, carga pausada, temperatura elevada e consumo elevado, sem inventar autonomia enquanto ainda não há amostra suficiente.
+- Tela Consumo de bateria agora representa a direção da corrente: valor negativo em vermelho durante descarga e positivo em verde durante carregamento.
+- Com o carregador conectado, Corrente instantânea deixa de mostrar `Pausado` e volta a exibir a leitura real disponível; a taxa de descarga fica marcada como não aplicável.
+- Versão, identidade, documentação, novidades e workflow sincronizados para 1.0.23+24.
+
 ## 1.0.22+23
 
 - Adicionado capturador global de exceções fatais para registrar automaticamente falhas que encerram o aplicativo, inclusive em threads de segundo plano.

@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.22
-- versionCode: 23
-- versão completa: 1.0.22+23
+- versionName: 1.0.23
+- versionCode: 24
+- versão completa: 1.0.23+24
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -30,7 +30,7 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - perfil técnico da fonte usada no teste com preenchimento rápido por sugestões;
 - navegação principal com Agora, Gráficos, Sessão, Descarga e Histórico;
 - tela Descarga com consumo em %/h, autonomia estimada, projeção da bateria em 1 hora, qualidade da amostra, média histórica e histórico próprio;
-- módulo Consumo de bateria com taxa atual, corrente instantânea e ranking de apps mais ativos nas últimas 6 horas mediante Acesso ao uso;
+- módulo Consumo de bateria com taxa atual, corrente instantânea com direção visual (+ entrada / − descarga) e ranking de apps mais ativos nas últimas 6 horas mediante Acesso ao uso;
 - gráficos leves de potência, corrente, temperatura e bateria em 5, 15 e 60 minutos;
 - diagnóstico técnico copiável/exportável com estado do monitoramento, leituras, sessão, histórico, gráficos e falhas capturadas;
 - capturador global de exceções fatais com até 10 relatórios locais, incluindo stack trace, tela aberta, versão, aparelho, memória e estado da bateria;
@@ -86,7 +86,7 @@ Quando o perfil possui potência nominal, a tela Agora mostra quanto da referên
 - **Calculado:** valores derivados das leituras, como potência;
 - **Estimado:** Wh, mAh e médias temporais integradas somente em intervalos com leituras válidas.
 
-Valores ausentes permanecem como `Indisponível`.
+Valores ausentes continuam identificados nas telas técnicas quando necessário. Na notificação persistente, campos sem leitura são omitidos para evitar textos como `Indisponível`.
 
 ## Motor da sessão
 
@@ -104,7 +104,7 @@ A aba Sessão agora abre em modo simplificado, com bateria inicial/atual, tempo,
 
 A navegação inferior mantém Agora, Gráficos, Sessão, Descarga e Histórico no mesmo nível. A aba Descarga registra o consumo fora da tomada e a aba Histórico salva automaticamente cada sessão de carregamento quando a fonte é desconectada.
 
-Na parte inferior da tela Agora há um card **Consumo de bateria**. A tela dedicada cruza a taxa de descarga observada com as estatísticas de tempo em primeiro plano das últimas 6 horas. Para consultar outros aplicativos, o usuário precisa conceder manualmente **Acesso ao uso** nas Configurações do Android. O ranking é apresentado como indicador de atividade e possível pista de consumo, não como medição elétrica exata por aplicativo.
+Na parte inferior da tela Agora há um card **Consumo de bateria**. A tela dedicada cruza a taxa de descarga observada com as estatísticas de tempo em primeiro plano das últimas 6 horas. A corrente instantânea é exibida com sinal: negativa e vermelha quando a bateria está fornecendo energia, positiva e verde durante a carga. Para consultar outros aplicativos, o usuário precisa conceder manualmente **Acesso ao uso** nas Configurações do Android. O ranking é apresentado como indicador de atividade e possível pista de consumo, não como medição elétrica exata por aplicativo.
 
 ## Ciclo automático da sessão
 
@@ -126,7 +126,7 @@ Os gráficos armazenam no máximo uma amostra a cada 10 segundos, embora a leitu
 
 ## Monitoramento contínuo
 
-O foreground service é iniciado somente quando solicitado. O app não utiliza `WAKE_LOCK`. A retomada após reiniciar é opcional.
+O foreground service é iniciado somente quando solicitado. O app não utiliza `WAKE_LOCK`. A retomada após reiniciar é opcional. A notificação persistente funciona como resumo vivo: durante a descarga mostra autonomia estimada e ritmo quando já existe amostra confiável; durante a carga mostra previsão até 100%; ao expandir, inclui dados úteis da sessão e corrente instantânea quando disponíveis, sem preencher a linha com campos `Indisponível`.
 
 ## Diagnóstico e validação
 
@@ -150,11 +150,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.22.apk`
+APK final: `Minha-Bateria-1.0.23.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.22.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.23.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -163,4 +163,4 @@ O Histórico permite selecionar duas sessões para comparar lado a lado os valor
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.22.apk` na GitHub Release `v1.0.22`.
+O workflow publica diretamente `Minha-Bateria-1.0.23.apk` na GitHub Release `v1.0.23`.

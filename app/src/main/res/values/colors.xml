@@ -19,6 +19,7 @@
     <color name="accent_blue_deep">#0A67AE</color>
     <color name="accent_blue_soft">#163754</color>
     <color name="accent_orange">#FFB700</color>
+    <color name="accent_red">#FF5C67</color>
     <color name="accent_orange_soft">#49380A</color>
     <color name="status_idle">#273646</color>
     <color name="status_idle_border">#486074</color>
