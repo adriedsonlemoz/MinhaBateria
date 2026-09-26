@@ -1,28 +1,28 @@
-# Validação — Minha Bateria 1.0.26+27
+# Validação — Minha Bateria 1.0.27+28
 
 Data: 2026-09-26
 
 ## Escopo desta versão
 
-- refinamento visual do medidor circular da tela Agora;
-- autonomia/tempo até 100% integrados ao medidor sem gerar dados artificiais;
-- estado abaixo do medidor simplificado para evitar repetição;
-- acessibilidade do medidor e do estado atualizada;
-- remoção de placeholder antigo de versão em Configurações.
+- refinamento visual da tela Consumo de bateria;
+- barras proporcionais para participação dos apps na atividade em primeiro plano;
+- porcentagem e duração apresentadas separadamente;
+- avisos de interpretação e privacidade reorganizados;
+- placeholders de design limitados a `tools:` e não usados em execução.
 
 ## Regras de confiabilidade preservadas
 
-- autonomia de descarga continua dependendo de no mínimo 3 minutos e 1% de queda real observada;
-- previsão de carga prioriza a estimativa do Android e usa fallback da sessão somente quando a amostra mínima já é válida;
-- quando não há amostra suficiente, a interface mostra estado de cálculo em vez de criar um tempo;
+- o ranking continua baseado somente em eventos reais de uso fornecidos pelo Android;
+- a porcentagem continua representando participação no tempo em primeiro plano observado, não consumo elétrico por aplicativo;
+- nenhuma potência, corrente, descarga ou autonomia é inferida a partir do ranking de apps;
 - corrente bruta continua preservando o sinal fornecido pelo Android;
-- campos ausentes continuam sem valores fabricados.
+- quando dados reais não existem, a interface mantém `—`, estado de cálculo ou mensagem explicativa.
 
 ## Sincronização
 
-- `versionName 1.0.26` e `versionCode 27` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README, Works e workflow;
-- tela de novidades atualizada para 1.0.26+27 e continua exibida uma única vez por versão;
-- workflow configurado para publicar somente `Minha-Bateria-1.0.26.apk`.
+- `versionName 1.0.27` e `versionCode 28` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README, Works e workflow;
+- tela de novidades atualizada para 1.0.27+28 e continua exibida uma única vez por versão;
+- workflow configurado para publicar somente `Minha-Bateria-1.0.27.apk`.
 
 ## Verificações
 

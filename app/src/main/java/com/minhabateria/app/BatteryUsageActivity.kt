@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.minhabateria.app.battery.BatteryCurrentReader
 import com.minhabateria.app.battery.BatteryStatusReader
@@ -147,15 +148,16 @@ class BatteryUsageActivity : Activity() {
 
         val top = apps.first()
         findViewById<TextView>(R.id.usageInsightText).text =
-            "${top.label} teve a maior atividade em primeiro plano: ${BatteryUsageFormatter.duration(top.foregroundMs)} nas últimas 6 h."
+            "Mais ativo no período: ${top.label} • ${BatteryUsageFormatter.duration(top.foregroundMs)} em primeiro plano."
         val inflater = LayoutInflater.from(this)
         apps.forEachIndexed { index, app ->
             val row = inflater.inflate(R.layout.battery_usage_item, appsList, false)
             row.findViewById<TextView>(R.id.usageAppRank).text = "${index + 1}"
             row.findViewById<TextView>(R.id.usageAppName).text = app.label
             row.findViewById<TextView>(R.id.usageAppDetail).text =
-                "${BatteryUsageFormatter.duration(app.foregroundMs)} em primeiro plano • ${app.sharePercent}% da atividade observada"
-            row.findViewById<TextView>(R.id.usageAppImpact).text = BatteryUsageFormatter.impactLabel(app.sharePercent)
+                "${BatteryUsageFormatter.duration(app.foregroundMs)} em primeiro plano"
+            row.findViewById<TextView>(R.id.usageAppShare).text = "${app.sharePercent}%"
+            row.findViewById<ProgressBar>(R.id.usageAppProgress).progress = app.sharePercent
             app.icon?.let { row.findViewById<ImageView>(R.id.usageAppIcon).setImageDrawable(it) }
             appsList.addView(row)
         }

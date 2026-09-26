@@ -1,16 +1,16 @@
-# Release — Minha Bateria 1.0.26+27
+# Release — Minha Bateria 1.0.27+28
 
 ## Destaques
 
-- medidor circular da tela Agora refinado para mostrar percentual e previsão no mesmo ponto;
-- autonomia na descarga aparece somente depois da amostra mínima real;
-- durante a carga, o medidor mostra o tempo aproximado até 100% quando existe estimativa válida;
-- enquanto ainda não há dados suficientes, a interface mostra estado de cálculo sem fabricar números;
-- chip abaixo do medidor simplificado para um estado curto, reduzindo repetição visual;
-- acessibilidade do medidor e do status atualizada.
+- tela Consumo de bateria refinada para leitura mais rápida no tema escuro;
+- ranking de aplicativos com barras proporcionais, porcentagem de atividade observada e tempo em primeiro plano;
+- remoção dos selos genéricos de atividade para evitar interpretação como consumo elétrico;
+- explicação visual reforçada de que o Android não fornece consumo exato por aplicativo;
+- card de permissão reorganizado com explicação de privacidade;
+- nenhum valor elétrico novo é inferido ou fabricado pela interface.
 
 ## Entrega
 
-APK esperado pelo workflow: `Minha-Bateria-1.0.26.apk`.
+APK esperado pelo workflow: `Minha-Bateria-1.0.27.apk`.
 
 O ZIP de código-fonte não inclui APK, keystore, secrets nem diretórios de build/cache.

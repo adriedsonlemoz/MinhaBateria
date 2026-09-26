@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.27+28
+
+- Tela Consumo de bateria refinada visualmente com hierarquia mais clara no resumo de descarga, avisos compactos e melhor leitura no tema escuro.
+- Ranking de aplicativos substitui selos genéricos por barras proporcionais de atividade observada, porcentagem destacada e tempo em primeiro plano separado.
+- Texto da seção reforça que a porcentagem representa participação no tempo em primeiro plano das últimas 6 horas, não consumo elétrico medido por aplicativo.
+- Placeholders visuais do ranking usam apenas `tools:` para prévia de layout; em execução os dados continuam vindo exclusivamente do Android.
+- Fluxo de permissão de Acesso ao uso recebeu apresentação mais clara e explicação de privacidade.
+- Versão, identidade, documentação, novidades e workflow sincronizados para 1.0.27+28.
+
 ## 1.0.26+27
 
 - Segunda etapa do refinamento visual da tela Agora aplicada ao medidor circular e à área de autonomia.

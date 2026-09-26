@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.26+27"
+        android:text="Versão 1.0.27+28"
         android:textColor="@color/accent_blue"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• O medidor circular agora concentra a informação principal: percentual e autonomia estimada aparecem juntos, reduzindo a necessidade de procurar o tempo restante em outro card.\n\n• Fora da tomada, a autonomia só aparece depois da amostra mínima real; antes disso o medidor informa Calculando autonomia… sem fabricar um valor.\n\n• Durante a carga, o medidor mostra o tempo aproximado até 100% quando o Android ou a sessão já fornecem dados suficientes.\n\n• O chip abaixo do medidor virou um estado compacto, como Na bateria, Carregando ou Carga completa, deixando a tela Agora mais limpa."
+        android:text="• A tela Consumo de bateria foi reorganizada para ficar mais clara e menos carregada visualmente.\n\n• O ranking de apps agora usa barras proporcionais e porcentagem da atividade observada, em vez de selos genéricos.\n\n• O tempo em primeiro plano aparece separado da porcentagem, facilitando a leitura sem sugerir consumo elétrico que o Android não fornece.\n\n• Avisos e explicações foram compactados e o fluxo de Acesso ao uso ficou mais claro, preservando a privacidade."
         android:textColor="@color/text_primary"
         android:textSize="13sp" />
 

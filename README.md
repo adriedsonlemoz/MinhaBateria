@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.26
-- versionCode: 27
-- versão completa: 1.0.26+27
+- versionName: 1.0.27
+- versionCode: 28
+- versão completa: 1.0.27+28
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -96,7 +96,9 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
-A versão 1.0.26 avança o refinamento visual da tela **Agora**. O medidor circular passa a concentrar percentual e previsão útil no mesmo ponto: na descarga mostra a autonomia apenas quando a amostra mínima real já é válida; durante a carga mostra o tempo aproximado até 100% quando há uma estimativa confiável. Enquanto ainda não há dados suficientes, exibe apenas o estado de cálculo, sem inventar números. O chip abaixo do medidor foi reduzido a um estado curto como `Na bateria`, `Carregando` ou `Carga completa`.
+A versão 1.0.27 refina a tela **Consumo de bateria**. O ranking por aplicativo deixa de usar selos genéricos e passa a mostrar barras proporcionais da participação no tempo em primeiro plano, com porcentagem destacada e duração separada. A tela reforça visualmente que esse percentual representa **atividade observada**, não consumo elétrico individual, mantendo a análise fiel ao que o Android realmente disponibiliza. O resumo de descarga e os avisos também ganharam melhor hierarquia e leitura no tema escuro.
+
+A versão 1.0.26 havia avançado o refinamento visual da tela **Agora**. O medidor circular passa a concentrar percentual e previsão útil no mesmo ponto: na descarga mostra a autonomia apenas quando a amostra mínima real já é válida; durante a carga mostra o tempo aproximado até 100% quando há uma estimativa confiável. Enquanto ainda não há dados suficientes, exibe apenas o estado de cálculo, sem inventar números. O chip abaixo do medidor foi reduzido a um estado curto como `Na bateria`, `Carregando` ou `Carga completa`.
 
 A etapa anterior já havia deixado os cards com contornos mais discretos, separado a fonte realmente detectada do perfil configurado e atenuado métricas sem leitura. Esses ajustes permanecem.
 
@@ -156,11 +158,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.26.apk`
+APK final: `Minha-Bateria-1.0.27.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.26.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.27.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -169,4 +171,4 @@ O Histórico permite selecionar duas sessões para comparar lado a lado os valor
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.26.apk` na GitHub Release `v1.0.26`.
+O workflow publica diretamente `Minha-Bateria-1.0.27.apk` na GitHub Release `v1.0.27`.

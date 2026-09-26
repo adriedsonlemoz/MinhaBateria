@@ -28,9 +28,4 @@ object BatteryUsageFormatter {
         if (it == 0.0) "0 mA" else String.format(Locale("pt", "BR"), "%+.0f mA", it)
     } ?: "—"
 
-    fun impactLabel(sharePercent: Int): String = when {
-        sharePercent >= 40 -> "Maior atividade"
-        sharePercent >= 20 -> "Atividade alta"
-        else -> "Atividade observada"
-    }
 }
