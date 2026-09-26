@@ -1,4 +1,4 @@
-# Validação — Minha Bateria 1.0.18+19
+# Validação — Minha Bateria 1.0.19+20
 
 Data: 2026-09-25
 
@@ -11,13 +11,13 @@ Data: 2026-09-25
 
 ## Validações exigidas
 
-- `versionName 1.0.18` e `versionCode 19` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README e workflow;
+- `versionName 1.0.19` e `versionCode 20` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README e workflow;
 - XMLs bem formados e IDs/resources Kotlin existentes;
 - estimador não gera previsão antes de dados mínimos da sessão;
 - estimativa do Android tem prioridade quando válida;
 - source sem APK, AAB, keystore, Secrets, `build` ou `.gradle`;
 - nenhum arquivo de código acima de 500 linhas;
-- Works publica somente `Minha-Bateria-1.0.18.apk`.
+- Works publica somente `Minha-Bateria-1.0.19.apk`.
 
 ## Build Android
 

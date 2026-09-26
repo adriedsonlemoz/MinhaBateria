@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.18
-- versionCode: 19
-- versão completa: 1.0.18+19
+- versionName: 1.0.19
+- versionCode: 20
+- versão completa: 1.0.19+20
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -29,6 +29,7 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - monitoramento contínuo por foreground service;
 - perfil técnico da fonte usada no teste com preenchimento rápido por sugestões;
 - abas Gráficos, Sessão e Histórico funcionais;
+- tela Taxa de descarga com consumo em %/h, autonomia estimada e histórico próprio de descargas;
 - gráficos leves de potência, corrente, temperatura e bateria em 5, 15 e 60 minutos;
 - diagnóstico técnico copiável com estado do monitoramento, leituras, sessão, histórico e gráficos;
 - Configurações, Sobre e Doação;
@@ -132,11 +133,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.18.apk`
+APK final: `Minha-Bateria-1.0.19.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.18.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.19.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões

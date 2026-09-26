@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.19+20
+
+- Adicionada tela **Taxa de descarga** para acompanhar o consumo da bateria quando o aparelho está fora do carregador.
+- A nova medição registra bateria inicial/atual, percentual consumido, tempo observado, taxa média em `%/h` e autonomia estimada até 0%.
+- Sessões de descarga são iniciadas automaticamente durante o monitoramento e concluídas quando uma fonte de energia volta a ser conectada.
+- Adicionado histórico próprio de descargas concluídas, separado do histórico de carregamento, com data, duração, faixa de bateria e taxa média.
+- A tela permite reiniciar a medição atual e limpar apenas o histórico de descarga; intervalos longos sem observação iniciam uma nova medição para evitar extrapolações falsas.
+- Acesso à Taxa de descarga foi incluído em Configurações > Monitoramento, mantendo a arquitetura modular e o limite de 500 linhas por arquivo.
+
 ## 1.0.18+19
 
 - Adicionada estimativa aproximada de tempo até 100% acima do status de carregamento; Android 9+ prioriza a previsão do sistema e há fallback conservador pelo ritmo da sessão quando houver dados suficientes.

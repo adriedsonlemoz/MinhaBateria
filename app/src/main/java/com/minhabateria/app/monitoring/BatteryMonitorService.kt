@@ -9,6 +9,7 @@ import com.minhabateria.app.battery.BatteryMonitor
 import com.minhabateria.app.battery.BatteryStatusReader
 import com.minhabateria.app.battery.ChargingSession
 import com.minhabateria.app.charts.ChartSampleRepository
+import com.minhabateria.app.discharge.DischargeRecorder
 import com.minhabateria.app.history.HistoryRecorder
 
 class BatteryMonitorService : Service() {
@@ -16,6 +17,7 @@ class BatteryMonitorService : Service() {
     private lateinit var preferences: MonitorPreferences
     private lateinit var notification: MonitoringNotification
     private lateinit var sessionStore: ContinuousSessionStore
+    private lateinit var dischargeRecorder: DischargeRecorder
     private var foregroundStarted = false
     private var lastNotificationUpdateMs = 0L
 
@@ -24,6 +26,7 @@ class BatteryMonitorService : Service() {
         preferences = MonitorPreferences(this)
         notification = MonitoringNotification(this)
         sessionStore = ContinuousSessionStore(this)
+        dischargeRecorder = DischargeRecorder(this)
         val chargingSession = ChargingSession(sessionStore.load())
         val historyRecorder = HistoryRecorder(this)
         monitor = BatteryMonitor(
@@ -31,6 +34,7 @@ class BatteryMonitorService : Service() {
             session = chargingSession,
             onUpdate = { info, session ->
                 ChartSampleRepository.record(this, info)
+                dischargeRecorder.update(info)
                 sessionStore.save(chargingSession.savedState())
                 MonitoringStateStore.publish(true, info, session)
                 updateNotificationIfNeeded(info)
