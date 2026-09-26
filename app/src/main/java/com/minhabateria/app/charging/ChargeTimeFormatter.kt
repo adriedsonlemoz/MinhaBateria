@@ -5,13 +5,13 @@ import java.util.Locale
 object ChargeTimeFormatter {
     fun mainLabel(estimate: ChargeTimeEstimator.Estimate?): String? {
         estimate ?: return null
-        if (estimate.remainingMs == 0L) return "Carga completa"
-        return "≈ ${compact(estimate.remainingMs)} até 100%"
+        if (estimate.remainingMs == 0L) return "100% • carga completa"
+        return "100% em aproximadamente ${compact(estimate.remainingMs)}"
     }
 
     fun sourceLabel(estimate: ChargeTimeEstimator.Estimate?): String? = when (estimate?.source) {
-        ChargeTimeEstimator.Source.SYSTEM -> "Estimativa do Android"
-        ChargeTimeEstimator.Source.SESSION -> "Estimado pelo ritmo desta sessão"
+        ChargeTimeEstimator.Source.SYSTEM -> "Previsão calculada pelo Android"
+        ChargeTimeEstimator.Source.SESSION -> "Previsão pelo ritmo desta carga"
         null -> null
     }
 

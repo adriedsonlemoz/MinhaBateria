@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.20
-- versionCode: 21
-- versão completa: 1.0.20+21
+- versionName: 1.0.21
+- versionCode: 22
+- versão completa: 1.0.21+22
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -30,6 +30,7 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - perfil técnico da fonte usada no teste com preenchimento rápido por sugestões;
 - navegação principal com Agora, Gráficos, Sessão, Descarga e Histórico;
 - tela Descarga com consumo em %/h, autonomia estimada, projeção da bateria em 1 hora, qualidade da amostra, média histórica e histórico próprio;
+- módulo Consumo de bateria com taxa atual, corrente instantânea e ranking de apps mais ativos nas últimas 6 horas mediante Acesso ao uso;
 - gráficos leves de potência, corrente, temperatura e bateria em 5, 15 e 60 minutos;
 - diagnóstico técnico copiável com estado do monitoramento, leituras, sessão, histórico e gráficos;
 - Configurações, Sobre e Doação;
@@ -83,11 +84,13 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. A potência instantânea é apresentada ao usuário como **Velocidade de carga**, mantendo a indicação de que o valor é calculado. Um atalho **Entenda W, mA, Wh e mAh** explica os dados em linguagem simples.
 
-Quando o aparelho está carregando, a tela mostra uma estimativa aproximada do tempo até 100%. Em Android 9 ou superior, o app prioriza a previsão fornecida pelo próprio sistema; quando ela não está disponível, pode estimar pelo ritmo observado na sessão somente após pelo menos 2 pontos percentuais e 2 minutos de carga. Se não houver dados suficientes, mostra `Calculando tempo restante…` em vez de inventar um valor.
+Quando o aparelho está carregando, o próprio indicador verde mostra a estimativa aproximada, por exemplo `100% em aproximadamente 3 h 12 min`, evitando o texto genérico `Carregando`. Em Android 9 ou superior, o app prioriza a previsão fornecida pelo próprio sistema; quando ela não está disponível, pode estimar pelo ritmo observado na sessão somente após pelo menos 2 pontos percentuais e 2 minutos de carga. Se não houver dados suficientes, mostra `Calculando tempo restante…` em vez de inventar um valor.
 
 A aba Sessão agora abre em modo simplificado, com bateria inicial/atual, tempo, energia recebida, velocidade média e temperatura máxima. Corrente, tensão, mínimos/máximos, interrupções e demais métricas ficam em **Ver detalhes técnicos**, recolhidos por padrão.
 
 A navegação inferior mantém Agora, Gráficos, Sessão, Descarga e Histórico no mesmo nível. A aba Descarga registra o consumo fora da tomada e a aba Histórico salva automaticamente cada sessão de carregamento quando a fonte é desconectada.
+
+Na parte inferior da tela Agora há um card **Consumo de bateria**. A tela dedicada cruza a taxa de descarga observada com as estatísticas de tempo em primeiro plano das últimas 6 horas. Para consultar outros aplicativos, o usuário precisa conceder manualmente **Acesso ao uso** nas Configurações do Android. O ranking é apresentado como indicador de atividade e possível pista de consumo, não como medição elétrica exata por aplicativo.
 
 ## Ciclo automático da sessão
 
@@ -133,11 +136,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.20.apk`
+APK final: `Minha-Bateria-1.0.21.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.20.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.21.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -146,4 +149,4 @@ O Histórico permite selecionar duas sessões para comparar lado a lado os valor
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.20.apk` na GitHub Release `v1.0.20`.
+O workflow publica diretamente `Minha-Bateria-1.0.21.apk` na GitHub Release `v1.0.21`.

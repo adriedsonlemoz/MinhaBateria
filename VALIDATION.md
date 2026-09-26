@@ -1,24 +1,26 @@
-# Validação — Minha Bateria 1.0.20+21
+# Validação — Minha Bateria 1.0.21+22
 
 Data: 2026-09-25
 
 ## Alterações desta etapa
 
-- módulo Descarga promovido para a navegação inferior principal;
-- tela Descarga ampliada com projeção da bateria em 1 hora, média histórica e indicador de qualidade da amostra;
-- pop-up de novidades controlado por versão, exibido apenas uma vez após cada atualização;
-- atalho secundário de Descarga mantido em Configurações;
-- documentação e workflow sincronizados com a nova versão.
+- indicador verde de carregamento passa a mostrar diretamente a previsão até 100%;
+- removido o texto genérico `Carregando` quando há previsão disponível;
+- card `Consumo de bateria` adicionado ao espaço inferior da tela Agora;
+- nova tela de consumo com taxa de descarga, corrente instantânea e ranking de apps mais ativos nas últimas 6 horas;
+- fluxo de `Acesso ao uso` integrado para consultar estatísticas de atividade dos aplicativos;
+- ranking descrito explicitamente como indicador de atividade, não como consumo elétrico exato por app;
+- Configurações, pop-up de novidades, documentação e workflow atualizados.
 
 ## Validações executadas
 
-- `versionName 1.0.20` e `versionCode 21` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README e workflow;
-- 81 XMLs analisados e bem formados;
+- `versionName 1.0.21` e `versionCode 22` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README e workflow;
+- XMLs analisados e bem formados;
 - IDs e resources usados pelo Kotlin validados;
-- navegação inferior contém Agora, Gráficos, Sessão, Descarga e Histórico;
+- nova activity declarada no Manifest e permissão `PACKAGE_USAGE_STATS` presente;
 - source sem APK, AAB, keystore, Secrets, `build` ou `.gradle`;
 - nenhum arquivo de código acima de 500 linhas;
-- Works configurado para publicar somente `Minha-Bateria-1.0.20.apk`.
+- Works configurado para publicar somente `Minha-Bateria-1.0.21.apk`.
 
 ## Build Android
 

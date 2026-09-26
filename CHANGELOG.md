@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.21+22
+
+- Status verde de carregamento redesenhado: o texto genérico `Carregando` foi substituído por uma previsão direta como `100% em aproximadamente 3 h 12 min`; carga completa, carga pausada e uso na bateria também ganharam textos próprios.
+- Removida a linha redundante de tempo restante acima do status, concentrando a informação principal em um único componente mais claro.
+- Adicionado card `Consumo de bateria` no espaço inferior da tela Agora, com acesso rápido à nova análise.
+- Criada tela Consumo de bateria com taxa de descarga atual, corrente instantânea observada, bateria atual e ranking dos apps mais ativos nas últimas 6 horas.
+- Adicionado fluxo para conceder `Acesso ao uso` nas Configurações do Android; o ranking usa tempo em primeiro plano e não é apresentado como consumo elétrico exato por aplicativo.
+- Adicionado acesso secundário ao módulo de consumo em Configurações e atualizadas as novidades exibidas uma vez após a atualização.
+- Versão, identidade, documentação e workflow sincronizados para 1.0.21+22.
+
 ## 1.0.20+21
 
 - Descarga promovida para a navegação principal, ao lado de Agora, Gráficos, Sessão e Histórico.

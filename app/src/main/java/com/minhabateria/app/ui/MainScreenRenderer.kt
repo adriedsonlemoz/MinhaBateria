@@ -3,7 +3,6 @@ package com.minhabateria.app.ui
 import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.view.View
 import android.widget.TextView
 import com.minhabateria.app.R
 import com.minhabateria.app.battery.BatteryInfo
@@ -20,7 +19,6 @@ import com.minhabateria.app.utils.TimeFormatter
 class MainScreenRenderer(private val activity: Activity) {
     private val gauge = activity.findViewById<BatteryGaugeView>(R.id.batteryGauge)
     private val status = activity.findViewById<TextView>(R.id.statusText)
-    private val remainingTime = activity.findViewById<TextView>(R.id.remainingTimeText)
     private val profileSource = activity.findViewById<TextView>(R.id.profileSourceValue)
     private val detectedSource = activity.findViewById<TextView>(R.id.detectedSourceValue)
     private val voltage = activity.findViewById<TextView>(R.id.voltageValue)
@@ -42,8 +40,8 @@ class MainScreenRenderer(private val activity: Activity) {
 
     fun render(info: BatteryInfo, session: ChargingSession.Snapshot) {
         gauge.setBattery(info.percent, info.isCharging == true)
-        renderStatus(info.isCharging, info.percent, session.reachedFull)
-        renderRemainingTime(info, session)
+        val estimate = ChargeTimeEstimator.estimate(info, session)
+        renderStatus(info, session.reachedFull, estimate)
         detectedSource.text = BatteryFormatter.source(info.source)
         renderMetric(voltage, BatteryFormatter.voltage(info.voltageMv), info.voltageMv != null, R.color.accent_green)
         renderMetric(current, BatteryFormatter.current(info.currentMa), info.currentMa != null, R.color.accent_green)
@@ -55,34 +53,6 @@ class MainScreenRenderer(private val activity: Activity) {
         elapsed.text = TimeFormatter.elapsed(session.elapsedMs)
         renderMetric(energy, SessionFormatter.energy(session.energyWh), session.energyWh != null, R.color.text_primary)
         renderMetric(charge, SessionFormatter.charge(session.chargeMah), session.chargeMah != null, R.color.text_primary)
-    }
-
-    private fun renderRemainingTime(info: BatteryInfo, session: ChargingSession.Snapshot) {
-        val estimate = ChargeTimeEstimator.estimate(info, session)
-        when {
-            info.percent == 100 && info.isPlugged == true -> {
-                showRemaining("Carga completa")
-            }
-            info.isCharging == true && estimate != null -> {
-                showRemaining(ChargeTimeFormatter.mainLabel(estimate) ?: "Calculando tempo restante…")
-            }
-            info.isCharging == true -> {
-                showRemaining("Calculando tempo restante…")
-            }
-            info.isPlugged == true -> {
-                showRemaining("Tempo restante indisponível")
-            }
-            else -> hideRemaining()
-        }
-    }
-
-    private fun showRemaining(label: String) {
-        remainingTime.text = label
-        remainingTime.visibility = View.VISIBLE
-    }
-
-    private fun hideRemaining() {
-        remainingTime.visibility = View.GONE
     }
 
     fun renderSourceProfile(profile: EnergySourceProfile?) {
@@ -98,15 +68,21 @@ class MainScreenRenderer(private val activity: Activity) {
         view.setTextColor(activity.getColor(if (available) colorRes else R.color.value_unavailable))
     }
 
-    private fun renderStatus(charging: Boolean?, percent: Int?, reachedFull: Boolean) {
-        val full = percent == 100 || reachedFull
+    private fun renderStatus(
+        info: BatteryInfo,
+        reachedFull: Boolean,
+        estimate: ChargeTimeEstimator.Estimate?
+    ) {
+        val full = info.percent == 100 || reachedFull
         status.text = when {
-            full -> "Carga completa"
-            charging == true -> "Carregando"
-            charging == false -> "Não está carregando"
-            else -> "Status indisponível"
+            full -> "100% • carga completa"
+            info.isCharging == true && estimate != null -> ChargeTimeFormatter.mainLabel(estimate)
+            info.isCharging == true -> "Calculando tempo até 100%…"
+            info.isPlugged == true -> "Conectado • carga pausada"
+            info.percent != null -> "Na bateria • ${info.percent}%"
+            else -> "Status da bateria indisponível"
         }
-        val active = charging == true || full
+        val active = info.isCharging == true || full
         status.setTextColor(if (active) Color.rgb(6, 35, 20) else Color.WHITE)
         status.setCompoundDrawablesRelativeWithIntrinsicBounds(
             if (active) R.drawable.ic_status_charging else R.drawable.ic_status_idle,
@@ -114,7 +90,10 @@ class MainScreenRenderer(private val activity: Activity) {
             0,
             0
         )
-        status.background = statusBackground(if (active) true else charging)
+        status.background = statusBackground(if (active) true else info.isCharging)
+        status.contentDescription = if (active && estimate != null) {
+            "${status.text}. ${ChargeTimeFormatter.sourceLabel(estimate)}"
+        } else status.text
     }
 
     private fun statusBackground(charging: Boolean?): GradientDrawable {

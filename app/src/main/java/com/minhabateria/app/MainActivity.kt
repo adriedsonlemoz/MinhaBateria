@@ -19,6 +19,8 @@ import com.minhabateria.app.ui.MainScreenRenderer
 import com.minhabateria.app.ui.MeasurementHelpDialog
 import com.minhabateria.app.ui.SystemBars
 import com.minhabateria.app.ui.UpdateNotesDialog
+import com.minhabateria.app.usage.BatteryUsageFormatter
+import com.minhabateria.app.usage.BatteryUsageRepository
 
 class MainActivity : Activity() {
     private lateinit var renderer: MainScreenRenderer
@@ -52,6 +54,9 @@ class MainActivity : Activity() {
         findViewById<TextView>(R.id.measurementHelpButton).setOnClickListener {
             MeasurementHelpDialog.show(this)
         }
+        findViewById<android.view.View>(R.id.batteryUsagePreviewCard).setOnClickListener {
+            startActivity(Intent(this, BatteryUsageActivity::class.java))
+        }
         BottomTabsBinder(this).bind(
             active = BottomTab.NOW,
             openNow = {},
@@ -76,6 +81,7 @@ class MainActivity : Activity() {
     override fun onResume() {
         super.onResume()
         renderer.renderSourceProfile(sourceProfileStore.getProfile())
+        renderBatteryUsagePreview()
         val state = MonitoringStateStore.current()
         state.info?.let { info -> state.session?.let { session -> renderer.render(info, session) } }
         if (!sourceProfileStore.shouldOfferInitialSetup()) UpdateNotesDialog.showIfNeeded(this)
@@ -93,6 +99,32 @@ class MainActivity : Activity() {
             Intent(this, SourceProfileActivity::class.java)
                 .putExtra(SourceProfileActivity.EXTRA_INITIAL_SETUP, true)
         )
+    }
+
+    private fun renderBatteryUsagePreview() {
+        val repository = BatteryUsageRepository(this)
+        val value = findViewById<TextView>(R.id.batteryUsagePreviewValue)
+        val hint = findViewById<TextView>(R.id.batteryUsagePreviewHint)
+        if (!repository.hasUsageAccess()) {
+            value.text = "Descubra o que pode estar drenando mais rápido"
+            hint.text = "Toque para ativar a análise por aplicativo"
+            return
+        }
+        value.text = "Analisando atividade recente…"
+        hint.text = "Últimas 6 horas"
+        Thread {
+            val top = repository.topApps(limit = 1).firstOrNull()
+            runOnUiThread {
+                if (isFinishing || isDestroyed) return@runOnUiThread
+                if (top == null) {
+                    value.text = "Aguardando atividade suficiente"
+                    hint.text = "Análise das últimas 6 horas"
+                } else {
+                    value.text = "${top.label} • ${BatteryUsageFormatter.duration(top.foregroundMs)}"
+                    hint.text = "Maior atividade em primeiro plano • toque para analisar"
+                }
+            }
+        }.start()
     }
 
     private fun renderMonitoringStatus(running: Boolean) {

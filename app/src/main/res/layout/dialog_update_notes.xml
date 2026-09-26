@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.20+21"
+        android:text="Versão 1.0.21+22"
         android:textColor="@color/accent_blue"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• Descarga agora faz parte do menu principal.\n\n• A tela de descarga ganhou projeção para 1 hora, média histórica e indicador de qualidade da medição.\n\n• O histórico de descarga continua separado das sessões de carregamento."
+        android:text="• O indicador verde de carga agora mostra diretamente quando a bateria deve chegar a 100%.\n\n• Novo módulo Consumo de bateria com taxa de descarga, corrente instantânea e ranking de apps mais ativos.\n\n• A tela principal ganhou um card de acesso rápido à análise de consumo."
         android:textColor="@color/text_primary"
         android:textSize="13sp" />
 
