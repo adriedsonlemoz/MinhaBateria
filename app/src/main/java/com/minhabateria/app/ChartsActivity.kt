@@ -44,6 +44,10 @@ class ChartsActivity : Activity() {
                 startActivity(Intent(this, SessionActivity::class.java))
                 finish()
             },
+            openDischarge = {
+                startActivity(Intent(this, DischargeRateActivity::class.java))
+                finish()
+            },
             openHistory = {
                 startActivity(Intent(this, HistoryActivity::class.java))
                 finish()

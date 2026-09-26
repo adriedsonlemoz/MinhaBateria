@@ -84,6 +84,32 @@
             android:textSize="10sp" />
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/tabDischarge"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/tabDischargeIcon"
+            android:layout_width="@dimen/bottom_icon_size"
+            android:layout_height="@dimen/bottom_icon_size"
+            android:contentDescription="Descarga"
+            android:src="@drawable/ic_tab_discharge" />
+        <TextView
+            android:id="@+id/tabDischargeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="Descarga"
+            android:textColor="@color/text_tab_inactive"
+            android:textSize="9sp" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/tabHistory"
         android:layout_width="0dp"

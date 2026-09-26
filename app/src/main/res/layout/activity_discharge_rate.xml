@@ -8,40 +8,27 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="64dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="8dp"
-        android:paddingEnd="14dp">
+        android:orientation="vertical"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp">
 
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="Voltar"
-            android:padding="10dp"
-            android:src="@drawable/ic_arrow_back" />
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Taxa de descarga"
-                android:textColor="@color/text_primary"
-                android:textSize="23sp"
-                android:textStyle="bold" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Consumo da bateria fora do carregador"
-                android:textColor="@color/text_secondary"
-                android:textSize="11sp" />
-        </LinearLayout>
+            android:text="Descarga"
+            android:textColor="@color/text_primary"
+            android:textSize="27sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dischargeHeaderSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Acompanhe quanto a bateria consome fora da tomada"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp" />
     </LinearLayout>
 
     <ScrollView
@@ -58,7 +45,7 @@
             android:orientation="vertical"
             android:paddingStart="14dp"
             android:paddingEnd="14dp"
-            android:paddingBottom="24dp">
+            android:paddingBottom="18dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,13 +54,35 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="DESCARGA ATUAL"
-                    android:textColor="@color/text_muted"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="DESCARGA ATUAL"
+                        android:textColor="@color/text_muted"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/dischargeQualityValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_status_chip"
+                        android:paddingStart="9dp"
+                        android:paddingTop="4dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="4dp"
+                        android:text="Aguardando"
+                        android:textColor="@color/accent_blue"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/dischargeRateValue"
@@ -140,12 +149,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="88dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_metric_card"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView android:id="@+id/dischargeOneHourValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/accent_blue" android:textSize="20sp" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="Bateria em 1 h" android:textColor="@color/text_secondary" android:textSize="11sp" />
+                </LinearLayout>
+
+                <Space android:layout_width="8dp" android:layout_height="1dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="88dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_metric_card"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView android:id="@+id/dischargeHistoricalAverageValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/accent_green" android:textSize="18sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/dischargeHistoricalAverageLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:gravity="center" android:text="Média histórica" android:textColor="@color/text_secondary" android:textSize="11sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
                 android:padding="14dp">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Autonomia estimada" android:textColor="@color/text_secondary" android:textSize="11sp" />
                 <TextView android:id="@+id/dischargeAutonomyValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="—" android:textColor="@color/accent_blue" android:textSize="20sp" android:textStyle="bold" />
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:text="Estimativa até 0% usando a média desta sessão. Fica mais confiável após uma queda maior de bateria." android:textColor="@color/text_muted" android:textSize="10sp" />
+                <TextView android:id="@+id/dischargeEstimateHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:text="A estimativa melhora conforme mais bateria é consumida durante a medição." android:textColor="@color/text_muted" android:textSize="10sp" />
             </LinearLayout>
 
             <Button
@@ -207,4 +247,9 @@
                 android:orientation="vertical" />
         </LinearLayout>
     </ScrollView>
+
+    <include
+        layout="@layout/bottom_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_tabs_height" />
 </LinearLayout>

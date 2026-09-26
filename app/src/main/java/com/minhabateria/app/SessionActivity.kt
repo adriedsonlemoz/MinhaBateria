@@ -41,6 +41,10 @@ class SessionActivity : Activity() {
                 finish()
             },
             openSession = {},
+            openDischarge = {
+                startActivity(android.content.Intent(this, DischargeRateActivity::class.java))
+                finish()
+            },
             openHistory = {
                 startActivity(android.content.Intent(this, HistoryActivity::class.java))
                 finish()

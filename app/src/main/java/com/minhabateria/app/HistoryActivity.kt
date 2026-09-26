@@ -48,6 +48,7 @@ class HistoryActivity : Activity() {
             openNow = { open(MainActivity::class.java) },
             openCharts = { open(ChartsActivity::class.java) },
             openSession = { open(SessionActivity::class.java) },
+            openDischarge = { open(DischargeRateActivity::class.java) },
             openHistory = {}
         )
     }

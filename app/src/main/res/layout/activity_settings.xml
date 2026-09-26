@@ -150,7 +150,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="Registra quanto da bateria é consumido por hora quando o celular está fora do carregador, com autonomia estimada e histórico."
+                    android:text="Também disponível na navegação principal. Registra consumo por hora, autonomia, projeção para 1 hora e histórico."
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
 
@@ -161,7 +161,7 @@
                     android:layout_marginTop="12dp"
                     android:background="@drawable/bg_secondary_button"
                     android:minHeight="0dp"
-                    android:text="Abrir taxa de descarga"
+                    android:text="Abrir Descarga"
                     android:textAllCaps="false"
                     android:textColor="@color/text_primary"
                     android:textSize="13sp"
@@ -245,11 +245,11 @@
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/app_name" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold" />
-                    <TextView android:id="@+id/versionValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_status_chip" android:paddingStart="10dp" android:paddingTop="5dp" android:paddingEnd="10dp" android:paddingBottom="5dp" android:text="1.0.19+20" android:textColor="@color/accent_blue" android:textSize="11sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/versionValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_status_chip" android:paddingStart="10dp" android:paddingTop="5dp" android:paddingEnd="10dp" android:paddingBottom="5dp" android:text="1.0.20+21" android:textColor="@color/accent_blue" android:textSize="11sp" android:textStyle="bold" />
                 </LinearLayout>
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="13dp" android:text="Últimas alterações" android:textColor="@color/text_secondary" android:textSize="12sp" android:textStyle="bold" />
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="• Nova tela Taxa de descarga registra o consumo em % por hora quando o celular está fora do carregador.\n• Exibe bateria consumida, duração, autonomia estimada e faixa de bateria da medição atual.\n• Descargas concluídas ficam salvas em um histórico separado das sessões de carregamento." android:textColor="@color/text_primary" android:textSize="13sp" android:lineSpacingExtra="4dp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="• Descarga agora aparece diretamente na navegação principal do app.\n• A tela ganhou projeção da bateria em 1 hora, média histórica e indicador de qualidade da amostra.\n• Um pop-up de novidades é exibido uma única vez após cada atualização do aplicativo." android:textColor="@color/text_primary" android:textSize="13sp" android:lineSpacingExtra="4dp" />
             </LinearLayout>
 
             <TextView

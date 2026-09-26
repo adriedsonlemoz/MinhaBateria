@@ -18,6 +18,7 @@ import com.minhabateria.app.ui.BottomTabsBinder
 import com.minhabateria.app.ui.MainScreenRenderer
 import com.minhabateria.app.ui.MeasurementHelpDialog
 import com.minhabateria.app.ui.SystemBars
+import com.minhabateria.app.ui.UpdateNotesDialog
 
 class MainActivity : Activity() {
     private lateinit var renderer: MainScreenRenderer
@@ -56,6 +57,7 @@ class MainActivity : Activity() {
             openNow = {},
             openCharts = { startActivity(Intent(this, ChartsActivity::class.java)) },
             openSession = { startActivity(Intent(this, SessionActivity::class.java)) },
+            openDischarge = { startActivity(Intent(this, DischargeRateActivity::class.java)) },
             openHistory = { startActivity(Intent(this, HistoryActivity::class.java)) }
         )
 
@@ -76,6 +78,7 @@ class MainActivity : Activity() {
         renderer.renderSourceProfile(sourceProfileStore.getProfile())
         val state = MonitoringStateStore.current()
         state.info?.let { info -> state.session?.let { session -> renderer.render(info, session) } }
+        if (!sourceProfileStore.shouldOfferInitialSetup()) UpdateNotesDialog.showIfNeeded(this)
     }
 
     override fun onStop() {

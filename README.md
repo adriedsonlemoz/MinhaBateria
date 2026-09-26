@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.19
-- versionCode: 20
-- versão completa: 1.0.19+20
+- versionName: 1.0.20
+- versionCode: 21
+- versão completa: 1.0.20+21
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -28,8 +28,8 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - tempo da sessão, Wh/mAh estimados, picos observados e estimativa de tempo até 100% quando disponível;
 - monitoramento contínuo por foreground service;
 - perfil técnico da fonte usada no teste com preenchimento rápido por sugestões;
-- abas Gráficos, Sessão e Histórico funcionais;
-- tela Taxa de descarga com consumo em %/h, autonomia estimada e histórico próprio de descargas;
+- navegação principal com Agora, Gráficos, Sessão, Descarga e Histórico;
+- tela Descarga com consumo em %/h, autonomia estimada, projeção da bateria em 1 hora, qualidade da amostra, média histórica e histórico próprio;
 - gráficos leves de potência, corrente, temperatura e bateria em 5, 15 e 60 minutos;
 - diagnóstico técnico copiável com estado do monitoramento, leituras, sessão, histórico e gráficos;
 - Configurações, Sobre e Doação;
@@ -87,7 +87,7 @@ Quando o aparelho está carregando, a tela mostra uma estimativa aproximada do t
 
 A aba Sessão agora abre em modo simplificado, com bateria inicial/atual, tempo, energia recebida, velocidade média e temperatura máxima. Corrente, tensão, mínimos/máximos, interrupções e demais métricas ficam em **Ver detalhes técnicos**, recolhidos por padrão.
 
-As abas Gráficos, Sessão e Histórico são funcionais. A aba Histórico salva automaticamente cada sessão quando a fonte é desconectada e mostra os resultados mais recentes primeiro.
+A navegação inferior mantém Agora, Gráficos, Sessão, Descarga e Histórico no mesmo nível. A aba Descarga registra o consumo fora da tomada e a aba Histórico salva automaticamente cada sessão de carregamento quando a fonte é desconectada.
 
 ## Ciclo automático da sessão
 
@@ -133,13 +133,17 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.19.apk`
+APK final: `Minha-Bateria-1.0.20.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.19.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.20.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
 
 O Histórico permite selecionar duas sessões para comparar lado a lado os valores observados e estimados, sem escolher automaticamente uma sessão vencedora.
+
+## APK atual
+
+O workflow publica diretamente `Minha-Bateria-1.0.20.apk` na GitHub Release `v1.0.20`.

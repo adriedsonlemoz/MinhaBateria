@@ -1,24 +1,25 @@
-# Validação — Minha Bateria 1.0.19+20
+# Validação — Minha Bateria 1.0.20+21
 
 Data: 2026-09-25
 
 ## Alterações desta etapa
 
-- estimativa de tempo até 100% com origem identificável: previsão do Android quando disponível ou fallback conservador baseado na sessão;
-- tela Agora com linguagem simplificada e ajuda para W, mA, Wh e mAh;
-- aba Sessão com resumo simples e detalhes técnicos recolhidos;
-- status `Carga completa` ao atingir 100%.
+- módulo Descarga promovido para a navegação inferior principal;
+- tela Descarga ampliada com projeção da bateria em 1 hora, média histórica e indicador de qualidade da amostra;
+- pop-up de novidades controlado por versão, exibido apenas uma vez após cada atualização;
+- atalho secundário de Descarga mantido em Configurações;
+- documentação e workflow sincronizados com a nova versão.
 
-## Validações exigidas
+## Validações executadas
 
-- `versionName 1.0.19` e `versionCode 20` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README e workflow;
-- XMLs bem formados e IDs/resources Kotlin existentes;
-- estimador não gera previsão antes de dados mínimos da sessão;
-- estimativa do Android tem prioridade quando válida;
+- `versionName 1.0.20` e `versionCode 21` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README e workflow;
+- 81 XMLs analisados e bem formados;
+- IDs e resources usados pelo Kotlin validados;
+- navegação inferior contém Agora, Gráficos, Sessão, Descarga e Histórico;
 - source sem APK, AAB, keystore, Secrets, `build` ou `.gradle`;
 - nenhum arquivo de código acima de 500 linhas;
-- Works publica somente `Minha-Bateria-1.0.19.apk`.
+- Works configurado para publicar somente `Minha-Bateria-1.0.20.apk`.
 
 ## Build Android
 
-O ambiente de geração desta entrega não possui Android SDK/Gradle configurado para executar `assembleRelease` localmente. O workflow executa validação e build release em runner preparado.
+O ambiente desta entrega não possui Gradle instalado para executar a compilação Android local. O workflow permanece preparado para executar a validação e o build `release` assinado no runner do GitHub Actions.

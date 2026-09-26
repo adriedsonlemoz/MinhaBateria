@@ -7,7 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.minhabateria.app.R
 
-enum class BottomTab { NOW, CHARTS, SESSION, HISTORY }
+enum class BottomTab { NOW, CHARTS, SESSION, DISCHARGE, HISTORY }
 
 class BottomTabsBinder(private val activity: Activity) {
     fun bind(
@@ -15,27 +15,27 @@ class BottomTabsBinder(private val activity: Activity) {
         openNow: () -> Unit,
         openCharts: () -> Unit,
         openSession: () -> Unit,
+        openDischarge: () -> Unit,
         openHistory: () -> Unit
     ) {
         val tabs = listOf(
             TabViews(R.id.tabNow, R.id.tabNowIcon, R.id.tabNowLabel, BottomTab.NOW),
             TabViews(R.id.tabCharts, R.id.tabChartsIcon, R.id.tabChartsLabel, BottomTab.CHARTS),
             TabViews(R.id.tabSession, R.id.tabSessionIcon, R.id.tabSessionLabel, BottomTab.SESSION),
+            TabViews(R.id.tabDischarge, R.id.tabDischargeIcon, R.id.tabDischargeLabel, BottomTab.DISCHARGE),
             TabViews(R.id.tabHistory, R.id.tabHistoryIcon, R.id.tabHistoryLabel, BottomTab.HISTORY)
         )
         tabs.forEach { style(it, it.tab == active) }
+        bindClick(R.id.tabNow, active, BottomTab.NOW, openNow)
+        bindClick(R.id.tabCharts, active, BottomTab.CHARTS, openCharts)
+        bindClick(R.id.tabSession, active, BottomTab.SESSION, openSession)
+        bindClick(R.id.tabDischarge, active, BottomTab.DISCHARGE, openDischarge)
+        bindClick(R.id.tabHistory, active, BottomTab.HISTORY, openHistory)
+    }
 
-        activity.findViewById<LinearLayout>(R.id.tabNow).setOnClickListener {
-            if (active != BottomTab.NOW) openNow()
-        }
-        activity.findViewById<LinearLayout>(R.id.tabCharts).setOnClickListener {
-            if (active != BottomTab.CHARTS) openCharts()
-        }
-        activity.findViewById<LinearLayout>(R.id.tabSession).setOnClickListener {
-            if (active != BottomTab.SESSION) openSession()
-        }
-        activity.findViewById<LinearLayout>(R.id.tabHistory).setOnClickListener {
-            if (active != BottomTab.HISTORY) openHistory()
+    private fun bindClick(containerId: Int, active: BottomTab, tab: BottomTab, action: () -> Unit) {
+        activity.findViewById<LinearLayout>(containerId).setOnClickListener {
+            if (active != tab) action()
         }
     }
 

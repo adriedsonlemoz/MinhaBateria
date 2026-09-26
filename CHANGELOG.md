@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.20+21
+
+- Descarga promovida para a navegação principal, ao lado de Agora, Gráficos, Sessão e Histórico.
+- Tela de Descarga aprimorada com projeção da bateria em 1 hora, média das descargas salvas e indicador de qualidade da amostra.
+- Cabeçalho e mensagens da medição revisados para explicar melhor quando a taxa ainda está sendo calculada.
+- Mantido o atalho de Descarga em Configurações como acesso secundário.
+- Adicionado pop-up elegante de novidades, exibido automaticamente uma única vez por versão após a atualização.
+- Versão, identidade, documentação e workflow sincronizados para 1.0.20+21.
+
 ## 1.0.19+20
 
 - Adicionada tela **Taxa de descarga** para acompanhar o consumo da bateria quando o aparelho está fora do carregador.

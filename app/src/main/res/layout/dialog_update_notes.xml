@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="18dp"
+    android:background="@drawable/bg_card"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOVIDADES"
+        android:textColor="@color/accent_green"
+        android:textSize="11sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="O Minha Bateria foi atualizado"
+        android:textColor="@color/text_primary"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/updateNotesVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_status_chip"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
+        android:text="Versão 1.0.20+21"
+        android:textColor="@color/accent_blue"
+        android:textSize="11sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/updateNotesBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:lineSpacingExtra="5dp"
+        android:text="• Descarga agora faz parte do menu principal.\n\n• A tela de descarga ganhou projeção para 1 hora, média histórica e indicador de qualidade da medição.\n\n• O histórico de descarga continua separado das sessões de carregamento."
+        android:textColor="@color/text_primary"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Este aviso aparece somente uma vez em cada nova versão."
+        android:textColor="@color/text_muted"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/updateNotesContinueButton"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/bg_primary_button"
+        android:minHeight="0dp"
+        android:text="Continuar"
+        android:textAllCaps="false"
+        android:textColor="#07110A"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+</LinearLayout>

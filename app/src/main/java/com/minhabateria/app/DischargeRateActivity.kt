@@ -2,14 +2,16 @@ package com.minhabateria.app
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageButton
 import com.minhabateria.app.discharge.DischargeRecorder
 import com.minhabateria.app.discharge.DischargeStore
 import com.minhabateria.app.monitoring.LocalBatteryMonitorHub
 import com.minhabateria.app.monitoring.MonitoringState
 import com.minhabateria.app.monitoring.MonitoringStateStore
+import com.minhabateria.app.ui.BottomTab
+import com.minhabateria.app.ui.BottomTabsBinder
 import com.minhabateria.app.ui.DischargeScreenRenderer
 import com.minhabateria.app.ui.SystemBars
 
@@ -30,12 +32,12 @@ class DischargeRateActivity : Activity() {
         store = DischargeStore(this)
         renderer = DischargeScreenRenderer(this)
 
-        findViewById<ImageButton>(R.id.backButton).setOnClickListener { finish() }
         findViewById<Button>(R.id.resetDischargeButton).setOnClickListener {
             DischargeRecorder(this).reset(MonitoringStateStore.current().info)
             render()
         }
         findViewById<Button>(R.id.clearDischargeHistoryButton).setOnClickListener { confirmClearHistory() }
+        bindBottomTabs()
     }
 
     override fun onStart() {
@@ -53,6 +55,22 @@ class DischargeRateActivity : Activity() {
         LocalBatteryMonitorHub.detach(this)
         MonitoringStateStore.removeListener(stateListener)
         super.onStop()
+    }
+
+    private fun bindBottomTabs() {
+        BottomTabsBinder(this).bind(
+            active = BottomTab.DISCHARGE,
+            openNow = { open(MainActivity::class.java) },
+            openCharts = { open(ChartsActivity::class.java) },
+            openSession = { open(SessionActivity::class.java) },
+            openDischarge = {},
+            openHistory = { open(HistoryActivity::class.java) }
+        )
+    }
+
+    private fun open(target: Class<out Activity>) {
+        startActivity(Intent(this, target))
+        finish()
     }
 
     private fun render() {
