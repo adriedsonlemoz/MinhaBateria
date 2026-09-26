@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
+import com.minhabateria.app.diagnostics.CrashStore
 import com.minhabateria.app.monitoring.LocalBatteryMonitorHub
 import com.minhabateria.app.monitoring.MonitorPreferences
 import com.minhabateria.app.monitoring.MonitoringServiceController
@@ -82,6 +84,13 @@ class MainActivity : Activity() {
         super.onResume()
         renderer.renderSourceProfile(sourceProfileStore.getProfile())
         renderBatteryUsagePreview()
+        if (CrashStore.consumeNewCrashNotice(this)) {
+            Toast.makeText(
+                this,
+                "O fechamento anterior foi registrado em Configurações > Diagnóstico e erros.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
         val state = MonitoringStateStore.current()
         state.info?.let { info -> state.session?.let { session -> renderer.render(info, session) } }
         if (!sourceProfileStore.shouldOfferInitialSetup()) UpdateNotesDialog.showIfNeeded(this)
@@ -113,15 +122,23 @@ class MainActivity : Activity() {
         value.text = "Analisando atividade recente…"
         hint.text = "Últimas 6 horas"
         Thread {
-            val top = repository.topApps(limit = 1).firstOrNull()
+            val result = runCatching { repository.topApps(limit = 1).firstOrNull() }
             runOnUiThread {
                 if (isFinishing || isDestroyed) return@runOnUiThread
-                if (top == null) {
-                    value.text = "Aguardando atividade suficiente"
-                    hint.text = "Análise das últimas 6 horas"
-                } else {
-                    value.text = "${top.label} • ${BatteryUsageFormatter.duration(top.foregroundMs)}"
-                    hint.text = "Maior atividade em primeiro plano • toque para analisar"
+                val top = result.getOrNull()
+                when {
+                    result.isFailure -> {
+                        value.text = "Não foi possível analisar agora"
+                        hint.text = "Toque para tentar novamente"
+                    }
+                    top == null -> {
+                        value.text = "Aguardando atividade suficiente"
+                        hint.text = "Análise das últimas 6 horas"
+                    }
+                    else -> {
+                        value.text = "${top.label} • ${BatteryUsageFormatter.duration(top.foregroundMs)}"
+                        hint.text = "Maior atividade em primeiro plano • toque para analisar"
+                    }
                 }
             }
         }.start()

@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.21
-- versionCode: 22
-- versão completa: 1.0.21+22
+- versionName: 1.0.22
+- versionCode: 23
+- versão completa: 1.0.22+23
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -32,9 +32,23 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - tela Descarga com consumo em %/h, autonomia estimada, projeção da bateria em 1 hora, qualidade da amostra, média histórica e histórico próprio;
 - módulo Consumo de bateria com taxa atual, corrente instantânea e ranking de apps mais ativos nas últimas 6 horas mediante Acesso ao uso;
 - gráficos leves de potência, corrente, temperatura e bateria em 5, 15 e 60 minutos;
-- diagnóstico técnico copiável com estado do monitoramento, leituras, sessão, histórico e gráficos;
+- diagnóstico técnico copiável/exportável com estado do monitoramento, leituras, sessão, histórico, gráficos e falhas capturadas;
+- capturador global de exceções fatais com até 10 relatórios locais, incluindo stack trace, tela aberta, versão, aparelho, memória e estado da bateria;
 - Configurações, Sobre e Doação;
 - build release assinado e publicação direta do APK.
+
+## Diagnóstico e falhas
+
+O app instala um capturador global de exceções fatais logo na inicialização. Quando uma falha Java/Kotlin não tratada encerra o processo, o Minha Bateria tenta salvar um relatório antes de delegar o encerramento normal ao Android.
+
+- os relatórios ficam somente no armazenamento interno privado do aplicativo;
+- são mantidos no máximo os 10 mais recentes;
+- o relatório inclui versão, tela ativa, thread, exceção, stack trace, Android, modelo, memória, armazenamento e estado recente da bateria;
+- na próxima abertura, o app avisa uma única vez que o fechamento anterior foi registrado;
+- em Configurações > Diagnóstico e erros é possível copiar, exportar em `.txt` ou limpar as falhas;
+- não há upload automático, SDK externo de analytics ou envio de telemetria para servidor.
+
+O capturador é voltado a exceções fatais do código Java/Kotlin. Encerramentos forçados pelo sistema, falhas nativas e alguns ANRs podem não produzir um relatório completo.
 
 ## Perfil técnico da fonte
 
@@ -136,11 +150,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.21.apk`
+APK final: `Minha-Bateria-1.0.22.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.21.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.22.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -149,4 +163,4 @@ O Histórico permite selecionar duas sessões para comparar lado a lado os valor
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.21.apk` na GitHub Release `v1.0.21`.
+O workflow publica diretamente `Minha-Bateria-1.0.22.apk` na GitHub Release `v1.0.22`.

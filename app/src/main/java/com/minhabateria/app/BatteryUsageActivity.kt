@@ -100,10 +100,15 @@ class BatteryUsageActivity : Activity() {
         emptyText.text = "Analisando as últimas 6 horas…"
         findViewById<TextView>(R.id.usageInsightText).text = "Preparando ranking de atividade…"
         Thread {
-            val apps = repository.topApps()
+            val result = runCatching { repository.topApps() }
             runOnUiThread {
                 if (isFinishing || isDestroyed || generation != appsLoadGeneration) return@runOnUiThread
-                renderAppsResult(apps)
+                result.onSuccess(::renderAppsResult).onFailure {
+                    appsList.removeAllViews()
+                    emptyText.visibility = View.VISIBLE
+                    emptyText.text = "Não foi possível consultar a atividade dos aplicativos agora."
+                    findViewById<TextView>(R.id.usageInsightText).text = "Tente atualizar novamente. O restante do monitoramento continua funcionando."
+                }
             }
         }.start()
     }

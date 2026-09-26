@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.22+23
+
+- Adicionado capturador global de exceções fatais para registrar automaticamente falhas que encerram o aplicativo, inclusive em threads de segundo plano.
+- Cada falha salva data/hora, versão, tela ativa, thread, tipo/mensagem da exceção, stack trace, modelo do aparelho, Android, memória, armazenamento livre e estado recente da bateria.
+- Relatórios são armazenados somente no aparelho, limitados aos 10 mais recentes, sem envio automático para servidor ou serviço externo.
+- Tela Diagnóstico passou a incluir a última falha capturada, contador de relatórios, botão para exportar o diagnóstico completo em `.txt` e opção para limpar as falhas salvas.
+- Após um fechamento inesperado capturado, a próxima abertura informa uma única vez onde o relatório pode ser encontrado.
+- `Application` dedicada instalada no Manifest para iniciar o capturador antes das telas do app.
+- Consultas de atividade por aplicativo agora tratam falhas inesperadas sem derrubar o processo, exibindo uma mensagem de tentativa novamente.
+- Versão, identidade, documentação, novidades e workflow sincronizados para 1.0.22+23.
+
 ## 1.0.21+22
 
 - Status verde de carregamento redesenhado: o texto genérico `Carregando` foi substituído por uma previsão direta como `100% em aproximadamente 3 h 12 min`; carga completa, carga pausada e uso na bateria também ganharam textos próprios.

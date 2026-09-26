@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Use esta tela para conferir monitoramento, fonte, leitura atual, sessão e armazenamento. O relatório não contém chaves de assinatura nem dados secretos."
+                android:text="Use esta tela para conferir monitoramento e falhas do aplicativo. Se o app fechar inesperadamente, o erro fatal e o stack trace ficam salvos localmente para copiar ou exportar. O relatório não contém chaves de assinatura nem dados secretos."
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:lineSpacingExtra="2dp" />
@@ -99,6 +99,43 @@
                     android:minWidth="0dp"
                     android:text="Copiar relatório"
                     android:textColor="#07110A"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/exportDiagnosticsButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_secondary_button"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:text="Exportar .txt"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="8dp"
+                    android:layout_height="1dp" />
+
+                <Button
+                    android:id="@+id/clearCrashReportsButton"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_secondary_button"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:text="Limpar falhas"
+                    android:textColor="@color/text_primary"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>

@@ -58,6 +58,9 @@ object DiagnosticReportBuilder {
             appendLine("ARMAZENAMENTO")
             appendLine("Sessões no Histórico: $historyCount / 100")
             appendLine("Amostras de gráficos (últimos 60 min): $chartCount")
+            appendLine("Falhas capturadas: ${CrashStore.count(appContext)} / 10")
+            appendLine()
+            appendCrashReport(appContext)
             appendLine()
             appendLine("OBSERVAÇÕES")
             appendLine("• Corrente é a leitura observada pelo Android na bateria quando disponível.")
@@ -65,6 +68,16 @@ object DiagnosticReportBuilder {
             appendLine("• Wh, mAh e médias da sessão são estimados por integração temporal.")
             appendLine("• Valores indisponíveis não são substituídos por zero.")
         }.trimEnd()
+    }
+
+    private fun StringBuilder.appendCrashReport(context: Context) {
+        val latest = CrashStore.latest(context)
+        appendLine("ÚLTIMA FALHA CAPTURADA")
+        if (latest == null) {
+            appendLine("Nenhuma falha fatal foi registrada localmente.")
+            return
+        }
+        appendLine(latest.text)
     }
 
     private fun StringBuilder.appendBattery(info: BatteryInfo?) {

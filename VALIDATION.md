@@ -1,4 +1,4 @@
-# Validação — Minha Bateria 1.0.21+22
+# Validação — Minha Bateria 1.0.22+23
 
 Data: 2026-09-25
 
@@ -14,13 +14,13 @@ Data: 2026-09-25
 
 ## Validações executadas
 
-- `versionName 1.0.21` e `versionCode 22` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README e workflow;
+- `versionName 1.0.22` e `versionCode 23` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README e workflow;
 - XMLs analisados e bem formados;
 - IDs e resources usados pelo Kotlin validados;
 - nova activity declarada no Manifest e permissão `PACKAGE_USAGE_STATS` presente;
 - source sem APK, AAB, keystore, Secrets, `build` ou `.gradle`;
 - nenhum arquivo de código acima de 500 linhas;
-- Works configurado para publicar somente `Minha-Bateria-1.0.21.apk`.
+- Works configurado para publicar somente `Minha-Bateria-1.0.22.apk`.
 
 ## Build Android
 
