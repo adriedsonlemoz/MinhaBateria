@@ -9,7 +9,7 @@ class VoiceAlertPreferences(context: Context) {
     fun isEnabled(): Boolean = prefs.getBoolean(KEY_ENABLED, true)
     fun setEnabled(enabled: Boolean) = prefs.edit().putBoolean(KEY_ENABLED, enabled).apply()
 
-    fun volume(): Int = prefs.getInt(KEY_VOLUME, 85).coerceIn(0, 100)
+    fun volume(): Int = prefs.getInt(KEY_VOLUME, 100).coerceIn(0, 100)
     fun setVolume(value: Int) = prefs.edit().putInt(KEY_VOLUME, value.coerceIn(0, 100)).apply()
 
     fun allowBackground(): Boolean = prefs.getBoolean(KEY_BACKGROUND, true)

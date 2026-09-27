@@ -1,8 +1,11 @@
-# Validação — Minha Bateria 1.0.38+39
+# Validação — Minha Bateria 1.0.39+40
 
 Data: 2026-09-27
 
 ## Escopo desta versão
+
+- aumento do loudness dos 24 OGG padrão e mudança do uso de áudio para mídia/fala;
+- medição do conjunto OGG após o remaster: loudness integrado médio de aproximadamente -12,4 LUFS, contra -16,6 LUFS nos arquivos da versão 1.0.38+39;
 
 - integração dos 24 avisos OGG fornecidos;
 - configuração global e individual de voz, volume e segundo plano;
@@ -28,9 +31,9 @@ Prioridade da fila: temperatura crítica, bateria em 5%, bateria em 10%, problem
 
 ## Sincronização
 
-- `versionName 1.0.38` e `versionCode 39` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README, Works e workflow;
-- tela de novidades atualizada para 1.0.38+39;
-- workflow configurado para publicar `Minha-Bateria-1.0.38.apk` na release `v1.0.38`.
+- `versionName 1.0.39` e `versionCode 40` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README, Works e workflow;
+- tela de novidades atualizada para 1.0.39+40;
+- workflow configurado para publicar `Minha-Bateria-1.0.39.apk` na release `v1.0.39`.
 
 ## Verificações executadas
 

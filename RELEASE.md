@@ -1,7 +1,9 @@
-# Release — Minha Bateria 1.0.38+39
+# Release — Minha Bateria 1.0.39+40
 
 ## Destaques
 
+- 24 avisos OGG remasterizados com compressão dinâmica e limiter para maior loudness de voz;
+- volume padrão dos avisos em 100% e reprodução com `USAGE_MEDIA` + `CONTENT_TYPE_SPEECH`;
 - 24 avisos de voz padrão integrados aos eventos de carga, bateria, temperatura, sessão e monitoramento;
 - nova tela **Áudio e avisos** com controle geral, volume, segundo plano, controles individuais, teste e áudio personalizado;
 - seleção de arquivo via Storage Access Framework, sem acesso geral ao armazenamento, com fallback automático para o áudio padrão;
@@ -13,6 +15,6 @@
 
 ## Entrega
 
-APK esperado pelo workflow: `Minha-Bateria-1.0.38.apk`.
+APK esperado pelo workflow: `Minha-Bateria-1.0.39.apk`.
 
 O ZIP de código-fonte não inclui APK, keystore, secrets nem diretórios de build/cache.

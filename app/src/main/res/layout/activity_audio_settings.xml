@@ -90,7 +90,7 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="85%"
+                        android:text="100%"
                         android:textColor="@color/text_primary"
                         android:textSize="13sp"
                         android:textStyle="bold" />

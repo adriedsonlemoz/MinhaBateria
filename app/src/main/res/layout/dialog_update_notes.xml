@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.38+39"
+        android:text="Versão 1.0.39+40"
         android:textColor="@color/accent_blue"
         android:textSize="13sp"
         android:textStyle="bold" />
@@ -45,9 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• O volume dos 24 avisos de voz padrão foi normalizado e aumentado, deixando os áudios integrados mais altos e nítidos.
+        android:text="• Os 24 avisos de voz padrão foram remasterizados para maior loudness, deixando a fala mais próxima do nível percebido de uma reprodução de mídia.
 
-• Áudio e avisos ganhou controle geral, volume, ativação por evento, teste, áudio personalizado e restauração do padrão.
+• O volume padrão dos avisos agora começa em 100%; o controle, os eventos, o teste e os áudios personalizados continuam disponíveis.
 
 • O monitoramento usa fila curta, prioridades e controle de estado para evitar repetição enquanto a condição continua verdadeira.
 

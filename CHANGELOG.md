@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.39+40
+
+- Remasterizados os 24 avisos OGG padrão com compressão dinâmica e limiter, elevando o loudness médio medido do conjunto de cerca de -16,6 LUFS para -12,4 LUFS.
+- O volume padrão dos avisos agora inicia em 100%, mantendo ajustes já personalizados pelo usuário.
+- `VoiceAlertRuntime` passou de `USAGE_ASSISTANCE_SONIFICATION` para `USAGE_MEDIA` com conteúdo de fala.
+- Atualizados os metadados e artefatos de entrega para `1.0.39+40`.
+
+
 ## 1.0.38+39
 
 - Volume dos 24 arquivos OGG de avisos de voz normalizado e aumentado individualmente (pico ajustado para ~-1 dB), corrigindo áudios integrados que soavam baixos.
