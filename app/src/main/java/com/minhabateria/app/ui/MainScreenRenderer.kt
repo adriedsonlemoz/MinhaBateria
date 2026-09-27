@@ -71,7 +71,7 @@ class MainScreenRenderer(private val activity: Activity) {
     fun renderSourceProfile(profile: EnergySourceProfile?) {
         sourceProfile = profile
         sourceIcon.text = profile?.type?.icon() ?: "⚡"
-        profileSource.text = profile?.let(::profileLabel) ?: "Fonte não configurada"
+        profileSource.text = profile?.let(::profileLabel) ?: "Fonte física não informada"
         profileSource.setTextColor(
             activity.getColor(if (profile == null) R.color.value_unavailable else R.color.text_primary)
         )
@@ -136,9 +136,9 @@ class MainScreenRenderer(private val activity: Activity) {
     private fun renderSourceDetection(info: BatteryInfo) {
         val detection = detectedConnection(info.source)
         detectedSource.text = when {
-            sourceProfile != null && detection != null -> "Perfil configurado • Android detectou $detection"
-            sourceProfile != null -> "Perfil configurado • tipo da conexão não identificado"
-            detection != null -> "Sem perfil • Android detectou $detection"
+            sourceProfile != null && detection != null -> "Fonte informada por você • Android: alimentação via $detection"
+            sourceProfile != null -> "Fonte informada por você • Android não informou o tipo da conexão"
+            detection != null -> "Sem perfil físico • Android: alimentação via $detection"
             else -> "Toque para informar a fonte usada"
         }
         detectedSource.setTextColor(activity.getColor(R.color.text_secondary))

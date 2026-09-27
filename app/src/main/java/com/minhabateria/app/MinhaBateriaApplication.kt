@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import com.minhabateria.app.diagnostics.CrashHandler
 import com.minhabateria.app.diagnostics.CrashRuntime
+import com.minhabateria.app.source.SourceConnectionPromptController
 
 class MinhaBateriaApplication : Application(), Application.ActivityLifecycleCallbacks {
     override fun onCreate() {
@@ -17,6 +18,7 @@ class MinhaBateriaApplication : Application(), Application.ActivityLifecycleCall
 
     override fun onActivityResumed(activity: Activity) {
         CrashRuntime.currentScreen = activity.javaClass.simpleName
+        SourceConnectionPromptController.maybeShow(activity)
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) = Unit

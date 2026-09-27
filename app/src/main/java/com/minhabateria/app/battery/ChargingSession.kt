@@ -12,6 +12,7 @@ class ChargingSession(savedState: SavedState? = null) {
         val startPercent: Int?,
         val currentPercent: Int?,
         val previousCharging: Boolean?,
+        val disconnectStartedAtMs: Long?,
         val accumulator: SessionAccumulator.State
     )
 
@@ -59,6 +60,7 @@ class ChargingSession(savedState: SavedState? = null) {
     private var previousInfo: BatteryInfo? = null
     private var previousAtMs: Long? = null
     private var previousCharging: Boolean? = savedState?.previousCharging
+    private var disconnectStartedAtMs: Long? = savedState?.disconnectStartedAtMs
     private var completedSession: CompletedSession? = null
 
     fun update(info: BatteryInfo, nowMs: Long = System.currentTimeMillis()): Snapshot {
@@ -67,12 +69,25 @@ class ChargingSession(savedState: SavedState? = null) {
 
         currentPercent = info.percent ?: currentPercent
         if (info.isPlugged == false) {
-            val finalSnapshot = snapshot(nowMs)
+            val disconnectedAt = disconnectStartedAtMs ?: nowMs.also { disconnectStartedAtMs = it }
+            previousInfo = null
+            previousAtMs = null
+            previousCharging = false
+            if (nowMs - disconnectedAt <= DISCONNECT_GRACE_MS) return snapshot(nowMs)
+
+            val finalSnapshot = snapshot(disconnectedAt)
             startedAtMs?.let { started ->
-                completedSession = CompletedSession(started, nowMs, finalSnapshot)
+                completedSession = CompletedSession(started, disconnectedAt, finalSnapshot)
             }
             resetCurrent()
             return emptySnapshot()
+        }
+
+        if (disconnectStartedAtMs != null) {
+            interruptions += 1
+            disconnectStartedAtMs = null
+            previousInfo = null
+            previousAtMs = null
         }
 
         if (fullReachedAtMs == null) updateActiveMeasurements(info, nowMs)
@@ -99,6 +114,7 @@ class ChargingSession(savedState: SavedState? = null) {
         startPercent = startPercent,
         currentPercent = currentPercent,
         previousCharging = previousCharging,
+        disconnectStartedAtMs = disconnectStartedAtMs,
         accumulator = accumulator.savedState()
     )
 
@@ -113,6 +129,7 @@ class ChargingSession(savedState: SavedState? = null) {
         previousInfo = null
         previousAtMs = null
         previousCharging = info.isCharging
+        disconnectStartedAtMs = null
         accumulator = SessionAccumulator()
         if (info.isCharging == true) accumulator.observe(info)
     }
@@ -175,6 +192,7 @@ class ChargingSession(savedState: SavedState? = null) {
         previousInfo = null
         previousAtMs = null
         previousCharging = null
+        disconnectStartedAtMs = null
         accumulator = SessionAccumulator()
     }
 
@@ -222,5 +240,6 @@ class ChargingSession(savedState: SavedState? = null) {
 
     private companion object {
         const val MAX_INTEGRATION_INTERVAL_MS = 15_000L
+        const val DISCONNECT_GRACE_MS = 15_000L
     }
 }

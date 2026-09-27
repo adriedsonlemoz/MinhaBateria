@@ -4,16 +4,18 @@ import android.content.Context
 import com.minhabateria.app.battery.ChargingSession
 import com.minhabateria.app.battery.ChargingSource
 import com.minhabateria.app.source.SourceProfileStore
+import com.minhabateria.app.monitoring.SourceConnectionState
 
 class HistoryRecorder(context: Context) {
     private val appContext = context.applicationContext
     private val store = HistoryStore(appContext)
     private val sourceStore = SourceProfileStore(appContext)
+    private val sourceConnectionState = SourceConnectionState(appContext)
 
     fun record(completed: ChargingSession.CompletedSession, detectedSource: ChargingSource?) {
         val snapshot = completed.snapshot
         if ((snapshot.elapsedMs ?: 0L) <= 0L) return
-        val profile = sourceStore.getProfile()
+        val profile = sourceConnectionState.profileForHistory(sourceStore.getProfile())
         store.add(
             HistoryEntry(
                 id = "${completed.startedAtMs}-${completed.endedAtMs}",
@@ -46,13 +48,14 @@ class HistoryRecorder(context: Context) {
                 reachedFull = snapshot.reachedFull
             )
         )
+        sourceConnectionState.clearSessionAssignment()
     }
 
     private fun ChargingSource.displayName(): String = when (this) {
-        ChargingSource.AC -> "Tomada / AC"
-        ChargingSource.USB -> "USB"
-        ChargingSource.WIRELESS -> "Sem fio"
-        ChargingSource.BATTERY -> "Bateria"
-        ChargingSource.UNKNOWN -> "Desconhecida"
+        ChargingSource.AC -> "Android: AC"
+        ChargingSource.USB -> "Android: USB"
+        ChargingSource.WIRELESS -> "Android: sem fio"
+        ChargingSource.BATTERY -> "Android: bateria"
+        ChargingSource.UNKNOWN -> "Android: não identificado"
     }
 }

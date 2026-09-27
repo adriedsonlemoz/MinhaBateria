@@ -2,22 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="11dp"
+    android:layout_marginBottom="9dp"
     android:background="@drawable/bg_card"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:padding="13dp">
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
-        <ImageView android:layout_width="42dp" android:layout_height="42dp" android:background="@drawable/bg_icon_circle_blue" android:contentDescription="Fonte" android:padding="10dp" android:src="@drawable/ic_session_plug" />
+        <ImageView android:layout_width="42dp" android:layout_height="42dp" android:background="@drawable/bg_icon_circle_blue" android:contentDescription="Fonte" android:padding="9dp" android:src="@drawable/ic_session_plug" />
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:layout_weight="1" android:orientation="vertical">
-            <TextView android:id="@+id/historyItemTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Carregador" android:textColor="@color/text_primary" android:textSize="19sp" android:textStyle="bold" />
+            <TextView android:id="@+id/historyItemTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Carregador" android:textColor="@color/text_primary" android:textSize="17sp" android:textStyle="bold" />
             <TextView android:id="@+id/historyItemSource" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:ellipsize="end" android:maxLines="1" android:text="—" android:textColor="@color/accent_blue" android:textSize="14sp" />
         </LinearLayout>
         <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="end" android:orientation="vertical">
-            <TextView android:id="@+id/historyItemDate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/text_muted" android:textSize="12sp" />
+            <TextView android:id="@+id/historyItemDate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/text_muted" android:textSize="13sp" />
             <LinearLayout android:layout_width="wrap_content" android:layout_height="48dp" android:layout_gravity="end" android:layout_marginTop="2dp" android:gravity="center_vertical|end" android:orientation="horizontal">
-                <TextView android:id="@+id/historyItemSelector" android:layout_width="40dp" android:layout_height="40dp" android:gravity="center" android:text="○" android:textColor="@color/accent_blue" android:textSize="30sp" />
-                <ImageButton android:id="@+id/historyItemDelete" android:layout_width="44dp" android:layout_height="44dp" android:layout_marginStart="4dp" android:background="@drawable/bg_icon_circle_red" android:contentDescription="Excluir sessão" android:padding="10dp" android:src="@drawable/ic_delete" android:tint="@color/accent_red" />
+                <TextView android:id="@+id/historyItemSelector" android:layout_width="40dp" android:layout_height="40dp" android:gravity="center" android:text="○" android:textColor="@color/accent_blue" android:textSize="28sp" />
+                <ImageButton android:id="@+id/historyItemDelete" android:layout_width="44dp" android:layout_height="44dp" android:layout_marginStart="4dp" android:background="@drawable/bg_icon_circle_red" android:contentDescription="Excluir sessão" android:padding="9dp" android:src="@drawable/ic_delete" android:tint="@color/accent_red" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -25,7 +25,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="76dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/bg_history_metric_row"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -33,44 +33,44 @@
         android:paddingEnd="8dp">
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
             <ImageView android:layout_width="20dp" android:layout_height="20dp" android:contentDescription="Duração" android:src="@drawable/ic_session_clock" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Duração" android:textColor="@color/text_secondary" android:textSize="12sp" />
-            <TextView android:id="@+id/historyItemDuration" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/accent_green" android:textSize="15sp" android:textStyle="bold" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Duração" android:textColor="@color/text_secondary" android:textSize="13sp" />
+            <TextView android:id="@+id/historyItemDuration" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/accent_green" android:textSize="13sp" android:textStyle="bold" />
         </LinearLayout>
         <View android:layout_width="1dp" android:layout_height="46dp" android:background="@color/divider" />
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
             <ImageView android:layout_width="20dp" android:layout_height="20dp" android:contentDescription="Energia" android:src="@drawable/ic_session_energy" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Energia" android:textColor="@color/text_secondary" android:textSize="12sp" />
-            <TextView android:id="@+id/historyItemEnergy" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/accent_green" android:textSize="15sp" android:textStyle="bold" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Energia" android:textColor="@color/text_secondary" android:textSize="13sp" />
+            <TextView android:id="@+id/historyItemEnergy" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/accent_green" android:textSize="13sp" android:textStyle="bold" />
         </LinearLayout>
         <View android:layout_width="1dp" android:layout_height="46dp" android:background="@color/divider" />
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
             <ImageView android:layout_width="20dp" android:layout_height="20dp" android:contentDescription="Carga" android:src="@drawable/ic_session_battery" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Carga" android:textColor="@color/text_secondary" android:textSize="12sp" />
-            <TextView android:id="@+id/historyItemCharge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/accent_green" android:textSize="15sp" android:textStyle="bold" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Carga" android:textColor="@color/text_secondary" android:textSize="13sp" />
+            <TextView android:id="@+id/historyItemCharge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/accent_green" android:textSize="13sp" android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="11dp" android:orientation="horizontal">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="9dp" android:orientation="horizontal">
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Média" android:textColor="@color/text_muted" android:textSize="12sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Média" android:textColor="@color/text_muted" android:textSize="13sp" />
             <TextView android:id="@+id/historyItemAverage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pico" android:textColor="@color/text_muted" android:textSize="12sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pico" android:textColor="@color/text_muted" android:textSize="13sp" />
             <TextView android:id="@+id/historyItemPeak" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.35" android:orientation="vertical">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bateria" android:textColor="@color/text_muted" android:textSize="12sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bateria" android:textColor="@color/text_muted" android:textSize="13sp" />
             <TextView android:id="@+id/historyItemBatteryRange" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/text_primary" android:textSize="13sp" android:textStyle="bold" />
             <TextView android:id="@+id/historyItemGain" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/accent_green" android:textSize="13sp" android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Máx." android:textColor="@color/text_muted" android:textSize="12sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Máx." android:textColor="@color/text_muted" android:textSize="13sp" />
             <TextView android:id="@+id/historyItemMaxTemperature" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:gravity="center_vertical" android:orientation="horizontal">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:gravity="center_vertical" android:orientation="horizontal">
         <TextView
             android:id="@+id/historyItemStability"
             android:layout_width="wrap_content"
@@ -81,9 +81,9 @@
             android:paddingEnd="10dp"
             android:text="Estabilidade indisponível"
             android:textColor="@color/accent_blue"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
-        <TextView android:id="@+id/historyItemInterruptions" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:layout_weight="1" android:text="0 interrupções" android:textColor="@color/text_muted" android:textSize="12sp" />
+        <TextView android:id="@+id/historyItemInterruptions" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:layout_weight="1" android:text="0 interrupções" android:textColor="@color/text_muted" android:textSize="13sp" />
         <TextView android:id="@+id/historyItemSelect" android:layout_width="wrap_content" android:layout_height="36dp" android:gravity="center_vertical|end" android:text="Selecionar para comparar  ›" android:textColor="@color/accent_blue" android:textSize="13sp" android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

@@ -97,7 +97,7 @@ class HistoryActivity : Activity() {
             .setTitle("Excluir sessão?")
             .setMessage(
                 "${HistoryFormatter.title(entry)}\n${HistoryFormatter.dateTime(entry.endedAtMs)}\n\n" +
-                    "Essa sessão será removida do histórico. Essa ação não pode ser desfeita."
+                    "Esta sessão e os dados registrados nela serão apagados permanentemente."
             )
             .setNegativeButton("Cancelar", null)
             .setPositiveButton("Excluir") { _, _ ->

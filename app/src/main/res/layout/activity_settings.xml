@@ -8,13 +8,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="58dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="8dp"
-        android:paddingEnd="14dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp">
+        android:paddingEnd="14dp">
 
         <ImageButton
             android:id="@+id/backButton"
@@ -22,7 +20,7 @@
             android:layout_height="44dp"
             android:background="@android:color/transparent"
             android:contentDescription="Voltar"
-            android:padding="12dp"
+            android:padding="10dp"
             android:src="@drawable/ic_arrow_back" />
 
         <TextView
@@ -31,7 +29,7 @@
             android:layout_weight="1"
             android:text="Configurações"
             android:textColor="@color/text_primary"
-            android:textSize="25sp"
+            android:textSize="23sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -55,10 +53,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginBottom="9dp"
+                android:layout_marginBottom="7dp"
                 android:text="FONTE DE ENERGIA"
                 android:textColor="@color/text_muted"
-                android:textSize="14sp"
+                android:textSize="11sp"
                 android:textStyle="bold" />
 
             <include
@@ -70,11 +68,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="9dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="7dp"
                 android:text="MONITORAMENTO"
                 android:textColor="@color/text_muted"
-                android:textSize="14sp"
+                android:textSize="11sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -82,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
-                android:padding="17dp">
+                android:padding="15dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -90,62 +88,62 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Monitoramento contínuo" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="Mantém as leituras quando o app está em segundo plano." android:textColor="@color/text_secondary" android:textSize="15sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Monitoramento contínuo" android:textColor="@color/text_primary" android:textSize="16sp" android:textStyle="bold" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="Mantém as leituras quando o app está em segundo plano." android:textColor="@color/text_secondary" android:textSize="12sp" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/monitoringStateValue"
                         android:layout_width="wrap_content" android:layout_height="28dp"
                         android:background="@drawable/bg_status_chip" android:gravity="center"
                         android:minWidth="72dp" android:paddingStart="10dp" android:paddingEnd="10dp"
-                        android:text="Inativo" android:textColor="@color/accent_blue" android:textSize="14sp" android:textStyle="bold" />
+                        android:text="Inativo" android:textColor="@color/accent_blue" android:textSize="11sp" android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:layout_marginTop="17dp"
+                    android:layout_marginTop="14dp"
                     android:orientation="horizontal">
                     <Button
                         android:id="@+id/startMonitoringButton"
                         android:layout_width="0dp" android:layout_height="44dp" android:layout_weight="1"
                         android:background="@drawable/bg_primary_button" android:minHeight="0dp" android:minWidth="0dp"
-                        android:text="Iniciar" android:textColor="#07110A" android:textSize="16sp" android:textStyle="bold" />
+                        android:text="Iniciar" android:textColor="#07110A" android:textSize="13sp" android:textStyle="bold" />
                     <Space android:layout_width="8dp" android:layout_height="1dp" />
                     <Button
                         android:id="@+id/stopMonitoringButton"
                         android:layout_width="0dp" android:layout_height="44dp" android:layout_weight="1"
                         android:background="@drawable/bg_secondary_button" android:minHeight="0dp" android:minWidth="0dp"
-                        android:text="Parar" android:textColor="@color/text_primary" android:textSize="16sp" android:textStyle="bold" />
+                        android:text="Parar" android:textColor="@color/text_primary" android:textSize="13sp" android:textStyle="bold" />
                 </LinearLayout>
 
                 <CheckBox
                     android:id="@+id/resumeAfterBootCheck"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:layout_marginTop="9dp"
+                    android:layout_marginTop="7dp"
                     android:buttonTint="@color/accent_green"
                     android:gravity="center_vertical"
                     android:text="Retomar monitoramento após reiniciar"
                     android:textColor="@color/text_secondary"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
-                android:padding="17dp">
+                android:padding="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Taxa de descarga"
                     android:textColor="@color/text_primary"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -154,36 +152,36 @@
                     android:layout_marginTop="3dp"
                     android:text="Também disponível na navegação principal. Registra consumo por hora, autonomia, projeção para 1 hora e histórico."
                     android:textColor="@color/text_secondary"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/openDischargeRateButton"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/bg_secondary_button"
                     android:minHeight="0dp"
                     android:text="Abrir Descarga"
                     android:textAllCaps="false"
                     android:textColor="@color/text_primary"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
-                android:padding="17dp">
+                android:padding="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Consumo de bateria"
                     android:textColor="@color/text_primary"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -192,19 +190,19 @@
                     android:layout_marginTop="3dp"
                     android:text="Cruza a taxa de descarga com os apps mais ativos para ajudar a encontrar possíveis responsáveis pelo consumo."
                     android:textColor="@color/text_secondary"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/openBatteryUsageButton"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/bg_secondary_button"
                     android:minHeight="0dp"
                     android:text="Abrir análise de consumo"
                     android:textAllCaps="false"
                     android:textColor="@color/text_primary"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -212,11 +210,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="9dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="7dp"
                 android:text="DADOS E MEDIÇÕES"
                 android:textColor="@color/text_muted"
-                android:textSize="14sp"
+                android:textSize="11sp"
                 android:textStyle="bold" />
 
             <include
@@ -228,11 +226,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="9dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="7dp"
                 android:text="DIAGNÓSTICO"
                 android:textColor="@color/text_muted"
-                android:textSize="14sp"
+                android:textSize="11sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -240,14 +238,14 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Diagnóstico técnico"
                     android:textColor="@color/text_primary"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -256,60 +254,60 @@
                     android:layout_marginTop="4dp"
                     android:text="Confira leituras, monitoramento e falhas capturadas. Erros fatais ficam salvos localmente com stack trace para copiar ou exportar."
                     android:textColor="@color/text_secondary"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/openDiagnosticsButton"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="13dp"
                     android:background="@drawable/bg_secondary_button"
                     android:minHeight="0dp"
                     android:text="Diagnóstico e erros"
                     android:textColor="@color/text_primary"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginStart="4dp" android:layout_marginTop="22dp" android:layout_marginBottom="9dp"
-                android:text="SOBRE O APP" android:textColor="@color/text_muted" android:textSize="14sp" android:textStyle="bold" />
+                android:layout_marginStart="4dp" android:layout_marginTop="18dp" android:layout_marginBottom="7dp"
+                android:text="SOBRE O APP" android:textColor="@color/text_muted" android:textSize="11sp" android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="16dp">
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/app_name" android:textColor="@color/text_primary" android:textSize="20sp" android:textStyle="bold" />
-                    <TextView android:id="@+id/versionValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_status_chip" android:paddingStart="10dp" android:paddingTop="5dp" android:paddingEnd="10dp" android:paddingBottom="5dp" android:text="—" android:textColor="@color/accent_blue" android:textSize="14sp" android:textStyle="bold" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/app_name" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/versionValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_status_chip" android:paddingStart="10dp" android:paddingTop="5dp" android:paddingEnd="10dp" android:paddingBottom="5dp" android:text="—" android:textColor="@color/accent_blue" android:textSize="11sp" android:textStyle="bold" />
                 </LinearLayout>
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="Últimas alterações" android:textColor="@color/text_secondary" android:textSize="15sp" android:textStyle="bold" />
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="• A tela Agora mostra autonomia real estimada na descarga somente após amostra mínima.\n• Corrente preserva o sinal bruto do Android e destaca descarga em vermelho sem inverter a leitura.\n• O card Velocidade de carga muda para Velocidade de descarga fora da tomada e usa a taxa observada em %/h.\n• Removidos valores fictícios de layouts e refinada a descrição do ranking de atividade dos apps." android:textColor="@color/text_primary" android:textSize="16sp" android:lineSpacingExtra="4dp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="13dp" android:text="Últimas alterações" android:textColor="@color/text_secondary" android:textSize="12sp" android:textStyle="bold" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="• A tela Agora mostra autonomia real estimada na descarga somente após amostra mínima.\n• Corrente preserva o sinal bruto do Android e destaca descarga em vermelho sem inverter a leitura.\n• O card Velocidade de carga muda para Velocidade de descarga fora da tomada e usa a taxa observada em %/h.\n• Removidos valores fictícios de layouts e refinada a descrição do ranking de atividade dos apps." android:textColor="@color/text_primary" android:textSize="13sp" android:lineSpacingExtra="4dp" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginStart="4dp" android:layout_marginTop="22dp" android:layout_marginBottom="9dp"
-                android:text="DOAÇÃO" android:textColor="@color/text_muted" android:textSize="14sp" android:textStyle="bold" />
+                android:layout_marginStart="4dp" android:layout_marginTop="18dp" android:layout_marginBottom="7dp"
+                android:text="DOAÇÃO" android:textColor="@color/text_muted" android:textSize="11sp" android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
-                android:padding="18dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Apoie o desenvolvimento" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold" />
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Se o app for útil para você, a chave Pix pode ser copiada com um toque." android:textColor="@color/text_secondary" android:textSize="15sp" />
+                android:padding="16dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Apoie o desenvolvimento" android:textColor="@color/text_primary" android:textSize="16sp" android:textStyle="bold" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Se o app for útil para você, a chave Pix pode ser copiada com um toque." android:textColor="@color/text_secondary" android:textSize="12sp" />
                 <Button
                     android:id="@+id/donationButton"
-                    android:layout_width="match_parent" android:layout_height="46dp" android:layout_marginTop="16dp"
+                    android:layout_width="match_parent" android:layout_height="46dp" android:layout_marginTop="13dp"
                     android:background="@drawable/bg_primary_button" android:minHeight="0dp"
-                    android:text="Copiar chave Pix" android:textColor="#07110A" android:textSize="16sp" android:textStyle="bold" />
+                    android:text="Copiar chave Pix" android:textColor="#07110A" android:textSize="13sp" android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

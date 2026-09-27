@@ -1,20 +1,19 @@
-# Release — Minha Bateria 1.0.35+36
+# Release — Minha Bateria 1.0.36+37
 
 ## Destaques
 
-- tela **Comparar cargas** reconstruída seguindo o novo mockup visual;
-- cartões A/B agora destacam fonte, data e tipo de fonte com identidade azul/verde consistente;
-- novo **Resumo da comparação** mostra o maior resultado observado sem confundir total acumulado com eficiência;
-- comparação rápida em grade para duração, tempo carregando, energia estimada, carga estimada, potência média e pico;
-- barras A/B usam a mesma escala dentro de cada métrica para facilitar a leitura visual;
-- card **O que isso significa** explica em linguagem simples por que os resultados podem divergir;
-- corrente, tensão, temperatura, referência nominal, ganho, interrupções e estabilidade ficam em **Ver detalhes técnicos**, recolhido por padrão;
-- Histórico ganhou exclusão individual com ícone de lixeira e caixa de confirmação;
-- excluir uma sessão também remove sua seleção atual, evitando comparação com item inexistente;
-- versão, novidades, README, Works, Release, Validation e workflow sincronizados.
+- **Perfil da fonte** mais compacto, com um único seletor de tipo e Marca/Modelo como seletores inteligentes;
+- preset editável **X-TRAD SH-106**: painel solar 8 W, VMP 5 V e IMP 1,6 A;
+- suporte a vários perfis de fonte com migração transparente do perfil único já salvo;
+- detecção de conexão/desconexão por eventos do Android, sem afirmar que o sistema identificou fisicamente painel, power bank ou modelo;
+- seleção rápida da fonte ao conectar, oferecendo a última usada, perfis cadastrados e “Adicionar outra fonte”;
+- coleta e sessão continuam funcionando mesmo quando o usuário escolhe “Agora não”;
+- reconexões rápidas de até 15 s permanecem na mesma sessão para evitar fragmentação por oscilação;
+- exclusão individual no Histórico e na tela Comparar cargas com confirmação obrigatória e ação destrutiva destacada;
+- revisão de tipografia e legibilidade nas seis telas principais alteradas.
 
 ## Entrega
 
-APK esperado pelo workflow: `Minha-Bateria-1.0.35.apk`.
+APK esperado pelo workflow: `Minha-Bateria-1.0.36.apk`.
 
 O ZIP de código-fonte não inclui APK, keystore, secrets nem diretórios de build/cache.

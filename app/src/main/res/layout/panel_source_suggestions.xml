@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_card"
     android:orientation="vertical"
-    android:padding="14dp">
+    android:padding="12dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,45 +22,54 @@
         android:textColor="@color/text_secondary"
         android:textSize="13sp" />
 
-    <Button
-        android:id="@+id/suggestBrandButton"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="11dp"
-        android:background="@drawable/bg_secondary_button"
-        android:ellipsize="end"
-        android:gravity="center_vertical|start"
-        android:maxLines="1"
-        android:minHeight="0dp"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp"
-        android:text="Marca  •  Escolher ▼"
-        android:textAllCaps="false"
-        android:textColor="@color/text_primary"
-        android:textSize="14sp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/suggestModelButton"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bg_secondary_button"
-        android:ellipsize="end"
-        android:gravity="center_vertical|start"
-        android:maxLines="1"
-        android:minHeight="0dp"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp"
-        android:text="Modelo  •  Escolher ▼"
-        android:textAllCaps="false"
-        android:textColor="@color/text_primary"
-        android:textSize="14sp" />
+        <Button
+            android:id="@+id/suggestBrandButton"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_secondary_button"
+            android:ellipsize="end"
+            android:gravity="center_vertical|start"
+            android:maxLines="1"
+            android:minHeight="0dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="10dp"
+            android:text="Marca ▾"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp" />
+
+        <Space android:layout_width="6dp" android:layout_height="1dp" />
+
+        <Button
+            android:id="@+id/suggestModelButton"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_secondary_button"
+            android:ellipsize="end"
+            android:gravity="center_vertical|start"
+            android:maxLines="1"
+            android:minHeight="0dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="10dp"
+            android:text="Modelo ▾"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/suggestPowerButton"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="6dp"
         android:background="@drawable/bg_secondary_button"
         android:ellipsize="end"
         android:gravity="center_vertical|start"
@@ -77,14 +86,14 @@
         android:id="@+id/suggestCapacityRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:orientation="vertical"
         android:visibility="gone">
 
         <Button
             android:id="@+id/suggestCapacityButton"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="52dp"
             android:background="@drawable/bg_secondary_button"
             android:gravity="center_vertical|start"
             android:minHeight="0dp"
@@ -107,14 +116,14 @@
             android:id="@+id/suggestTechPortRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:orientation="horizontal"
             android:visibility="gone">
 
             <Button
                 android:id="@+id/suggestTechnologyButton"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_secondary_button"
                 android:ellipsize="end"
@@ -128,7 +137,7 @@
             <Button
                 android:id="@+id/suggestPortButton"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_secondary_button"
                 android:ellipsize="end"
@@ -144,13 +153,13 @@
             android:id="@+id/suggestOutputsRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:orientation="vertical"
             android:visibility="gone">
             <Button
                 android:id="@+id/suggestOutputsButton"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:background="@drawable/bg_secondary_button"
                 android:minHeight="0dp"
                 android:text="Saída da etiqueta ▼"
@@ -163,13 +172,13 @@
             android:id="@+id/suggestSolarRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:orientation="horizontal"
             android:visibility="gone">
             <Button
                 android:id="@+id/suggestVoltageButton"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_secondary_button"
                 android:minHeight="0dp"
@@ -181,7 +190,7 @@
             <Button
                 android:id="@+id/suggestCurrentButton"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_secondary_button"
                 android:minHeight="0dp"
@@ -195,13 +204,13 @@
             android:id="@+id/suggestControllerRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:orientation="vertical"
             android:visibility="gone">
             <Button
                 android:id="@+id/suggestControllerButton"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:background="@drawable/bg_secondary_button"
                 android:minHeight="0dp"
                 android:text="Controlador / conversor ▼"
@@ -214,13 +223,13 @@
             android:id="@+id/suggestCableRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:orientation="vertical"
             android:visibility="gone">
             <Button
                 android:id="@+id/suggestCableButton"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:background="@drawable/bg_secondary_button"
                 android:minHeight="0dp"
                 android:text="Cabo utilizado ▼"

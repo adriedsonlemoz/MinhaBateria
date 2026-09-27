@@ -19,6 +19,7 @@ class ContinuousSessionStore(context: Context) {
             startPercent = preferences.intOrNull(KEY_START_PERCENT),
             currentPercent = preferences.intOrNull(KEY_CURRENT_PERCENT),
             previousCharging = preferences.booleanOrNull(KEY_PREVIOUS_CHARGING),
+            disconnectStartedAtMs = preferences.longOrNull(KEY_DISCONNECT_STARTED_AT),
             accumulator = loadAccumulator()
         )
     }
@@ -34,6 +35,7 @@ class ContinuousSessionStore(context: Context) {
             .putNullableInt(KEY_START_PERCENT, state.startPercent)
             .putNullableInt(KEY_CURRENT_PERCENT, state.currentPercent)
             .putNullableBoolean(KEY_PREVIOUS_CHARGING, state.previousCharging)
+            .putNullableLong(KEY_DISCONNECT_STARTED_AT, state.disconnectStartedAtMs)
             .putDouble(KEY_ENERGY_WH, a.energyWh)
             .putDouble(KEY_CHARGE_MAH, a.chargeMah)
             .putDouble(KEY_VOLTAGE_V_MS, a.voltageVoltMs)
@@ -120,6 +122,7 @@ class ContinuousSessionStore(context: Context) {
         const val KEY_START_PERCENT = "start_percent"
         const val KEY_CURRENT_PERCENT = "current_percent"
         const val KEY_PREVIOUS_CHARGING = "previous_charging"
+        const val KEY_DISCONNECT_STARTED_AT = "disconnect_started_at"
         const val KEY_ENERGY_WH = "energy_wh"
         const val KEY_CHARGE_MAH = "charge_mah"
         const val KEY_VOLTAGE_V_MS = "voltage_v_ms"

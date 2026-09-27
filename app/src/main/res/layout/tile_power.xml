@@ -36,7 +36,7 @@
             android:maxLines="1"
             android:text="Velocidade de carga"
             android:textColor="@color/text_secondary"
-            android:textSize="14sp" />
+            android:textSize="11sp" />
         <TextView
             android:id="@+id/powerValue"
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             android:singleLine="true"
             android:text="—"
             android:textColor="@color/value_unavailable"
-            android:textSize="17sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/powerOrigin"
@@ -67,7 +67,7 @@
             android:text="Calculado"
             android:textAllCaps="true"
             android:textColor="@color/text_muted"
-            android:textSize="12sp"
+            android:textSize="9sp"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

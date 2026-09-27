@@ -9,13 +9,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="62dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="8dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp">
+        android:paddingEnd="16dp">
 
         <ImageButton
             android:id="@+id/backButton"
@@ -23,7 +21,7 @@
             android:layout_height="44dp"
             android:background="@android:color/transparent"
             android:contentDescription="Voltar"
-            android:padding="12dp"
+            android:padding="10dp"
             android:src="@drawable/ic_arrow_back" />
 
         <LinearLayout
@@ -37,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="Consumo de bateria"
                 android:textColor="@color/text_primary"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -46,7 +44,7 @@
                 android:layout_marginTop="1dp"
                 android:text="Descarga real + atividade em primeiro plano"
                 android:textColor="@color/text_muted"
-                android:textSize="14sp" />
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -71,20 +69,20 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="DESCARGA ATUAL"
                     android:textColor="@color/accent_green"
-                    android:textSize="14sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
+                    android:layout_marginTop="11dp"
                     android:baselineAligned="false"
                     android:orientation="horizontal">
 
@@ -100,7 +98,7 @@
                             android:layout_height="wrap_content"
                             android:text="—"
                             android:textColor="@color/text_primary"
-                            android:textSize="22sp"
+                            android:textSize="20sp"
                             android:textStyle="bold"
                             tools:text="16,03 %/h" />
 
@@ -110,7 +108,7 @@
                             android:layout_marginTop="2dp"
                             android:text="Ritmo de descarga"
                             android:textColor="@color/text_muted"
-                            android:textSize="13sp" />
+                            android:textSize="10sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -125,7 +123,7 @@
                             android:layout_height="wrap_content"
                             android:text="—"
                             android:textColor="@color/value_unavailable"
-                            android:textSize="22sp"
+                            android:textSize="20sp"
                             android:textStyle="bold"
                             tools:text="-745 mA" />
 
@@ -135,7 +133,7 @@
                             android:layout_marginTop="2dp"
                             android:text="Corrente agora"
                             android:textColor="@color/text_muted"
-                            android:textSize="13sp" />
+                            android:textSize="10sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -150,7 +148,7 @@
                             android:layout_height="wrap_content"
                             android:text="—"
                             android:textColor="@color/accent_blue"
-                            android:textSize="22sp"
+                            android:textSize="20sp"
                             android:textStyle="bold"
                             tools:text="26%" />
 
@@ -160,7 +158,7 @@
                             android:layout_marginTop="2dp"
                             android:text="Bateria atual"
                             android:textColor="@color/text_muted"
-                            android:textSize="13sp" />
+                            android:textSize="10sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -168,30 +166,30 @@
                     android:id="@+id/usageLiveHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="13dp"
                     android:background="@drawable/bg_usage_notice"
                     android:lineSpacingExtra="2dp"
-                    android:padding="13dp"
+                    android:padding="11dp"
                     android:text="Aguardando uma amostra de descarga."
                     android:textColor="@color/text_secondary"
-                    android:textSize="14sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/usageAccessCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ANÁLISE POR APLICATIVO"
                     android:textColor="@color/accent_blue"
-                    android:textSize="13sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -200,39 +198,39 @@
                     android:layout_marginTop="4dp"
                     android:text="Veja quais apps ficaram mais ativos"
                     android:textColor="@color/text_primary"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="5dp"
                     android:lineSpacingExtra="2dp"
                     android:text="O Android exige Acesso ao uso para informar o tempo em primeiro plano. O Minha Bateria não lê o conteúdo dos aplicativos."
                     android:textColor="@color/text_secondary"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/usageAccessButton"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="13dp"
                     android:background="@drawable/bg_primary_button"
                     android:minHeight="0dp"
                     android:text="Permitir Acesso ao uso"
                     android:textAllCaps="false"
                     android:textColor="#07110A"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:padding="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -251,7 +249,7 @@
                             android:layout_height="wrap_content"
                             android:text="Atividade em primeiro plano"
                             android:textColor="@color/text_primary"
-                            android:textSize="19sp"
+                            android:textSize="17sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -260,7 +258,7 @@
                             android:layout_marginTop="2dp"
                             android:text="Últimas 6 horas • comparação por tempo"
                             android:textColor="@color/text_muted"
-                            android:textSize="13sp" />
+                            android:textSize="10sp" />
                     </LinearLayout>
 
                     <Button
@@ -273,51 +271,51 @@
                         android:text="Atualizar"
                         android:textAllCaps="false"
                         android:textColor="@color/text_primary"
-                        android:textSize="14sp" />
+                        android:textSize="11sp" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/usageInsightText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/bg_usage_notice"
                     android:lineSpacingExtra="2dp"
-                    android:padding="13dp"
+                    android:padding="11dp"
                     android:text="A análise por aplicativo ainda não está ativada."
                     android:textColor="@color/text_secondary"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
 
                 <LinearLayout
                     android:id="@+id/batteryUsageAppsList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     android:orientation="vertical" />
 
                 <TextView
                     android:id="@+id/usageEmptyText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="12dp"
                     android:gravity="center"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:text="Aguardando dados"
                     android:textColor="@color/text_muted"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/bg_usage_notice"
                 android:lineSpacingExtra="3dp"
-                android:padding="14dp"
+                android:padding="12dp"
                 android:text="Atividade observada não é consumo elétrico por app. O Android não fornece ao Minha Bateria essa medição exata. As barras mostram apenas a participação de cada aplicativo no tempo em primeiro plano observado nas últimas 6 horas, para ajudar na investigação da descarga."
                 android:textColor="@color/text_muted"
-                android:textSize="13sp" />
+                android:textSize="10sp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

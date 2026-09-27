@@ -4,15 +4,16 @@ object SourcePresetCatalog {
     fun brands(type: EnergySourceType): List<String> = when (type) {
         EnergySourceType.CHARGER -> listOf(
             "Samsung", "Motorola", "Xiaomi", "Apple", "Baseus", "UGREEN", "Geonav", "Anker",
-            "Sem marca / genérico", "Outra"
+            "Sem marca / genérico", "Outra marca", "Digitar manualmente"
         )
         EnergySourceType.POWER_BANK -> listOf(
-            "Baseus", "Geonav", "Anker", "Xiaomi", "Samsung", "UGREEN", "Sem marca / genérico", "Outra"
+            "Baseus", "Geonav", "Anker", "Xiaomi", "Samsung", "UGREEN", "Sem marca / genérico", "Outra marca", "Digitar manualmente"
         )
         EnergySourceType.SOLAR_PANEL -> listOf(
-            "Sem marca / genérico", "EcoFlow", "Bluetti", "Anker", "Renogy", "Outra"
+            "X-TRAD", "EcoFlow", "Bluetti", "Anker", "Renogy", "Sem marca / genérico",
+            "Outra marca", "Digitar manualmente"
         )
-        EnergySourceType.OTHER -> listOf("Sem marca / genérico", "Outra")
+        EnergySourceType.OTHER -> listOf("Sem marca / genérico", "Outra marca", "Digitar manualmente")
     }
 
     fun models(type: EnergySourceType, brand: String?): List<SourcePreset> = when (type) {
@@ -93,6 +94,18 @@ object SourcePresetCatalog {
 
     private fun solarPresets(brand: String?): List<SourcePreset> {
         val clean = cleanBrand(brand)
+        if (brand?.trim()?.equals("X-TRAD", ignoreCase = true) == true) {
+            return listOf(
+                SourcePreset(
+                    label = "SH-106 • 8 W",
+                    brand = "X-TRAD",
+                    model = "SH-106",
+                    powerW = 8.0,
+                    ratedVoltageV = 5.0,
+                    ratedCurrentA = 1.6
+                )
+            )
+        }
         return listOf(
             SourcePreset(
                 label = "Painel solar 8 W • 5 V • 1,6 A",
@@ -118,6 +131,9 @@ object SourcePresetCatalog {
     }
 
     private fun cleanBrand(brand: String?): String? = brand?.takeUnless {
-        it.equals("Outra", ignoreCase = true) || it.equals("Sem marca / genérico", ignoreCase = true)
+        it.equals("Outra", ignoreCase = true) ||
+            it.equals("Outra marca", ignoreCase = true) ||
+            it.equals("Digitar manualmente", ignoreCase = true) ||
+            it.equals("Sem marca / genérico", ignoreCase = true)
     }
 }

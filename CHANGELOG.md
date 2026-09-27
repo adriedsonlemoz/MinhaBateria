@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.36+37
+
+- Perfil da fonte compactado: os quatro seletores grandes foram substituídos por um único seletor de tipo de fonte.
+- Marca e Modelo agora são seletores inteligentes lado a lado quando há espaço, mantendo digitação manual como alternativa.
+- Adicionado preset conhecido **X-TRAD SH-106** para painel solar com 8 W, VMP 5 V e IMP 1,6 A; todos os valores continuam editáveis.
+- `SourceProfileStore` passou a preservar múltiplos perfis, migrando automaticamente o perfil único das versões anteriores sem apagar dados.
+- Eventos `ACTION_POWER_CONNECTED` / `ACTION_POWER_DISCONNECTED` passaram a alimentar o fluxo de seleção da fonte física, com fallback pela leitura periódica do Android.
+- Ao conectar alimentação, o app oferece a última fonte usada, os perfis já cadastrados e a opção de adicionar outra fonte, sem impedir a coleta caso o usuário escolha “Agora não”.
+- O app separa explicitamente a conexão detectada pelo Android da fonte física informada pelo usuário; uma nova sessão sem confirmação não herda silenciosamente um perfil antigo.
+- Reconexões de até 15 segundos são tratadas como a mesma sessão, evitando várias sessões e avisos por pequenas oscilações.
+- Histórico e Comparar cargas usam a mesma confirmação destrutiva antes de excluir; excluir uma sessão selecionada fecha a comparação inválida e atualiza a seleção ao retornar.
+- Revisada a relação de armazenamento: o histórico guarda agregados por sessão; o buffer de gráficos é global/recente e não possui vínculo de propriedade por `sessionId`, portanto a exclusão não remove amostras globais não pertencentes exclusivamente à sessão.
+- Revisão tipográfica nas telas Agora, Gráficos, Sessão, Histórico, Comparar cargas e Perfil da fonte, elevando textos auxiliares/legendas e preservando escala de fonte do Android.
+- Versão, identidade, README, novidades, Works, Release, Validation e workflow sincronizados para 1.0.36+37.
+
 ## 1.0.35+36
 
 - Tela Comparar cargas redesenhada conforme o novo mockup, com cartões A/B, resumo humano, comparação rápida e detalhes técnicos sob demanda.

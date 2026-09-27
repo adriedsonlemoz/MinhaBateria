@@ -13,5 +13,6 @@ data class EnergySourceProfile(
     val capacityMah: Int? = null,
     val ratedVoltageV: Double? = null,
     val ratedCurrentA: Double? = null,
-    val controllerInfo: String? = null
+    val controllerInfo: String? = null,
+    val id: String = ""
 )

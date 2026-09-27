@@ -8,13 +8,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp">
+        android:paddingEnd="12dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -27,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
                 android:textColor="@color/text_primary"
-                android:textSize="26sp"
+                android:textSize="29sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -51,7 +49,7 @@
             android:gravity="center"
             android:text="i"
             android:textColor="@color/accent_blue"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <ImageButton
@@ -60,7 +58,7 @@
             android:layout_height="44dp"
             android:background="@drawable/bg_settings_circle"
             android:contentDescription="Configurações"
-            android:padding="12dp"
+            android:padding="10dp"
             android:src="@drawable/ic_settings" />
     </LinearLayout>
 
@@ -103,7 +101,7 @@
                 android:paddingEnd="16dp"
                 android:text="Status da bateria"
                 android:textColor="@color/text_primary"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -121,7 +119,7 @@
                 android:id="@+id/sourceOverviewCard"
                 android:layout_width="match_parent"
                 android:layout_height="62dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/bg_card"
                 android:clickable="true"
                 android:focusable="true"
@@ -137,7 +135,7 @@
                     android:background="@drawable/bg_icon_circle_blue"
                     android:gravity="center"
                     android:text="⚡"
-                    android:textSize="21sp" />
+                    android:textSize="19sp" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -161,7 +159,7 @@
                         android:maxLines="1"
                         android:text="Não configurada"
                         android:textColor="@color/text_primary"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -172,7 +170,7 @@
                         android:maxLines="1"
                         android:text="Toque para configurar"
                         android:textColor="@color/text_secondary"
-                        android:textSize="12sp" />
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <TextView
@@ -181,17 +179,17 @@
                     android:gravity="center"
                     android:text="›"
                     android:textColor="@color/accent_blue"
-                    android:textSize="26sp" />
+                    android:textSize="24sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/mainConditionCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
-                android:padding="14dp">
+                android:padding="12dp">
 
                 <TextView
                     android:id="@+id/mainConditionTitle"
@@ -199,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:text="Aguardando leitura"
                     android:textColor="@color/accent_blue"
-                    android:textSize="17sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -216,7 +214,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -229,10 +227,10 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="10dp">
                     <TextView android:id="@+id/powerLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Potência agora" android:textColor="@color/text_secondary" android:textSize="13sp" />
-                    <TextView android:id="@+id/powerValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/accent_blue" android:textSize="19sp" android:textStyle="bold" />
-                    <TextView android:id="@+id/powerHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Observada no aparelho" android:textColor="@color/text_muted" android:textSize="11sp" />
+                    <TextView android:id="@+id/powerValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/accent_blue" android:textSize="17sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/powerHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Observada no aparelho" android:textColor="@color/text_muted" android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -245,17 +243,17 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="10dp">
                     <TextView android:id="@+id/currentLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Corrente" android:textColor="@color/text_secondary" android:textSize="13sp" />
-                    <TextView android:id="@+id/currentValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/text_primary" android:textSize="19sp" android:textStyle="bold" />
-                    <TextView android:id="@+id/currentHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Leitura do sistema" android:textColor="@color/text_muted" android:textSize="11sp" />
+                    <TextView android:id="@+id/currentValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/text_primary" android:textSize="17sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/currentHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Leitura do sistema" android:textColor="@color/text_muted" android:textSize="13sp" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -268,10 +266,10 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="10dp">
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Temperatura" android:textColor="@color/text_secondary" android:textSize="13sp" />
-                    <TextView android:id="@+id/temperatureValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/accent_orange" android:textSize="19sp" android:textStyle="bold" />
-                    <TextView android:id="@+id/temperatureHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Indisponível" android:textColor="@color/text_muted" android:textSize="11sp" />
+                    <TextView android:id="@+id/temperatureValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/accent_orange" android:textSize="17sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/temperatureHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Indisponível" android:textColor="@color/text_muted" android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -284,10 +282,10 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="10dp">
                     <TextView android:id="@+id/energyLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Energia recebida" android:textColor="@color/text_secondary" android:textSize="13sp" />
-                    <TextView android:id="@+id/energyValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/text_primary" android:textSize="19sp" android:textStyle="bold" />
-                    <TextView android:id="@+id/energyHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Nesta sessão" android:textColor="@color/text_muted" android:textSize="11sp" />
+                    <TextView android:id="@+id/energyValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/text_primary" android:textSize="17sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/energyHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Nesta sessão" android:textColor="@color/text_muted" android:textSize="13sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -295,7 +293,7 @@
                 android:id="@+id/mainDetailsToggle"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_secondary_button"
                 android:gravity="center"
                 android:text="Ver detalhes técnicos  ›"
@@ -307,21 +305,21 @@
                 android:id="@+id/mainTechnicalDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/bg_card_blue_outline"
                 android:orientation="vertical"
-                android:padding="14dp"
+                android:padding="12dp"
                 android:visibility="gone">
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Tensão da bateria" android:textColor="@color/text_secondary" android:textSize="13sp" />
                     <TextView android:id="@+id/voltageValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold" />
                 </LinearLayout>
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:orientation="horizontal">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Carga acumulada" android:textColor="@color/text_secondary" android:textSize="13sp" />
                     <TextView android:id="@+id/chargeValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold" />
                 </LinearLayout>
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:orientation="horizontal">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Tempo da sessão" android:textColor="@color/text_secondary" android:textSize="13sp" />
                     <TextView android:id="@+id/elapsedValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="—" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold" />
                 </LinearLayout>
@@ -329,17 +327,17 @@
                     android:id="@+id/mainTechnicalNote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:text="As leituras vêm do Android e representam o que foi observado no aparelho."
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/batteryUsagePreviewCard"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_card"
                 android:clickable="true"
                 android:focusable="true"
@@ -348,13 +346,13 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="10dp">
 
-                <TextView android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_icon_circle_orange" android:gravity="center" android:text="⚡" android:textSize="18sp" />
+                <TextView android:layout_width="34dp" android:layout_height="34dp" android:background="@drawable/bg_icon_circle_orange" android:gravity="center" android:text="⚡" android:textSize="16sp" />
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:layout_weight="1" android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Consumo de bateria" android:textColor="@color/accent_orange" android:textSize="12sp" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Consumo de bateria" android:textColor="@color/accent_orange" android:textSize="13sp" android:textStyle="bold" />
                     <TextView android:id="@+id/batteryUsagePreviewValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Descubra o que está usando mais bateria" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold" />
-                    <TextView android:id="@+id/batteryUsagePreviewHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Toque para analisar" android:textColor="@color/text_muted" android:textSize="11sp" />
+                    <TextView android:id="@+id/batteryUsagePreviewHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="Toque para analisar" android:textColor="@color/text_muted" android:textSize="13sp" />
                 </LinearLayout>
-                <TextView android:layout_width="28dp" android:layout_height="match_parent" android:gravity="center" android:text="›" android:textColor="@color/accent_blue" android:textSize="24sp" />
+                <TextView android:layout_width="28dp" android:layout_height="match_parent" android:gravity="center" android:text="›" android:textColor="@color/accent_blue" android:textSize="22sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

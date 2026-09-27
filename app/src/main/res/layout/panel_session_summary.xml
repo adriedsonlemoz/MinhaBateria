@@ -19,7 +19,7 @@
             android:layout_height="22dp"
             android:background="@drawable/bg_source_icon"
             android:contentDescription="Tempo observado"
-            android:padding="5dp"
+            android:padding="4dp"
             android:src="@drawable/ic_summary_clock" />
         <TextView
             android:id="@+id/elapsedLabel"
@@ -36,7 +36,7 @@
             android:layout_marginTop="1dp"
             android:text="—"
             android:textColor="@color/accent_blue"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -57,7 +57,7 @@
             android:layout_height="22dp"
             android:background="@drawable/bg_source_icon"
             android:contentDescription="Variação de energia"
-            android:padding="5dp"
+            android:padding="4dp"
             android:src="@drawable/ic_summary_power" />
         <TextView
             android:id="@+id/energyLabel"
@@ -77,7 +77,7 @@
             android:singleLine="true"
             android:text="—"
             android:textColor="@color/text_primary"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -98,7 +98,7 @@
             android:layout_height="22dp"
             android:background="@drawable/bg_source_icon"
             android:contentDescription="Métrica média da sessão"
-            android:padding="5dp"
+            android:padding="4dp"
             android:src="@drawable/ic_metric_current" />
         <TextView
             android:id="@+id/chargeLabel"
@@ -118,7 +118,7 @@
             android:singleLine="true"
             android:text="—"
             android:textColor="@color/text_primary"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

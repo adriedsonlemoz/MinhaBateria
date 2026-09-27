@@ -4,39 +4,39 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_card"
     android:orientation="vertical"
-    android:padding="17dp">
+    android:padding="15dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="O app identifica como cada dado foi obtido. Valores ausentes permanecem como Indisponível."
         android:textColor="@color/text_secondary"
-        android:textSize="15sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="11dp"
         android:text="SISTEMA  •  bateria, status, conexão, tensão, corrente e temperatura"
         android:textColor="@color/accent_blue"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="7dp"
         android:text="CALCULADO  •  potência, tempo, picos e ganho percentual"
         android:textColor="@color/text_primary"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="7dp"
         android:text="ESTIMADO  •  Wh, mAh e médias temporais integradas somente em amostras válidas"
         android:textColor="@color/text_muted"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:textStyle="bold" />
 </LinearLayout>

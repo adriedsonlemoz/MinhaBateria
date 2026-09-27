@@ -19,6 +19,7 @@ class BatteryMonitorService : Service() {
     private lateinit var sessionStore: ContinuousSessionStore
     private lateinit var dischargeRecorder: DischargeRecorder
     private lateinit var startIssueStore: MonitoringStartIssueStore
+    private lateinit var sourceConnectionState: SourceConnectionState
     private var foregroundStarted = false
     private var lastNotificationUpdateMs = 0L
 
@@ -29,12 +30,14 @@ class BatteryMonitorService : Service() {
         sessionStore = ContinuousSessionStore(this)
         dischargeRecorder = DischargeRecorder(this)
         startIssueStore = MonitoringStartIssueStore(this)
+        sourceConnectionState = SourceConnectionState(this)
         val chargingSession = ChargingSession(sessionStore.load())
         val historyRecorder = HistoryRecorder(this)
         monitor = BatteryMonitor(
             reader = BatteryStatusReader(this),
             session = chargingSession,
             onUpdate = { info, session ->
+                sourceConnectionState.observePlugged(info.isPlugged, info.source)
                 ChartSampleRepository.record(this, info)
                 dischargeRecorder.update(info)
                 sessionStore.save(chargingSession.savedState())

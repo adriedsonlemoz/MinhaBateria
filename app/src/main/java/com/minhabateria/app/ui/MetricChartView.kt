@@ -239,7 +239,7 @@ class MetricChartView @JvmOverloads constructor(
     ) {
         paint.shader = null
         paint.typeface = Typeface.DEFAULT
-        paint.textSize = sp(9.5f)
+        paint.textSize = sp(12f)
         paint.color = context.getColor(R.color.text_secondary)
         paint.textAlign = Paint.Align.LEFT
         repeat(5) { index ->
@@ -270,7 +270,7 @@ class MetricChartView @JvmOverloads constructor(
         paint.style = Paint.Style.FILL
         if (metric == ChartMetric.CURRENT) {
             paint.textAlign = Paint.Align.RIGHT
-            paint.textSize = sp(8.5f)
+            paint.textSize = sp(12f)
             canvas.drawText("zero", right, y - dp(3f), paint)
             paint.textAlign = Paint.Align.LEFT
         }
@@ -279,7 +279,7 @@ class MetricChartView @JvmOverloads constructor(
     private fun drawTimeAxis(canvas: Canvas, left: Float, right: Float, baseline: Float) {
         paint.shader = null
         paint.typeface = Typeface.DEFAULT
-        paint.textSize = sp(9f)
+        paint.textSize = sp(12f)
         paint.color = context.getColor(R.color.text_muted)
 
         paint.textAlign = Paint.Align.LEFT

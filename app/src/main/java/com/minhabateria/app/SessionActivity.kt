@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.minhabateria.app.monitoring.LocalBatteryMonitorHub
 import com.minhabateria.app.monitoring.MonitoringState
 import com.minhabateria.app.monitoring.MonitoringStateStore
+import com.minhabateria.app.monitoring.SourceConnectionState
 import com.minhabateria.app.source.SourceProfileStore
 import com.minhabateria.app.ui.BottomTab
 import com.minhabateria.app.ui.BottomTabsBinder
@@ -21,6 +22,7 @@ class SessionActivity : Activity() {
 
     private val stateListener: (MonitoringState) -> Unit = { state ->
         runOnUiThread {
+            renderer.renderSource(resolvedSourceProfile(state.info?.isPlugged))
             renderer.render(state.info, state.session)
             LocalBatteryMonitorHub.sync(this)
         }
@@ -54,8 +56,9 @@ class SessionActivity : Activity() {
         findViewById<View>(R.id.sessionSourceCard).setOnClickListener {
             startActivity(android.content.Intent(this, com.minhabateria.app.source.SourceProfileActivity::class.java))
         }
-        renderer.renderSource(sourceStore.getProfile())
-        MonitoringStateStore.current().let { renderer.render(it.info, it.session) }
+        val initialState = MonitoringStateStore.current()
+        renderer.renderSource(resolvedSourceProfile(initialState.info?.isPlugged))
+        renderer.render(initialState.info, initialState.session)
     }
 
     private fun bindDetailsControls() {
@@ -93,8 +96,14 @@ class SessionActivity : Activity() {
 
     override fun onResume() {
         super.onResume()
-        renderer.renderSource(sourceStore.getProfile())
-        MonitoringStateStore.current().let { renderer.render(it.info, it.session) }
+        val state = MonitoringStateStore.current()
+        renderer.renderSource(resolvedSourceProfile(state.info?.isPlugged))
+        renderer.render(state.info, state.session)
+    }
+
+    private fun resolvedSourceProfile(plugged: Boolean?): com.minhabateria.app.source.EnergySourceProfile? {
+        val active = sourceStore.getProfile()
+        return if (plugged == true) SourceConnectionState(this).profileForHistory(active) else active
     }
 
     override fun onStop() {

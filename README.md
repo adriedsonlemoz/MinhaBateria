@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.35
-- versionCode: 36
-- versão completa: 1.0.35+36
+- versionName: 1.0.36
+- versionCode: 37
+- versão completa: 1.0.36+37
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -27,7 +27,7 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - tensão, corrente bruta com sinal, velocidade de carga e velocidade de descarga observada, além de temperatura;
 - tempo da sessão, Wh/mAh estimados, picos observados e estimativa de tempo até 100% quando disponível;
 - monitoramento contínuo por foreground service;
-- perfil técnico da fonte usada no teste com preenchimento rápido por sugestões;
+- perfis técnicos das fontes usadas, com preenchimento rápido, múltiplos perfis e seleção da fonte física ao conectar;
 - navegação principal com Agora, Gráficos, Sessão, Descarga e Histórico;
 - tela Descarga com consumo em %/h, autonomia estimada, projeção da bateria em 1 hora, qualidade da amostra, média histórica e histórico próprio;
 - módulo Consumo de bateria com taxa atual, corrente instantânea com direção visual (+ entrada / − descarga) e ranking de apps mais ativos nas últimas 6 horas mediante Acesso ao uso;
@@ -52,7 +52,7 @@ O capturador é voltado a exceções fatais do código Java/Kotlin. Encerramento
 
 ## Perfil técnico da fonte
 
-O perfil não exige mais um nome inventado. O usuário escolhe o tipo da fonte e copia os dados que conseguir ler na etiqueta. O nome pode ser gerado automaticamente, por exemplo `Samsung EP-TA800 • 25 W`.
+O perfil não exige mais um nome inventado. O usuário escolhe o tipo da fonte em um único seletor compacto e copia somente os dados que conseguir ler na etiqueta. O nome pode ser gerado automaticamente, por exemplo `Samsung EP-TA800 • 25 W`. Perfis já existentes são preservados e podem ser reutilizados em novas sessões.
 
 ### Carregador
 
@@ -74,11 +74,18 @@ Os dados de etiqueta são referência nominal e permanecem separados da conexão
 
 ### Preenchimento rápido
 
-O formulário foi redesenhado para priorizar toques em vez de digitação. O usuário escolhe primeiro o tipo da fonte e depois usa seletores/presets específicos. Carregadores oferecem marca, modelo/preset, potência, protocolo, porta, saída e cabo; power banks acrescentam capacidade; painéis solares acrescentam tensão, corrente e controlador/conversor. Os campos manuais continuam disponíveis apenas como ajuste para etiquetas diferentes.
+O formulário foi redesenhado para priorizar toques em vez de digitação. O tipo usa um único seletor compacto; Marca e Modelo usam seletores inteligentes e ficam lado a lado quando há largura suficiente. Carregadores oferecem potência, protocolo, porta, saída e cabo; power banks acrescentam capacidade; painéis solares acrescentam tensão, corrente e controlador/conversor. Sempre existem opções para outra marca/modelo e digitação manual, sem prender o usuário ao catálogo.
 
-O catálogo inclui um preset baseado na etiqueta analisada do painel solar de 8 W: **8 W, 5 V e 1,6 A**. Selecionar esse preset preenche esses campos de uma vez, sem transformar os valores em medição do Android.
+O catálogo inclui o preset **X-TRAD SH-106** como painel solar com **8 W, VMP 5 V e IMP 1,6 A**. Selecionar esse modelo preenche esses campos de uma vez, mas todos continuam editáveis e nunca são tratados como medição do Android.
 
 O formulário oferece seletores de marca, modelo/preset, potência, protocolo, porta e saídas comuns. Entre as opções de protocolo estão USB-PD, USB-PD 3.0, USB-PD 3.1, PPS e combinações comuns. Para Samsung há presets de modelos conhecidos como EP-TA800 25 W e EP-T4510 45 W; para painéis e power banks há presets por potência/capacidade. Digitação manual fica como alternativa quando a etiqueta não corresponder às sugestões.
+
+
+### Seleção da fonte ao conectar
+
+Os eventos `ACTION_POWER_CONNECTED` e `ACTION_POWER_DISCONNECTED` são usados para perceber conexão e desconexão, com a leitura periódica da bateria como fallback. O Android pode informar AC, USB ou sem fio, mas isso é apresentado somente como **tipo de conexão**, nunca como identificação física de painel solar, power bank, carregador ou modelo.
+
+Quando uma nova sessão começa, o app pode oferecer a última fonte utilizada, os perfis já salvos e a opção de adicionar outra. Escolher “Agora não” não interrompe a coleta. Para evitar atribuição incorreta, uma nova conexão não confirma silenciosamente o perfil físico anterior.
 
 ### Comparação com a referência nominal
 
@@ -94,13 +101,13 @@ Valores ausentes continuam identificados nas telas técnicas quando necessário.
 
 ## Motor da sessão
 
-A sessão começa quando uma fonte física é conectada e zera os contadores da sessão anterior. Ao atingir 100%, os totais são congelados como carga completa; ao desconectar a fonte, a sessão atual é encerrada. Duração total e tempo efetivamente carregando permanecem separados.
+A sessão começa quando o Android detecta alimentação. Ao atingir 100%, os totais são congelados como carga completa. Uma desconexão inicia uma tolerância de 15 segundos: se a energia voltar nesse intervalo, a mesma sessão continua; se não voltar, a sessão é encerrada no instante em que a desconexão começou. Duração total e tempo efetivamente carregando permanecem separados.
 
 Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos acima de 15 segundos, leituras ausentes, períodos sem carregamento e mudança da fonte detectada não são integrados, evitando extrapolações falsas. O monitoramento contínuo persiste o estado da sessão para recuperação após reinício do serviço; uma reinicialização completa do aparelho inicia uma nova sessão.
 
 ## Interface
 
-A versão 1.0.35 mantém uma camada única de leitura **leigo → números úteis → técnico** nas telas Agora, Perfil da fonte, Sessão e Gráficos. A informação principal é sempre o estado humano (por exemplo `Carga normal`, `Carga lenta`, `Carga oscilando` ou `Aparelho quente`); os números essenciais aparecem logo depois e os dados técnicos ficam recolhidos em **Ver detalhes técnicos**.
+A versão 1.0.36 mantém uma camada única de leitura **leigo → números úteis → técnico** nas telas Agora, Perfil da fonte, Sessão e Gráficos. A informação principal é sempre o estado humano (por exemplo `Carga normal`, `Carga lenta`, `Carga oscilando` ou `Aparelho quente`); os números essenciais aparecem logo depois e os dados técnicos ficam recolhidos em **Ver detalhes técnicos**.
 
 ### Agora
 
@@ -172,11 +179,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.35.apk`
+APK final: `Minha-Bateria-1.0.36.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.35.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.36.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -187,4 +194,4 @@ Cada sessão salva também possui uma lixeira própria. A exclusão exige confir
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.35.apk` na GitHub Release `v1.0.35`.
+O workflow publica diretamente `Minha-Bateria-1.0.36.apk` na GitHub Release `v1.0.36`.

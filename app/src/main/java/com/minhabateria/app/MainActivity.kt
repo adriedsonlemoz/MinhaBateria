@@ -12,6 +12,7 @@ import com.minhabateria.app.monitoring.MonitorPreferences
 import com.minhabateria.app.monitoring.MonitoringServiceController
 import com.minhabateria.app.monitoring.MonitoringState
 import com.minhabateria.app.monitoring.MonitoringStateStore
+import com.minhabateria.app.monitoring.SourceConnectionState
 import com.minhabateria.app.settings.SettingsActivity
 import com.minhabateria.app.source.SourceProfileActivity
 import com.minhabateria.app.source.SourceProfileStore
@@ -33,6 +34,7 @@ class MainActivity : Activity() {
     private val stateListener: (MonitoringState) -> Unit = { state ->
         runOnUiThread {
             state.info?.let { info ->
+                renderer.renderSourceProfile(resolvedSourceProfile(info.isPlugged))
                 state.session?.let { session -> renderer.render(info, session, state.discharge) }
             }
             renderMonitoringStatus(state.running)
@@ -87,7 +89,8 @@ class MainActivity : Activity() {
 
     override fun onResume() {
         super.onResume()
-        renderer.renderSourceProfile(sourceProfileStore.getProfile())
+        val resumedState = MonitoringStateStore.current()
+        renderer.renderSourceProfile(resolvedSourceProfile(resumedState.info?.isPlugged))
         renderBatteryUsagePreview()
         if (CrashStore.consumeNewCrashNotice(this)) {
             Toast.makeText(
@@ -96,7 +99,7 @@ class MainActivity : Activity() {
                 Toast.LENGTH_LONG
             ).show()
         }
-        val state = MonitoringStateStore.current()
+        val state = resumedState
         state.info?.let { info -> state.session?.let { session -> renderer.render(info, session, state.discharge) } }
         if (!sourceProfileStore.shouldOfferInitialSetup()) UpdateNotesDialog.showIfNeeded(this)
     }
@@ -184,6 +187,11 @@ class MainActivity : Activity() {
                 }
             }
         }.start()
+    }
+
+    private fun resolvedSourceProfile(plugged: Boolean?): com.minhabateria.app.source.EnergySourceProfile? {
+        val active = sourceProfileStore.getProfile()
+        return if (plugged == true) SourceConnectionState(this).profileForHistory(active) else active
     }
 
     private fun renderMonitoringStatus(running: Boolean) {

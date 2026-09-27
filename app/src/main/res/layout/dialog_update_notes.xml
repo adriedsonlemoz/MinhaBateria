@@ -2,26 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="22dp"
+    android:layout_margin="18dp"
     android:background="@drawable/bg_card"
     android:orientation="vertical"
-    android:padding="23dp">
+    android:padding="20dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NOVIDADES"
         android:textColor="@color/accent_green"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="5dp"
         android:text="O Minha Bateria foi atualizado"
         android:textColor="@color/text_primary"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
@@ -34,25 +34,33 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.35+36"
+        android:text="Versão 1.0.36+37"
         android:textColor="@color/accent_blue"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/updateNotesBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• Comparar cargas ganhou uma tela nova com resumo humano, cartões A/B, diferenças visuais e explicação do que influenciou o resultado.\n\n• A comparação rápida destaca duração, tempo carregando, energia, carga, potência média e pico sem esconder os dados técnicos.\n\n• O app evita chamar uma fonte de melhor apenas pelo total acumulado: duração, bateria, temperatura, cabo e uso do celular continuam sendo considerados no texto.\n\n• Agora é possível excluir sessões antigas pelo ícone de lixeira no Histórico, sempre com confirmação antes de apagar."
+        android:text="• Perfil da fonte ficou mais compacto: o tipo agora usa um único seletor e Marca/Modelo podem ficar lado a lado.
+
+• X-TRAD SH-106 foi adicionado como preset conhecido de painel solar: 8 W, VMP 5 V e IMP 1,6 A, sempre editáveis.
+
+• Ao conectar alimentação, o app pode pedir qual fonte física está sendo usada, separando o que o Android detecta do que foi informado por você. Reconexões rápidas não criam várias sessões nem repetem o aviso.
+
+• Histórico e Comparar cargas permitem excluir uma sessão com lixeira e confirmação obrigatória.
+
+• Agora, Gráficos, Sessão, Histórico, Comparar cargas e Perfil da fonte receberam revisão de tipografia e legibilidade."
         android:textColor="@color/text_primary"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="14dp"
         android:text="Este aviso aparece somente uma vez em cada nova versão."
         android:textColor="@color/text_muted"
         android:textSize="13sp" />
@@ -61,12 +69,12 @@
         android:id="@+id/updateNotesContinueButton"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="18dp"
         android:background="@drawable/bg_primary_button"
         android:minHeight="0dp"
         android:text="Continuar"
         android:textAllCaps="false"
         android:textColor="#07110A"
-        android:textSize="16sp"
+        android:textSize="13sp"
         android:textStyle="bold" />
 </LinearLayout>

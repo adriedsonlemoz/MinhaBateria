@@ -108,11 +108,15 @@ class SourceProfileSuggestionBinder(
         val type = currentType ?: return toast("Selecione primeiro o tipo da fonte.")
         choose("Escolha a marca", SourcePresetCatalog.brands(type)) { value ->
             when (value) {
-                "Outra" -> { onManualEntryRequested(); brandInput.requestFocus() }
+                "Outra marca", "Digitar manualmente" -> {
+                    brandInput.setText("")
+                    onManualEntryRequested()
+                    brandInput.requestFocus()
+                }
                 "Sem marca / genérico" -> brandInput.setText("")
                 else -> brandInput.setText(value)
             }
-            if (value != "Outra") modelInput.setText("")
+            if (value != "Outra marca" && value != "Digitar manualmente") modelInput.setText("")
             changed()
         }
     }
@@ -120,9 +124,9 @@ class SourceProfileSuggestionBinder(
     private fun chooseModel() {
         val type = currentType ?: return toast("Selecione primeiro o tipo da fonte.")
         val presets = SourcePresetCatalog.models(type, brandInput.text.toString().trim())
-        val labels = presets.map { it.label } + "Outro / digitar"
+        val labels = presets.map { it.label } + listOf("Outro modelo", "Digitar manualmente")
         choose("Escolha um modelo ou preset", labels) { label ->
-            if (label == "Outro / digitar") {
+            if (label == "Outro modelo" || label == "Digitar manualmente") {
                 onManualEntryRequested()
                 modelInput.requestFocus()
                 toast("Digite apenas se a etiqueta for diferente das opções.")

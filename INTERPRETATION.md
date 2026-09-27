@@ -1,4 +1,4 @@
-# Interpretação das medições — Minha Bateria 1.0.35+36
+# Interpretação das medições — Minha Bateria 1.0.36+37
 
 A interface separa quatro origens de informação:
 

@@ -1,6 +1,6 @@
 # Works — Minha Bateria
 
-Versão atual: `1.0.35+36`.
+Versão atual: `1.0.36+37`.
 
 ## Build recomendado
 
@@ -13,7 +13,7 @@ gradle :app:assembleRelease
 
 Saída original: `app/build/outputs/apk/release/app-release.apk`
 
-Nome de entrega: `Minha-Bateria-1.0.35.apk`
+Nome de entrega: `Minha-Bateria-1.0.36.apk`
 
 ## GitHub Manager
 
@@ -27,15 +27,20 @@ Use o mesmo `Minha-Bateria-GitHub-Secrets.txt` já criado. A assinatura não dev
 - não incluir keystore ou Secrets no repositório;
 - validar XML, Manifest, IDs e ZIP antes da entrega;
 - nenhum valor de bateria deve ser fabricado para preencher campos ausentes;
-- comparações devem distinguir total acumulado, potência e duração, sem chamar automaticamente uma sessão de mais eficiente.
+- conexão AC/USB detectada pelo Android não pode ser apresentada como identificação física da fonte;
+- exclusão de sessão exige confirmação e não pode apagar outros perfis/sessões;
+- comparações devem distinguir total acumulado, potência e duração sem declarar automaticamente maior eficiência.
 
 ## Entrega
 
-O Works/GitHub Actions publica somente `Minha-Bateria-1.0.35.apk`. O source ZIP é apenas o pacote de desenvolvimento entregue separadamente no chat.
+O Works/GitHub Actions publica somente `Minha-Bateria-1.0.36.apk`. O source ZIP é o pacote de desenvolvimento entregue separadamente.
 
-## Atualização 1.0.35+36
+## Atualização 1.0.36+37
 
-- Comparar cargas recebeu resumo visual, grade A/B e explicação humana baseada nos dados salvos.
-- Dados técnicos continuam disponíveis sob demanda, sem dominar a tela.
-- Histórico agora permite excluir sessões individuais com lixeira e confirmação obrigatória.
-- Exclusão atualiza imediatamente a seleção usada para comparação.
+- Perfil da fonte compactado e com seletores inteligentes.
+- Vários perfis podem ser preservados e escolhidos rapidamente ao conectar alimentação.
+- X-TRAD SH-106 foi adicionado como preset editável de painel solar.
+- Eventos de conexão/desconexão passaram a alimentar a seleção da fonte física sem confundir detecção do Android com o equipamento real.
+- Reconexões rápidas não fragmentam a sessão.
+- Histórico e Comparar cargas possuem exclusão segura com confirmação.
+- Tipografia revisada nas seis telas principais do fluxo de carga.

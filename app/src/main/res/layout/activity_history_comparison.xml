@@ -8,13 +8,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="12dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp">
+        android:paddingEnd="16dp">
 
         <ImageButton
             android:id="@+id/comparisonBack"
@@ -22,7 +20,7 @@
             android:layout_height="44dp"
             android:background="@android:color/transparent"
             android:contentDescription="Voltar"
-            android:padding="12dp"
+            android:padding="10dp"
             android:src="@drawable/ic_arrow_back"
             android:tint="@color/text_primary" />
 
@@ -32,7 +30,7 @@
             android:layout_marginStart="4dp"
             android:text="Comparar cargas"
             android:textColor="@color/text_primary"
-            android:textSize="25sp"
+            android:textSize="29sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -57,14 +55,14 @@
                 android:background="@drawable/bg_card_blue_outline"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="14dp">
+                android:padding="12dp">
 
                 <ImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
                     android:background="@drawable/bg_icon_circle_blue"
                     android:contentDescription="Informação"
-                    android:padding="10dp"
+                    android:padding="9dp"
                     android:src="@drawable/ic_session_info" />
 
                 <LinearLayout
@@ -79,7 +77,7 @@
                         android:layout_height="wrap_content"
                         android:text="Estamos comparando duas sessões de carga"
                         android:textColor="@color/text_primary"
-                        android:textSize="15sp"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -95,7 +93,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
+                android:layout_marginTop="9dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -105,7 +103,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_card_blue_outline"
                     android:orientation="vertical"
-                    android:padding="14dp">
+                    android:padding="12dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -118,7 +116,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="6dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -136,19 +134,19 @@
                                 android:maxLines="2"
                                 android:text="Fonte A"
                                 android:textColor="@color/text_primary"
-                                android:textSize="17sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/comparisonADate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="7dp"
+                                android:layout_marginTop="5dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:text="—"
                                 android:textColor="@color/text_secondary"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/comparisonASource"
@@ -159,19 +157,37 @@
                                 android:maxLines="1"
                                 android:text="—"
                                 android:textColor="@color/text_muted"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
                         </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/comparisonAIcon"
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
+                        <LinearLayout
+                            android:layout_width="44dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:background="@drawable/bg_icon_circle_blue"
-                            android:contentDescription="Tipo da fonte A"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_session_plug"
-                            android:tint="@color/accent_blue" />
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/comparisonAIcon"
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                android:background="@drawable/bg_icon_circle_blue"
+                                android:contentDescription="Tipo da fonte A"
+                                android:padding="9dp"
+                                android:src="@drawable/ic_session_plug"
+                                android:tint="@color/accent_blue" />
+
+                            <ImageButton
+                                android:id="@+id/comparisonADelete"
+                                android:layout_width="44dp"
+                                android:layout_height="44dp"
+                                android:layout_marginTop="2dp"
+                                android:background="@android:color/transparent"
+                                android:contentDescription="Excluir sessão A"
+                                android:padding="12dp"
+                                android:src="@drawable/ic_delete"
+                                android:tint="@color/text_secondary" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -182,7 +198,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_card_green_outline"
                     android:orientation="vertical"
-                    android:padding="14dp">
+                    android:padding="12dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -195,7 +211,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="6dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -213,19 +229,19 @@
                                 android:maxLines="2"
                                 android:text="Fonte B"
                                 android:textColor="@color/text_primary"
-                                android:textSize="17sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/comparisonBDate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="7dp"
+                                android:layout_marginTop="5dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:text="—"
                                 android:textColor="@color/text_secondary"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/comparisonBSource"
@@ -236,19 +252,37 @@
                                 android:maxLines="1"
                                 android:text="—"
                                 android:textColor="@color/text_muted"
-                                android:textSize="12sp" />
+                                android:textSize="13sp" />
                         </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/comparisonBIcon"
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
+                        <LinearLayout
+                            android:layout_width="44dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:background="@drawable/bg_icon_circle_green"
-                            android:contentDescription="Tipo da fonte B"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_session_plug"
-                            android:tint="@color/accent_green" />
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/comparisonBIcon"
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                android:background="@drawable/bg_icon_circle_green"
+                                android:contentDescription="Tipo da fonte B"
+                                android:padding="9dp"
+                                android:src="@drawable/ic_session_plug"
+                                android:tint="@color/accent_green" />
+
+                            <ImageButton
+                                android:id="@+id/comparisonBDelete"
+                                android:layout_width="44dp"
+                                android:layout_height="44dp"
+                                android:layout_marginTop="2dp"
+                                android:background="@android:color/transparent"
+                                android:contentDescription="Excluir sessão B"
+                                android:padding="12dp"
+                                android:src="@drawable/ic_delete"
+                                android:tint="@color/text_secondary" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -256,10 +290,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/bg_session_hero"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="14dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -272,7 +306,7 @@
                         android:layout_height="42dp"
                         android:background="@drawable/bg_icon_circle_orange"
                         android:contentDescription="Resumo"
-                        android:padding="10dp"
+                        android:padding="9dp"
                         android:src="@drawable/ic_history_compare" />
 
                     <LinearLayout
@@ -287,7 +321,7 @@
                             android:layout_height="wrap_content"
                             android:text="RESUMO DA COMPARAÇÃO"
                             android:textColor="@color/text_secondary"
-                            android:textSize="12sp"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -297,7 +331,7 @@
                             android:layout_marginTop="3dp"
                             android:text="Resultados"
                             android:textColor="@color/text_primary"
-                            android:textSize="21sp"
+                            android:textSize="19sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -311,14 +345,14 @@
                         android:paddingEnd="10dp"
                         android:text="Maior resultado observado"
                         android:textColor="@color/accent_blue"
-                        android:textSize="11sp"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -329,7 +363,7 @@
                         android:background="@drawable/bg_history_metric_row"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="9dp">
+                        android:padding="8dp">
 
                         <TextView
                             android:id="@+id/comparisonSummaryChargeValue"
@@ -338,7 +372,7 @@
                             android:gravity="center"
                             android:text="—"
                             android:textColor="@color/accent_blue"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -349,7 +383,7 @@
                             android:gravity="center"
                             android:text="mais carga acumulada"
                             android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -360,7 +394,7 @@
                         android:background="@drawable/bg_history_metric_row"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="9dp">
+                        android:padding="8dp">
 
                         <TextView
                             android:id="@+id/comparisonSummaryEnergyValue"
@@ -369,7 +403,7 @@
                             android:gravity="center"
                             android:text="—"
                             android:textColor="@color/accent_green"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -380,14 +414,14 @@
                             android:gravity="center"
                             android:text="mais energia observada"
                             android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -399,10 +433,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_history_metric_row"
                         android:gravity="center"
-                        android:padding="8dp"
+                        android:padding="7dp"
                         android:text="—"
                         android:textColor="@color/text_primary"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -415,10 +449,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_history_metric_row"
                         android:gravity="center"
-                        android:padding="8dp"
+                        android:padding="7dp"
                         android:text="—"
                         android:textColor="@color/text_primary"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -430,17 +464,17 @@
                         android:layout_weight="1.35"
                         android:background="@drawable/bg_history_metric_row"
                         android:gravity="center_vertical"
-                        android:padding="8dp"
+                        android:padding="7dp"
                         android:text="—"
                         android:textColor="@color/text_secondary"
-                        android:textSize="11sp" />
+                        android:textSize="13sp" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="17dp"
+                android:layout_marginTop="14dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="3dp"
@@ -452,7 +486,7 @@
                     android:layout_weight="1"
                     android:text="Comparação rápida"
                     android:textColor="@color/text_primary"
-                    android:textSize="19sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -460,7 +494,7 @@
                     android:layout_height="wrap_content"
                     android:text="● A"
                     android:textColor="@color/accent_blue"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -468,26 +502,26 @@
                     android:layout_marginStart="10dp"
                     android:text="● B"
                     android:textColor="@color/accent_green"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/comparisonQuickRows"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="7dp"
                 android:orientation="vertical" />
 
             <LinearLayout
                 android:id="@+id/comparisonMeaningCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/bg_card_blue_outline"
                 android:clickable="true"
                 android:focusable="true"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:padding="13dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -500,7 +534,7 @@
                         android:layout_height="38dp"
                         android:background="@drawable/bg_icon_circle_orange"
                         android:contentDescription="Explicação"
-                        android:padding="10dp"
+                        android:padding="9dp"
                         android:src="@drawable/ic_session_info" />
 
                     <TextView
@@ -510,7 +544,7 @@
                         android:layout_weight="1"
                         android:text="O que isso significa"
                         android:textColor="@color/text_primary"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -520,7 +554,7 @@
                         android:gravity="center"
                         android:text="⌃"
                         android:textColor="@color/text_secondary"
-                        android:textSize="22sp" />
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <TextView
@@ -538,7 +572,7 @@
                 android:id="@+id/comparisonTechnicalCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical">
 
@@ -558,7 +592,7 @@
                         android:layout_height="38dp"
                         android:background="@drawable/bg_icon_circle_blue"
                         android:contentDescription="Detalhes técnicos"
-                        android:padding="10dp"
+                        android:padding="9dp"
                         android:src="@drawable/ic_settings" />
 
                     <LinearLayout
@@ -573,7 +607,7 @@
                             android:layout_height="wrap_content"
                             android:text="Ver detalhes técnicos"
                             android:textColor="@color/text_primary"
-                            android:textSize="17sp"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -582,7 +616,7 @@
                             android:layout_marginTop="2dp"
                             android:text="Corrente, tensão, referência, temperatura e estabilidade"
                             android:textColor="@color/text_muted"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <TextView
@@ -592,7 +626,7 @@
                         android:gravity="center"
                         android:text="›"
                         android:textColor="@color/text_secondary"
-                        android:textSize="28sp" />
+                        android:textSize="26sp" />
                 </LinearLayout>
 
                 <LinearLayout

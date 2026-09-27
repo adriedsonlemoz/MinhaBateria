@@ -47,11 +47,11 @@ class SessionScreenRenderer(private val activity: Activity) {
 
     fun renderSource(profile: EnergySourceProfile?) {
         sourceProfile = profile
-        sourceName.text = profile?.name ?: "Perfil não configurado"
+        sourceName.text = profile?.name ?: "Fonte desta sessão não informada"
         sourceName.setTextColor(activity.getColor(if (profile == null) R.color.value_unavailable else R.color.text_primary))
         sourceReference.text = profile?.nominalPowerW?.let {
             "Referência configurada: ${SessionFormatter.power(it)} • toque para editar"
-        } ?: "Sem referência configurada • toque para informar a fonte"
+        } ?: "Toque para escolher a fonte física usada nesta sessão"
     }
 
     fun render(info: BatteryInfo?, snapshot: ChargingSession.Snapshot?) {

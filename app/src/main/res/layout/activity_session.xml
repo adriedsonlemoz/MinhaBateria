@@ -8,13 +8,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingStart="18dp"
-        android:paddingEnd="18dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp">
+        android:paddingEnd="18dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="O que aconteceu nesta carga, primeiro em linguagem simples"
             android:textColor="@color/text_secondary"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
     <ScrollView
@@ -53,10 +51,10 @@
                 android:id="@+id/sessionSourceCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="14dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -69,7 +67,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -78,7 +76,7 @@
                         android:layout_height="54dp"
                         android:background="@drawable/bg_icon_circle_blue"
                         android:contentDescription="Fonte configurada"
-                        android:padding="15dp"
+                        android:padding="13dp"
                         android:src="@drawable/ic_session_plug" />
 
                     <LinearLayout
@@ -96,7 +94,7 @@
                             android:maxLines="1"
                             android:text="Perfil não configurado"
                             android:textColor="@color/accent_blue"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -123,7 +121,7 @@
                         android:gravity="center"
                         android:text="›"
                         android:textColor="@color/text_secondary"
-                        android:textSize="30sp" />
+                        android:textSize="28sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -131,23 +129,23 @@
                 layout="@layout/panel_session_simple_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="8dp" />
 
             <LinearLayout
                 android:id="@+id/sessionGuideCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_session_guide"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="14dp">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_icon_circle_blue"
                     android:contentDescription="Informações da sessão"
-                    android:padding="13dp"
+                    android:padding="11dp"
                     android:src="@drawable/ic_session_info" />
 
                 <LinearLayout
@@ -162,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:text="O que vai aparecer aqui?"
                         android:textColor="@color/text_primary"
-                        android:textSize="17sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -180,12 +178,12 @@
                 android:id="@+id/sessionDetailsToggle"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/bg_primary_button"
                 android:gravity="center"
                 android:text="Ver detalhes técnicos  ›"
                 android:textColor="#07110A"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -212,10 +210,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/bg_card_green_outline"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="14dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -228,7 +226,7 @@
                             android:layout_height="42dp"
                             android:background="@drawable/bg_icon_square_green"
                             android:contentDescription="Tempo e continuidade"
-                            android:padding="10dp"
+                            android:padding="9dp"
                             android:src="@drawable/ic_session_clock" />
 
                         <LinearLayout
@@ -265,10 +263,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/bg_card_blue_outline"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="14dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -281,7 +279,7 @@
                             android:layout_height="42dp"
                             android:background="@drawable/bg_icon_square_blue"
                             android:contentDescription="Energia estimada"
-                            android:padding="10dp"
+                            android:padding="9dp"
                             android:src="@drawable/ic_session_energy" />
 
                         <LinearLayout
@@ -318,10 +316,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/bg_card_blue_outline"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="14dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -334,7 +332,7 @@
                             android:layout_height="42dp"
                             android:background="@drawable/bg_icon_square_blue"
                             android:contentDescription="Dados elétricos"
-                            android:padding="10dp"
+                            android:padding="9dp"
                             android:src="@drawable/ic_metric_current" />
 
                         <LinearLayout
@@ -371,10 +369,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/bg_card_orange_outline"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="14dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -387,7 +385,7 @@
                             android:layout_height="42dp"
                             android:background="@drawable/bg_icon_square_orange"
                             android:contentDescription="Temperatura e bateria"
-                            android:padding="10dp"
+                            android:padding="9dp"
                             android:src="@drawable/ic_session_temperature" />
 
                         <LinearLayout
@@ -424,7 +422,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="10dp"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
                     android:text="Wh, mAh e médias são estimados a partir das leituras válidas observadas no aparelho; não representam medição direta da saída da fonte."
