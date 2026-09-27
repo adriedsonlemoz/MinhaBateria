@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.30
-- versionCode: 31
-- versão completa: 1.0.30+31
+- versionName: 1.0.31
+- versionCode: 32
+- versão completa: 1.0.31+32
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -96,7 +96,7 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
-A versão 1.0.30 redesenha a tela **Descarga** para explicar a medição de forma mais visual e direta. O resumo atual ganhou uma tendência gráfica nativa, a autonomia agora informa também o horário aproximado em que a bateria pode chegar a 0%, os quatro indicadores principais receberam hierarquia visual e ícones próprios, e a nova seção **Leitura rápida** compara o ritmo atual com a média histórica sem inventar dados. O histórico de descarga também foi reorganizado para destacar taxa, faixa de bateria, data e duração com leitura mais rápida.
+A versão 1.0.31 amplia o redesenho iniciado na Descarga para as telas **Sessão** e **Histórico**. Sessão agora destaca estado da conexão, fonte configurada e os principais dados em cards visuais; quando está inativa, uma orientação curta explica o que será preenchido durante o carregamento. Histórico passa a agrupar duração, energia, carga, potência média/pico, bateria, temperatura, estabilidade e interrupções em uma hierarquia mais rápida de ler, com seleção 0/2 mais evidente para comparação. A tela **Descarga** mantém a tendência gráfica, autonomia com horário previsto e Leitura rápida introduzidas na 1.0.30.
 
 A versão 1.0.29 corrige o fechamento observado no Android 16 durante a restauração automática do monitoramento contínuo. O `BatteryMonitorService` agora diferencia recriações `START_STICKY` com `intent == null`, trata recusas recuperáveis do Android ao promover o serviço para foreground e encerra somente aquela tentativa em vez de derrubar o processo. A intenção de monitoramento permanece salva para nova tentativa quando o aplicativo voltar ao primeiro plano, e o Diagnóstico registra a última recusa separadamente dos crashes fatais. O fluxo de permissão de notificações também só inicia o serviço após concessão efetiva.
 
@@ -164,11 +164,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.30.apk`
+APK final: `Minha-Bateria-1.0.31.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.30.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.31.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -177,4 +177,4 @@ O Histórico permite selecionar duas sessões para comparar lado a lado os valor
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.30.apk` na GitHub Release `v1.0.30`.
+O workflow publica diretamente `Minha-Bateria-1.0.31.apk` na GitHub Release `v1.0.31`.

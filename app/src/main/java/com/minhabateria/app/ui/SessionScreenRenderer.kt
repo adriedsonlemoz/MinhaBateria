@@ -1,6 +1,7 @@
 package com.minhabateria.app.ui
 
 import android.app.Activity
+import android.view.View
 import android.widget.TextView
 import com.minhabateria.app.R
 import com.minhabateria.app.battery.BatteryInfo
@@ -18,6 +19,8 @@ class SessionScreenRenderer(private val activity: Activity) {
     private val insightPower = text(R.id.sessionInsightPower)
     private val insightStability = text(R.id.sessionInsightStability)
     private val insightDetail = text(R.id.sessionInsightDetail)
+    private val statusChip = text(R.id.sessionStatusChip)
+    private val guideCard = activity.findViewById<View>(R.id.sessionGuideCard)
     private val elapsed = text(R.id.sessionElapsed)
     private val chargingTime = text(R.id.sessionChargingTime)
     private val interruptions = text(R.id.sessionInterruptions)
@@ -51,6 +54,7 @@ class SessionScreenRenderer(private val activity: Activity) {
 
     fun render(info: BatteryInfo?, snapshot: ChargingSession.Snapshot?) {
         renderInsight(info, snapshot)
+        renderSessionState(info, snapshot)
         elapsed.text = SessionFormatter.duration(snapshot?.elapsedMs)
         chargingTime.text = SessionFormatter.duration(snapshot?.chargingTimeMs)
         interruptions.text = snapshot?.takeIf { it.elapsedMs != null }?.interruptions?.toString() ?: "—"
@@ -82,6 +86,21 @@ class SessionScreenRenderer(private val activity: Activity) {
         simpleEnergy.text = SessionFormatter.energy(snapshot?.energyWh)
         simplePower.text = SessionFormatter.power(snapshot?.averagePowerW)
         simpleTemperature.text = SessionFormatter.temperature(snapshot?.maxTemperatureC)
+    }
+
+    private fun renderSessionState(info: BatteryInfo?, snapshot: ChargingSession.Snapshot?) {
+        val hasSession = snapshot?.elapsedMs != null
+        val plugged = info?.isPlugged == true
+        val full = snapshot?.reachedFull == true
+        statusChip.text = when {
+            full -> "●  Carga completa"
+            plugged -> "●  Carregando"
+            else -> "●  Sem carregamento"
+        }
+        statusChip.setTextColor(
+            activity.getColor(if (plugged || full) R.color.accent_green else R.color.text_secondary)
+        )
+        guideCard.visibility = if (hasSession || plugged) View.GONE else View.VISIBLE
     }
 
     private fun renderInsight(info: BatteryInfo?, snapshot: ChargingSession.Snapshot?) {

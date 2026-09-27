@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.30+31"
+        android:text="Versão 1.0.31+32"
         android:textColor="@color/accent_blue"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• A tela Descarga foi redesenhada para mostrar o que está acontecendo de forma mais clara.\n\n• A autonomia agora informa também o horário aproximado em que a bateria pode acabar.\n\n• Nova Leitura rápida compara o consumo atual com a média histórica e resume a previsão.\n\n• O histórico e os indicadores principais ficaram mais visuais, sem inventar dados quando a amostra ainda não é suficiente."
+        android:text="• A tela Sessão ganhou novo resumo visual com estado da conexão, fonte destacada e indicadores em cards.\n\n• Quando não há sessão ativa, uma explicação mostra o que aparecerá durante o carregamento.\n\n• O Histórico foi redesenhado com duração, energia, carga, bateria, temperatura e estabilidade organizadas por sessão.\n\n• A comparação de duas sessões agora tem seleção mais clara, contador 0/2 e destaque visual das sessões escolhidas."
         android:textColor="@color/text_primary"
         android:textSize="13sp" />
 

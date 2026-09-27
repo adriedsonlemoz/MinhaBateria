@@ -51,6 +51,9 @@ class SessionActivity : Activity() {
             }
         )
         bindDetailsControls()
+        findViewById<View>(R.id.sessionSourceCard).setOnClickListener {
+            startActivity(android.content.Intent(this, com.minhabateria.app.source.SourceProfileActivity::class.java))
+        }
         renderer.renderSource(sourceStore.getProfile())
         MonitoringStateStore.current().let { renderer.render(it.info, it.session) }
     }
@@ -61,7 +64,7 @@ class SessionActivity : Activity() {
         toggle.setOnClickListener {
             detailsVisible = !detailsVisible
             details.visibility = if (detailsVisible) View.VISIBLE else View.GONE
-            toggle.text = if (detailsVisible) "Ocultar detalhes técnicos" else "Ver detalhes técnicos"
+            toggle.text = if (detailsVisible) "▤  Ocultar detalhes técnicos  ‹" else "▤  Ver detalhes técnicos  ›"
         }
         findViewById<TextView>(R.id.sessionHelpLink).setOnClickListener {
             MeasurementHelpDialog.show(this)

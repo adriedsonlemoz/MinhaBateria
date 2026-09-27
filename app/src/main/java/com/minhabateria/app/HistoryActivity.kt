@@ -21,6 +21,7 @@ class HistoryActivity : Activity() {
     private lateinit var store: HistoryStore
     private lateinit var compareButton: Button
     private lateinit var selectionText: TextView
+    private lateinit var selectionCount: TextView
     private val selectedIds = linkedSetOf<String>()
     private var lastPlugged: Boolean? = null
 
@@ -41,6 +42,7 @@ class HistoryActivity : Activity() {
         store = HistoryStore(this)
         compareButton = findViewById(R.id.compareSessionsButton)
         selectionText = findViewById(R.id.historySelectionText)
+        selectionCount = findViewById(R.id.historySelectionCount)
         compareButton.setOnClickListener { openComparison() }
 
         BottomTabsBinder(this).bind(
@@ -89,7 +91,8 @@ class HistoryActivity : Activity() {
     }
 
     private fun updateSelectionControls() {
-        selectionText.text = "Selecione 2 sessões • ${selectedIds.size}/2"
+        selectionText.text = if (selectedIds.size == 2) "Pronto para comparar" else "Selecione 2 sessões"
+        selectionCount.text = "${selectedIds.size}/2"
         compareButton.isEnabled = selectedIds.size == 2
         compareButton.alpha = if (compareButton.isEnabled) 1f else 0.45f
     }

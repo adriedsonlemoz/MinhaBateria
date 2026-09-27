@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.31+32
+
+- Redesenhada a tela Sessão conforme o novo mockup aprovado.
+- Adicionado estado visual de conexão: sem carregamento, carregando ou carga completa.
+- Fonte da sessão ganhou ícone, hierarquia visual e referência nominal mais legível.
+- Resumo da sessão passou a usar cards para bateria, tempo, energia recebida, velocidade média e temperatura máxima.
+- Adicionado painel de orientação quando ainda não existe sessão ativa.
+- Redesenhada a tela Histórico conforme o novo mockup aprovado.
+- Histórico agora separa duração, energia, carga, média, pico, faixa de bateria, ganho, temperatura máxima, estabilidade e interrupções.
+- Adicionados chips de estabilidade calculados a partir do `powerVariationRatio` já salvo em cada sessão.
+- Fluxo de comparação ganhou contador 0/2, estado pronto e seleção visual mais clara.
+- Tela de novidades, documentação, identidade, workflow e versão sincronizados para 1.0.31+32.
+
 ## 1.0.30+31
 
 - Tela **Descarga** redesenhada com hierarquia visual mais clara, cards enriquecidos e leitura mais direta do estado atual.

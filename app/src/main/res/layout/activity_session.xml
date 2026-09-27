@@ -48,6 +48,7 @@
             <include layout="@layout/panel_session_insights" />
 
             <LinearLayout
+                android:id="@+id/sessionSourceCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -63,24 +64,57 @@
                     android:textSize="10sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/sessionSourceName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Perfil não configurado"
-                    android:textColor="@color/accent_blue"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/sessionSourceReference"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Sem referência nominal"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="11sp" />
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:background="@drawable/bg_icon_circle_blue"
+                        android:contentDescription="Fonte configurada"
+                        android:padding="13dp"
+                        android:src="@drawable/ic_session_plug" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/sessionSourceName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="Perfil não configurado"
+                            android:textColor="@color/accent_blue"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/sessionSourceReference"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Sem referência nominal"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="32dp"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="›"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="28sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <include
@@ -89,15 +123,58 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" />
 
+            <LinearLayout
+                android:id="@+id/sessionGuideCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_session_guide"
+                android:orientation="horizontal"
+                android:padding="14dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_icon_circle_blue"
+                    android:contentDescription="Informações da sessão"
+                    android:padding="11dp"
+                    android:src="@drawable/ic_session_info" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="O que vai aparecer aqui?"
+                        android:textColor="@color/text_primary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:lineSpacingExtra="3dp"
+                        android:text="Durante uma sessão de carregamento, o app mostrará:\n• evolução da bateria em tempo real\n• tempo decorrido e energia recebida\n• velocidade média de carregamento\n• temperatura máxima registrada"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/sessionDetailsToggle"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/bg_secondary_button"
+                android:background="@drawable/bg_primary_button"
                 android:gravity="center"
-                android:text="Ver detalhes técnicos"
-                android:textColor="@color/accent_blue"
+                android:text="▤  Ver detalhes técnicos  ›"
+                android:textColor="#07110A"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
