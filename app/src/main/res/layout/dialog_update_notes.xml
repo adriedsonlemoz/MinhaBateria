@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.37+38"
+        android:text="Versão 1.0.38+39"
         android:textColor="@color/accent_blue"
         android:textSize="13sp"
         android:textStyle="bold" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• Foram integrados 24 avisos de voz padrão para carga, bateria, temperatura, sessão e monitoramento.
+        android:text="• O volume dos 24 avisos de voz padrão foi normalizado e aumentado, deixando os áudios integrados mais altos e nítidos.
 
 • Áudio e avisos ganhou controle geral, volume, ativação por evento, teste, áudio personalizado e restauração do padrão.
 

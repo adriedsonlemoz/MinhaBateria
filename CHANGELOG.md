@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.38+39
+
+- Volume dos 24 arquivos OGG de avisos de voz normalizado e aumentado individualmente (pico ajustado para ~-1 dB), corrigindo áudios integrados que soavam baixos.
+- Tela de novidades atualizada para refletir o ajuste de volume.
+- Versão, identidade, README, novidades, Works, Release, Validation e workflow sincronizados para 1.0.38+39.
+
 ## 1.0.37+38
 
 - Integrados os 24 arquivos OGG fornecidos em `res/raw`, cada um mapeado a um evento de carga, bateria, temperatura, sessão ou monitoramento, sem duplicação de áudio.

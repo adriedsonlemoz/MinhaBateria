@@ -1,4 +1,4 @@
-# Validação — Minha Bateria 1.0.37+38
+# Validação — Minha Bateria 1.0.38+39
 
 Data: 2026-09-27
 
@@ -28,9 +28,9 @@ Prioridade da fila: temperatura crítica, bateria em 5%, bateria em 10%, problem
 
 ## Sincronização
 
-- `versionName 1.0.37` e `versionCode 38` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README, Works e workflow;
-- tela de novidades atualizada para 1.0.37+38;
-- workflow configurado para publicar `Minha-Bateria-1.0.37.apk` na release `v1.0.37`.
+- `versionName 1.0.38` e `versionCode 39` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README, Works e workflow;
+- tela de novidades atualizada para 1.0.38+39;
+- workflow configurado para publicar `Minha-Bateria-1.0.38.apk` na release `v1.0.38`.
 
 ## Verificações executadas
 
