@@ -1,16 +1,18 @@
-# Release — Minha Bateria 1.0.32+33
+# Release — Minha Bateria 1.0.33+34
 
 ## Destaques
 
-- novo visual aplicado a toda a tela Gráficos, com cabeçalho rico em Bateria, Corrente, Potência e Temperatura;
-- cada gráfico agora destaca valor atual, mínimo/máximo, leitura contextual e resumo rápido por período;
-- eixo lateral e área de plotagem foram refinados para melhorar a leitura dos dados;
-- tela Sessão recebeu painel técnico redesenhado em blocos temáticos: tempo, energia, elétrico e temperatura/bateria;
-- botão do painel técnico agora alterna o estado visual entre expandido e recolhido;
-- tela de novidades atualizada e exibida somente uma vez após a instalação desta versão.
+- Perfil da fonte redesenhado para preenchimento por toques, com digitação manual apenas como alternativa;
+- carregador, power bank, painel solar e outra fonte ganharam presets e seletores próprios;
+- power bank: seleção rápida de capacidade;
+- carregador: seleção de protocolo, porta, saída e cabo;
+- painel solar: seleção de potência, tensão, corrente e controlador/conversor;
+- preset do painel solar USB 8 W preenche 8 W, 5 V, 1,6 A e saída USB integrada;
+- prévia do perfil resume os dados antes de salvar;
+- tela de novidades atualizada para aparecer uma vez após a atualização.
 
 ## Entrega
 
-APK esperado pelo workflow: `Minha-Bateria-1.0.32.apk`.
+APK esperado pelo workflow: `Minha-Bateria-1.0.33.apk`.
 
 O ZIP de código-fonte não inclui APK, keystore, secrets nem diretórios de build/cache.

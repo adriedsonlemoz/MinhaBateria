@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.33+34
+
+- Tela Perfil da fonte redesenhada para priorizar preenchimento guiado e reduzir a necessidade de digitação manual.
+- Carregador, power bank, painel solar e outra fonte agora usam presets e seletores específicos por tipo.
+- Adicionados seletores para capacidade do power bank, cabo do carregador, tensão/corrente e controlador do painel solar.
+- Catálogo de presets ampliado com opções genéricas de carregadores USB-C, power banks e fontes USB sem inventar marca/modelo.
+- Adicionado preset de painel solar 8 W com 5 V e 1,6 A, baseado na etiqueta fornecida.
+- A prévia do perfil agora resume automaticamente tipo, modelo, potência e dados relevantes antes de salvar.
+- Tela de novidades, workflow, identidade, documentação e versão sincronizados para 1.0.33+34.
+
 ## 1.0.32+33
 
 - Aplicado o novo padrão visual em toda a tela Gráficos, cobrindo Bateria, Corrente, Potência e Temperatura.

@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="14dp"
-    android:background="@drawable/bg_card"
+    android:layout_marginTop="12dp"
+    android:background="@drawable/bg_session_guide"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="14dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Toque nas opções para preencher marca, modelo, potência e dados comuns sem precisar digitar. O campo manual continua disponível para etiquetas diferentes."
+        android:text="Toque nas opções para preencher. Digite somente quando sua etiqueta tiver um valor diferente."
         android:textColor="@color/text_secondary"
         android:textSize="11sp" />
 
@@ -32,21 +32,23 @@
         <Button
             android:id="@+id/suggestBrandButton"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="46dp"
             android:layout_weight="1"
             android:background="@drawable/bg_secondary_button"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:minHeight="0dp"
             android:text="Escolher marca"
             android:textAllCaps="false"
             android:textColor="@color/text_primary"
-            android:textSize="12sp" />
+            android:textSize="11sp" />
 
         <Space android:layout_width="8dp" android:layout_height="1dp" />
 
         <Button
             android:id="@+id/suggestModelButton"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="46dp"
             android:layout_weight="1"
             android:background="@drawable/bg_secondary_button"
             android:ellipsize="end"
@@ -55,57 +57,35 @@
             android:text="Modelo / preset"
             android:textAllCaps="false"
             android:textColor="@color/text_primary"
-            android:textSize="12sp" />
+            android:textSize="11sp" />
     </LinearLayout>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/suggestPowerButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:layout_marginTop="8dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/suggestPowerButton"
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_secondary_button"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:minHeight="0dp"
-            android:text="Escolher potência"
-            android:textAllCaps="false"
-            android:textColor="@color/text_primary"
-            android:textSize="12sp" />
-
-        <Space android:layout_width="8dp" android:layout_height="1dp" />
-
-        <Button
-            android:id="@+id/suggestOutputsButton"
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_secondary_button"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:minHeight="0dp"
-            android:text="Escolher saída comum"
-            android:textAllCaps="false"
-            android:textColor="@color/text_primary"
-            android:textSize="12sp" />
-    </LinearLayout>
+        android:background="@drawable/bg_secondary_button"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:minHeight="0dp"
+        android:text="Escolher potência"
+        android:textAllCaps="false"
+        android:textColor="@color/text_primary"
+        android:textSize="11sp" />
 
     <LinearLayout
         android:id="@+id/suggestTechPortRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/suggestTechnologyButton"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="46dp"
             android:layout_weight="1"
             android:background="@drawable/bg_secondary_button"
             android:ellipsize="end"
@@ -114,14 +94,14 @@
             android:text="Escolher protocolo"
             android:textAllCaps="false"
             android:textColor="@color/text_primary"
-            android:textSize="12sp" />
+            android:textSize="11sp" />
 
         <Space android:layout_width="8dp" android:layout_height="1dp" />
 
         <Button
             android:id="@+id/suggestPortButton"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="46dp"
             android:layout_weight="1"
             android:background="@drawable/bg_secondary_button"
             android:ellipsize="end"
@@ -130,7 +110,127 @@
             android:text="Escolher porta"
             android:textAllCaps="false"
             android:textColor="@color/text_primary"
-            android:textSize="12sp" />
+            android:textSize="11sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/suggestOutputsRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/suggestOutputsButton"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_secondary_button"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:minHeight="0dp"
+            android:text="Escolher saída comum"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/suggestCapacityRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/suggestCapacityButton"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_secondary_button"
+            android:minHeight="0dp"
+            android:text="Escolher capacidade"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/suggestSolarRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/suggestVoltageButton"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_secondary_button"
+            android:minHeight="0dp"
+            android:text="Escolher tensão"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="11sp" />
+
+        <Space android:layout_width="8dp" android:layout_height="1dp" />
+
+        <Button
+            android:id="@+id/suggestCurrentButton"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_secondary_button"
+            android:minHeight="0dp"
+            android:text="Escolher corrente"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/suggestControllerRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/suggestControllerButton"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_secondary_button"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:minHeight="0dp"
+            android:text="Escolher controlador"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/suggestCableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/suggestCableButton"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_secondary_button"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:minHeight="0dp"
+            android:text="Escolher cabo"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="11sp" />
+    </LinearLayout>
 </LinearLayout>

@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.32+33"
+        android:text="Versão 1.0.33+34"
         android:textColor="@color/accent_blue"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• A tela Gráficos agora usa o novo layout em todos os modos: Bateria, Corrente, Potência e Temperatura.\n\n• Cada gráfico ganhou cabeçalho com valor atual, resumo rápido e eixo mais legível.\n\n• A tela Sessão recebeu um painel técnico redesenhado com blocos por categoria e leitura mais limpa.\n\n• A tela de novidades continua aparecendo somente uma vez em cada nova versão."
+        android:text="• Perfil da fonte redesenhado para reduzir digitação e priorizar preenchimento por toques.\n\n• Carregador, power bank, painel solar e outra fonte ganharam presets e seletores próprios.\n\n• O preset do painel 8 W preenche 8 W, 5 V e 1,6 A de uma vez.\n\n• A prévia do perfil agora resume automaticamente os dados escolhidos antes de salvar."
         android:textColor="@color/text_primary"
         android:textSize="13sp" />
 

@@ -8,5 +8,9 @@ data class SourcePreset(
     val technology: String? = null,
     val portType: String? = null,
     val outputs: String? = null,
-    val capacityMah: Int? = null
+    val capacityMah: Int? = null,
+    val ratedVoltageV: Double? = null,
+    val ratedCurrentA: Double? = null,
+    val controllerInfo: String? = null,
+    val cableInfo: String? = null
 )

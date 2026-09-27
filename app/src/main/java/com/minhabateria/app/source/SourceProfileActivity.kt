@@ -32,6 +32,7 @@ class SourceProfileActivity : Activity() {
     private lateinit var sourceDataHint: TextView
     private lateinit var powerHelp: TextView
     private lateinit var namePreview: TextView
+    private lateinit var previewDetails: TextView
     private lateinit var electricalDetails: View
     private lateinit var cableDetails: View
     private lateinit var powerBankDetails: View
@@ -72,13 +73,14 @@ class SourceProfileActivity : Activity() {
         sourceDataHint = findViewById(R.id.sourceDataHint)
         powerHelp = findViewById(R.id.sourcePowerHelp)
         namePreview = findViewById(R.id.sourceNamePreview)
+        previewDetails = findViewById(R.id.sourceProfilePreviewDetails)
         electricalDetails = findViewById(R.id.electricalDetails)
         cableDetails = findViewById(R.id.cableDetails)
         powerBankDetails = findViewById(R.id.powerBankDetails)
         solarDetails = findViewById(R.id.solarDetails)
         suggestions = SourceProfileSuggestionBinder(
             this, brandInput, modelInput, powerInput, outputsInput, technologyInput,
-            portInput, capacityInput
+            portInput, cableInput, capacityInput, voltageInput, currentInput, controllerInput
         ) { updateNamePreview() }
     }
 
@@ -90,7 +92,10 @@ class SourceProfileActivity : Activity() {
         }
         findViewById<Button>(R.id.saveSourceProfileButton).setOnClickListener { save() }
         typeGroup.setOnCheckedChangeListener { _, _ -> updateFormForType() }
-        listOf(brandInput, modelInput, powerInput, customNameInput).forEach { it.addTextChangedListener(nameWatcher) }
+        listOf(
+            brandInput, modelInput, powerInput, customNameInput, outputsInput, technologyInput,
+            portInput, cableInput, capacityInput, voltageInput, currentInput, controllerInput
+        ).forEach { it.addTextChangedListener(formWatcher) }
     }
 
     private fun loadExistingProfile() {
@@ -167,8 +172,8 @@ class SourceProfileActivity : Activity() {
         sourceDataHint.text = when (type) {
             EnergySourceType.CHARGER -> "Escolha sugestões de marca, modelo, W, protocolo e saída. Digite somente se sua etiqueta tiver algo diferente."
             EnergySourceType.POWER_BANK -> "Use os seletores para marca, capacidade, potência, protocolo e saída; ajuste manualmente apenas o que faltar."
-            EnergySourceType.SOLAR_PANEL -> "Escolha marca e potência sugeridas do painel; tensão, corrente e controlador continuam opcionais."
-            EnergySourceType.OTHER -> "Preencha somente os dados que você conhece. O nome será montado automaticamente."
+            EnergySourceType.SOLAR_PANEL -> "Use o preset do painel ou selecione W, V, A e controlador. O preset 8 W preenche 8 W, 5 V e 1,6 A de uma vez."
+            EnergySourceType.OTHER -> "Use os atalhos genéricos e ajuste manualmente apenas se a etiqueta tiver algo diferente."
             null -> "Escolha o tipo da fonte para receber orientação de preenchimento."
         }
         powerHelp.text = if (type == EnergySourceType.SOLAR_PANEL) {
@@ -180,14 +185,40 @@ class SourceProfileActivity : Activity() {
     }
 
     private fun updateNamePreview() {
-        val type = selectedType() ?: return
+        val type = selectedType() ?: run {
+            namePreview.text = "Escolha o tipo da fonte"
+            previewDetails.text = "Os detalhes aparecerão aqui conforme você selecionar as opções."
+            return
+        }
+        val power = powerInput.decimalValue()
         namePreview.text = SourceProfileNameBuilder.build(
             type,
             customNameInput.cleanText(),
             brandInput.cleanText(),
             modelInput.cleanText(),
-            powerInput.decimalValue()
+            power
         )
+        previewDetails.text = buildPreviewDetails(type, power)
+        suggestions.syncLabels()
+    }
+
+    private fun buildPreviewDetails(type: EnergySourceType, power: Double?): String {
+        val parts = mutableListOf(type.label)
+        modelInput.cleanText()?.let(parts::add)
+        power?.takeIf { it > 0.0 }?.let { parts += SourceProfileNameBuilder.formatPower(it) }
+        when (type) {
+            EnergySourceType.SOLAR_PANEL -> {
+                voltageInput.decimalValue()?.let { parts += "${it.asInput()} V" }
+                currentInput.decimalValue()?.let { parts += "${it.asInput()} A" }
+            }
+            EnergySourceType.POWER_BANK -> capacityInput.text.toString().trim().toIntOrNull()?.let {
+                parts += "${it / 1000}.${(it % 1000).toString().padStart(3, '0')} mAh"
+            }
+            EnergySourceType.CHARGER -> portInput.cleanText()?.let(parts::add)
+            EnergySourceType.OTHER -> Unit
+        }
+        technologyInput.cleanText()?.takeUnless { type == EnergySourceType.SOLAR_PANEL }?.let(parts::add)
+        return parts.distinct().joinToString(" • ")
     }
 
     private fun cancel() {
@@ -213,11 +244,11 @@ class SourceProfileActivity : Activity() {
     private fun EditText.cleanText(): String? = text.toString().trim().takeIf { it.isNotBlank() }
     private fun EditText.decimalValue(): Double? = text.toString().trim().replace(',', '.').toDoubleOrNull()
     private fun EditText.hasText(): Boolean = text.toString().isNotBlank()
-    private fun Double?.asInput(): String = this?.toString()?.removeSuffix(".0").orEmpty()
+    private fun Double?.asInput(): String = this?.toString()?.removeSuffix(".0")?.replace('.', ',').orEmpty()
     private fun invalid(view: EditText) { view.error = "Confira o valor informado" }
     private fun toast(message: String) { Toast.makeText(this, message, Toast.LENGTH_SHORT).show() }
 
-    private val nameWatcher = object : TextWatcher {
+    private val formWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = updateNamePreview()
         override fun afterTextChanged(s: Editable?) = Unit

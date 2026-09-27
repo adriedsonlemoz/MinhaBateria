@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.32
-- versionCode: 33
-- versão completa: 1.0.32+33
+- versionName: 1.0.33
+- versionCode: 34
+- versão completa: 1.0.33+34
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -73,6 +73,10 @@ Aceita os dados conhecidos sem exigir especificações inexistentes.
 Os dados de etiqueta são referência nominal e permanecem separados da conexão detectada pelo Android. Eles não são tratados como medição direta da energia entregue ao aparelho.
 
 ### Preenchimento rápido
+
+O formulário foi redesenhado para priorizar toques em vez de digitação. O usuário escolhe primeiro o tipo da fonte e depois usa seletores/presets específicos. Carregadores oferecem marca, modelo/preset, potência, protocolo, porta, saída e cabo; power banks acrescentam capacidade; painéis solares acrescentam tensão, corrente e controlador/conversor. Os campos manuais continuam disponíveis apenas como ajuste para etiquetas diferentes.
+
+O catálogo inclui um preset baseado na etiqueta analisada do painel solar de 8 W: **8 W, 5 V e 1,6 A**. Selecionar esse preset preenche esses campos de uma vez, sem transformar os valores em medição do Android.
 
 O formulário oferece seletores de marca, modelo/preset, potência, protocolo, porta e saídas comuns. Entre as opções de protocolo estão USB-PD, USB-PD 3.0, USB-PD 3.1, PPS e combinações comuns. Para Samsung há presets de modelos conhecidos como EP-TA800 25 W e EP-T4510 45 W; para painéis e power banks há presets por potência/capacidade. Digitação manual fica como alternativa quando a etiqueta não corresponder às sugestões.
 
@@ -168,11 +172,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.32.apk`
+APK final: `Minha-Bateria-1.0.33.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.32.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.33.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -181,4 +185,4 @@ O Histórico permite selecionar duas sessões para comparar lado a lado os valor
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.32.apk` na GitHub Release `v1.0.32`.
+O workflow publica diretamente `Minha-Bateria-1.0.33.apk` na GitHub Release `v1.0.33`.
