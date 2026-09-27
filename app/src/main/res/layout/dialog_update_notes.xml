@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.39+40"
+        android:text="Versão 1.0.40+41"
         android:textColor="@color/accent_blue"
         android:textSize="13sp"
         android:textStyle="bold" />

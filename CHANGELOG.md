@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.40+41
+
+- Criado `AI_INSTRUCTIONS.md` como manual operacional para alterações realizadas por IA.
+- Definida ordem obrigatória de leitura da documentação antes de qualquer modificação.
+- Definido checklist obrigatório de validação, versionamento e entrega.
+- Incluída comparação de caminhos de arquivos e contagem total no fechamento da entrega.
+- Corrigida a referência obsoleta do APK em `SIGNING.md`.
+
+
 ## 1.0.39+40
 
 - Remasterizados os 24 avisos OGG padrão com compressão dinâmica e limiter, elevando o loudness médio medido do conjunto de cerca de -16,6 LUFS para -12,4 LUFS.

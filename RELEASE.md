@@ -1,4 +1,4 @@
-# Release — Minha Bateria 1.0.39+40
+# Release — Minha Bateria 1.0.40+41
 
 ## Destaques
 
@@ -15,6 +15,6 @@
 
 ## Entrega
 
-APK esperado pelo workflow: `Minha-Bateria-1.0.39.apk`.
+APK esperado pelo workflow: `Minha-Bateria-1.0.40.apk`.
 
 O ZIP de código-fonte não inclui APK, keystore, secrets nem diretórios de build/cache.

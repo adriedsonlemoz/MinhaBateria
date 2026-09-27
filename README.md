@@ -2,11 +2,14 @@
 
 Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregamento localmente.
 
-## Versão
+## Regras para alterações por IA
 
-- versionName: 1.0.39
-- versionCode: 40
-- versão completa: 1.0.39+40
+Antes de modificar o projeto, leia `AI_INSTRUCTIONS.md`. Ele é o manual operacional para agentes de IA e define a ordem de leitura da documentação, regras de alteração, versionamento, validação, comparação de arquivos e entrega do ZIP.
+
+
+- versionName: 1.0.40
+- versionCode: 41
+- versão completa: 1.0.40+41
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -109,7 +112,7 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
-A versão 1.0.39 mantém uma camada única de leitura **leigo → números úteis → técnico** nas telas Agora, Perfil da fonte, Sessão e Gráficos. A informação principal é sempre o estado humano (por exemplo `Carga normal`, `Carga lenta`, `Carga oscilando` ou `Aparelho quente`); os números essenciais aparecem logo depois e os dados técnicos ficam recolhidos em **Ver detalhes técnicos**.
+A versão 1.0.40 mantém uma camada única de leitura **leigo → números úteis → técnico** nas telas Agora, Perfil da fonte, Sessão e Gráficos. A informação principal é sempre o estado humano (por exemplo `Carga normal`, `Carga lenta`, `Carga oscilando` ou `Aparelho quente`); os números essenciais aparecem logo depois e os dados técnicos ficam recolhidos em **Ver detalhes técnicos**.
 
 ### Agora
 
@@ -181,11 +184,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.39.apk`
+APK final: `Minha-Bateria-1.0.40.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.39.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.40.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -196,4 +199,4 @@ Cada sessão salva também possui uma lixeira própria. A exclusão exige confir
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.39.apk` na GitHub Release `v1.0.39`.
+O workflow publica diretamente `Minha-Bateria-1.0.40.apk` na GitHub Release `v1.0.40`.

@@ -1,6 +1,6 @@
 # Works — Minha Bateria
 
-Versão atual: `1.0.39+40`.
+Versão atual: `1.0.40+41`.
 
 ## Build recomendado
 
@@ -13,7 +13,7 @@ gradle :app:assembleRelease
 
 Saída original: `app/build/outputs/apk/release/app-release.apk`
 
-Nome de entrega: `Minha-Bateria-1.0.39.apk`
+Nome de entrega: `Minha-Bateria-1.0.40.apk`
 
 ## GitHub Manager
 
@@ -33,14 +33,14 @@ Use o mesmo `Minha-Bateria-GitHub-Secrets.txt` já criado. A assinatura não dev
 
 ## Entrega
 
-O Works/GitHub Actions publica somente `Minha-Bateria-1.0.39.apk`. O source ZIP é o pacote de desenvolvimento entregue separadamente.
+O Works/GitHub Actions publica somente `Minha-Bateria-1.0.40.apk`. O source ZIP é o pacote de desenvolvimento entregue separadamente.
 
-## Atualização 1.0.39+40
+## Atualização 1.0.40+41
 
 - Avisos OGG remasterizados com compressão dinâmica e limiter, elevando o loudness percebido dos 24 eventos sem depender apenas de aumentar o pico digital. A medição do conjunto passou de cerca de -16,6 LUFS para -12,4 LUFS em média.
 - Controle de volume padrão dos avisos passou de 85% para 100%; valores personalizados já salvos continuam preservados.
 - Reprodução dos avisos passou a usar `USAGE_MEDIA` com `CONTENT_TYPE_SPEECH`, alinhando o fluxo de voz ao comportamento de áudio de mídia e mantendo a fila existente sem sobreposição.
-- Tela de novidades, Release, Validation, README, identidade, Gradle, VERSION e workflow sincronizados para 1.0.39+40.
+- Tela de novidades, Release, Validation, README, identidade, Gradle, VERSION e workflow sincronizados para 1.0.40+41.
 
 ## Atualização 1.0.38+39
 
