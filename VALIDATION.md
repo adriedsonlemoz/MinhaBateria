@@ -1,42 +1,41 @@
-# Validação — Minha Bateria 1.0.36+37
+# Validação — Minha Bateria 1.0.37+38
 
 Data: 2026-09-27
 
 ## Escopo desta versão
 
-- compactação da tela Perfil da fonte;
-- seletores inteligentes de tipo, marca e modelo;
-- preset X-TRAD SH-106 (8 W / 5 V / 1,6 A);
-- migração do armazenamento de um perfil para vários perfis sem perder o perfil legado;
-- eventos de energia do Android e seleção da fonte física usada na sessão;
-- tolerância de 15 segundos para reconexões rápidas;
-- exclusão segura no Histórico e em Comparar cargas;
-- revisão tipográfica em Agora, Gráficos, Sessão, Histórico, Comparar cargas e Perfil da fonte.
+- integração dos 24 avisos OGG fornecidos;
+- configuração global e individual de voz, volume e segundo plano;
+- áudio personalizado via Storage Access Framework com permissão persistente e fallback para o padrão;
+- fila única de reprodução, prioridades, cooldown e controle por transição de estado;
+- gerenciamento independente da seleção usada para comparação;
+- seleção múltipla, exclusão em lote e exclusão total do histórico;
+- diálogos internos personalizados para ações destrutivas e fonte conectada.
 
-## Armazenamento e exclusão
+## Persistência e segurança
 
-O histórico atual é persistido em `SharedPreferences` como uma lista JSON de `HistoryEntry`. Cada entrada contém os agregados da sessão (Wh, mAh, médias, mínimos/máximos, temperatura, porcentagens e interrupções) e não possui tabela/coleção filha.
+As preferências de áudio ficam em `SharedPreferences` separado e não alteram medições, sessões nem histórico existentes. Desativar o controle geral não apaga as escolhas individuais. URIs personalizadas usam permissão persistente de leitura; se o arquivo não estiver mais acessível ou falhar na reprodução, o vínculo é removido e o OGG padrão volta a ser usado automaticamente.
 
-O buffer usado pelos gráficos é um histórico global recente de até 60 minutos e **não possui `sessionId` nem propriedade exclusiva de uma sessão**. Por isso, excluir uma sessão remove somente o `HistoryEntry` selecionado; não é correto apagar o buffer global por intervalo de tempo, pois isso poderia remover leituras que também representam o monitoramento geral. Não ficam referências órfãs de comparação, pois as telas resolvem as sessões novamente pelo ID e removem/encerram seleções inválidas.
+O histórico continua persistido em `SharedPreferences` como JSON de `HistoryEntry`. A exclusão em lote regrava a coleção sem os IDs selecionados e usa `commit()` para confirmar a gravação antes de atualizar a interface. A sessão atualmente em andamento permanece no `ContinuousSessionStore` e não faz parte da coleção de histórico até ser concluída, portanto a limpeza do histórico não a apaga.
 
-## Conexão e fonte física
+Comparação e gerenciamento usam conjuntos de IDs diferentes. Após qualquer exclusão, ambos são filtrados contra os IDs que ainda existem, evitando referências quebradas.
 
-- `ACTION_POWER_CONNECTED` e `ACTION_POWER_DISCONNECTED` alimentam o estado de conexão;
-- a leitura periódica de `BatteryStatusReader` funciona como fallback caso um broadcast não seja observado;
-- AC/USB/sem fio são tratados como **tipo de conexão informado pelo Android**, não como identificação da fonte física;
-- o perfil físico só é associado à nova sessão quando o usuário escolhe um perfil; “Agora não” não interrompe a sessão e não confirma silenciosamente a fonte anterior;
-- reconexões dentro de 15 s preservam a sessão e não reabrem a seleção.
+## Áudio e segundo plano
+
+Os avisos são coordenados pelo `BatteryMonitorService` já existente. Não foi criado serviço paralelo. Enquanto o monitoramento contínuo estiver ativo, o foreground service pode continuar processando os eventos em segundo plano conforme as limitações normais do Android. O usuário pode impedir voz fora do primeiro plano sem desligar o monitoramento.
+
+Prioridade da fila: temperatura crítica, bateria em 5%, bateria em 10%, problemas de carregamento e avisos informativos. A fila possui limite curto e nunca inicia dois `MediaPlayer` ao mesmo tempo.
 
 ## Sincronização
 
-- `versionName 1.0.36` e `versionCode 37` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README, Works e workflow;
-- tela de novidades atualizada para 1.0.36+37;
-- workflow configurado para publicar `Minha-Bateria-1.0.36.apk` na release `v1.0.36`.
+- `versionName 1.0.37` e `versionCode 38` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README, Works e workflow;
+- tela de novidades atualizada para 1.0.37+38;
+- workflow configurado para publicar `Minha-Bateria-1.0.37.apk` na release `v1.0.37`.
 
 ## Verificações executadas
 
-- `python3 tools/validate_project.py`: **OK** — versão 1.0.36+37, 124 XMLs válidos, recursos/IDs/launcher consistentes e source limpo;
-- compilação Kotlin isolada de `ChargingSession`, `SessionAccumulator`, `SourcePresetCatalog` e dependências puras: **OK**;
-- smoke test: desconexão curta não encerra a sessão; reconexão preserva a sessão e contabiliza interrupção; desconexão acima da tolerância encerra no instante inicial da perda de energia: **OK**;
-- smoke test do preset X-TRAD SH-106 e opções de entrada manual: **OK**;
-- build Android release local: **não executado neste ambiente**, pois não há Android SDK/Gradle Wrapper configurados. O workflow permanece preparado para o build release assinado.
+- `python3 tools/validate_project.py`: **OK** — versão, XMLs, recursos/IDs/launcher e source limpo;
+- 24 arquivos OGG: **OK** — todos reconhecidos como Vorbis, conteúdo único e mapeamento 1:1 em `VoiceAlertEvent`;
+- smoke test Kotlin isolado do coordenador de voz: **OK** — conexão inicial, início de sessão, temperatura crítica/normalização, bateria 20%, carga lenta sem repetição contínua, carga normalizada e oscilação sem repetição;
+- separação estrutural de seleção no Histórico: **OK** — `compareSelectedIds` e `manageSelectedIds` independentes;
+- build Android release local: **não executado neste ambiente**, pois não há Android SDK/Gradle instalado. O workflow permanece preparado para o build release assinado.

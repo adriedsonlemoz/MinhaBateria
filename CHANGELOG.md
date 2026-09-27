@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.0.37+38
+
+- Integrados os 24 arquivos OGG fornecidos em `res/raw`, cada um mapeado a um evento de carga, bateria, temperatura, sessão ou monitoramento, sem duplicação de áudio.
+- Criada a seção **Áudio e avisos** em Configurações, com controle geral, volume, permissão de avisos em segundo plano e 24 controles individuais organizados em grupos recolhíveis.
+- Cada evento permite ativar/desativar, testar, escolher arquivo de áudio pelo Storage Access Framework e restaurar o áudio padrão.
+- Referências de áudios personalizados são persistidas com permissão de leitura; falhas de acesso, corrupção ou reprodução retornam automaticamente ao OGG padrão correspondente.
+- O `BatteryMonitorService` existente passou a coordenar os avisos, sem serviço paralelo, com fila curta, reprodução sem sobreposição, prioridade por gravidade, cooldown e controle por transição de estado.
+- Avisos de temperatura, bateria crítica e problemas de carga não repetem continuamente enquanto a mesma condição permanece ativa; normalização libera novos alertas quando apropriado.
+- Histórico ganhou modos independentes **Comparar** e **Gerenciar**, preservando o limite de duas sessões apenas para comparação e usando seleção separada para exclusão.
+- Adicionados toque longo para entrar em gerenciamento, selecionar todas, limpar seleção, excluir várias sessões e excluir todo o histórico, sempre com contagem real e confirmação destrutiva.
+- Exclusões limpam seleções inválidas imediatamente e não alteram a sessão ativa armazenada pelo monitoramento contínuo.
+- Criado componente visual reutilizável para confirmações internas; exclusão individual, múltipla, total e exclusão pela tela Comparar cargas usam o novo padrão visual.
+- O diálogo **Fonte conectada** foi redesenhado com card da fonte sugerida, ações compactas e seletor de perfis com identidade visual do Minha Bateria.
+- Adicionadas animações discretas para entrada de diálogos, seleção de sessões e expansão/recolhimento das categorias de áudio.
+- Validação do projeto agora confere os 24 OGG, assinatura Ogg, unicidade de conteúdo e mapeamento completo em `VoiceAlertEvent`.
+- Versão, identidade, README, novidades, Works, Release, Validation e workflow sincronizados para 1.0.37+38.
+
 ## 1.0.36+37
 
 - Perfil da fonte compactado: os quatro seletores grandes foram substituídos por um único seletor de tipo de fonte.

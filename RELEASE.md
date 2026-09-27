@@ -1,19 +1,18 @@
-# Release — Minha Bateria 1.0.36+37
+# Release — Minha Bateria 1.0.37+38
 
 ## Destaques
 
-- **Perfil da fonte** mais compacto, com um único seletor de tipo e Marca/Modelo como seletores inteligentes;
-- preset editável **X-TRAD SH-106**: painel solar 8 W, VMP 5 V e IMP 1,6 A;
-- suporte a vários perfis de fonte com migração transparente do perfil único já salvo;
-- detecção de conexão/desconexão por eventos do Android, sem afirmar que o sistema identificou fisicamente painel, power bank ou modelo;
-- seleção rápida da fonte ao conectar, oferecendo a última usada, perfis cadastrados e “Adicionar outra fonte”;
-- coleta e sessão continuam funcionando mesmo quando o usuário escolhe “Agora não”;
-- reconexões rápidas de até 15 s permanecem na mesma sessão para evitar fragmentação por oscilação;
-- exclusão individual no Histórico e na tela Comparar cargas com confirmação obrigatória e ação destrutiva destacada;
-- revisão de tipografia e legibilidade nas seis telas principais alteradas.
+- 24 avisos de voz padrão integrados aos eventos de carga, bateria, temperatura, sessão e monitoramento;
+- nova tela **Áudio e avisos** com controle geral, volume, segundo plano, controles individuais, teste e áudio personalizado;
+- seleção de arquivo via Storage Access Framework, sem acesso geral ao armazenamento, com fallback automático para o áudio padrão;
+- fila única de reprodução com prioridades, cooldown e controle de estado para impedir sobreposição e repetição contínua;
+- Histórico com modos independentes **Comparar** e **Gerenciar**;
+- seleção múltipla, selecionar todas, limpar seleção, excluir selecionadas e excluir todo o histórico;
+- confirmações destrutivas e diálogo de fonte conectada redesenhados com a identidade visual do Minha Bateria;
+- exclusões preservam a sessão em andamento e atualizam imediatamente seleção e comparações disponíveis.
 
 ## Entrega
 
-APK esperado pelo workflow: `Minha-Bateria-1.0.36.apk`.
+APK esperado pelo workflow: `Minha-Bateria-1.0.37.apk`.
 
 O ZIP de código-fonte não inclui APK, keystore, secrets nem diretórios de build/cache.

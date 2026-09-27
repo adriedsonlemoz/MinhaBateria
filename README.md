@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.36
-- versionCode: 37
-- versão completa: 1.0.36+37
+- versionName: 1.0.37
+- versionCode: 38
+- versão completa: 1.0.37+38
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -35,6 +35,8 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 - diagnóstico técnico copiável/exportável com estado do monitoramento, leituras, sessão, histórico, gráficos e falhas capturadas;
 - capturador global de exceções fatais com até 10 relatórios locais, incluindo stack trace, tela aberta, versão, aparelho, memória e estado da bateria;
 - Configurações, Sobre e Doação;
+- 24 avisos de voz padrão com controle global, volume, eventos individuais, reprodução em segundo plano e áudios personalizados via seletor oficial do Android;
+- Histórico com modos independentes Comparar e Gerenciar, seleção múltipla, excluir selecionadas e excluir todo o histórico com confirmação personalizada;
 - build release assinado e publicação direta do APK.
 
 ## Diagnóstico e falhas
@@ -107,7 +109,7 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
-A versão 1.0.36 mantém uma camada única de leitura **leigo → números úteis → técnico** nas telas Agora, Perfil da fonte, Sessão e Gráficos. A informação principal é sempre o estado humano (por exemplo `Carga normal`, `Carga lenta`, `Carga oscilando` ou `Aparelho quente`); os números essenciais aparecem logo depois e os dados técnicos ficam recolhidos em **Ver detalhes técnicos**.
+A versão 1.0.37 mantém uma camada única de leitura **leigo → números úteis → técnico** nas telas Agora, Perfil da fonte, Sessão e Gráficos. A informação principal é sempre o estado humano (por exemplo `Carga normal`, `Carga lenta`, `Carga oscilando` ou `Aparelho quente`); os números essenciais aparecem logo depois e os dados técnicos ficam recolhidos em **Ver detalhes técnicos**.
 
 ### Agora
 
@@ -179,11 +181,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.36.apk`
+APK final: `Minha-Bateria-1.0.37.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.36.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.37.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -194,4 +196,4 @@ Cada sessão salva também possui uma lixeira própria. A exclusão exige confir
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.36.apk` na GitHub Release `v1.0.36`.
+O workflow publica diretamente `Minha-Bateria-1.0.37.apk` na GitHub Release `v1.0.37`.

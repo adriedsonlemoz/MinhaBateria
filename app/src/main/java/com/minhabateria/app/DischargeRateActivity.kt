@@ -1,7 +1,6 @@
 package com.minhabateria.app
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -10,6 +9,7 @@ import com.minhabateria.app.discharge.DischargeStore
 import com.minhabateria.app.monitoring.LocalBatteryMonitorHub
 import com.minhabateria.app.monitoring.MonitoringState
 import com.minhabateria.app.monitoring.MonitoringStateStore
+import com.minhabateria.app.ui.AppActionDialog
 import com.minhabateria.app.ui.BottomTab
 import com.minhabateria.app.ui.BottomTabsBinder
 import com.minhabateria.app.ui.DischargeScreenRenderer
@@ -92,14 +92,15 @@ class DischargeRateActivity : Activity() {
     }
 
     private fun confirmClearHistory() {
-        AlertDialog.Builder(this)
-            .setTitle("Limpar histórico de descarga?")
-            .setMessage("As medições concluídas serão apagadas. A medição atual não será interrompida.")
-            .setNegativeButton("Cancelar", null)
-            .setPositiveButton("Limpar") { _, _ ->
-                store.clearHistory()
-                render()
-            }
-            .show()
+        AppActionDialog.show(
+            activity = this,
+            title = "Limpar histórico de descarga?",
+            message = "As medições concluídas serão apagadas. A medição atual não será interrompida.",
+            confirmText = "Limpar histórico",
+            destructive = true
+        ) {
+            store.clearHistory()
+            render()
+        }
     }
 }

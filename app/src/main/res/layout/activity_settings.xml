@@ -130,6 +130,71 @@
             </LinearLayout>
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="7dp"
+                android:text="ÁUDIO E AVISOS"
+                android:textColor="@color/text_muted"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Avisos por voz"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/audioSettingsSummary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="24 eventos configuráveis"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🔊"
+                        android:textSize="22sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/openAudioSettingsButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_secondary_button"
+                    android:minHeight="0dp"
+                    android:text="Configurar áudio e avisos"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -287,7 +352,7 @@
                 </LinearLayout>
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="13dp" android:text="Últimas alterações" android:textColor="@color/text_secondary" android:textSize="12sp" android:textStyle="bold" />
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="• A tela Agora mostra autonomia real estimada na descarga somente após amostra mínima.\n• Corrente preserva o sinal bruto do Android e destaca descarga em vermelho sem inverter a leitura.\n• O card Velocidade de carga muda para Velocidade de descarga fora da tomada e usa a taxa observada em %/h.\n• Removidos valores fictícios de layouts e refinada a descrição do ranking de atividade dos apps." android:textColor="@color/text_primary" android:textSize="13sp" android:lineSpacingExtra="4dp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="• 24 avisos de voz integrados com volume, controles por evento e suporte a áudio personalizado.\n• Avisos importantes podem tocar durante o monitoramento em segundo plano, com fila, prioridades e prevenção de repetição.\n• Histórico agora separa Comparar de Gerenciar e permite excluir várias sessões ou todo o histórico com confirmação.\n• Diálogos de fonte conectada e exclusão foram redesenhados com a identidade visual do aplicativo." android:textColor="@color/text_primary" android:textSize="13sp" android:lineSpacingExtra="4dp" />
             </LinearLayout>
 
             <TextView

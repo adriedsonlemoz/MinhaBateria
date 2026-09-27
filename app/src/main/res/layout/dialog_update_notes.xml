@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.36+37"
+        android:text="Versão 1.0.37+38"
         android:textColor="@color/accent_blue"
         android:textSize="13sp"
         android:textStyle="bold" />
@@ -45,15 +45,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• Perfil da fonte ficou mais compacto: o tipo agora usa um único seletor e Marca/Modelo podem ficar lado a lado.
+        android:text="• Foram integrados 24 avisos de voz padrão para carga, bateria, temperatura, sessão e monitoramento.
 
-• X-TRAD SH-106 foi adicionado como preset conhecido de painel solar: 8 W, VMP 5 V e IMP 1,6 A, sempre editáveis.
+• Áudio e avisos ganhou controle geral, volume, ativação por evento, teste, áudio personalizado e restauração do padrão.
 
-• Ao conectar alimentação, o app pode pedir qual fonte física está sendo usada, separando o que o Android detecta do que foi informado por você. Reconexões rápidas não criam várias sessões nem repetem o aviso.
+• O monitoramento usa fila curta, prioridades e controle de estado para evitar repetição enquanto a condição continua verdadeira.
 
-• Histórico e Comparar cargas permitem excluir uma sessão com lixeira e confirmação obrigatória.
+• Histórico ganhou modo Gerenciar separado do modo Comparar, seleção múltipla, selecionar todas, excluir selecionadas e excluir todo o histórico.
 
-• Agora, Gráficos, Sessão, Histórico, Comparar cargas e Perfil da fonte receberam revisão de tipografia e legibilidade."
+• Confirmações de exclusão e o aviso de fonte conectada agora usam componentes personalizados com a identidade visual do Minha Bateria."
         android:textColor="@color/text_primary"
         android:textSize="13sp" />
 

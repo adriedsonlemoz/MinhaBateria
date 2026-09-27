@@ -1,12 +1,12 @@
 package com.minhabateria.app
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.os.Bundle
 import android.widget.Toast
 import com.minhabateria.app.history.HistoryEntry
 import com.minhabateria.app.history.HistoryFormatter
 import com.minhabateria.app.history.HistoryStore
+import com.minhabateria.app.ui.AppActionDialog
 import com.minhabateria.app.ui.HistoryComparisonRenderer
 import com.minhabateria.app.ui.SystemBars
 
@@ -42,27 +42,22 @@ class HistoryComparisonActivity : Activity() {
     }
 
     private fun confirmDelete(entry: HistoryEntry) {
-        val dialog = AlertDialog.Builder(this)
-            .setTitle("Excluir sessão?")
-            .setMessage(
-                "${HistoryFormatter.title(entry)}\n${HistoryFormatter.dateTime(entry.endedAtMs)}\n\n" +
-                    "Esta sessão e os dados registrados nela serão apagados permanentemente."
-            )
-            .setNegativeButton("Cancelar", null)
-            .setPositiveButton("Excluir") { _, _ ->
-                if (store.delete(entry.id)) {
-                    setResult(RESULT_OK)
-                    Toast.makeText(this, "Sessão excluída. Selecione outra sessão para comparar.", Toast.LENGTH_LONG).show()
-                    finish()
-                } else {
-                    Toast.makeText(this, "Não foi possível excluir a sessão.", Toast.LENGTH_SHORT).show()
-                }
+        AppActionDialog.show(
+            activity = this,
+            title = "Excluir sessão?",
+            details = "${HistoryFormatter.title(entry)}\n${HistoryFormatter.source(entry)}\n${HistoryFormatter.dateTime(entry.endedAtMs)}",
+            message = "Esta sessão será removida permanentemente do histórico.",
+            confirmText = "Excluir",
+            destructive = true
+        ) {
+            if (store.delete(entry.id)) {
+                setResult(RESULT_OK)
+                Toast.makeText(this, "Sessão excluída. Selecione outra sessão para comparar.", Toast.LENGTH_LONG).show()
+                finish()
+            } else {
+                Toast.makeText(this, "Não foi possível excluir a sessão.", Toast.LENGTH_SHORT).show()
             }
-            .create()
-        dialog.setOnShowListener {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.accent_red))
         }
-        dialog.show()
     }
 
     companion object {

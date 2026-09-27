@@ -10,6 +10,8 @@ import com.minhabateria.app.history.HistoryEntry
 import com.minhabateria.app.history.HistoryFormatter
 import com.minhabateria.app.session.SessionFormatter
 
+enum class HistorySelectionMode { COMPARE, MANAGE }
+
 class HistoryScreenRenderer(private val activity: Activity) {
     private val list = activity.findViewById<LinearLayout>(R.id.historyList)
     private val empty = activity.findViewById<TextView>(R.id.historyEmpty)
@@ -18,23 +20,42 @@ class HistoryScreenRenderer(private val activity: Activity) {
 
     fun render(
         entries: List<HistoryEntry>,
-        selectedIds: Set<String> = emptySet(),
-        onToggleSelection: ((HistoryEntry) -> Unit)? = null,
-        onDelete: ((HistoryEntry) -> Unit)? = null
+        mode: HistorySelectionMode,
+        compareSelectedIds: Set<String>,
+        manageSelectedIds: Set<String>,
+        onCompareToggle: (HistoryEntry) -> Unit,
+        onManageToggle: (HistoryEntry) -> Unit,
+        onLongPress: (HistoryEntry) -> Unit,
+        onDelete: (HistoryEntry) -> Unit
     ) {
         list.removeAllViews()
         count.text = if (entries.size == 1) "1 sessão salva" else "${entries.size} sessões salvas"
         empty.visibility = if (entries.isEmpty()) View.VISIBLE else View.GONE
         entries.forEach { entry ->
-            list.addView(createItem(entry, entry.id in selectedIds, onToggleSelection, onDelete))
+            val selected = when (mode) {
+                HistorySelectionMode.COMPARE -> entry.id in compareSelectedIds
+                HistorySelectionMode.MANAGE -> entry.id in manageSelectedIds
+            }
+            list.addView(
+                createItem(
+                    entry = entry,
+                    mode = mode,
+                    selected = selected,
+                    onToggle = if (mode == HistorySelectionMode.COMPARE) onCompareToggle else onManageToggle,
+                    onLongPress = onLongPress,
+                    onDelete = onDelete
+                )
+            )
         }
     }
 
     private fun createItem(
         entry: HistoryEntry,
+        mode: HistorySelectionMode,
         selected: Boolean,
-        onToggleSelection: ((HistoryEntry) -> Unit)?,
-        onDelete: ((HistoryEntry) -> Unit)?
+        onToggle: (HistoryEntry) -> Unit,
+        onLongPress: (HistoryEntry) -> Unit,
+        onDelete: (HistoryEntry) -> Unit
     ): View {
         val view = inflater.inflate(R.layout.history_item, list, false)
         text(view, R.id.historyItemTitle).text = HistoryFormatter.title(entry)
@@ -68,27 +89,32 @@ class HistoryScreenRenderer(private val activity: Activity) {
         val action = text(view, R.id.historyItemSelect)
         selector.text = if (selected) "✓" else "○"
         selector.setTextColor(activity.getColor(if (selected) R.color.accent_green else R.color.accent_blue))
-        action.text = if (selected) "Selecionada ✓" else "Selecionar para comparar  ›"
+        action.text = when (mode) {
+            HistorySelectionMode.COMPARE -> if (selected) "Selecionada para comparar ✓" else "Selecionar para comparar  ›"
+            HistorySelectionMode.MANAGE -> if (selected) "Selecionada para excluir ✓" else "Selecionar para excluir"
+        }
         action.setTextColor(activity.getColor(if (selected) R.color.accent_green else R.color.accent_blue))
         view.setBackgroundResource(if (selected) R.drawable.bg_card_selected else R.drawable.bg_card)
 
-        if (onToggleSelection != null) {
-            view.isClickable = true
-            view.isFocusable = true
-            view.setOnClickListener { onToggleSelection(entry) }
-        } else {
-            selector.visibility = View.GONE
-            action.visibility = View.GONE
+        view.isClickable = true
+        view.isFocusable = true
+        view.setOnClickListener { animateTap(view) { onToggle(entry) } }
+        view.setOnLongClickListener {
+            animateTap(view) { onLongPress(entry) }
+            true
         }
 
-        val delete = view.findViewById<View>(R.id.historyItemDelete)
-        if (onDelete != null) {
-            delete.visibility = View.VISIBLE
-            delete.setOnClickListener { onDelete(entry) }
-        } else {
-            delete.visibility = View.GONE
+        view.findViewById<View>(R.id.historyItemDelete).apply {
+            visibility = if (mode == HistorySelectionMode.COMPARE) View.VISIBLE else View.GONE
+            setOnClickListener { onDelete(entry) }
         }
         return view
+    }
+
+    private fun animateTap(view: View, action: () -> Unit) {
+        view.animate().scaleX(0.985f).scaleY(0.985f).setDuration(70L).withEndAction {
+            view.animate().scaleX(1f).scaleY(1f).setDuration(90L).withEndAction { action() }.start()
+        }.start()
     }
 
     private fun renderStability(view: View, entry: HistoryEntry) {
@@ -115,8 +141,6 @@ class HistoryScreenRenderer(private val activity: Activity) {
         }
     }
 
-    private fun interruptionLabel(count: Int): String =
-        if (count == 1) "1 interrupção" else "$count interrupções"
-
+    private fun interruptionLabel(count: Int): String = if (count == 1) "1 interrupção" else "$count interrupções"
     private fun text(view: View, id: Int): TextView = view.findViewById(id)
 }

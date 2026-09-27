@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import sys
@@ -92,6 +93,30 @@ def check_resources() -> None:
             fail(f"recursos {kind} ausentes: {', '.join(missing)}")
 
 
+
+def check_voice_assets() -> int:
+    raw_dir = RES / "raw"
+    files = sorted(raw_dir.glob("*.ogg"))
+    if len(files) != 24:
+        fail(f"esperados 24 áudios OGG padrão; encontrados {len(files)}")
+    for path in files:
+        data = path.read_bytes()
+        if not data.startswith(b"OggS"):
+            fail(f"áudio OGG inválido: {path.relative_to(ROOT)}")
+    hashes = [hashlib.sha256(path.read_bytes()).hexdigest() for path in files]
+    if len(hashes) != len(set(hashes)):
+        fail("há arquivos de áudio padrão duplicados")
+
+    events = read(APP_MAIN / "java" / "com" / "minhabateria" / "app" / "audio" / "VoiceAlertEvent.kt")
+    refs = re.findall(r"R\.raw\.([A-Za-z0-9_]+)", events)
+    if len(refs) != 24 or len(refs) != len(set(refs)):
+        fail("VoiceAlertEvent deve mapear exatamente 24 recursos raw únicos")
+    missing = sorted(set(refs) - {path.stem for path in files})
+    if missing:
+        fail(f"áudios mapeados ausentes: {', '.join(missing)}")
+    return len(files)
+
+
 def check_launcher_label() -> None:
     manifest = read(APP_MAIN / "AndroidManifest.xml")
     if 'android:label="@string/app_name"' not in manifest:
@@ -129,11 +154,13 @@ def main() -> None:
     name, code = check_version()
     xml_count = check_xml()
     check_resources()
+    voice_count = check_voice_assets()
     check_launcher_label()
     check_clean_source()
     max_code, max_code_lines, max_xml, max_xml_lines = check_line_limits()
     print(f"OK Minha Bateria {name}+{code}")
     print(f"OK XMLs: {xml_count}")
+    print(f"OK áudios padrão: {voice_count} OGG únicos e mapeados")
     print(f"OK maior código: {max_code.relative_to(ROOT)} ({max_code_lines} linhas)")
     print(f"OK maior XML: {max_xml.relative_to(ROOT)} ({max_xml_lines} linhas)")
     print("OK recursos, launcher, versão e limpeza do source")

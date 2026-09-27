@@ -1,7 +1,6 @@
 package com.minhabateria.app.diagnostics
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -16,6 +15,7 @@ import com.minhabateria.app.R
 import com.minhabateria.app.monitoring.LocalBatteryMonitorHub
 import com.minhabateria.app.monitoring.MonitoringState
 import com.minhabateria.app.monitoring.MonitoringStateStore
+import com.minhabateria.app.ui.AppActionDialog
 import com.minhabateria.app.ui.SystemBars
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -114,16 +114,18 @@ class DiagnosticsActivity : Activity() {
             Toast.makeText(this, "Não há falhas capturadas para apagar.", Toast.LENGTH_SHORT).show()
             return
         }
-        AlertDialog.Builder(this)
-            .setTitle("Apagar falhas capturadas?")
-            .setMessage("Serão removidos $count relatório(s) de falha salvos neste aparelho.")
-            .setNegativeButton("Cancelar", null)
-            .setPositiveButton("Apagar") { _, _ ->
-                CrashStore.clear(this)
-                render(force = true)
-                Toast.makeText(this, "Relatórios de falha apagados.", Toast.LENGTH_SHORT).show()
-            }
-            .show()
+        AppActionDialog.show(
+            activity = this,
+            title = "Apagar falhas capturadas?",
+            details = "$count ${if (count == 1) "relatório salvo" else "relatórios salvos"}",
+            message = "Os relatórios de falha salvos neste aparelho serão removidos permanentemente.",
+            confirmText = "Apagar",
+            destructive = true
+        ) {
+            CrashStore.clear(this)
+            render(force = true)
+            Toast.makeText(this, "Relatórios de falha apagados.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private companion object {

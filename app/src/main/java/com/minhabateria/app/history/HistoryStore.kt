@@ -33,8 +33,19 @@ class HistoryStore(context: Context) {
         return write(updated, immediate = true)
     }
 
-    fun clear() {
-        preferences.edit().remove(KEY_ENTRIES).apply()
+    fun deleteMany(ids: Set<String>): Int {
+        if (ids.isEmpty()) return 0
+        val current = entries()
+        val updated = current.filterNot { it.id in ids }
+        val removed = current.size - updated.size
+        if (removed <= 0) return 0
+        return if (write(updated, immediate = true)) removed else 0
+    }
+
+    fun clear(): Int {
+        val count = entries().size
+        if (count == 0) return 0
+        return if (preferences.edit().remove(KEY_ENTRIES).commit()) count else 0
     }
 
 

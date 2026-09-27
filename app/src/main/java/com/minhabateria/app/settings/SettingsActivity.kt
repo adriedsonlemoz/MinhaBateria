@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import com.minhabateria.app.R
+import com.minhabateria.app.audio.VoiceAlertEvent
+import com.minhabateria.app.audio.VoiceAlertPreferences
 import com.minhabateria.app.DischargeRateActivity
 import com.minhabateria.app.BatteryUsageActivity
 import com.minhabateria.app.diagnostics.DiagnosticsActivity
@@ -59,6 +61,9 @@ class SettingsActivity : Activity() {
         findViewById<Button>(R.id.openDiagnosticsButton).setOnClickListener {
             startActivity(Intent(this, DiagnosticsActivity::class.java))
         }
+        findViewById<Button>(R.id.openAudioSettingsButton).setOnClickListener {
+            startActivity(Intent(this, AudioSettingsActivity::class.java))
+        }
 
         controls.setResumeAfterBoot(preferences.shouldResumeAfterBoot())
         controls.setActions(
@@ -78,6 +83,7 @@ class SettingsActivity : Activity() {
     override fun onResume() {
         super.onResume()
         renderSourceProfile(sourceProfileStore.getProfile())
+        renderAudioSummary()
     }
 
     override fun onStop() {
@@ -104,6 +110,18 @@ class SettingsActivity : Activity() {
     private fun renderSourceProfile(profile: EnergySourceProfile?) {
         sourceProfileSummary.text = profile?.let(SourceProfileFormatter::settingsSummary)
             ?: "Nenhum perfil configurado"
+    }
+
+
+    private fun renderAudioSummary() {
+        val audio = VoiceAlertPreferences(this)
+        val enabledEvents = VoiceAlertEvent.entries.count(audio::isEventEnabled)
+        val customEvents = VoiceAlertEvent.entries.count { audio.customUri(it) != null }
+        findViewById<TextView>(R.id.audioSettingsSummary).text = when {
+            !audio.isEnabled() -> "Desativado • escolhas individuais preservadas"
+            customEvents > 0 -> "$enabledEvents/24 eventos ativos • $customEvents personalizados"
+            else -> "$enabledEvents/24 eventos ativos • áudios padrão"
+        }
     }
 
     private fun requestContinuousMonitoring() {

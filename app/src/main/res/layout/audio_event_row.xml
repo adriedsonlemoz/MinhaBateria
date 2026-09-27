@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/audioEventEnabled"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:buttonTint="@color/accent_green"
+            android:gravity="center_vertical"
+            android:textColor="@color/text_primary"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/audioEventStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Padrão"
+            android:textColor="@color/text_muted"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginStart="30dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/audioEventTest"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_secondary_button"
+            android:minHeight="0dp"
+            android:text="▶ Testar"
+            android:textAllCaps="false"
+            android:textColor="@color/accent_blue"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <Space android:layout_width="7dp" android:layout_height="1dp" />
+        <Button
+            android:id="@+id/audioEventChange"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="1.35"
+            android:background="@drawable/bg_secondary_button"
+            android:minHeight="0dp"
+            android:text="Alterar áudio"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,6 +1,6 @@
 # Works — Minha Bateria
 
-Versão atual: `1.0.36+37`.
+Versão atual: `1.0.37+38`.
 
 ## Build recomendado
 
@@ -13,7 +13,7 @@ gradle :app:assembleRelease
 
 Saída original: `app/build/outputs/apk/release/app-release.apk`
 
-Nome de entrega: `Minha-Bateria-1.0.36.apk`
+Nome de entrega: `Minha-Bateria-1.0.37.apk`
 
 ## GitHub Manager
 
@@ -33,7 +33,16 @@ Use o mesmo `Minha-Bateria-GitHub-Secrets.txt` já criado. A assinatura não dev
 
 ## Entrega
 
-O Works/GitHub Actions publica somente `Minha-Bateria-1.0.36.apk`. O source ZIP é o pacote de desenvolvimento entregue separadamente.
+O Works/GitHub Actions publica somente `Minha-Bateria-1.0.37.apk`. O source ZIP é o pacote de desenvolvimento entregue separadamente.
+
+## Atualização 1.0.37+38
+
+- 24 avisos de voz padrão integrados e validados.
+- Áudio e avisos com volume, segundo plano, controles por evento, teste e arquivos personalizados.
+- Fallback automático para OGG padrão quando o áudio personalizado não puder ser usado.
+- Fila de voz sem sobreposição, prioridade, cooldown e transições de estado.
+- Histórico com Comparar e Gerenciar independentes, seleção múltipla e exclusão total.
+- Diálogos de exclusão e fonte conectada personalizados.
 
 ## Atualização 1.0.36+37
 

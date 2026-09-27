@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
+import com.minhabateria.app.audio.VoiceAlertCoordinator
+import com.minhabateria.app.audio.VoiceAlerts
 import com.minhabateria.app.battery.BatteryMonitor
 import com.minhabateria.app.battery.BatteryStatusReader
 import com.minhabateria.app.battery.ChargingSession
@@ -20,6 +22,8 @@ class BatteryMonitorService : Service() {
     private lateinit var dischargeRecorder: DischargeRecorder
     private lateinit var startIssueStore: MonitoringStartIssueStore
     private lateinit var sourceConnectionState: SourceConnectionState
+    private lateinit var voiceAlerts: VoiceAlertCoordinator
+    private var monitoringAudioAnnounced = false
     private var foregroundStarted = false
     private var lastNotificationUpdateMs = 0L
 
@@ -31,6 +35,7 @@ class BatteryMonitorService : Service() {
         dischargeRecorder = DischargeRecorder(this)
         startIssueStore = MonitoringStartIssueStore(this)
         sourceConnectionState = SourceConnectionState(this)
+        voiceAlerts = VoiceAlertCoordinator(VoiceAlerts.runtime(this))
         val chargingSession = ChargingSession(sessionStore.load())
         val historyRecorder = HistoryRecorder(this)
         monitor = BatteryMonitor(
@@ -42,10 +47,12 @@ class BatteryMonitorService : Service() {
                 dischargeRecorder.update(info)
                 sessionStore.save(chargingSession.savedState())
                 MonitoringStateStore.publish(true, info, session, dischargeRecorder.current())
+                voiceAlerts.update(info, session)
                 updateNotificationIfNeeded(info, session)
             },
             onSessionCompleted = { source, completed ->
                 historyRecorder.record(completed, source)
+                voiceAlerts.sessionEnded()
             }
         )
     }
@@ -78,6 +85,10 @@ class BatteryMonitorService : Service() {
         }
 
         MonitoringStateStore.publish(running = true)
+        if (!monitoringAudioAnnounced) {
+            voiceAlerts.monitoringStarted()
+            monitoringAudioAnnounced = true
+        }
         monitor.start()
         return START_STICKY
     }
@@ -126,6 +137,8 @@ class BatteryMonitorService : Service() {
     }
 
     private fun stopMonitoring() {
+        if (monitoringAudioAnnounced) voiceAlerts.monitoringStopped()
+        monitoringAudioAnnounced = false
         preferences.setMonitoringRequested(false)
         monitor.stop()
         sessionStore.clear()

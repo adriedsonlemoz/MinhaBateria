@@ -10,14 +10,28 @@
         android:layout_width="match_parent"
         android:layout_height="76dp"
         android:gravity="center_vertical"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:paddingStart="18dp"
-        android:paddingEnd="18dp">
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Histórico" android:textColor="@color/text_primary" android:textSize="29sp" android:textStyle="bold" />
-        <TextView android:id="@+id/historyCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 sessões salvas" android:textColor="@color/text_secondary" android:textSize="13sp" />
+        android:paddingEnd="14dp">
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Histórico" android:textColor="@color/text_primary" android:textSize="29sp" android:textStyle="bold" />
+            <TextView android:id="@+id/historyCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 sessões salvas" android:textColor="@color/text_secondary" android:textSize="13sp" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/historyManageButton"
+            android:layout_width="102dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_secondary_button"
+            android:minHeight="0dp"
+            android:text="Gerenciar"
+            android:textAllCaps="false"
+            android:textColor="@color/accent_blue"
+            android:textSize="13sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/historyComparisonPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -27,38 +41,40 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="12dp">
-
         <ImageView android:layout_width="44dp" android:layout_height="44dp" android:background="@drawable/bg_icon_circle_blue" android:contentDescription="Comparar sessões" android:padding="9dp" android:src="@drawable/ic_history_compare" />
-
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:layout_weight="1" android:orientation="vertical">
             <TextView android:id="@+id/historySelectionText" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Selecione 2 sessões" android:textColor="@color/text_primary" android:textSize="13sp" android:textStyle="bold" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="para comparar" android:textColor="@color/text_secondary" android:textSize="13sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Modo Comparar" android:textColor="@color/text_secondary" android:textSize="12sp" />
         </LinearLayout>
+        <TextView android:id="@+id/historySelectionCount" android:layout_width="48dp" android:layout_height="34dp" android:layout_marginEnd="8dp" android:background="@drawable/bg_status_chip" android:gravity="center" android:text="0/2" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold" />
+        <Button android:id="@+id/compareSessionsButton" android:layout_width="104dp" android:layout_height="42dp" android:background="@drawable/bg_primary_button" android:enabled="false" android:minHeight="0dp" android:text="Comparar" android:textAllCaps="false" android:textColor="#07110A" android:textSize="13sp" android:textStyle="bold" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/historySelectionCount"
-            android:layout_width="48dp"
-            android:layout_height="34dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_status_chip"
-            android:gravity="center"
-            android:text="0/2"
-            android:textColor="@color/text_primary"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/compareSessionsButton"
-            android:layout_width="104dp"
-            android:layout_height="42dp"
-            android:background="@drawable/bg_primary_button"
-            android:enabled="false"
-            android:minHeight="0dp"
-            android:text="Comparar"
-            android:textAllCaps="false"
-            android:textColor="#07110A"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+    <LinearLayout
+        android:id="@+id/historyManagementPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_card_blue_outline"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:visibility="gone">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Modo Gerenciar" android:textColor="@color/accent_blue" android:textSize="12sp" android:textStyle="bold" />
+                <TextView android:id="@+id/manageSelectionCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Selecionadas: 0" android:textColor="@color/text_primary" android:textSize="16sp" android:textStyle="bold" />
+            </LinearLayout>
+            <Button android:id="@+id/deleteAllHistoryButton" android:layout_width="142dp" android:layout_height="40dp" android:background="@drawable/bg_danger_button" android:minHeight="0dp" android:text="Excluir todo histórico" android:textAllCaps="false" android:textColor="@color/accent_red" android:textSize="11sp" android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="42dp" android:layout_marginTop="10dp" android:orientation="horizontal">
+            <Button android:id="@+id/selectAllSessionsButton" android:layout_width="0dp" android:layout_height="42dp" android:layout_weight="1" android:background="@drawable/bg_secondary_button" android:minHeight="0dp" android:text="Selecionar todas" android:textAllCaps="false" android:textColor="@color/text_primary" android:textSize="11sp" android:textStyle="bold" />
+            <Space android:layout_width="6dp" android:layout_height="1dp" />
+            <Button android:id="@+id/clearSessionSelectionButton" android:layout_width="0dp" android:layout_height="42dp" android:layout_weight="1" android:background="@drawable/bg_secondary_button" android:minHeight="0dp" android:text="Limpar seleção" android:textAllCaps="false" android:textColor="@color/text_secondary" android:textSize="11sp" android:textStyle="bold" />
+            <Space android:layout_width="6dp" android:layout_height="1dp" />
+            <Button android:id="@+id/deleteSelectedSessionsButton" android:layout_width="0dp" android:layout_height="42dp" android:layout_weight="1.1" android:background="@drawable/bg_danger_button" android:enabled="false" android:minHeight="0dp" android:text="Excluir (0)" android:textAllCaps="false" android:textColor="@color/accent_red" android:textSize="11sp" android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -77,9 +93,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="Cada conexão inicia uma sessão. Ao retirar a fonte, o resultado é salvo automaticamente. Toque em duas sessões para comparar ou use a lixeira para excluir uma sessão antiga."
+            android:text="No modo Comparar, selecione exatamente 2 sessões. Em Gerenciar, selecione quantas quiser para excluir. As duas seleções são independentes."
             android:textColor="@color/text_secondary"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
     <ScrollView
@@ -92,16 +108,7 @@
         android:paddingEnd="14dp"
         android:paddingBottom="12dp">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-            <TextView
-                android:id="@+id/historyEmpty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:gravity="center"
-                android:padding="20dp"
-                android:text="Nenhuma sessão salva ainda.\nConecte uma fonte e desconecte ao finalizar o teste."
-                android:textColor="@color/text_muted"
-                android:textSize="13sp" />
+            <TextView android:id="@+id/historyEmpty" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="28dp" android:gravity="center" android:padding="20dp" android:text="Nenhuma sessão salva ainda.\nConecte uma fonte e desconecte ao finalizar o teste." android:textColor="@color/text_muted" android:textSize="13sp" />
             <LinearLayout android:id="@+id/historyList" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
         </LinearLayout>
     </ScrollView>
