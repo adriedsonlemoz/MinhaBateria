@@ -3,50 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
-    android:background="@drawable/bg_card"
-    android:orientation="vertical"
+    android:background="@drawable/bg_discharge_history"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:padding="14dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
+        android:layout_weight="1"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/dischargeHistoryRate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="—"
-            android:textColor="@color/accent_orange"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/dischargeHistoryDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="—"
-            android:textColor="@color/text_muted"
-            android:textSize="10sp" />
+            android:textColor="@color/accent_orange"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/dischargeHistoryRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="—"
+            android:textColor="@color/text_primary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/dischargeHistoryRange"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="—"
-        android:textColor="@color/text_primary"
-        android:textSize="12sp" />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/divider" />
 
-    <TextView
-        android:id="@+id/dischargeHistoryDuration"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:text="—"
-        android:textColor="@color/text_secondary"
-        android:textSize="11sp" />
+        android:layout_weight="1.2"
+        android:orientation="vertical">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+            <ImageView android:layout_width="14dp" android:layout_height="14dp" android:contentDescription="Data" android:src="@drawable/ic_discharge_calendar" />
+            <TextView android:id="@+id/dischargeHistoryDate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="—" android:textColor="#9CBAD0" android:textSize="10sp" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="7dp" android:gravity="center_vertical" android:orientation="horizontal">
+            <ImageView android:layout_width="14dp" android:layout_height="14dp" android:contentDescription="Duração" android:src="@drawable/ic_summary_clock" />
+            <TextView android:id="@+id/dischargeHistoryDuration" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="—" android:textColor="@color/text_secondary" android:textSize="10sp" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

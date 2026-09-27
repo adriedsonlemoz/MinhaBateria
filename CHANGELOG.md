@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.30+31
+
+- Tela **Descarga** redesenhada com hierarquia visual mais clara, cards enriquecidos e leitura mais direta do estado atual.
+- Card principal ganhou uma tendência gráfica nativa da descarga entre o percentual inicial e o atual, sem usar imagem estática ou fabricar amostras intermediárias.
+- **Autonomia estimada** passa a mostrar também o horário aproximado em que a bateria pode chegar a 0%, incluindo indicação de amanhã ou data quando necessário.
+- Quatro resumos foram reorganizados com ícones: percentual consumido, tempo medido, previsão para 1 hora e média histórica com quantidade de descargas salvas.
+- Nova seção **Leitura rápida** compara o ritmo atual com a média histórica e resume a previsão de término, mantendo aviso sobre brilho, sinal, tela e apps em segundo plano.
+- Histórico de descarga redesenhado para destacar taxa, faixa de bateria, data e duração com menor poluição visual.
+- Botão de reinício recebeu destaque de ação principal e a identidade visual da tela foi aproximada do restante do tema escuro do app.
+- Versão, identidade, documentação, novidades e workflow sincronizados para 1.0.30+31.
+
 ## 1.0.29+30
 
 - Corrigido fechamento no Android 16 causado por `ForegroundServiceStartNotAllowedException` durante restauração automática do `BatteryMonitorService`.

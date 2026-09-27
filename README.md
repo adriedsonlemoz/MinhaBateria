@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.29
-- versionCode: 30
-- versão completa: 1.0.29+30
+- versionName: 1.0.30
+- versionCode: 31
+- versão completa: 1.0.30+31
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -96,6 +96,8 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
+A versão 1.0.30 redesenha a tela **Descarga** para explicar a medição de forma mais visual e direta. O resumo atual ganhou uma tendência gráfica nativa, a autonomia agora informa também o horário aproximado em que a bateria pode chegar a 0%, os quatro indicadores principais receberam hierarquia visual e ícones próprios, e a nova seção **Leitura rápida** compara o ritmo atual com a média histórica sem inventar dados. O histórico de descarga também foi reorganizado para destacar taxa, faixa de bateria, data e duração com leitura mais rápida.
+
 A versão 1.0.29 corrige o fechamento observado no Android 16 durante a restauração automática do monitoramento contínuo. O `BatteryMonitorService` agora diferencia recriações `START_STICKY` com `intent == null`, trata recusas recuperáveis do Android ao promover o serviço para foreground e encerra somente aquela tentativa em vez de derrubar o processo. A intenção de monitoramento permanece salva para nova tentativa quando o aplicativo voltar ao primeiro plano, e o Diagnóstico registra a última recusa separadamente dos crashes fatais. O fluxo de permissão de notificações também só inicia o serviço após concessão efetiva.
 
 A versão 1.0.28 havia redesenhado a tela **Gráficos** para priorizar leitura e espaço útil. Em vez da grade 2×2, a tela mostra uma métrica grande por vez e oferece seletores rápidos para **Bateria, Corrente, Potência e Temperatura**, mantendo as janelas de 5, 15 e 60 minutos. O gráfico ganhou grade mais legível, marcador da amostra mais recente, mínimo/máximo, eixo temporal e preenchimento visual discreto. Lacunas reais de amostragem permanecem interrompidas em vez de serem ligadas artificialmente. Para bateria, a escala permanece de 0 a 100%; corrente e potência mantêm referência em zero quando aplicável, reduzindo exageros visuais de pequenas oscilações.
@@ -162,11 +164,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.29.apk`
+APK final: `Minha-Bateria-1.0.30.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.29.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.30.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -175,4 +177,4 @@ O Histórico permite selecionar duas sessões para comparar lado a lado os valor
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.29.apk` na GitHub Release `v1.0.29`.
+O workflow publica diretamente `Minha-Bateria-1.0.30.apk` na GitHub Release `v1.0.30`.

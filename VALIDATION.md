@@ -1,29 +1,29 @@
-# Validação — Minha Bateria 1.0.29+30
+# Validação — Minha Bateria 1.0.30+31
 
 Data: 2026-09-26
 
 ## Escopo desta versão
 
-- correção do crash `ForegroundServiceStartNotAllowedException` observado no Android 16;
-- tratamento explícito de recriação `START_STICKY` com `intent == null`;
-- proteção no `BatteryMonitorService.startForeground()` e em `MonitoringServiceController.start()`;
-- preservação da intenção de monitoramento para nova tentativa ao voltar ao primeiro plano;
-- registro não fatal da última recusa de inicialização no Diagnóstico;
-- início após `POST_NOTIFICATIONS` somente quando a permissão foi realmente concedida.
+- redesenho visual da tela Descarga baseado no mockup aprovado;
+- novo `DischargeTrendView` desenhado nativamente para representar o progresso entre percentual inicial e atual;
+- cálculo e apresentação do horário aproximado de término usando a autonomia já validada pelo estimador;
+- nova comparação textual entre taxa atual e média histórica;
+- reorganização dos quatro indicadores principais e do histórico de descarga;
+- atualização visual do botão de reinício e dos cards de autonomia e leitura rápida.
 
 ## Regras de confiabilidade preservadas
 
-- uma recusa do Android para iniciar/promover o foreground service não encerra mais o processo do aplicativo;
-- uma restauração automática só prossegue se o monitoramento continuar solicitado;
-- quando a promoção para foreground falha, o serviço encerra aquela execução com `START_NOT_STICKY`;
-- falhas desconhecidas continuam sendo propagadas, evitando esconder bugs não relacionados à restrição de foreground service;
-- o registro da recusa é separado dos relatórios de crash fatal.
+- autonomia e horário previsto continuam indisponíveis até existir a amostra mínima de 3 min e 1% de queda real;
+- o gráfico superior representa somente a tendência entre início e estado atual, sem afirmar que barras intermediárias são medições reais;
+- a comparação com histórico só aparece quando existem descargas concluídas válidas;
+- nenhum valor ausente é substituído por zero ou estimativa fictícia;
+- correções anteriores do monitoramento contínuo e do Android 16 permanecem intactas.
 
 ## Sincronização
 
-- `versionName 1.0.29` e `versionCode 30` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README, Works e workflow;
-- tela de novidades atualizada para 1.0.29+30 e continua exibida uma única vez por versão;
-- workflow configurado para publicar somente `Minha-Bateria-1.0.29.apk`.
+- `versionName 1.0.30` e `versionCode 31` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README, Works e workflow;
+- tela de novidades atualizada para 1.0.30+31 e continua exibida uma única vez por versão;
+- workflow configurado para publicar somente `Minha-Bateria-1.0.30.apk`.
 
 ## Verificações
 

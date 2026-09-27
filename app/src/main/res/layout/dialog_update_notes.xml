@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.29+30"
+        android:text="Versão 1.0.30+31"
         android:textColor="@color/accent_blue"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• Corrigido um fechamento no Android 16 ao restaurar automaticamente o monitoramento contínuo.\n\n• Se o Android bloquear temporariamente a promoção para serviço em primeiro plano, a tentativa é encerrada com segurança e pode ser refeita ao abrir o app.\n\n• O Diagnóstico agora registra a última recusa de inicialização do monitoramento sem tratá-la como falha fatal.\n\n• Corrigido o fluxo de permissão: negar notificações não inicia mais o serviço por engano."
+        android:text="• A tela Descarga foi redesenhada para mostrar o que está acontecendo de forma mais clara.\n\n• A autonomia agora informa também o horário aproximado em que a bateria pode acabar.\n\n• Nova Leitura rápida compara o consumo atual com a média histórica e resume a previsão.\n\n• O histórico e os indicadores principais ficaram mais visuais, sem inventar dados quando a amostra ainda não é suficiente."
         android:textColor="@color/text_primary"
         android:textSize="13sp" />
 
