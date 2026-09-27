@@ -1,13 +1,17 @@
 package com.minhabateria.app
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
+import com.minhabateria.app.charts.ChartInsightBuilder
 import com.minhabateria.app.charts.ChartMetric
 import com.minhabateria.app.charts.ChartRange
 import com.minhabateria.app.charts.ChartSample
 import com.minhabateria.app.charts.ChartSampleRepository
+import com.minhabateria.app.interpretation.ChargeConditionInterpreter
 import com.minhabateria.app.monitoring.LocalBatteryMonitorHub
 import com.minhabateria.app.monitoring.MonitoringState
 import com.minhabateria.app.monitoring.MonitoringStateStore
@@ -15,16 +19,18 @@ import com.minhabateria.app.ui.BottomTab
 import com.minhabateria.app.ui.BottomTabsBinder
 import com.minhabateria.app.ui.MetricChartView
 import com.minhabateria.app.ui.SystemBars
-import java.util.Locale
-import kotlin.math.abs
 
 class ChartsActivity : Activity() {
     private lateinit var metricChart: MetricChartView
     private lateinit var windowLabel: TextView
+    private lateinit var rangeSelector: TextView
     private lateinit var chartMetricTitle: TextView
     private lateinit var chartMetricValue: TextView
-    private lateinit var chartMetricMinMax: TextView
+    private lateinit var chartMetricContext: TextView
+    private lateinit var chartStateLabel: TextView
     private lateinit var chartInsightLine: TextView
+    private lateinit var detailsToggle: TextView
+    private lateinit var statsRow: View
     private lateinit var chartStat1Label: TextView
     private lateinit var chartStat1Value: TextView
     private lateinit var chartStat2Label: TextView
@@ -33,8 +39,9 @@ class ChartsActivity : Activity() {
     private lateinit var chartStat3Value: TextView
     private lateinit var chartStat4Label: TextView
     private lateinit var chartStat4Value: TextView
-    private var range = ChartRange.MINUTES_5
+    private var range = ChartRange.MINUTES_60
     private var metric = ChartMetric.BATTERY
+    private var detailsVisible = false
 
     private val stateListener: (MonitoringState) -> Unit = {
         runOnUiThread {
@@ -50,9 +57,10 @@ class ChartsActivity : Activity() {
         restoreSelection(savedInstanceState)
         bindViews()
         bindMetrics()
-        bindRanges()
+        bindRangeSelector()
+        bindDetails()
         bindBottomTabs()
-        renderSelectors()
+        renderMetricButtons()
         renderChart()
     }
 
@@ -76,6 +84,7 @@ class ChartsActivity : Activity() {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(STATE_METRIC, metric.name)
         outState.putString(STATE_RANGE, range.name)
+        outState.putBoolean(STATE_DETAILS, detailsVisible)
         super.onSaveInstanceState(outState)
     }
 
@@ -85,16 +94,21 @@ class ChartsActivity : Activity() {
             ?: ChartMetric.BATTERY
         range = state?.getString(STATE_RANGE)
             ?.let { runCatching { ChartRange.valueOf(it) }.getOrNull() }
-            ?: ChartRange.MINUTES_5
+            ?: ChartRange.MINUTES_60
+        detailsVisible = state?.getBoolean(STATE_DETAILS, false) ?: false
     }
 
     private fun bindViews() {
         metricChart = findViewById(R.id.metricChart)
         windowLabel = findViewById(R.id.chartWindowLabel)
+        rangeSelector = findViewById(R.id.chartRangeSelector)
         chartMetricTitle = findViewById(R.id.chartMetricTitle)
         chartMetricValue = findViewById(R.id.chartMetricValue)
-        chartMetricMinMax = findViewById(R.id.chartMetricMinMax)
+        chartMetricContext = findViewById(R.id.chartMetricMinMax)
+        chartStateLabel = findViewById(R.id.chartStateLabel)
         chartInsightLine = findViewById(R.id.chartInsightLine)
+        detailsToggle = findViewById(R.id.chartDetailsToggle)
+        statsRow = findViewById(R.id.chartStatsRow)
         chartStat1Label = findViewById(R.id.chartStat1Label)
         chartStat1Value = findViewById(R.id.chartStat1Value)
         chartStat2Label = findViewById(R.id.chartStat2Label)
@@ -112,10 +126,33 @@ class ChartsActivity : Activity() {
         findViewById<TextView>(R.id.metricTemperature).setOnClickListener { selectMetric(ChartMetric.TEMPERATURE) }
     }
 
-    private fun bindRanges() {
-        findViewById<TextView>(R.id.range5).setOnClickListener { selectRange(ChartRange.MINUTES_5) }
-        findViewById<TextView>(R.id.range15).setOnClickListener { selectRange(ChartRange.MINUTES_15) }
-        findViewById<TextView>(R.id.range60).setOnClickListener { selectRange(ChartRange.MINUTES_60) }
+    private fun bindRangeSelector() {
+        rangeSelector.setOnClickListener {
+            val ranges = listOf(ChartRange.MINUTES_5, ChartRange.MINUTES_15, ChartRange.MINUTES_60)
+            val labels = ranges.map { "${it.minutes} min" }
+            AlertDialog.Builder(this)
+                .setTitle("Período do gráfico")
+                .setSingleChoiceItems(labels.toTypedArray(), ranges.indexOf(range)) { dialog, which ->
+                    selectRange(ranges[which])
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
+        }
+    }
+
+    private fun bindDetails() {
+        detailsToggle.setOnClickListener {
+            detailsVisible = !detailsVisible
+            syncDetailsVisibility()
+        }
+        syncDetailsVisibility()
+    }
+
+    private fun syncDetailsVisibility() {
+        statsRow.visibility = if (detailsVisible) View.VISIBLE else View.GONE
+        detailsToggle.text = if (detailsVisible) "Ocultar detalhes do período  ‹" else "Ver detalhes do período  ›"
+        detailsToggle.setTextColor(getColor(if (detailsVisible) R.color.text_primary else R.color.text_secondary))
     }
 
     private fun bindBottomTabs() {
@@ -148,13 +185,7 @@ class ChartsActivity : Activity() {
     private fun selectRange(newRange: ChartRange) {
         if (range == newRange) return
         range = newRange
-        renderRangeButtons()
         renderChart()
-    }
-
-    private fun renderSelectors() {
-        renderMetricButtons()
-        renderRangeButtons()
     }
 
     private fun renderMetricButtons() {
@@ -166,23 +197,8 @@ class ChartsActivity : Activity() {
         ).forEach { (id, item) ->
             val view = findViewById<TextView>(id)
             val active = item == metric
-            view.background = getDrawable(
-                if (active) R.drawable.bg_chart_selector_active else R.drawable.bg_secondary_button
-            )
+            view.background = getDrawable(if (active) R.drawable.bg_chart_selector_active else R.drawable.bg_secondary_button)
             view.setTextColor(getColor(if (active) item.accentColorRes() else R.color.text_secondary))
-        }
-    }
-
-    private fun renderRangeButtons() {
-        listOf(
-            R.id.range5 to ChartRange.MINUTES_5,
-            R.id.range15 to ChartRange.MINUTES_15,
-            R.id.range60 to ChartRange.MINUTES_60
-        ).forEach { (id, item) ->
-            val view = findViewById<TextView>(id)
-            val active = item == range
-            view.background = getDrawable(if (active) R.drawable.bg_tab_active else R.drawable.bg_secondary_button)
-            view.setTextColor(getColor(if (active) R.color.accent_green else R.color.text_secondary))
         }
     }
 
@@ -190,154 +206,87 @@ class ChartsActivity : Activity() {
         val now = System.currentTimeMillis()
         val samples = ChartSampleRepository.samples(this, range, now)
         val values = samples.mapNotNull { metric.value(it)?.takeIf(Double::isFinite) }
+        val latest = samples.asReversed().firstNotNullOfOrNull { metric.value(it)?.takeIf(Double::isFinite) }
+        val insight = ChartInsightBuilder.build(metric, samples)
+
         metricChart.setSeries(metric, samples, range.durationMs, now)
         metricChart.contentDescription = "${metric.title}, últimos ${range.minutes} minutos"
-        windowLabel.text = "${metric.title} • 1 amostra a cada 10 s • últimos ${range.minutes} min"
-        chartMetricTitle.text = metric.title.uppercase(Locale.getDefault())
-
-        val latest = samples.asReversed().firstNotNullOfOrNull { metric.value(it)?.takeIf(Double::isFinite) }
+        rangeSelector.text = "Período: ${range.minutes} min ▼"
+        windowLabel.text = "${values.size} amostras • até 1 a cada 10 s"
+        chartMetricTitle.text = "${metric.title} agora"
         chartMetricValue.text = metric.format(latest)
         chartMetricValue.setTextColor(getColor(metricValueColor(latest)))
-        chartMetricMinMax.text = if (values.isEmpty()) {
-            "Sem dados observados"
-        } else {
-            "mín ${metric.format(values.minOrNull())} • máx ${metric.format(values.maxOrNull())}"
-        }
-        chartInsightLine.text = insightText(values, latest)
-        renderStats(samples, values, latest)
+        chartStateLabel.text = "●  ${insight.state}"
+        chartStateLabel.setTextColor(getColor(levelColor(insight.level)))
+        chartMetricContext.text = insight.context
+        chartInsightLine.text = insight.explanation
+        renderStats(samples, values)
     }
 
-    private fun renderStats(samples: List<ChartSample>, values: List<Double>, latest: Double?) {
-        val average = values.takeIf { it.isNotEmpty() }?.average()
+    private fun renderStats(samples: List<ChartSample>, values: List<Double>) {
         val min = values.minOrNull()
         val max = values.maxOrNull()
-        val spread = if (min != null && max != null) max - min else null
+        val average = values.takeIf { it.isNotEmpty() }?.average()
         when (metric) {
             ChartMetric.BATTERY -> {
-                stat1("Atual", metric.format(latest), metricValueColor(latest))
-                stat2("Média", metric.format(average), R.color.text_primary)
-                val delta = if (values.isEmpty()) null else values.last() - values.first()
-                stat3("Variação", formatDeltaPercent(delta), R.color.text_primary)
-                stat4("Amostra", stability(values), stabilityColor(values))
+                val first = samples.firstNotNullOfOrNull { metric.value(it) }
+                stat1("Início", metric.format(first))
+                stat2("Mín.", metric.format(min))
+                stat3("Máx.", metric.format(max))
+                stat4("Amostras", values.size.toString())
             }
-            ChartMetric.CURRENT -> {
-                stat1("Atual", metric.format(latest), metricValueColor(latest))
-                stat2("Média", metric.format(average), R.color.text_primary)
-                stat3("Faixa", metric.format(spread), R.color.text_primary)
-                stat4("Estado", currentState(latest, values), metricValueColor(latest))
-            }
-            ChartMetric.POWER -> {
-                stat1("Atual", metric.format(latest), metricValueColor(latest))
-                stat2("Média", metric.format(average), R.color.text_primary)
-                stat3("Pico", metric.format(max), R.color.text_primary)
-                stat4("Amostra", stability(values), stabilityColor(values))
-            }
-            ChartMetric.TEMPERATURE -> {
-                stat1("Atual", metric.format(latest), metricValueColor(latest))
-                stat2("Média", metric.format(average), R.color.text_primary)
-                stat3("Máx.", metric.format(max), R.color.text_primary)
-                stat4("Faixa", metric.format(spread), R.color.accent_orange)
+            ChartMetric.CURRENT, ChartMetric.POWER, ChartMetric.TEMPERATURE -> {
+                stat1("Mín.", metric.format(min))
+                stat2("Máx.", metric.format(max))
+                stat3("Média", metric.format(average))
+                stat4("Amostras", values.size.toString())
             }
         }
     }
 
-    private fun stat1(label: String, value: String, colorRes: Int) {
+    private fun stat1(label: String, value: String) {
         chartStat1Label.text = label
         chartStat1Value.text = value
-        chartStat1Value.setTextColor(getColor(colorRes))
     }
 
-    private fun stat2(label: String, value: String, colorRes: Int) {
+    private fun stat2(label: String, value: String) {
         chartStat2Label.text = label
         chartStat2Value.text = value
-        chartStat2Value.setTextColor(getColor(colorRes))
     }
 
-    private fun stat3(label: String, value: String, colorRes: Int) {
+    private fun stat3(label: String, value: String) {
         chartStat3Label.text = label
         chartStat3Value.text = value
-        chartStat3Value.setTextColor(getColor(colorRes))
     }
 
-    private fun stat4(label: String, value: String, colorRes: Int) {
+    private fun stat4(label: String, value: String) {
         chartStat4Label.text = label
         chartStat4Value.text = value
-        chartStat4Value.setTextColor(getColor(colorRes))
-    }
-
-    private fun insightText(values: List<Double>, latest: Double?): String = when (metric) {
-        ChartMetric.BATTERY -> when {
-            values.isEmpty() -> "Aguardando amostras do período"
-            abs(values.last() - values.first()) < 0.5 -> "Sem variação no período"
-            values.last() > values.first() -> "Subida de bateria observada no período"
-            else -> "Queda de bateria observada no período"
-        }
-        ChartMetric.CURRENT -> when {
-            latest == null -> "Aguardando leitura de corrente"
-            latest < 0.0 -> "Descarga ativa"
-            latest > 0.0 -> "Carga ativa"
-            else -> "Corrente neutra no momento"
-        }
-        ChartMetric.POWER -> when {
-            latest == null -> "Aguardando leitura de potência"
-            latest <= 0.0 -> "Sem potência positiva observada"
-            else -> "Potência observada em tempo real"
-        }
-        ChartMetric.TEMPERATURE -> when {
-            latest == null -> "Aguardando leitura térmica"
-            latest >= 42.0 -> "Temperatura elevada no momento"
-            latest >= 37.0 -> "Temperatura de atenção"
-            else -> "Temperatura sob controle"
-        }
-    }
-
-    private fun stability(values: List<Double>): String {
-        if (values.size < 2) return "aguardando"
-        val min = values.minOrNull() ?: return "aguardando"
-        val max = values.maxOrNull() ?: return "aguardando"
-        val average = values.average().takeIf { it != 0.0 } ?: return "estável"
-        val ratio = abs(max - min) / abs(average)
-        return when {
-            ratio <= 0.10 -> "estável"
-            ratio <= 0.25 -> "moderada"
-            ratio <= 0.45 -> "oscilando"
-            else -> "instável"
-        }
-    }
-
-    private fun stabilityColor(values: List<Double>): Int = when (stability(values)) {
-        "estável" -> R.color.accent_green
-        "moderada" -> R.color.accent_blue
-        "oscilando" -> R.color.accent_orange
-        "instável" -> R.color.accent_red
-        else -> R.color.text_secondary
-    }
-
-    private fun currentState(latest: Double?, values: List<Double>): String = when {
-        latest == null -> "aguardando"
-        values.any { it < 0.0 } && values.any { it > 0.0 } -> "misto"
-        latest < 0.0 -> "descarga"
-        latest > 0.0 -> "carga"
-        else -> "neutro"
-    }
-
-    private fun formatDeltaPercent(delta: Double?): String = when {
-        delta == null -> "—"
-        delta > 0.0 -> "+${delta.toInt()}%"
-        delta < 0.0 -> "${delta.toInt()}%"
-        else -> "0%"
     }
 
     private fun metricValueColor(latest: Double?): Int = when (metric) {
         ChartMetric.BATTERY -> R.color.accent_blue
         ChartMetric.POWER -> R.color.accent_blue
-        ChartMetric.TEMPERATURE -> R.color.accent_orange
+        ChartMetric.TEMPERATURE -> when {
+            latest == null -> R.color.value_unavailable
+            latest >= 45.0 -> R.color.accent_red
+            latest >= 38.0 -> R.color.accent_orange
+            else -> R.color.accent_green
+        }
         ChartMetric.CURRENT -> when {
-            latest == null -> R.color.text_secondary
-            latest < 0.0 -> R.color.accent_red
-            latest > 0.0 -> R.color.accent_green
+            latest == null -> R.color.value_unavailable
+            latest < -50.0 -> R.color.accent_blue
+            latest > 50.0 -> R.color.accent_green
             else -> R.color.text_secondary
         }
+    }
+
+    private fun levelColor(level: ChargeConditionInterpreter.Level): Int = when (level) {
+        ChargeConditionInterpreter.Level.GOOD -> R.color.accent_green
+        ChargeConditionInterpreter.Level.INFO -> R.color.accent_blue
+        ChargeConditionInterpreter.Level.ATTENTION -> R.color.accent_orange
+        ChargeConditionInterpreter.Level.ELEVATED -> R.color.accent_orange
+        ChargeConditionInterpreter.Level.CRITICAL -> R.color.accent_red
     }
 
     private fun ChartMetric.accentColorRes(): Int = when (this) {
@@ -350,5 +299,6 @@ class ChartsActivity : Activity() {
     private companion object {
         const val STATE_METRIC = "chart_metric"
         const val STATE_RANGE = "chart_range"
+        const val STATE_DETAILS = "chart_details"
     }
 }

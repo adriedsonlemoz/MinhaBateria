@@ -59,6 +59,11 @@ class MainActivity : Activity() {
         findViewById<android.view.View>(R.id.batteryUsagePreviewCard).setOnClickListener {
             startActivity(Intent(this, BatteryUsageActivity::class.java))
         }
+        findViewById<android.view.View>(R.id.sourceOverviewCard).setOnClickListener {
+            startActivity(Intent(this, SourceProfileActivity::class.java))
+        }
+        bindMetricHelp()
+        bindTechnicalDetails()
         BottomTabsBinder(this).bind(
             active = BottomTab.NOW,
             openNow = {},
@@ -100,6 +105,43 @@ class MainActivity : Activity() {
         LocalBatteryMonitorHub.detach(this)
         MonitoringStateStore.removeListener(stateListener)
         super.onStop()
+    }
+
+    private fun bindMetricHelp() {
+        findViewById<android.view.View>(R.id.powerCard).setOnClickListener {
+            val metric = if (MonitoringStateStore.current().info?.isPlugged == false) {
+                MeasurementHelpDialog.Metric.DISCHARGE
+            } else {
+                MeasurementHelpDialog.Metric.POWER
+            }
+            MeasurementHelpDialog.showMetric(this, metric)
+        }
+        findViewById<android.view.View>(R.id.currentCard).setOnClickListener {
+            MeasurementHelpDialog.showMetric(this, MeasurementHelpDialog.Metric.CURRENT)
+        }
+        findViewById<android.view.View>(R.id.temperatureCard).setOnClickListener {
+            MeasurementHelpDialog.showMetric(this, MeasurementHelpDialog.Metric.TEMPERATURE)
+        }
+        findViewById<android.view.View>(R.id.energyCard).setOnClickListener {
+            val metric = if (MonitoringStateStore.current().info?.isPlugged == false) {
+                MeasurementHelpDialog.Metric.BATTERY_DROP
+            } else {
+                MeasurementHelpDialog.Metric.ENERGY
+            }
+            MeasurementHelpDialog.showMetric(this, metric)
+        }
+    }
+
+    private fun bindTechnicalDetails() {
+        val details = findViewById<android.view.View>(R.id.mainTechnicalDetails)
+        val toggle = findViewById<TextView>(R.id.mainDetailsToggle)
+        var visible = false
+        toggle.setOnClickListener {
+            visible = !visible
+            details.visibility = if (visible) android.view.View.VISIBLE else android.view.View.GONE
+            toggle.text = if (visible) "Ocultar detalhes técnicos  ‹" else "Ver detalhes técnicos  ›"
+            toggle.setTextColor(getColor(if (visible) R.color.text_primary else R.color.text_secondary))
+        }
     }
 
     private fun offerInitialSourceProfileIfNeeded() {

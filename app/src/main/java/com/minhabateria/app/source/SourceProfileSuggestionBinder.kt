@@ -21,7 +21,8 @@ class SourceProfileSuggestionBinder(
     private val voltageInput: EditText,
     private val currentInput: EditText,
     private val controllerInput: EditText,
-    private val onChanged: () -> Unit
+    private val onChanged: () -> Unit,
+    private val onManualEntryRequested: () -> Unit
 ) {
     private val brandButton = button(R.id.suggestBrandButton)
     private val modelButton = button(R.id.suggestModelButton)
@@ -107,7 +108,7 @@ class SourceProfileSuggestionBinder(
         val type = currentType ?: return toast("Selecione primeiro o tipo da fonte.")
         choose("Escolha a marca", SourcePresetCatalog.brands(type)) { value ->
             when (value) {
-                "Outra" -> brandInput.requestFocus()
+                "Outra" -> { onManualEntryRequested(); brandInput.requestFocus() }
                 "Sem marca / genérico" -> brandInput.setText("")
                 else -> brandInput.setText(value)
             }
@@ -122,6 +123,7 @@ class SourceProfileSuggestionBinder(
         val labels = presets.map { it.label } + "Outro / digitar"
         choose("Escolha um modelo ou preset", labels) { label ->
             if (label == "Outro / digitar") {
+                onManualEntryRequested()
                 modelInput.requestFocus()
                 toast("Digite apenas se a etiqueta for diferente das opções.")
             } else {
@@ -155,6 +157,7 @@ class SourceProfileSuggestionBinder(
         val values = SourcePresetCatalog.capacities()
         choose("Escolha a capacidade", values.map { formatCapacity(it) } + "Outro valor") { label ->
             if (label == "Outro valor") {
+                onManualEntryRequested()
                 capacityInput.requestFocus()
             } else {
                 val index = values.map { formatCapacity(it) }.indexOf(label)
@@ -191,6 +194,7 @@ class SourceProfileSuggestionBinder(
     private fun chooseText(title: String, values: List<String>, target: EditText) {
         choose(title, values) { value ->
             if (value == "Outra" || value == "Outro") {
+                onManualEntryRequested()
                 target.requestFocus()
                 toast("Digite apenas se nenhuma opção corresponder à etiqueta.")
             } else {
@@ -204,6 +208,7 @@ class SourceProfileSuggestionBinder(
         val labels = values.map { "${formatNumber(it)} $unit" } + "Outro valor"
         choose(title, labels) { label ->
             if (label == "Outro valor") {
+                onManualEntryRequested()
                 when (unit) {
                     "W" -> powerInput.requestFocus()
                     "V" -> voltageInput.requestFocus()

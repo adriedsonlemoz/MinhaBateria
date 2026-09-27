@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.33+34"
+        android:text="Versão 1.0.34+35"
         android:textColor="@color/accent_blue"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• Perfil da fonte redesenhado para reduzir digitação e priorizar preenchimento por toques.\n\n• Carregador, power bank, painel solar e outra fonte ganharam presets e seletores próprios.\n\n• O preset do painel 8 W preenche 8 W, 5 V e 1,6 A de uma vez.\n\n• A prévia do perfil agora resume automaticamente os dados escolhidos antes de salvar."
+        android:text="• Agora, Sessão e Gráficos foram reorganizados para mostrar primeiro o que está acontecendo, depois a explicação e só então os dados técnicos.\n\n• O app agora classifica carga normal, lenta, oscilando ou com possível problema usando as medições reais disponíveis.\n\n• Perfil da fonte ficou mais rápido: escolha o tipo, marca, modelo e potência; dados da etiqueta ficam recolhidos por padrão.\n\n• Gráficos ganharam resumo em linguagem simples, período compacto, escala mais segura e detalhes técnicos sob demanda."
         android:textColor="@color/text_primary"
         android:textSize="13sp" />
 

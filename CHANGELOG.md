@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.34+35
+
+- Reforma completa de UX/UI nas telas Agora, Perfil da fonte, Sessão e Gráficos, preservando medições e funcionalidades existentes.
+- Adotada hierarquia reutilizável de três níveis: entendimento imediato, números úteis e detalhes técnicos sob demanda.
+- Tela Agora agora destaca estado da bateria, estimativa humana, fonte configurada separada da conexão detectada e diagnóstico de carga baseado em dados reais.
+- Durante descarga, a tela Agora preserva ritmo em `%/h`, queda acumulada e autonomia no mesmo layout compacto, sem manter cards elétricos sem sentido.
+- Criado `ChargeConditionInterpreter` para classificar carga normal, lenta, oscilando, possível perda de carga e temperatura elevada com critérios determinísticos e linguagem não conclusiva sobre hardware.
+- Perfil da fonte passa a perguntar primeiro o tipo, priorizar seletores e recolher dados técnicos da etiqueta por padrão, mostrando somente campos relevantes.
+- Tela Sessão ganhou progresso da bateria, ritmo aproximado, diagnóstico humano, comparação contextual com a referência nominal e número de amostras no painel técnico.
+- Gráficos ganharam período compacto, interpretação em linguagem natural, detalhes técnicos recolhidos, escala de bateria com amplitude mínima segura e indicação explícita da linha zero na corrente.
+- Temperatura evita falsa precisão ao omitir a casa decimal quando a leitura fornecida é inteira.
+- Documentados origem dos dados, critérios de interpretação e limites em `INTERPRETATION.md`.
+- Tela de novidades, workflow, identidade, README, Works, Release e versão sincronizados para 1.0.34+35.
+
 ## 1.0.33+34
 
 - Tela Perfil da fonte redesenhada para priorizar preenchimento guiado e reduzir a necessidade de digitação manual.

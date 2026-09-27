@@ -5,7 +5,7 @@ import java.util.Locale
 
 object BatteryFormatter {
     fun source(source: ChargingSource): String = when (source) {
-        ChargingSource.AC -> "Tomada (AC)"
+        ChargingSource.AC -> "Conexão AC"
         ChargingSource.USB -> "USB"
         ChargingSource.WIRELESS -> "Sem fio"
         ChargingSource.BATTERY -> "Bateria"
@@ -28,7 +28,11 @@ object BatteryFormatter {
         String.format(Locale.getDefault(), "%.2f W", it)
     } ?: "—"
 
-    fun temperature(celsius: Double?): String = celsius?.let {
-        String.format(Locale.getDefault(), "%.1f °C", it)
-    } ?: "—"
+    fun temperature(celsius: Double?): String = celsius?.let(::formatTemperature) ?: "—"
+
+    private fun formatTemperature(value: Double): String {
+        val rounded = kotlin.math.round(value)
+        val pattern = if (kotlin.math.abs(value - rounded) < 0.05) "%.0f °C" else "%.1f °C"
+        return String.format(Locale.getDefault(), pattern, value)
+    }
 }

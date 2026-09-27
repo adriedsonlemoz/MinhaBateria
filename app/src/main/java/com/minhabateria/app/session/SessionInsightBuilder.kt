@@ -2,76 +2,76 @@ package com.minhabateria.app.session
 
 import com.minhabateria.app.battery.BatteryInfo
 import com.minhabateria.app.battery.ChargingSession
+import com.minhabateria.app.interpretation.ChargeConditionInterpreter
+import com.minhabateria.app.source.EnergySourceProfile
 import java.util.Locale
 
 object SessionInsightBuilder {
     data class Insight(
         val sessionState: String,
         val headline: String,
-        val powerContext: String,
-        val stability: String,
-        val detail: String
+        val rhythm: String,
+        val diagnosis: String,
+        val detail: String,
+        val level: ChargeConditionInterpreter.Level
     )
 
     fun build(
         info: BatteryInfo?,
         session: ChargingSession.Snapshot?,
-        nominalPowerW: Double?
+        profile: EnergySourceProfile?
     ): Insight {
         if (session?.elapsedMs == null) {
             return Insight(
-                sessionState = "Aguardando conexão",
-                headline = "Conecte uma fonte para iniciar uma nova sessão.",
-                powerContext = "Sem comparação disponível",
-                stability = "Estabilidade: aguardando amostras",
-                detail = "A sessão começa ao conectar e termina ao desconectar a fonte."
+                sessionState = "Aguardando sessão",
+                headline = "Conecte uma fonte para começar a medir.",
+                rhythm = "Ritmo: aguardando evolução da bateria",
+                diagnosis = "Aguardando dados",
+                detail = "A sessão começa quando uma fonte é conectada e usa somente leituras observadas no aparelho.",
+                level = ChargeConditionInterpreter.Level.INFO
             )
         }
 
-        val state = if (session.reachedFull) "Carga completa" else "Sessão em andamento"
-        val headline = summaryLine(info, session)
-        val powerContext = powerContext(info?.powerW, nominalPowerW)
-        val stability = stabilityLabel(session.powerVariationRatio)
-        val detail = if (session.reachedFull) {
-            "Os valores foram congelados ao atingir 100%; a sessão será encerrada ao desconectar."
-        } else {
-            "Classificações são interpretações das leituras observadas no aparelho, não medições da saída da fonte."
+        val state = when {
+            session.reachedFull -> "Sessão concluída em 100%"
+            info?.isCharging == true -> "Sessão em andamento"
+            info?.isPlugged == true -> "Sessão pausada"
+            else -> "Última sessão"
         }
-        return Insight(state, headline, powerContext, stability, detail)
+        val condition = ChargeConditionInterpreter.interpretSession(session, profile)
+        return Insight(
+            sessionState = state,
+            headline = progressLine(session),
+            rhythm = rhythmLine(session),
+            diagnosis = condition.title,
+            detail = condition.explanation,
+            level = condition.level
+        )
     }
 
-    private fun summaryLine(info: BatteryInfo?, session: ChargingSession.Snapshot): String {
-        val range = SessionFormatter.batteryRange(session.startPercent, session.currentPercent)
-        val duration = SessionFormatter.duration(session.elapsedMs)
+    private fun progressLine(session: ChargingSession.Snapshot): String {
+        val start = session.startPercent
+        val current = session.currentPercent
+        val elapsed = SessionFormatter.duration(session.elapsedMs)
         return when {
-            range != "Indisponível" -> "Bateria $range • $duration de sessão"
-            info?.isCharging == true -> "Carga em andamento • $duration de sessão"
-            else -> "Sessão em andamento • $duration"
+            start != null && current != null -> {
+                val gain = current - start
+                val signed = if (gain > 0) "+$gain%" else "$gain%"
+                "$start% → $current%   •   $signed em $elapsed"
+            }
+            else -> "${SessionFormatter.duration(session.elapsedMs)} de observação"
         }
     }
 
-    private fun powerContext(currentPowerW: Double?, nominalPowerW: Double?): String {
-        if (currentPowerW == null || nominalPowerW == null || nominalPowerW <= 0.0) {
-            return "Potência: sem referência suficiente"
-        }
-        val ratio = (currentPowerW / nominalPowerW).coerceAtLeast(0.0)
-        val percent = (ratio * 100.0).toInt()
-        val label = when {
-            ratio >= 0.70 -> "alta frente à referência"
-            ratio >= 0.35 -> "moderada frente à referência"
-            else -> "baixa frente à referência"
-        }
-        return "Potência observada $label • $percent% da referência configurada"
+    private fun rhythmLine(session: ChargingSession.Snapshot): String {
+        val gain = session.gainPercent ?: return "Ritmo: aguardando mudança de porcentagem"
+        val timeMs = session.chargingTimeMs ?: session.elapsedMs ?: return "Ritmo: aguardando tempo suficiente"
+        if (timeMs < MIN_RATE_TIME_MS || gain == 0) return "Ritmo: coletando mais dados"
+        val perHour = gain / (timeMs / 3_600_000.0)
+        if (!perHour.isFinite()) return "Ritmo: aguardando dados válidos"
+        val formatted = String.format(Locale.getDefault(), "%+.1f%%/h", perHour)
+        return "Ritmo aproximado: $formatted"
     }
 
-    private fun stabilityLabel(variationRatio: Double?): String {
-        if (variationRatio == null) return "Estabilidade: aguardando amostras"
-        val label = when {
-            variationRatio <= 0.08 -> "estável"
-            variationRatio <= 0.20 -> "variação moderada"
-            else -> "oscilando"
-        }
-        val variation = String.format(Locale.getDefault(), "%.0f%%", variationRatio * 100.0)
-        return "Estabilidade: $label • oscilação relativa aproximada $variation"
-    }
+    private const val MIN_RATE_TIME_MS = 5 * 60 * 1000L
 }

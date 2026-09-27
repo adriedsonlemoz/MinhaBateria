@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.33
-- versionCode: 34
-- versão completa: 1.0.33+34
+- versionName: 1.0.34
+- versionCode: 35
+- versão completa: 1.0.34+35
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -100,33 +100,33 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
-A versão 1.0.31 amplia o redesenho iniciado na Descarga para as telas **Sessão** e **Histórico**. Sessão agora destaca estado da conexão, fonte configurada e os principais dados em cards visuais; quando está inativa, uma orientação curta explica o que será preenchido durante o carregamento. Histórico passa a agrupar duração, energia, carga, potência média/pico, bateria, temperatura, estabilidade e interrupções em uma hierarquia mais rápida de ler, com seleção 0/2 mais evidente para comparação. A tela **Descarga** mantém a tendência gráfica, autonomia com horário previsto e Leitura rápida introduzidas na 1.0.30.
+A versão 1.0.34 aplica uma camada única de leitura **leigo → números úteis → técnico** nas telas Agora, Perfil da fonte, Sessão e Gráficos. A informação principal é sempre o estado humano (por exemplo `Carga normal`, `Carga lenta`, `Carga oscilando` ou `Aparelho quente`); os números essenciais aparecem logo depois e os dados técnicos ficam recolhidos em **Ver detalhes técnicos**.
 
-A versão 1.0.29 corrige o fechamento observado no Android 16 durante a restauração automática do monitoramento contínuo. O `BatteryMonitorService` agora diferencia recriações `START_STICKY` com `intent == null`, trata recusas recuperáveis do Android ao promover o serviço para foreground e encerra somente aquela tentativa em vez de derrubar o processo. A intenção de monitoramento permanece salva para nova tentativa quando o aplicativo voltar ao primeiro plano, e o Diagnóstico registra a última recusa separadamente dos crashes fatais. O fluxo de permissão de notificações também só inicia o serviço após concessão efetiva.
+### Agora
 
-A versão 1.0.32 amplia esse trabalho: a tela **Gráficos** agora aplica o novo padrão visual em todas as métricas com cabeçalho rico, valor atual destacado, resumo rápido por período e eixo lateral mais legível.
+O painel principal prioriza porcentagem, estado da bateria e previsão aproximada. A estimativa de 100% só aparece quando o Android fornece uma previsão válida ou quando a sessão já possui amostra mínima suficiente; caso contrário a interface informa que a estimativa ainda está sendo preparada. O perfil configurado da fonte fica separado do tipo de conexão detectado pelo Android e o app não inventa `Tomada (AC)` quando o sistema não identificou a conexão.
 
-A tela **Sessão** também recebeu o mesmo refinamento na área de detalhes técnicos, agora organizada em blocos temáticos com melhor leitura visual.
+A situação da carga é interpretada com critérios documentados e baseada em temperatura, sinal da corrente, tempo da sessão, oscilação de potência e, quando configurada, referência nominal da fonte. Durante a carga, os quatro indicadores rápidos são **Potência agora**, **Corrente agora**, **Temperatura** e **Energia recebida**; fora da fonte, os mesmos espaços reaproveitam o contexto para mostrar **Ritmo de descarga** e **Queda da bateria**, preservando o acompanhamento de descarga sem criar mais cards. Tensão, mAh e demais dados técnicos permanecem disponíveis sob demanda.
 
-A versão 1.0.28 havia redesenhado a tela **Gráficos** para priorizar leitura e espaço útil. Em vez da grade 2×2, a tela mostra uma métrica grande por vez e oferece seletores rápidos para **Bateria, Corrente, Potência e Temperatura**, mantendo as janelas de 5, 15 e 60 minutos. O gráfico ganhou grade mais legível, marcador da amostra mais recente, mínimo/máximo, eixo temporal e preenchimento visual discreto. Lacunas reais de amostragem permanecem interrompidas em vez de serem ligadas artificialmente. Para bateria, a escala permanece de 0 a 100%; corrente e potência mantêm referência em zero quando aplicável, reduzindo exageros visuais de pequenas oscilações.
+### Perfil da fonte
 
-A versão 1.0.27 havia refinado a tela **Consumo de bateria**, com barras proporcionais da atividade observada, porcentagem destacada e tempo em primeiro plano separado, sem apresentar esses valores como consumo elétrico medido por aplicativo.
+O cadastro começa perguntando o que fornece energia: **Painel solar, Carregador, Power bank ou Outra fonte**. Marca, modelo/preset, potência e capacidade quando aplicável usam seletores como caminho principal. Campos de etiqueta, protocolos, portas, cabo, controlador e conversor ficam em **Dados técnicos da etiqueta**, recolhidos por padrão e filtrados conforme o tipo selecionado.
 
-A versão 1.0.26 havia avançado o refinamento visual da tela **Agora**. O medidor circular passa a concentrar percentual e previsão útil no mesmo ponto: na descarga mostra a autonomia apenas quando a amostra mínima real já é válida; durante a carga mostra o tempo aproximado até 100% quando há uma estimativa confiável. Enquanto ainda não há dados suficientes, exibe apenas o estado de cálculo, sem inventar números. O chip abaixo do medidor foi reduzido a um estado curto como `Na bateria`, `Carregando` ou `Carga completa`.
+O resumo **Seu perfil** mostra exatamente o que foi informado antes de salvar e conta quantos dados técnicos opcionais foram configurados. Especificações ausentes permanecem ausentes; o aplicativo não completa valores por suposição.
 
-A etapa anterior já havia deixado os cards com contornos mais discretos, separado a fonte realmente detectada do perfil configurado e atenuado métricas sem leitura. Esses ajustes permanecem.
+### Sessão
 
-O resumo central agora muda de contexto sem inventar medições: conectado mostra tempo, energia e carga da sessão; fora da tomada mostra tempo na bateria, queda percentual real e média de descarga somente quando a amostra mínima já é válida.
+O topo responde rapidamente se a sessão está em andamento, pausada ou concluída, mostra a variação real da bateria e, quando já existe tempo suficiente, o ritmo aproximado em `%/h`. O resumo mantém bateria, tempo, energia recebida, potência média e temperatura máxima.
 
-A tela Agora mantém a identidade azul-profundo, sem rolagem vertical, com medidor circular, cards compactos e navegação inferior. Com a fonte conectada, a potência instantânea é apresentada como **Velocidade de carga**. Fora da tomada, o mesmo card muda para **Velocidade de descarga** e passa a mostrar a taxa real observada em `%/h` somente depois de uma amostra mínima. Um atalho **Entenda W, mA, Wh e mAh** explica os dados em linguagem simples.
+O diagnóstico humano reutiliza os mesmos critérios da tela Agora e usa linguagem de possibilidade para causas não comprovadas. A referência nominal configurada é comparada apenas com o que foi observado no aparelho, deixando explícito que isso **não é medição direta da saída elétrica total da fonte**. Corrente/tensão média e faixa, pico, Wh, mAh, número de amostras, interrupções e demais métricas continuam no painel técnico recolhido.
 
-Quando o aparelho está carregando, o próprio indicador verde mostra a estimativa aproximada, por exemplo `100% em aproximadamente 3 h 12 min`, evitando o texto genérico `Carregando`. Em Android 9 ou superior, o app prioriza a previsão fornecida pelo próprio sistema; quando ela não está disponível, pode estimar pelo ritmo observado na sessão somente após pelo menos 2 pontos percentuais e 2 minutos de carga. Se não houver dados suficientes, mostra `Calculando tempo restante…` em vez de inventar um valor.
+### Gráficos
 
-A aba Sessão agora abre em modo simplificado, com bateria inicial/atual, tempo, energia recebida, velocidade média e temperatura máxima. Corrente, tensão, mínimos/máximos, interrupções e demais métricas ficam em **Ver detalhes técnicos**, recolhidos por padrão.
+Bateria, Corrente, Potência e Temperatura usam o mesmo cabeçalho: valor atual, estado interpretado, contexto e explicação em linguagem natural. O período usa um seletor compacto de 5, 15 ou 60 minutos. Estatísticas de mínimo, máximo, média e número de amostras ficam recolhidas por padrão.
 
-A navegação inferior mantém Agora, Gráficos, Sessão, Descarga e Histórico no mesmo nível. A aba Descarga registra o consumo fora da tomada e a aba Histórico salva automaticamente cada sessão de carregamento quando a fonte é desconectada.
+A escala da bateria é adaptativa, mas mantém uma faixa mínima de 12 pontos percentuais para evitar transformar pequenas oscilações em mudanças visualmente enormes. Corrente positiva/negativa preserva o sinal bruto do Android e, quando cruza zero, o gráfico destaca a linha de zero. Temperatura respeita a resolução observada: valores inteiros não ganham uma casa decimal artificial. Lacunas de coleta continuam como lacunas, sem virar zero nem ser ligadas artificialmente.
 
-Na parte inferior da tela Agora há um card **Consumo de bateria**. A tela dedicada cruza a taxa de descarga observada com as estatísticas de tempo em primeiro plano das últimas 6 horas. A corrente instantânea preserva o sinal bruto informado pelo Android: negativo indica saída de energia e positivo indica entrada. O app não inverte o sinal para forçar coerência com o estado de carga; divergências são sinalizadas na interface. Para consultar outros aplicativos, o usuário precisa conceder manualmente **Acesso ao uso** nas Configurações do Android. O ranking é apresentado como indicador de atividade e possível pista de consumo, não como medição elétrica exata por aplicativo.
+Os critérios de interpretação estão documentados em [`INTERPRETATION.md`](INTERPRETATION.md).
 
 ## Ciclo automático da sessão
 
@@ -172,11 +172,11 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.33.apk`
+APK final: `Minha-Bateria-1.0.34.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.33.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.34.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
@@ -185,4 +185,4 @@ O Histórico permite selecionar duas sessões para comparar lado a lado os valor
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.33.apk` na GitHub Release `v1.0.33`.
+O workflow publica diretamente `Minha-Bateria-1.0.34.apk` na GitHub Release `v1.0.34`.

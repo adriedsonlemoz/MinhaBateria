@@ -268,6 +268,12 @@ class MetricChartView @JvmOverloads constructor(
         paint.color = context.getColor(R.color.text_muted)
         canvas.drawLine(left, y, right, y, paint)
         paint.style = Paint.Style.FILL
+        if (metric == ChartMetric.CURRENT) {
+            paint.textAlign = Paint.Align.RIGHT
+            paint.textSize = sp(8.5f)
+            canvas.drawText("zero", right, y - dp(3f), paint)
+            paint.textAlign = Paint.Align.LEFT
+        }
     }
 
     private fun drawTimeAxis(canvas: Canvas, left: Float, right: Float, baseline: Float) {
@@ -289,7 +295,7 @@ class MetricChartView @JvmOverloads constructor(
         val rawMin = values.minOrNull() ?: return defaultScale()
         val rawMax = values.maxOrNull() ?: return defaultScale()
         return when (metric) {
-            ChartMetric.BATTERY -> 0.0 to 100.0
+            ChartMetric.BATTERY -> batteryScale(rawMin, rawMax)
             ChartMetric.POWER -> {
                 if (rawMin >= 0.0) {
                     0.0 to max(rawMax * 1.12, 1.0)
@@ -307,6 +313,20 @@ class MetricChartView @JvmOverloads constructor(
             }
             ChartMetric.TEMPERATURE -> paddedRange(rawMin, rawMax, minimumSpread = 2.0)
         }
+    }
+
+    private fun batteryScale(rawMin: Double, rawMax: Double): Pair<Double, Double> {
+        if (rawMin <= 0.0 && rawMax >= 100.0) return 0.0 to 100.0
+        val center = (rawMin + rawMax) / 2.0
+        val observedSpread = rawMax - rawMin
+        val spread = max(observedSpread * 1.8, 12.0)
+        var minValue = (center - spread / 2.0).coerceAtLeast(0.0)
+        var maxValue = (center + spread / 2.0).coerceAtMost(100.0)
+        if (maxValue - minValue < 12.0) {
+            if (minValue <= 0.0) maxValue = minOf(12.0, 100.0)
+            else if (maxValue >= 100.0) minValue = maxOf(88.0, 0.0)
+        }
+        return minValue to maxValue
     }
 
     private fun defaultScale(): Pair<Double, Double> = when (metric) {
@@ -338,7 +358,7 @@ class MetricChartView @JvmOverloads constructor(
         when (metric) {
             ChartMetric.POWER -> R.color.accent_blue
             ChartMetric.CURRENT -> when {
-                values.isNotEmpty() && values.all { it < 0.0 } -> R.color.accent_red
+                values.isNotEmpty() && values.all { it < 0.0 } -> R.color.accent_blue
                 values.isNotEmpty() && values.all { it > 0.0 } -> R.color.accent_green
                 else -> R.color.accent_blue
             }
@@ -352,7 +372,7 @@ class MetricChartView @JvmOverloads constructor(
             ChartMetric.POWER -> R.color.accent_blue
             ChartMetric.CURRENT -> when {
                 latest == null -> R.color.text_secondary
-                latest < 0.0 -> R.color.accent_red
+                latest < 0.0 -> R.color.accent_blue
                 latest > 0.0 -> R.color.accent_green
                 else -> R.color.text_secondary
             }

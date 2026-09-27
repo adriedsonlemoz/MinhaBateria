@@ -65,9 +65,9 @@ class SessionActivity : Activity() {
         fun syncToggle() {
             details.visibility = if (detailsVisible) View.VISIBLE else View.GONE
             toggle.text = if (detailsVisible) {
-                "▤  Ocultar painel técnico  ‹"
+                "Ocultar detalhes técnicos  ‹"
             } else {
-                "▤  Ver painel técnico  ›"
+                "Ver detalhes técnicos  ›"
             }
             toggle.background = getDrawable(
                 if (detailsVisible) R.drawable.bg_chart_selector_active else R.drawable.bg_primary_button

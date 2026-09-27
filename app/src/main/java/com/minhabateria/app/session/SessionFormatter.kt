@@ -28,7 +28,9 @@ object SessionFormatter {
     } ?: "Indisponível"
 
     fun temperature(value: Double?): String = value?.let {
-        String.format(Locale.getDefault(), "%.1f °C", it)
+        val rounded = kotlin.math.round(it)
+        val pattern = if (kotlin.math.abs(it - rounded) < 0.05) "%.0f °C" else "%.1f °C"
+        String.format(Locale.getDefault(), pattern, it)
     } ?: "Indisponível"
 
     fun currentRange(min: Double?, max: Double?): String = range(min, max, "%.0f", "mA")

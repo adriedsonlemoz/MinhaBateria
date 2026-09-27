@@ -3,6 +3,7 @@ package com.minhabateria.app.ui
 import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.text.format.DateFormat
 import android.view.View
 import android.widget.TextView
 import com.minhabateria.app.R
@@ -14,247 +15,85 @@ import com.minhabateria.app.charging.ChargeTimeEstimator
 import com.minhabateria.app.charging.ChargeTimeFormatter
 import com.minhabateria.app.discharge.ActiveDischarge
 import com.minhabateria.app.discharge.DischargeFormatter
-import com.minhabateria.app.measurement.MeasurementCatalog
-import com.minhabateria.app.source.EnergySourceProfile
-import com.minhabateria.app.source.NominalPowerComparison
+import com.minhabateria.app.interpretation.ChargeConditionInterpreter
 import com.minhabateria.app.session.SessionFormatter
+import com.minhabateria.app.source.EnergySourceProfile
+import com.minhabateria.app.source.EnergySourceType
+import com.minhabateria.app.source.SourceProfileNameBuilder
 import com.minhabateria.app.utils.BatteryFormatter
 import com.minhabateria.app.utils.TimeFormatter
+import java.util.Date
+import kotlin.math.roundToInt
 
 class MainScreenRenderer(private val activity: Activity) {
     private val gauge = activity.findViewById<BatteryGaugeView>(R.id.batteryGauge)
-    private val status = activity.findViewById<TextView>(R.id.statusText)
-    private val profileSource = activity.findViewById<TextView>(R.id.profileSourceValue)
-    private val detectedSource = activity.findViewById<TextView>(R.id.detectedSourceValue)
-
-    private val voltageCard = activity.findViewById<View>(R.id.voltageCard)
-    private val currentCard = activity.findViewById<View>(R.id.currentCard)
+    private val status = text(R.id.statusText)
+    private val estimateText = text(R.id.mainEstimateText)
+    private val sourceIcon = text(R.id.sourceTypeIcon)
+    private val profileSource = text(R.id.profileSourceValue)
+    private val detectedSource = text(R.id.detectedSourceValue)
+    private val conditionTitle = text(R.id.mainConditionTitle)
+    private val conditionMessage = text(R.id.mainConditionMessage)
+    private val powerLabel = text(R.id.powerLabel)
+    private val power = text(R.id.powerValue)
+    private val powerHint = text(R.id.powerHint)
+    private val currentLabel = text(R.id.currentLabel)
+    private val current = text(R.id.currentValue)
+    private val currentHint = text(R.id.currentHint)
+    private val temperature = text(R.id.temperatureValue)
+    private val temperatureHint = text(R.id.temperatureHint)
+    private val energyLabel = text(R.id.energyLabel)
+    private val energy = text(R.id.energyValue)
+    private val energyHint = text(R.id.energyHint)
+    private val voltage = text(R.id.voltageValue)
+    private val charge = text(R.id.chargeValue)
+    private val elapsed = text(R.id.elapsedValue)
+    private val technicalNote = text(R.id.mainTechnicalNote)
     private val powerCard = activity.findViewById<View>(R.id.powerCard)
+    private val currentCard = activity.findViewById<View>(R.id.currentCard)
     private val temperatureCard = activity.findViewById<View>(R.id.temperatureCard)
-    private val voltage = activity.findViewById<TextView>(R.id.voltageValue)
-    private val currentLabel = activity.findViewById<TextView>(R.id.currentLabel)
-    private val current = activity.findViewById<TextView>(R.id.currentValue)
-    private val currentOrigin = activity.findViewById<TextView>(R.id.currentOrigin)
-    private val powerLabel = activity.findViewById<TextView>(R.id.powerLabel)
-    private val power = activity.findViewById<TextView>(R.id.powerValue)
-    private val temperature = activity.findViewById<TextView>(R.id.temperatureValue)
-    private val powerOrigin = activity.findViewById<TextView>(R.id.powerOrigin)
-
-    private val elapsedLabel = activity.findViewById<TextView>(R.id.elapsedLabel)
-    private val energyLabel = activity.findViewById<TextView>(R.id.energyLabel)
-    private val chargeLabel = activity.findViewById<TextView>(R.id.chargeLabel)
-    private val elapsed = activity.findViewById<TextView>(R.id.elapsedValue)
-    private val energy = activity.findViewById<TextView>(R.id.energyValue)
-    private val charge = activity.findViewById<TextView>(R.id.chargeValue)
-
+    private val energyCard = activity.findViewById<View>(R.id.energyCard)
     private var sourceProfile: EnergySourceProfile? = null
-
-    init {
-        activity.findViewById<TextView>(R.id.voltageOrigin).text = MeasurementCatalog.voltage.origin.label
-        currentOrigin.text = MeasurementCatalog.current.origin.label
-        powerOrigin.text = MeasurementCatalog.power.origin.label
-        activity.findViewById<TextView>(R.id.temperatureOrigin).text = MeasurementCatalog.temperature.origin.label
-    }
 
     fun render(
         info: BatteryInfo,
         session: ChargingSession.Snapshot,
         discharge: ActiveDischarge? = null
     ) {
-        val chargeEstimate = ChargeTimeEstimator.estimate(info, session)
-        renderGauge(info, session.reachedFull, chargeEstimate, discharge)
-        renderStatus(info, session.reachedFull, chargeEstimate, discharge)
-        renderDetectedSource(info)
-
-        renderMetric(voltage, BatteryFormatter.voltage(info.voltageMv), info.voltageMv != null, R.color.accent_green)
-        setCardAvailability(voltageCard, info.voltageMv != null)
-        renderCurrent(info)
-        renderChargeOrDischargeSpeed(info, session, discharge)
-        renderMetric(
-            temperature,
-            BatteryFormatter.temperature(info.temperatureC),
-            info.temperatureC != null,
-            R.color.accent_orange
-        )
-        setCardAvailability(temperatureCard, info.temperatureC != null)
-        renderSessionSummary(info, session, discharge)
+        val estimate = ChargeTimeEstimator.estimate(info, session)
+        renderGaugeAndStatus(info, session.reachedFull, estimate, discharge)
+        renderSourceDetection(info)
+        renderCondition(info, session)
+        renderQuickMetrics(info, session, discharge)
+        renderTechnicalDetails(info, session)
     }
 
     fun renderSourceProfile(profile: EnergySourceProfile?) {
         sourceProfile = profile
-        profileSource.text = profile?.name ?: "Não configurado"
+        sourceIcon.text = profile?.type?.icon() ?: "⚡"
+        profileSource.text = profile?.let(::profileLabel) ?: "Fonte não configurada"
         profileSource.setTextColor(
-            activity.getColor(if (profile == null) R.color.value_unavailable else R.color.text_secondary)
+            activity.getColor(if (profile == null) R.color.value_unavailable else R.color.text_primary)
         )
-    }
-
-    private fun renderDetectedSource(info: BatteryInfo) {
-        detectedSource.text = BatteryFormatter.source(info.source)
-        detectedSource.setTextColor(
-            activity.getColor(if (info.source == ChargingSource.UNKNOWN) R.color.value_unavailable else R.color.accent_blue)
-        )
-    }
-
-    private fun renderCurrent(info: BatteryInfo) {
-        currentLabel.text = when {
-            info.isCharging == true -> "Corrente de carga"
-            info.isPlugged == false -> "Corrente de descarga"
-            else -> "Corrente"
+        if (profile == null) {
+            detectedSource.text = "Toque para informar a fonte usada"
+            detectedSource.setTextColor(activity.getColor(R.color.text_secondary))
         }
-        val currentMa = info.currentMa
-        current.text = BatteryFormatter.signedCurrent(currentMa)
-        current.setTextColor(
-            activity.getColor(
-                when {
-                    currentMa == null -> R.color.value_unavailable
-                    currentMa < 0.0 -> R.color.accent_red
-                    currentMa > 0.0 -> R.color.accent_green
-                    else -> R.color.text_secondary
-                }
-            )
-        )
-
-        val divergent = currentMa != null && (
-            (info.isPlugged == false && currentMa > 0.0) ||
-                (info.isCharging == true && currentMa < 0.0)
-            )
-        currentOrigin.text = when {
-            currentMa == null -> MeasurementCatalog.current.origin.label
-            divergent -> "SISTEMA • DIVERGENTE"
-            else -> "SISTEMA • BRUTO"
-        }
-        currentOrigin.setTextColor(activity.getColor(if (divergent) R.color.accent_red else R.color.text_muted))
-        setCardAvailability(currentCard, currentMa != null)
     }
 
-    private fun renderChargeOrDischargeSpeed(
-        info: BatteryInfo,
-        session: ChargingSession.Snapshot,
-        discharge: ActiveDischarge?
-    ) {
-        if (info.isPlugged == false) {
-            powerLabel.text = "Velocidade de descarga"
-            val rate = BatteryRateEstimator.dischargePercentPerHour(discharge)
-            renderMetric(
-                power,
-                if (rate == null) "Calculando…" else DischargeFormatter.rate(rate),
-                rate != null,
-                R.color.accent_orange
-            )
-            powerOrigin.text = if (rate == null) "AGUARDANDO" else "SESSÃO REAL"
-            setCardAvailability(powerCard, rate != null)
-            return
-        }
-
-        powerLabel.text = "Velocidade de carga"
-        renderMetric(power, BatteryFormatter.power(info.powerW), info.powerW != null, R.color.text_primary)
-        powerOrigin.text = NominalPowerComparison.compact(
-            info.powerW, session.peakPowerW, sourceProfile?.nominalPowerW
-        ) ?: MeasurementCatalog.power.origin.label
-        setCardAvailability(powerCard, info.powerW != null)
-    }
-
-    private fun renderSessionSummary(
-        info: BatteryInfo,
-        session: ChargingSession.Snapshot,
-        discharge: ActiveDischarge?
-    ) {
-        if (info.isPlugged == false) {
-            elapsedLabel.text = "Tempo na bateria"
-            energyLabel.text = "Queda"
-            chargeLabel.text = "Média"
-
-            val hasDischarge = discharge != null
-            renderMetric(
-                elapsed,
-                discharge?.let { TimeFormatter.elapsed(it.durationMs) } ?: "—",
-                hasDischarge,
-                R.color.accent_blue
-            )
-            renderMetric(
-                energy,
-                discharge?.let { "${it.dropPercent}%" } ?: "—",
-                hasDischarge,
-                if ((discharge?.dropPercent ?: 0) > 0) R.color.accent_red else R.color.text_primary
-            )
-            val rate = BatteryRateEstimator.dischargePercentPerHour(discharge)
-            renderMetric(
-                charge,
-                if (rate == null) "Calculando…" else DischargeFormatter.rate(rate),
-                rate != null,
-                R.color.accent_orange
-            )
-            return
-        }
-
-        elapsedLabel.text = "Tempo"
-        energyLabel.text = "Energia"
-        chargeLabel.text = "Carga"
-        renderMetric(
-            elapsed,
-            session.elapsedMs?.let(TimeFormatter::elapsed) ?: "—",
-            session.elapsedMs != null,
-            R.color.accent_blue
-        )
-        renderMetric(
-            energy,
-            session.energyWh?.let(SessionFormatter::energy) ?: "—",
-            session.energyWh != null,
-            R.color.text_primary
-        )
-        renderMetric(
-            charge,
-            session.chargeMah?.let(SessionFormatter::charge) ?: "—",
-            session.chargeMah != null,
-            R.color.text_primary
-        )
-    }
-
-    private fun renderMetric(view: TextView, text: String, available: Boolean, colorRes: Int) {
-        view.text = text
-        view.setTextColor(activity.getColor(if (available) colorRes else R.color.value_unavailable))
-    }
-
-    private fun setCardAvailability(card: View, available: Boolean) {
-        card.alpha = if (available) 1f else 0.68f
-    }
-
-    private fun renderGauge(
+    private fun renderGaugeAndStatus(
         info: BatteryInfo,
         reachedFull: Boolean,
         estimate: ChargeTimeEstimator.Estimate?,
         discharge: ActiveDischarge?
     ) {
         val full = info.percent == 100 || reachedFull
-        val dischargeRemainingMs = BatteryRateEstimator.dischargeRemainingMs(discharge)
-        val secondary = when {
-            full -> "Carga completa"
-            info.isCharging == true && estimate != null ->
-                "~${ChargeTimeFormatter.compact(estimate.remainingMs)} até 100%"
-            info.isCharging == true -> "Calculando tempo…"
-            info.isPlugged == true -> "Carga pausada"
-            info.isPlugged == false && dischargeRemainingMs != null ->
-                "~${ChargeTimeFormatter.compact(dischargeRemainingMs)} restantes"
-            info.isPlugged == false -> "Calculando autonomia…"
-            else -> null
-        }
-        gauge.setBattery(info.percent, info.isCharging == true, secondary)
-    }
-
-    private fun renderStatus(
-        info: BatteryInfo,
-        reachedFull: Boolean,
-        estimate: ChargeTimeEstimator.Estimate?,
-        discharge: ActiveDischarge?
-    ) {
-        val full = info.percent == 100 || reachedFull
-        val dischargeRemainingMs = BatteryRateEstimator.dischargeRemainingMs(discharge)
+        gauge.setBattery(info.percent, info.isCharging == true, null)
         status.text = when {
             full -> "Carga completa"
             info.isCharging == true -> "Carregando"
             info.isPlugged == true -> "Conectado • carga pausada"
-            info.isPlugged == false -> "Na bateria"
-            info.percent != null -> "Bateria"
+            info.isPlugged == false -> "Usando a bateria"
             else -> "Status da bateria"
         }
         val active = info.isCharging == true || full
@@ -265,21 +104,182 @@ class MainScreenRenderer(private val activity: Activity) {
             0,
             0
         )
-        status.background = statusBackground(if (active) true else info.isCharging)
-        status.contentDescription = when {
-            full -> "Carga completa. Bateria em 100 por cento."
-            active && estimate != null ->
-                "Carregando. Aproximadamente ${ChargeTimeFormatter.compact(estimate.remainingMs)} até 100 por cento. ${ChargeTimeFormatter.sourceLabel(estimate)}"
-            info.isCharging == true -> "Carregando. Calculando tempo até 100 por cento."
-            info.isPlugged == false && dischargeRemainingMs != null ->
-                "Na bateria. Aproximadamente ${ChargeTimeFormatter.compact(dischargeRemainingMs)} restantes. Estimativa calculada pelo ritmo real da sessão de descarga."
-            info.isPlugged == false -> "Na bateria. Calculando autonomia."
-            else -> status.text
+        status.compoundDrawablePadding = 7
+        status.background = statusBackground(active)
+        estimateText.text = estimateLabel(info, full, estimate, discharge)
+    }
+
+    private fun estimateLabel(
+        info: BatteryInfo,
+        full: Boolean,
+        estimate: ChargeTimeEstimator.Estimate?,
+        discharge: ActiveDischarge?
+    ): String = when {
+        full -> "A bateria chegou a 100%."
+        info.isCharging == true && estimate != null -> {
+            val target = Date(System.currentTimeMillis() + estimate.remainingMs)
+            val time = DateFormat.getTimeFormat(activity).format(target)
+            val source = when (estimate.source) {
+                ChargeTimeEstimator.Source.SYSTEM -> "estimativa do Android"
+                ChargeTimeEstimator.Source.SESSION -> "estimativa pelo ritmo observado"
+            }
+            "Previsão de 100% por volta das $time • $source"
+        }
+        info.isCharging == true -> "Estimativa em preparação • precisamos de mais dados desta carga"
+        info.isPlugged == false -> BatteryRateEstimator.dischargeRemainingMs(discharge)?.let {
+            "Autonomia aproximada: ${ChargeTimeFormatter.compact(it)}"
+        } ?: "Autonomia em preparação • precisamos observar o ritmo de descarga"
+        info.isPlugged == true -> "A fonte está conectada, mas a carga está pausada."
+        else -> "Aguardando informações da bateria."
+    }
+
+    private fun renderSourceDetection(info: BatteryInfo) {
+        val detection = detectedConnection(info.source)
+        detectedSource.text = when {
+            sourceProfile != null && detection != null -> "Perfil configurado • Android detectou $detection"
+            sourceProfile != null -> "Perfil configurado • tipo da conexão não identificado"
+            detection != null -> "Sem perfil • Android detectou $detection"
+            else -> "Toque para informar a fonte usada"
+        }
+        detectedSource.setTextColor(activity.getColor(R.color.text_secondary))
+    }
+
+    private fun renderCondition(info: BatteryInfo, session: ChargingSession.Snapshot) {
+        val result = ChargeConditionInterpreter.interpret(info, session, sourceProfile)
+        conditionTitle.text = "${levelIcon(result.level)}  ${result.title}"
+        conditionTitle.setTextColor(activity.getColor(levelColor(result.level)))
+        conditionMessage.text = result.explanation
+    }
+
+    private fun renderQuickMetrics(
+        info: BatteryInfo,
+        session: ChargingSession.Snapshot,
+        discharge: ActiveDischarge?
+    ) {
+        if (info.isPlugged == false) {
+            val rate = BatteryRateEstimator.dischargePercentPerHour(discharge)
+            powerLabel.text = "Ritmo de descarga"
+            power.text = rate?.let(DischargeFormatter::rate) ?: "Calculando…"
+            power.setTextColor(activity.getColor(if (rate == null) R.color.value_unavailable else R.color.accent_orange))
+            powerHint.text = if (rate == null) "Precisamos observar mais a descarga" else "Queda aproximada por hora"
+            powerCard.alpha = if (rate == null) 0.72f else 1f
+        } else {
+            powerLabel.text = "Potência agora"
+            power.text = BatteryFormatter.power(info.powerW)
+            power.setTextColor(activity.getColor(if (info.powerW == null) R.color.value_unavailable else R.color.accent_blue))
+            powerHint.text = powerContext(info.powerW, sourceProfile?.nominalPowerW)
+            powerCard.alpha = if (info.powerW == null) 0.72f else 1f
+        }
+
+        currentLabel.text = if (info.isPlugged == false) "Corrente da bateria" else "Corrente agora"
+        val currentMa = info.currentMa
+        current.text = BatteryFormatter.signedCurrent(currentMa)
+        current.setTextColor(
+            activity.getColor(
+                when {
+                    currentMa == null -> R.color.value_unavailable
+                    currentMa < -50.0 && info.isPlugged == true -> R.color.accent_red
+                    currentMa < -50.0 -> R.color.accent_blue
+                    currentMa > 50.0 -> R.color.accent_green
+                    else -> R.color.text_primary
+                }
+            )
+        )
+        currentHint.text = when {
+            currentMa == null -> "Leitura indisponível"
+            currentMa < -50.0 && info.isPlugged == true -> "Consumo líquido mesmo conectado"
+            currentMa < -50.0 -> "Energia saindo da bateria"
+            currentMa > 50.0 -> "Energia entrando no aparelho"
+            else -> "Fluxo próximo de zero"
+        }
+        currentCard.alpha = if (currentMa == null) 0.72f else 1f
+
+        temperature.text = BatteryFormatter.temperature(info.temperatureC)
+        temperature.setTextColor(activity.getColor(temperatureColor(info.temperatureC)))
+        temperatureHint.text = ChargeConditionInterpreter.temperatureLabel(info.temperatureC)
+        temperatureCard.alpha = if (info.temperatureC == null) 0.72f else 1f
+
+        if (info.isPlugged == false) {
+            energyLabel.text = "Queda da bateria"
+            energy.text = discharge?.let { "${it.dropPercent}%" } ?: "—"
+            energy.setTextColor(activity.getColor(if (discharge == null) R.color.value_unavailable else R.color.text_primary))
+            energyHint.text = discharge?.let { "Em ${TimeFormatter.elapsed(it.durationMs)}" } ?: "Aguardando período de descarga"
+            energyCard.alpha = if (discharge == null) 0.72f else 1f
+        } else {
+            energyLabel.text = "Energia recebida"
+            energy.text = SessionFormatter.energy(session.energyWh)
+            energy.setTextColor(activity.getColor(if (session.energyWh == null) R.color.value_unavailable else R.color.text_primary))
+            energyHint.text = session.elapsedMs?.let { "Nesta sessão • ${TimeFormatter.elapsed(it)}" } ?: "Aguardando sessão"
+            energyCard.alpha = if (session.energyWh == null) 0.72f else 1f
         }
     }
 
-    private fun statusBackground(charging: Boolean?): GradientDrawable {
-        val colors = if (charging == true) {
+    private fun renderTechnicalDetails(info: BatteryInfo, session: ChargingSession.Snapshot) {
+        voltage.text = BatteryFormatter.voltage(info.voltageMv)
+        charge.text = SessionFormatter.charge(session.chargeMah)
+        elapsed.text = session.elapsedMs?.let(TimeFormatter::elapsed) ?: "—"
+        technicalNote.text = buildString {
+            append("Medido pelo Android: tensão, corrente e temperatura. Energia e mAh são cálculos a partir das leituras válidas.")
+            detectedConnection(info.source)?.let { append(" Conexão informada pelo sistema: $it.") }
+        }
+    }
+
+    private fun powerContext(powerW: Double?, nominalW: Double?): String {
+        if (powerW == null) return "Leitura indisponível"
+        if (nominalW == null || nominalW <= 0.0) return "Observada no aparelho"
+        val percent = ((powerW / nominalW) * 100.0).roundToInt().coerceAtLeast(0)
+        return "≈$percent% da referência configurada"
+    }
+
+    private fun profileLabel(profile: EnergySourceProfile): String {
+        val identity = listOfNotNull(profile.brand?.clean(), profile.model?.clean()).joinToString(" ").ifBlank {
+            profile.type.label
+        }
+        val power = profile.nominalPowerW?.takeIf { it > 0.0 }?.let(SourceProfileNameBuilder::formatPower)
+        return if (power == null || identity.contains(power, ignoreCase = true)) identity else "$identity • $power"
+    }
+
+    private fun detectedConnection(source: ChargingSource): String? = when (source) {
+        ChargingSource.AC -> "conexão AC"
+        ChargingSource.USB -> "USB"
+        ChargingSource.WIRELESS -> "carregamento sem fio"
+        ChargingSource.BATTERY -> "uso da bateria"
+        ChargingSource.UNKNOWN -> null
+    }
+
+    private fun EnergySourceType.icon(): String = when (this) {
+        EnergySourceType.SOLAR_PANEL -> "☀"
+        EnergySourceType.CHARGER -> "🔌"
+        EnergySourceType.POWER_BANK -> "🔋"
+        EnergySourceType.OTHER -> "⚡"
+    }
+
+    private fun temperatureColor(celsius: Double?): Int = when {
+        celsius == null -> R.color.value_unavailable
+        celsius >= 45.0 -> R.color.accent_red
+        celsius >= 42.0 -> R.color.accent_orange
+        celsius >= 38.0 -> R.color.accent_orange
+        else -> R.color.accent_green
+    }
+
+    private fun levelIcon(level: ChargeConditionInterpreter.Level): String = when (level) {
+        ChargeConditionInterpreter.Level.GOOD -> "●"
+        ChargeConditionInterpreter.Level.INFO -> "●"
+        ChargeConditionInterpreter.Level.ATTENTION -> "●"
+        ChargeConditionInterpreter.Level.ELEVATED -> "●"
+        ChargeConditionInterpreter.Level.CRITICAL -> "●"
+    }
+
+    private fun levelColor(level: ChargeConditionInterpreter.Level): Int = when (level) {
+        ChargeConditionInterpreter.Level.GOOD -> R.color.accent_green
+        ChargeConditionInterpreter.Level.INFO -> R.color.accent_blue
+        ChargeConditionInterpreter.Level.ATTENTION -> R.color.accent_orange
+        ChargeConditionInterpreter.Level.ELEVATED -> R.color.accent_orange
+        ChargeConditionInterpreter.Level.CRITICAL -> R.color.accent_red
+    }
+
+    private fun statusBackground(active: Boolean): GradientDrawable {
+        val colors = if (active) {
             intArrayOf(Color.rgb(16, 61, 42), Color.rgb(9, 39, 28))
         } else {
             intArrayOf(Color.rgb(31, 47, 61), Color.rgb(22, 35, 47))
@@ -287,10 +287,10 @@ class MainScreenRenderer(private val activity: Activity) {
         return GradientDrawable(GradientDrawable.Orientation.TL_BR, colors).apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadius = 100f
-            setStroke(
-                1,
-                activity.getColor(if (charging == true) R.color.accent_green_dark else R.color.status_idle_border)
-            )
+            setStroke(1, activity.getColor(if (active) R.color.accent_green_dark else R.color.status_idle_border))
         }
     }
+
+    private fun String.clean(): String? = trim().takeIf { it.isNotBlank() && !it.equals("Outra", true) }
+    private fun text(id: Int): TextView = activity.findViewById(id)
 }

@@ -39,7 +39,8 @@ class SessionAccumulator(savedState: State? = null) {
         val maxVoltageV: Double?,
         val averageTemperatureC: Double?,
         val maxTemperatureC: Double?,
-        val powerVariationRatio: Double?
+        val powerVariationRatio: Double?,
+        val powerSampleCount: Int
     )
 
     private var energyWh = 0.0
@@ -127,7 +128,8 @@ class SessionAccumulator(savedState: State? = null) {
         maxVoltageV = maxVoltageV,
         averageTemperatureC = averageWeighted(temperatureCelsiusMs, temperatureDurationMs),
         maxTemperatureC = maxTemperatureC,
-        powerVariationRatio = powerVariationRatio()
+        powerVariationRatio = powerVariationRatio(),
+        powerSampleCount = powerSampleCount
     )
 
     fun savedState(): State = State(

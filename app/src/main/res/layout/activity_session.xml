@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Resumo simples da carga atual"
+            android:text="O que aconteceu nesta carga, primeiro em linguagem simples"
             android:textColor="@color/text_secondary"
             android:textSize="12sp" />
     </LinearLayout>
@@ -59,7 +59,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FONTE DESTA SESSÃO"
+                    android:text="Fonte desta sessão"
                     android:textColor="@color/text_muted"
                     android:textSize="10sp"
                     android:textStyle="bold" />
@@ -105,6 +105,14 @@
                             android:text="Sem referência nominal"
                             android:textColor="@color/text_secondary"
                             android:textSize="11sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Observado no aparelho; não é uma medição direta da saída total da fonte."
+                            android:textColor="@color/text_muted"
+                            android:textSize="10sp" />
                     </LinearLayout>
 
                     <TextView
@@ -173,7 +181,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_primary_button"
                 android:gravity="center"
-                android:text="▤  Ver painel técnico  ›"
+                android:text="Ver detalhes técnicos  ›"
                 android:textColor="#07110A"
                 android:textSize="13sp"
                 android:textStyle="bold" />
@@ -249,6 +257,7 @@
                     <include layout="@layout/session_row_elapsed" />
                     <include layout="@layout/session_row_charging_time" />
                     <include layout="@layout/session_row_interruptions" />
+                    <include layout="@layout/session_row_sample_count" />
                 </LinearLayout>
 
                 <LinearLayout

@@ -8,29 +8,29 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="58dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="8dp"
+        android:paddingStart="6dp"
         android:paddingEnd="14dp">
 
         <ImageButton
             android:id="@+id/sourceProfileBackButton"
             android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:background="@android:color/transparent"
             android:contentDescription="Voltar"
             android:padding="10dp"
             android:src="@drawable/ic_arrow_back" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Perfil da fonte"
-            android:textColor="@color/text_primary"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perfil da fonte" android:textColor="@color/text_primary" android:textSize="23sp" android:textStyle="bold" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Informe apenas o que você realmente sabe" android:textColor="@color/text_secondary" android:textSize="10sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <ScrollView
@@ -44,417 +44,294 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="16dp"
-            android:paddingTop="6dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="24dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_card_green_outline"
-                android:orientation="vertical"
-                android:padding="14dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PREENCHIMENTO GUIADO"
-                    android:textColor="@color/accent_green"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Escolha o tipo e depois toque nos atalhos. O app preenche os campos; digitação fica só para etiquetas diferentes."
-                    android:textColor="@color/text_primary"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/sourceDataHint"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:text="Escolha o tipo da fonte para receber orientação de preenchimento."
-                    android:textColor="@color/accent_blue"
-                    android:textSize="11sp" />
-            </LinearLayout>
+            android:paddingStart="14dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="22dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="1. TIPO DA FONTE"
-                android:textColor="@color/text_muted"
-                android:textSize="11sp"
+                android:text="O que está fornecendo energia?"
+                android:textColor="@color/text_primary"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <RadioGroup
                 android:id="@+id/sourceTypeGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:background="@drawable/bg_card"
-                android:padding="8dp">
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
 
                 <RadioButton
                     android:id="@+id/sourceTypeSolar"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/bg_secondary_button"
                     android:buttonTint="@color/accent_green"
                     android:gravity="center_vertical"
-                    android:text="Painel solar"
-                    android:textColor="@color/text_primary" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="☀  Painel solar"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/sourceTypeCharger"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/bg_secondary_button"
                     android:buttonTint="@color/accent_green"
                     android:gravity="center_vertical"
-                    android:text="Carregador de tomada"
-                    android:textColor="@color/text_primary" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="🔌  Carregador"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/sourceTypePowerBank"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/bg_secondary_button"
                     android:buttonTint="@color/accent_green"
                     android:gravity="center_vertical"
-                    android:text="Power bank"
-                    android:textColor="@color/text_primary" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="🔋  Power bank"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/sourceTypeOther"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_secondary_button"
                     android:buttonTint="@color/accent_green"
                     android:gravity="center_vertical"
-                    android:text="Outra fonte"
-                    android:textColor="@color/text_primary" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="⚡  Outra fonte"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </RadioGroup>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="2. TOQUE PARA PREENCHER"
-                android:textColor="@color/text_muted"
-                android:textSize="11sp"
-                android:textStyle="bold" />
-
-            <include layout="@layout/panel_source_suggestions" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:text="3. DADOS DA ETIQUETA"
-                android:textColor="@color/text_muted"
-                android:textSize="11sp"
-                android:textStyle="bold" />
-
-            <TextView
+                android:id="@+id/sourceDataHint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Os campos abaixo já recebem as opções escolhidas. Edite manualmente somente se precisar."
-                android:textColor="@color/text_secondary"
-                android:textSize="11sp" />
+                android:layout_marginTop="8dp"
+                android:text="Escolha o tipo da fonte para receber opções adequadas."
+                android:textColor="@color/accent_blue"
+                android:textSize="10sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_card_blue_outline"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <EditText
-                    android:id="@+id/sourceBrandInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/bg_input"
-                    android:hint="Marca (opcional)"
-                    android:inputType="textCapWords"
-                    android:maxLines="1"
-                    android:textColor="@color/text_primary"
-                    android:textColorHint="@color/text_muted"
-                    android:textSize="13sp" />
-
-                <EditText
-                    android:id="@+id/sourceModelInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_input"
-                    android:hint="Modelo / preset"
-                    android:inputType="textCapWords"
-                    android:maxLines="1"
-                    android:textColor="@color/text_primary"
-                    android:textColorHint="@color/text_muted"
-                    android:textSize="13sp" />
-
-                <EditText
-                    android:id="@+id/sourcePowerInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_input"
-                    android:hint="Potência nominal em W"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1"
-                    android:textColor="@color/text_primary"
-                    android:textColorHint="@color/text_muted"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/sourcePowerHelp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Opcional, mas recomendada."
-                    android:textColor="@color/text_muted"
-                    android:textSize="10sp" />
-
-                <LinearLayout
-                    android:id="@+id/electricalDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <EditText
-                        android:id="@+id/sourceOutputsInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:background="@drawable/bg_input"
-                        android:gravity="top|start"
-                        android:hint="Saídas da etiqueta"
-                        android:inputType="textMultiLine"
-                        android:paddingTop="12dp"
-                        android:textColor="@color/text_primary"
-                        android:textColorHint="@color/text_muted"
-                        android:textSize="12sp" />
-
-                    <EditText
-                        android:id="@+id/sourceTechnologyInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/bg_input"
-                        android:hint="Protocolo / tecnologia"
-                        android:inputType="textCapWords"
-                        android:maxLines="1"
-                        android:textColor="@color/text_primary"
-                        android:textColorHint="@color/text_muted"
-                        android:textSize="13sp" />
-
-                    <EditText
-                        android:id="@+id/sourcePortInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/bg_input"
-                        android:hint="Porta usada"
-                        android:inputType="textCapCharacters"
-                        android:maxLines="1"
-                        android:textColor="@color/text_primary"
-                        android:textColorHint="@color/text_muted"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/cableDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <EditText
-                        android:id="@+id/sourceCableInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_input"
-                        android:hint="Cabo usado (opcional)"
-                        android:inputType="textCapWords"
-                        android:maxLines="1"
-                        android:textColor="@color/text_primary"
-                        android:textColorHint="@color/text_muted"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/powerBankDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <EditText
-                        android:id="@+id/sourceCapacityInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_input"
-                        android:hint="Capacidade declarada em mAh"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:textColor="@color/text_primary"
-                        android:textColorHint="@color/text_muted"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/solarDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <EditText
-                        android:id="@+id/sourceVoltageInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_input"
-                        android:hint="Tensão nominal em V"
-                        android:inputType="numberDecimal"
-                        android:maxLines="1"
-                        android:textColor="@color/text_primary"
-                        android:textColorHint="@color/text_muted"
-                        android:textSize="13sp" />
-
-                    <EditText
-                        android:id="@+id/sourceCurrentInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/bg_input"
-                        android:hint="Corrente nominal em A"
-                        android:inputType="numberDecimal"
-                        android:maxLines="1"
-                        android:textColor="@color/text_primary"
-                        android:textColorHint="@color/text_muted"
-                        android:textSize="13sp" />
-
-                    <EditText
-                        android:id="@+id/sourceControllerInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/bg_input"
-                        android:hint="Controlador / conversor"
-                        android:inputType="textCapSentences"
-                        android:maxLines="1"
-                        android:textColor="@color/text_primary"
-                        android:textColorHint="@color/text_muted"
-                        android:textSize="13sp" />
-                </LinearLayout>
+                android:layout_marginTop="10dp">
+                <include layout="@layout/panel_source_suggestions" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:text="NOME DO PERFIL"
-                android:textColor="@color/text_muted"
-                android:textSize="11sp"
+                android:layout_marginTop="10dp"
+                android:text="Nome personalizado"
+                android:textColor="@color/text_secondary"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/sourceCustomNameInput"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/bg_input"
-                android:hint="Opcional — deixe vazio para gerar automaticamente"
+                android:hint="Opcional — o app pode gerar o nome"
                 android:inputType="textCapSentences"
                 android:maxLines="1"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_muted"
-                android:textSize="13sp" />
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/sourceAdvancedToggle"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_secondary_button"
+                android:gravity="center_vertical"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="⚙  Dados técnicos da etiqueta  ›"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:textStyle="bold" />
 
             <LinearLayout
+                android:id="@+id/sourceAdvancedContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/bg_card_blue_outline"
                 android:orientation="vertical"
-                android:padding="14dp">
+                android:padding="12dp"
+                android:visibility="gone">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PRÉVIA DO PERFIL"
-                    android:textColor="@color/accent_blue"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/sourceNamePreview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Perfil da fonte"
-                    android:textColor="@color/accent_blue"
-                    android:textSize="19sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/sourceProfilePreviewDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Os detalhes aparecerão aqui conforme você selecionar as opções."
+                    android:text="Use esta área somente para valores da etiqueta ou informações que você conhece."
                     android:textColor="@color/text_secondary"
+                    android:textSize="10sp" />
+
+                <EditText
+                    android:id="@+id/sourceBrandInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_input"
+                    android:hint="Marca — ajuste manual"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_muted"
                     android:textSize="11sp" />
+
+                <EditText
+                    android:id="@+id/sourceModelInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_input"
+                    android:hint="Modelo — ajuste manual"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_muted"
+                    android:textSize="11sp" />
+
+                <EditText
+                    android:id="@+id/sourcePowerInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_input"
+                    android:hint="Potência em W — ajuste manual"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_muted"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/sourcePowerHelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Use o valor informado na etiqueta."
+                    android:textColor="@color/text_muted"
+                    android:textSize="9sp" />
+
+                <LinearLayout
+                    android:id="@+id/electricalDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <EditText android:id="@+id/sourceTechnologyInput" android:layout_width="match_parent" android:layout_height="48dp" android:background="@drawable/bg_input" android:hint="USB-PD, PPS, Quick Charge…" android:inputType="textCapSentences" android:maxLines="1" android:textColor="@color/text_primary" android:textColorHint="@color/text_muted" android:textSize="11sp" />
+                    <EditText android:id="@+id/sourcePortInput" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="6dp" android:background="@drawable/bg_input" android:hint="Porta utilizada" android:inputType="textCapSentences" android:maxLines="1" android:textColor="@color/text_primary" android:textColorHint="@color/text_muted" android:textSize="11sp" />
+                    <EditText android:id="@+id/sourceOutputsInput" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="6dp" android:background="@drawable/bg_input" android:hint="Saídas / dados da etiqueta" android:inputType="textCapSentences" android:maxLines="1" android:textColor="@color/text_primary" android:textColorHint="@color/text_muted" android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cableDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <EditText android:id="@+id/sourceCableInput" android:layout_width="match_parent" android:layout_height="48dp" android:background="@drawable/bg_input" android:hint="Cabo utilizado" android:inputType="textCapSentences" android:maxLines="1" android:textColor="@color/text_primary" android:textColorHint="@color/text_muted" android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/powerBankDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <EditText android:id="@+id/sourceCapacityInput" android:layout_width="match_parent" android:layout_height="48dp" android:background="@drawable/bg_input" android:hint="Capacidade declarada em mAh" android:inputType="number" android:maxLines="1" android:textColor="@color/text_primary" android:textColorHint="@color/text_muted" android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/solarDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <EditText android:id="@+id/sourceVoltageInput" android:layout_width="match_parent" android:layout_height="48dp" android:background="@drawable/bg_input" android:hint="Tensão nominal em V" android:inputType="numberDecimal" android:maxLines="1" android:textColor="@color/text_primary" android:textColorHint="@color/text_muted" android:textSize="11sp" />
+                    <EditText android:id="@+id/sourceCurrentInput" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="6dp" android:background="@drawable/bg_input" android:hint="Corrente nominal em A" android:inputType="numberDecimal" android:maxLines="1" android:textColor="@color/text_primary" android:textColorHint="@color/text_muted" android:textSize="11sp" />
+                    <EditText android:id="@+id/sourceControllerInput" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="6dp" android:background="@drawable/bg_input" android:hint="Controlador / conversor" android:inputType="textCapSentences" android:maxLines="1" android:textColor="@color/text_primary" android:textColorHint="@color/text_muted" android:textSize="11sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bg_session_guide"
+                android:background="@drawable/bg_card_green_outline"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:padding="13dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="ⓘ Os dados da etiqueta são referência nominal. As leituras do Android mostram o que chega ao aparelho e não medem diretamente a saída da fonte."
-                    android:textColor="@color/text_secondary"
-                    android:textSize="11sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SEU PERFIL" android:textColor="@color/accent_green" android:textSize="9sp" android:textStyle="bold" />
+                <TextView android:id="@+id/sourceNamePreview" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Escolha o tipo da fonte" android:textColor="@color/text_primary" android:textSize="17sp" android:textStyle="bold" />
+                <TextView android:id="@+id/sourceProfilePreviewDetails" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Os dados aparecerão aqui." android:textColor="@color/text_secondary" android:textSize="10sp" />
+                <TextView android:id="@+id/sourceAdvancedCount" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Dados técnicos opcionais configurados: 0" android:textColor="@color/text_muted" android:textSize="9sp" />
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="ⓘ O perfil é configurado por você. As leituras do Android mostram o que chega ao aparelho e não medem diretamente a saída total da fonte."
+                android:textColor="@color/text_muted"
+                android:textSize="9sp" />
 
             <Button
                 android:id="@+id/saveSourceProfileButton"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/bg_primary_button"
                 android:minHeight="0dp"
-                android:text="✓  Salvar perfil"
+                android:text="Salvar perfil"
                 android:textAllCaps="false"
                 android:textColor="#07110A"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/cancelSourceProfileButton"
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/bg_secondary_button"
                 android:minHeight="0dp"
                 android:text="Cancelar"
                 android:textAllCaps="false"
                 android:textColor="@color/text_primary"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>

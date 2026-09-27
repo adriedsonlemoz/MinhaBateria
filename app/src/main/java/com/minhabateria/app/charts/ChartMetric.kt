@@ -20,7 +20,11 @@ enum class ChartMetric(val title: String) {
         return when (this) {
             POWER -> String.format(Locale.getDefault(), "%.2f W", value)
             CURRENT -> String.format(Locale.getDefault(), "%.0f mA", value)
-            TEMPERATURE -> String.format(Locale.getDefault(), "%.1f °C", value)
+            TEMPERATURE -> {
+                val rounded = kotlin.math.round(value)
+                val pattern = if (kotlin.math.abs(value - rounded) < 0.05) "%.0f °C" else "%.1f °C"
+                String.format(Locale.getDefault(), pattern, value)
+            }
             BATTERY -> String.format(Locale.getDefault(), "%.0f%%", value)
         }
     }

@@ -33,12 +33,17 @@ class SourceProfileActivity : Activity() {
     private lateinit var powerHelp: TextView
     private lateinit var namePreview: TextView
     private lateinit var previewDetails: TextView
+    private lateinit var advancedCount: TextView
+    private lateinit var advancedToggle: TextView
+    private lateinit var advancedContainer: View
+    private lateinit var suggestionAdvancedContainer: View
     private lateinit var electricalDetails: View
     private lateinit var cableDetails: View
     private lateinit var powerBankDetails: View
     private lateinit var solarDetails: View
     private lateinit var suggestions: SourceProfileSuggestionBinder
     private var initialSetup = false
+    private var advancedVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +55,7 @@ class SourceProfileActivity : Activity() {
         bindActions()
         loadExistingProfile()
         updateFormForType()
+        showAdvanced(false)
         updateNamePreview()
     }
 
@@ -74,14 +80,20 @@ class SourceProfileActivity : Activity() {
         powerHelp = findViewById(R.id.sourcePowerHelp)
         namePreview = findViewById(R.id.sourceNamePreview)
         previewDetails = findViewById(R.id.sourceProfilePreviewDetails)
+        advancedCount = findViewById(R.id.sourceAdvancedCount)
+        advancedToggle = findViewById(R.id.sourceAdvancedToggle)
+        advancedContainer = findViewById(R.id.sourceAdvancedContainer)
+        suggestionAdvancedContainer = findViewById(R.id.suggestAdvancedContainer)
         electricalDetails = findViewById(R.id.electricalDetails)
         cableDetails = findViewById(R.id.cableDetails)
         powerBankDetails = findViewById(R.id.powerBankDetails)
         solarDetails = findViewById(R.id.solarDetails)
         suggestions = SourceProfileSuggestionBinder(
             this, brandInput, modelInput, powerInput, outputsInput, technologyInput,
-            portInput, cableInput, capacityInput, voltageInput, currentInput, controllerInput
-        ) { updateNamePreview() }
+            portInput, cableInput, capacityInput, voltageInput, currentInput, controllerInput,
+            onChanged = { updateNamePreview() },
+            onManualEntryRequested = { showAdvanced(true) }
+        )
     }
 
     private fun bindActions() {
@@ -91,6 +103,7 @@ class SourceProfileActivity : Activity() {
             setOnClickListener { cancel() }
         }
         findViewById<Button>(R.id.saveSourceProfileButton).setOnClickListener { save() }
+        advancedToggle.setOnClickListener { showAdvanced(!advancedVisible) }
         typeGroup.setOnCheckedChangeListener { _, _ -> updateFormForType() }
         listOf(
             brandInput, modelInput, powerInput, customNameInput, outputsInput, technologyInput,
@@ -120,8 +133,7 @@ class SourceProfileActivity : Activity() {
         val type = selectedType() ?: return toast("Selecione o tipo da fonte.")
         val power = powerInput.decimalValue()
         if (type == EnergySourceType.SOLAR_PANEL && (power == null || power <= 0.0)) {
-            powerInput.error = "Informe a potência nominal indicada no painel"
-            return
+            return toast("Escolha a potência indicada no painel.")
         }
         if (powerInput.hasText() && (power == null || power <= 0.0)) return invalid(powerInput)
         val capacity = capacityInput.text.toString().trim().toIntOrNull()
@@ -164,30 +176,41 @@ class SourceProfileActivity : Activity() {
 
     private fun updateFormForType() {
         val type = selectedType()
-        electricalDetails.visibility = if (type == EnergySourceType.SOLAR_PANEL || type == null) View.GONE else View.VISIBLE
-        cableDetails.visibility = if (type == EnergySourceType.CHARGER) View.VISIBLE else View.GONE
-        powerBankDetails.visibility = if (type == EnergySourceType.POWER_BANK) View.VISIBLE else View.GONE
-        solarDetails.visibility = if (type == EnergySourceType.SOLAR_PANEL) View.VISIBLE else View.GONE
+        electricalDetails.visibility = visible(type == EnergySourceType.CHARGER || type == EnergySourceType.POWER_BANK)
+        cableDetails.visibility = visible(type == EnergySourceType.CHARGER)
+        powerBankDetails.visibility = visible(type == EnergySourceType.POWER_BANK)
+        solarDetails.visibility = visible(type == EnergySourceType.SOLAR_PANEL)
         suggestions.updateForType(type)
         sourceDataHint.text = when (type) {
-            EnergySourceType.CHARGER -> "Escolha sugestões de marca, modelo, W, protocolo e saída. Digite somente se sua etiqueta tiver algo diferente."
-            EnergySourceType.POWER_BANK -> "Use os seletores para marca, capacidade, potência, protocolo e saída; ajuste manualmente apenas o que faltar."
-            EnergySourceType.SOLAR_PANEL -> "Use o preset do painel ou selecione W, V, A e controlador. O preset 8 W preenche 8 W, 5 V e 1,6 A de uma vez."
-            EnergySourceType.OTHER -> "Use os atalhos genéricos e ajuste manualmente apenas se a etiqueta tiver algo diferente."
-            null -> "Escolha o tipo da fonte para receber orientação de preenchimento."
+            EnergySourceType.CHARGER -> "Escolha marca, modelo e potência. Protocolos, porta e cabo ficam nos dados técnicos."
+            EnergySourceType.POWER_BANK -> "Escolha marca, modelo, potência e capacidade. O restante é opcional."
+            EnergySourceType.SOLAR_PANEL -> "Escolha o painel e a potência nominal. Tensão, corrente e controlador ficam nos dados técnicos."
+            EnergySourceType.OTHER -> "Informe apenas a identificação e a potência se você souber."
+            null -> "Escolha o tipo da fonte para receber opções adequadas."
         }
         powerHelp.text = if (type == EnergySourceType.SOLAR_PANEL) {
-            "Obrigatória para painel solar. Informe o valor nominal da etiqueta."
+            "No painel solar, use a potência nominal indicada na etiqueta."
         } else {
-            "Opcional, mas recomendada. Informe a potência máxima declarada pela fonte."
+            "Use a potência máxima declarada pela fonte, se conhecida."
         }
+        syncTypeCards()
         updateNamePreview()
+    }
+
+    private fun showAdvanced(show: Boolean) {
+        advancedVisible = show
+        advancedContainer.visibility = visible(show)
+        suggestionAdvancedContainer.visibility = visible(show)
+        advancedToggle.text = if (show) "⚙  Ocultar dados técnicos  ‹" else "⚙  Dados técnicos da etiqueta  ›"
+        advancedToggle.setTextColor(getColor(if (show) R.color.text_primary else R.color.text_secondary))
     }
 
     private fun updateNamePreview() {
         val type = selectedType() ?: run {
             namePreview.text = "Escolha o tipo da fonte"
-            previewDetails.text = "Os detalhes aparecerão aqui conforme você selecionar as opções."
+            previewDetails.text = "Marca, modelo e potência aparecerão aqui."
+            advancedCount.text = "Dados técnicos opcionais configurados: 0"
+            suggestions.syncLabels()
             return
         }
         val power = powerInput.decimalValue()
@@ -198,27 +221,42 @@ class SourceProfileActivity : Activity() {
             modelInput.cleanText(),
             power
         )
-        previewDetails.text = buildPreviewDetails(type, power)
+        previewDetails.text = buildBasicPreview(type, power)
+        advancedCount.text = "Dados técnicos opcionais configurados: ${advancedFieldCount(type)}"
         suggestions.syncLabels()
     }
 
-    private fun buildPreviewDetails(type: EnergySourceType, power: Double?): String {
+    private fun buildBasicPreview(type: EnergySourceType, power: Double?): String {
         val parts = mutableListOf(type.label)
+        brandInput.cleanText()?.let(parts::add)
         modelInput.cleanText()?.let(parts::add)
         power?.takeIf { it > 0.0 }?.let { parts += SourceProfileNameBuilder.formatPower(it) }
-        when (type) {
-            EnergySourceType.SOLAR_PANEL -> {
-                voltageInput.decimalValue()?.let { parts += "${it.asInput()} V" }
-                currentInput.decimalValue()?.let { parts += "${it.asInput()} A" }
-            }
-            EnergySourceType.POWER_BANK -> capacityInput.text.toString().trim().toIntOrNull()?.let {
-                parts += "${it / 1000}.${(it % 1000).toString().padStart(3, '0')} mAh"
-            }
-            EnergySourceType.CHARGER -> portInput.cleanText()?.let(parts::add)
-            EnergySourceType.OTHER -> Unit
+        if (type == EnergySourceType.POWER_BANK) {
+            capacityInput.text.toString().trim().toIntOrNull()?.let { parts += formatCapacity(it) }
         }
-        technologyInput.cleanText()?.takeUnless { type == EnergySourceType.SOLAR_PANEL }?.let(parts::add)
         return parts.distinct().joinToString(" • ")
+    }
+
+    private fun advancedFieldCount(type: EnergySourceType): Int = when (type) {
+        EnergySourceType.CHARGER -> listOf(outputsInput, technologyInput, portInput, cableInput).count { it.hasText() }
+        EnergySourceType.POWER_BANK -> listOf(outputsInput, technologyInput, portInput).count { it.hasText() }
+        EnergySourceType.SOLAR_PANEL -> listOf(voltageInput, currentInput, controllerInput).count { it.hasText() }
+        EnergySourceType.OTHER -> 0
+    }
+
+    private fun syncTypeCards() {
+        listOf(
+            R.id.sourceTypeSolar,
+            R.id.sourceTypeCharger,
+            R.id.sourceTypePowerBank,
+            R.id.sourceTypeOther
+        ).forEach { id ->
+            val view = findViewById<View>(id)
+            view.background = getDrawable(
+                if (typeGroup.checkedRadioButtonId == id) R.drawable.bg_chart_selector_active
+                else R.drawable.bg_secondary_button
+            )
+        }
     }
 
     private fun cancel() {
@@ -245,8 +283,10 @@ class SourceProfileActivity : Activity() {
     private fun EditText.decimalValue(): Double? = text.toString().trim().replace(',', '.').toDoubleOrNull()
     private fun EditText.hasText(): Boolean = text.toString().isNotBlank()
     private fun Double?.asInput(): String = this?.toString()?.removeSuffix(".0")?.replace('.', ',').orEmpty()
-    private fun invalid(view: EditText) { view.error = "Confira o valor informado" }
+    private fun invalid(view: EditText) { showAdvanced(true); view.error = "Confira o valor informado"; view.requestFocus() }
     private fun toast(message: String) { Toast.makeText(this, message, Toast.LENGTH_SHORT).show() }
+    private fun visible(condition: Boolean): Int = if (condition) View.VISIBLE else View.GONE
+    private fun formatCapacity(value: Int): String = "${value / 1_000}.${(value % 1_000).toString().padStart(3, '0')} mAh"
 
     private val formWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
