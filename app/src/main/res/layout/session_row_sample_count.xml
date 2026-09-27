@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:text="Amostras de potência"
         android:textColor="@color/text_secondary"
-        android:textSize="13sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/sessionSampleCount"
@@ -23,6 +23,6 @@
         android:gravity="end"
         android:text="—"
         android:textColor="@color/text_primary"
-        android:textSize="14sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 </LinearLayout>

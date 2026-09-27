@@ -1,8 +1,0 @@
-.gradle/
-local.properties
-**/build/
-release/
-*.apk
-*.jks
-*Secrets*.txt
-*-source.zip

@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="Fonte atual"
                 android:textColor="@color/text_muted"
-                android:textSize="11sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/detectedSourceValue"
@@ -50,7 +50,7 @@
                 android:singleLine="true"
                 android:text="—"
                 android:textColor="@color/accent_blue"
-                android:textSize="14sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:text="Perfil configurado"
                 android:textColor="@color/text_muted"
-                android:textSize="10sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/profileSourceValue"
@@ -77,7 +77,7 @@
                 android:singleLine="true"
                 android:text="Não configurado"
                 android:textColor="@color/value_unavailable"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>

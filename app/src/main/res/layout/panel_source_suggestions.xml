@@ -4,14 +4,14 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_card"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="14dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CONFIGURAÇÃO BÁSICA"
         android:textColor="@color/accent_green"
-        android:textSize="10sp"
+        android:textSize="13sp"
         android:textStyle="bold" />
 
     <TextView
@@ -20,13 +20,13 @@
         android:layout_marginTop="3dp"
         android:text="Use os seletores. Digite manualmente somente se a etiqueta tiver algo diferente."
         android:textColor="@color/text_secondary"
-        android:textSize="10sp" />
+        android:textSize="13sp" />
 
     <Button
         android:id="@+id/suggestBrandButton"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="11dp"
         android:background="@drawable/bg_secondary_button"
         android:ellipsize="end"
         android:gravity="center_vertical|start"
@@ -37,13 +37,13 @@
         android:text="Marca  •  Escolher ▼"
         android:textAllCaps="false"
         android:textColor="@color/text_primary"
-        android:textSize="11sp" />
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/suggestModelButton"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/bg_secondary_button"
         android:ellipsize="end"
         android:gravity="center_vertical|start"
@@ -54,13 +54,13 @@
         android:text="Modelo  •  Escolher ▼"
         android:textAllCaps="false"
         android:textColor="@color/text_primary"
-        android:textSize="11sp" />
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/suggestPowerButton"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/bg_secondary_button"
         android:ellipsize="end"
         android:gravity="center_vertical|start"
@@ -71,13 +71,13 @@
         android:text="Potência  •  Escolher ▼"
         android:textAllCaps="false"
         android:textColor="@color/text_primary"
-        android:textSize="11sp" />
+        android:textSize="14sp" />
 
     <LinearLayout
         android:id="@+id/suggestCapacityRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -93,7 +93,7 @@
             android:text="Capacidade  •  Escolher ▼"
             android:textAllCaps="false"
             android:textColor="@color/text_primary"
-            android:textSize="11sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -107,7 +107,7 @@
             android:id="@+id/suggestTechPortRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -123,7 +123,7 @@
                 android:text="Protocolo ▼"
                 android:textAllCaps="false"
                 android:textColor="@color/text_primary"
-                android:textSize="10sp" />
+                android:textSize="13sp" />
             <Space android:layout_width="6dp" android:layout_height="1dp" />
             <Button
                 android:id="@+id/suggestPortButton"
@@ -137,14 +137,14 @@
                 android:text="Porta ▼"
                 android:textAllCaps="false"
                 android:textColor="@color/text_primary"
-                android:textSize="10sp" />
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/suggestOutputsRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:visibility="gone">
             <Button
@@ -156,14 +156,14 @@
                 android:text="Saída da etiqueta ▼"
                 android:textAllCaps="false"
                 android:textColor="@color/text_primary"
-                android:textSize="10sp" />
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/suggestSolarRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
             android:visibility="gone">
             <Button
@@ -176,7 +176,7 @@
                 android:text="Tensão ▼"
                 android:textAllCaps="false"
                 android:textColor="@color/text_primary"
-                android:textSize="10sp" />
+                android:textSize="13sp" />
             <Space android:layout_width="6dp" android:layout_height="1dp" />
             <Button
                 android:id="@+id/suggestCurrentButton"
@@ -188,14 +188,14 @@
                 android:text="Corrente ▼"
                 android:textAllCaps="false"
                 android:textColor="@color/text_primary"
-                android:textSize="10sp" />
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/suggestControllerRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:visibility="gone">
             <Button
@@ -207,14 +207,14 @@
                 android:text="Controlador / conversor ▼"
                 android:textAllCaps="false"
                 android:textColor="@color/text_primary"
-                android:textSize="10sp" />
+                android:textSize="13sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/suggestCableRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:visibility="gone">
             <Button
@@ -226,7 +226,7 @@
                 android:text="Cabo utilizado ▼"
                 android:textAllCaps="false"
                 android:textColor="@color/text_primary"
-                android:textSize="10sp" />
+                android:textSize="13sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

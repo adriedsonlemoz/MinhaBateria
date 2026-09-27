@@ -21,7 +21,7 @@
             android:background="@drawable/bg_status_chip"
             android:gravity="center"
             android:textColor="@color/accent_blue"
-            android:textSize="11sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             tools:text="1" />
 
@@ -46,7 +46,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 tools:text="Minha Bateria" />
 
@@ -58,7 +58,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="@color/text_muted"
-                android:textSize="11sp"
+                android:textSize="14sp"
                 tools:text="5 min em primeiro plano" />
         </LinearLayout>
 
@@ -70,7 +70,7 @@
             android:gravity="end"
             android:minWidth="46dp"
             android:textColor="@color/accent_blue"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             tools:text="63%" />
     </LinearLayout>
@@ -81,7 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="6dp"
         android:layout_marginStart="46dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:max="100"
         android:progress="0"
         android:progressDrawable="@drawable/progress_usage_activity"
@@ -94,5 +94,5 @@
         android:layout_marginTop="4dp"
         android:text="da atividade observada"
         android:textColor="@color/text_muted"
-        android:textSize="10sp" />
+        android:textSize="13sp" />
 </LinearLayout>

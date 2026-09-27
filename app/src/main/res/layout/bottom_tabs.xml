@@ -9,7 +9,7 @@
     android:elevation="4dp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="5dp">
+    android:padding="6dp">
 
     <LinearLayout
         android:id="@+id/tabNow"
@@ -33,7 +33,7 @@
             android:layout_marginTop="1dp"
             android:text="Agora"
             android:textColor="@color/text_tab_inactive"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,7 +56,7 @@
             android:layout_marginTop="1dp"
             android:text="Gráficos"
             android:textColor="@color/text_tab_inactive"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -81,7 +81,7 @@
             android:layout_marginTop="1dp"
             android:text="Sessão"
             android:textColor="@color/text_tab_inactive"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
 
@@ -107,7 +107,7 @@
             android:layout_marginTop="1dp"
             android:text="Descarga"
             android:textColor="@color/text_tab_inactive"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -130,6 +130,6 @@
             android:layout_marginTop="1dp"
             android:text="Histórico"
             android:textColor="@color/text_tab_inactive"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 </LinearLayout>

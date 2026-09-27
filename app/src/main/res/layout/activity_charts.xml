@@ -8,18 +8,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gráficos"
             android:textColor="@color/text_primary"
-            android:textSize="25sp"
+            android:textSize="27sp"
             android:textStyle="bold" />
 
         <TextView
@@ -27,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Veja o comportamento e a explicação dos dados"
             android:textColor="@color/text_secondary"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
     <ScrollView
@@ -60,7 +62,7 @@
                     android:gravity="center"
                     android:text="Bateria"
                     android:textColor="@color/accent_blue"
-                    android:textSize="10sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
                 <Space android:layout_width="5dp" android:layout_height="1dp" />
                 <TextView
@@ -72,7 +74,7 @@
                     android:gravity="center"
                     android:text="Corrente"
                     android:textColor="@color/text_secondary"
-                    android:textSize="10sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
                 <Space android:layout_width="5dp" android:layout_height="1dp" />
                 <TextView
@@ -84,7 +86,7 @@
                     android:gravity="center"
                     android:text="Potência"
                     android:textColor="@color/text_secondary"
-                    android:textSize="10sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
                 <Space android:layout_width="5dp" android:layout_height="1dp" />
                 <TextView
@@ -96,7 +98,7 @@
                     android:gravity="center"
                     android:text="Temperatura"
                     android:textColor="@color/text_secondary"
-                    android:textSize="9sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -115,7 +117,7 @@
                     android:gravity="center"
                     android:text="Período: 60 min ▼"
                     android:textColor="@color/text_primary"
-                    android:textSize="10sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -128,7 +130,7 @@
                     android:maxLines="2"
                     android:text="1 amostra a cada 10 s"
                     android:textColor="@color/text_muted"
-                    android:textSize="9sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -136,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_card"
                 android:orientation="vertical"
-                android:padding="13dp">
+                android:padding="15dp">
 
                 <TextView
                     android:id="@+id/chartMetricTitle"
@@ -144,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:text="Bateria agora"
                     android:textColor="@color/text_secondary"
-                    android:textSize="11sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -161,7 +163,7 @@
                         android:layout_weight="1"
                         android:text="—"
                         android:textColor="@color/accent_blue"
-                        android:textSize="29sp"
+                        android:textSize="31sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -176,7 +178,7 @@
                         android:paddingEnd="9dp"
                         android:text="● Estável"
                         android:textColor="@color/accent_green"
-                        android:textSize="10sp"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -187,13 +189,13 @@
                     android:layout_marginTop="2dp"
                     android:text="Variação: 0%"
                     android:textColor="@color/text_secondary"
-                    android:textSize="11sp" />
+                    android:textSize="14sp" />
 
                 <com.minhabateria.app.ui.MetricChartView
                     android:id="@+id/metricChart"
                     android:layout_width="match_parent"
                     android:layout_height="226dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp" />
             </LinearLayout>
@@ -201,17 +203,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/bg_session_guide"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:padding="14dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="O QUE ISSO SIGNIFICA?"
                     android:textColor="@color/text_muted"
-                    android:textSize="9sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -222,46 +224,46 @@
                     android:maxLines="5"
                     android:text="Aguardando dados do período."
                     android:textColor="@color/text_primary"
-                    android:textSize="11sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/chartDetailsToggle"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/bg_secondary_button"
                 android:gravity="center"
                 android:text="Ver detalhes do período  ›"
                 android:textColor="@color/text_secondary"
-                android:textSize="10sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/chartStatsRow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_history_metric_row"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="12dp"
                 android:visibility="gone">
 
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                    <TextView android:id="@+id/chartStat1Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mín." android:textColor="@color/text_muted" android:textSize="9sp" />
-                    <TextView android:id="@+id/chartStat1Value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/chartStat1Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mín." android:textColor="@color/text_muted" android:textSize="12sp" />
+                    <TextView android:id="@+id/chartStat1Value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold" />
                 </LinearLayout>
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                    <TextView android:id="@+id/chartStat2Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Máx." android:textColor="@color/text_muted" android:textSize="9sp" />
-                    <TextView android:id="@+id/chartStat2Value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/chartStat2Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Máx." android:textColor="@color/text_muted" android:textSize="12sp" />
+                    <TextView android:id="@+id/chartStat2Value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold" />
                 </LinearLayout>
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                    <TextView android:id="@+id/chartStat3Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Média" android:textColor="@color/text_muted" android:textSize="9sp" />
-                    <TextView android:id="@+id/chartStat3Value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/chartStat3Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Média" android:textColor="@color/text_muted" android:textSize="12sp" />
+                    <TextView android:id="@+id/chartStat3Value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="—" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold" />
                 </LinearLayout>
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                    <TextView android:id="@+id/chartStat4Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Amostras" android:textColor="@color/text_muted" android:textSize="9sp" />
-                    <TextView android:id="@+id/chartStat4Value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="0" android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/chartStat4Label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Amostras" android:textColor="@color/text_muted" android:textSize="12sp" />
+                    <TextView android:id="@+id/chartStat4Value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="0" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

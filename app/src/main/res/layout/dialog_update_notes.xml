@@ -2,26 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="18dp"
+    android:layout_margin="22dp"
     android:background="@drawable/bg_card"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="23dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NOVIDADES"
         android:textColor="@color/accent_green"
-        android:textSize="11sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="7dp"
         android:text="O Minha Bateria foi atualizado"
         android:textColor="@color/text_primary"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
@@ -36,37 +36,37 @@
         android:paddingBottom="5dp"
         android:text="Versão 1.0.35+36"
         android:textColor="@color/accent_blue"
-        android:textSize="11sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/updateNotesBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="19dp"
         android:lineSpacingExtra="5dp"
         android:text="• Comparar cargas ganhou uma tela nova com resumo humano, cartões A/B, diferenças visuais e explicação do que influenciou o resultado.\n\n• A comparação rápida destaca duração, tempo carregando, energia, carga, potência média e pico sem esconder os dados técnicos.\n\n• O app evita chamar uma fonte de melhor apenas pelo total acumulado: duração, bateria, temperatura, cabo e uso do celular continuam sendo considerados no texto.\n\n• Agora é possível excluir sessões antigas pelo ícone de lixeira no Histórico, sempre com confirmação antes de apagar."
         android:textColor="@color/text_primary"
-        android:textSize="13sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="17dp"
         android:text="Este aviso aparece somente uma vez em cada nova versão."
         android:textColor="@color/text_muted"
-        android:textSize="10sp" />
+        android:textSize="13sp" />
 
     <Button
         android:id="@+id/updateNotesContinueButton"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="22dp"
         android:background="@drawable/bg_primary_button"
         android:minHeight="0dp"
         android:text="Continuar"
         android:textAllCaps="false"
         android:textColor="#07110A"
-        android:textSize="13sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 </LinearLayout>
