@@ -61,11 +61,25 @@ class SessionActivity : Activity() {
     private fun bindDetailsControls() {
         val details = findViewById<View>(R.id.technicalDetailsContainer)
         val toggle = findViewById<TextView>(R.id.sessionDetailsToggle)
+
+        fun syncToggle() {
+            details.visibility = if (detailsVisible) View.VISIBLE else View.GONE
+            toggle.text = if (detailsVisible) {
+                "▤  Ocultar painel técnico  ‹"
+            } else {
+                "▤  Ver painel técnico  ›"
+            }
+            toggle.background = getDrawable(
+                if (detailsVisible) R.drawable.bg_chart_selector_active else R.drawable.bg_primary_button
+            )
+            toggle.setTextColor(getColor(if (detailsVisible) R.color.text_primary else R.color.background_deep))
+        }
+
         toggle.setOnClickListener {
             detailsVisible = !detailsVisible
-            details.visibility = if (detailsVisible) View.VISIBLE else View.GONE
-            toggle.text = if (detailsVisible) "▤  Ocultar detalhes técnicos  ‹" else "▤  Ver detalhes técnicos  ›"
+            syncToggle()
         }
+        syncToggle()
         findViewById<TextView>(R.id.sessionHelpLink).setOnClickListener {
             MeasurementHelpDialog.show(this)
         }

@@ -1,4 +1,4 @@
-# Validação — Minha Bateria 1.0.31+32
+# Validação — Minha Bateria 1.0.32+33
 
 Data: 2026-09-26
 
@@ -22,8 +22,8 @@ Data: 2026-09-26
 ## Sincronização
 
 - `versionName 1.0.31` e `versionCode 32` sincronizados entre `VERSION`, Gradle, `app_identity.json`, README, Works e workflow;
-- tela de novidades atualizada para 1.0.31+32 e continua exibida uma única vez por versão;
-- workflow configurado para publicar somente `Minha-Bateria-1.0.31.apk`.
+- tela de novidades atualizada para 1.0.32+33 e continua exibida uma única vez por versão;
+- workflow configurado para publicar somente `Minha-Bateria-1.0.32.apk`.
 
 ## Verificações
 

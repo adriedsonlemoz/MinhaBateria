@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.31+32"
+        android:text="Versão 1.0.32+33"
         android:textColor="@color/accent_blue"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• A tela Sessão ganhou novo resumo visual com estado da conexão, fonte destacada e indicadores em cards.\n\n• Quando não há sessão ativa, uma explicação mostra o que aparecerá durante o carregamento.\n\n• O Histórico foi redesenhado com duração, energia, carga, bateria, temperatura e estabilidade organizadas por sessão.\n\n• A comparação de duas sessões agora tem seleção mais clara, contador 0/2 e destaque visual das sessões escolhidas."
+        android:text="• A tela Gráficos agora usa o novo layout em todos os modos: Bateria, Corrente, Potência e Temperatura.\n\n• Cada gráfico ganhou cabeçalho com valor atual, resumo rápido e eixo mais legível.\n\n• A tela Sessão recebeu um painel técnico redesenhado com blocos por categoria e leitura mais limpa.\n\n• A tela de novidades continua aparecendo somente uma vez em cada nova versão."
         android:textColor="@color/text_primary"
         android:textSize="13sp" />
 

@@ -160,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:lineSpacingExtra="3dp"
-                        android:text="Durante uma sessão de carregamento, o app mostrará:\n• evolução da bateria em tempo real\n• tempo decorrido e energia recebida\n• velocidade média de carregamento\n• temperatura máxima registrada"
+                        android:text="Durante uma sessão de carregamento, o app mostrará evolução da bateria, tempo de sessão, energia recebida, velocidade média e temperatura máxima, sem inventar valores."
                         android:textColor="@color/text_secondary"
                         android:textSize="11sp" />
                 </LinearLayout>
@@ -169,11 +169,11 @@
             <TextView
                 android:id="@+id/sessionDetailsToggle"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/bg_primary_button"
                 android:gravity="center"
-                android:text="▤  Ver detalhes técnicos  ›"
+                android:text="▤  Ver painel técnico  ›"
                 android:textColor="#07110A"
                 android:textSize="13sp"
                 android:textStyle="bold" />
@@ -183,6 +183,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
                 android:gravity="center"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -201,11 +202,50 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/bg_card"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_card_green_outline"
                     android:orientation="vertical"
                     android:padding="14dp">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TEMPO E CONTINUIDADE" android:textColor="@color/accent_green" android:textSize="11sp" android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:background="@drawable/bg_icon_square_green"
+                            android:contentDescription="Tempo e continuidade"
+                            android:padding="9dp"
+                            android:src="@drawable/ic_session_clock" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TEMPO E CONTINUIDADE"
+                                android:textColor="@color/accent_green"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Acompanha duração total, tempo carregando e pausas durante a sessão."
+                                android:textColor="@color/text_secondary"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
                     <include layout="@layout/session_row_elapsed" />
                     <include layout="@layout/session_row_charging_time" />
                     <include layout="@layout/session_row_interruptions" />
@@ -215,10 +255,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_card"
+                    android:background="@drawable/bg_card_blue_outline"
                     android:orientation="vertical"
                     android:padding="14dp">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ENERGIA ESTIMADA" android:textColor="@color/accent_blue" android:textSize="11sp" android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:background="@drawable/bg_icon_square_blue"
+                            android:contentDescription="Energia estimada"
+                            android:padding="9dp"
+                            android:src="@drawable/ic_session_energy" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ENERGIA ESTIMADA"
+                                android:textColor="@color/accent_blue"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Mostra o total acumulado, a carga em mAh e a potência observada."
+                                android:textColor="@color/text_secondary"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
                     <include layout="@layout/session_row_energy" />
                     <include layout="@layout/session_row_charge" />
                     <include layout="@layout/session_row_average_power" />
@@ -229,10 +308,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_card"
+                    android:background="@drawable/bg_card_blue_outline"
                     android:orientation="vertical"
                     android:padding="14dp">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ELÉTRICO" android:textColor="@color/accent_blue" android:textSize="11sp" android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:background="@drawable/bg_icon_square_blue"
+                            android:contentDescription="Dados elétricos"
+                            android:padding="9dp"
+                            android:src="@drawable/ic_metric_current" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ELÉTRICO"
+                                android:textColor="@color/accent_blue"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Corrente e tensão médias ajudam a entender a qualidade da carga."
+                                android:textColor="@color/text_secondary"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
                     <include layout="@layout/session_row_average_current" />
                     <include layout="@layout/session_row_current_range" />
                     <include layout="@layout/session_row_average_voltage" />
@@ -243,10 +361,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_card"
+                    android:background="@drawable/bg_card_orange_outline"
                     android:orientation="vertical"
                     android:padding="14dp">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TEMPERATURA E BATERIA" android:textColor="@color/accent_orange" android:textSize="11sp" android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:background="@drawable/bg_icon_square_orange"
+                            android:contentDescription="Temperatura e bateria"
+                            android:padding="9dp"
+                            android:src="@drawable/ic_session_temperature" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TEMPERATURA E BATERIA"
+                                android:textColor="@color/accent_orange"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Reúne a média térmica, pico de temperatura e a evolução percentual da bateria."
+                                android:textColor="@color/text_secondary"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
                     <include layout="@layout/session_row_average_temperature" />
                     <include layout="@layout/session_row_max_temperature" />
                     <include layout="@layout/session_row_battery_range" />

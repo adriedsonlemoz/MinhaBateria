@@ -37,55 +37,32 @@ class MetricChartView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        val left = paddingLeft.toFloat() + dp(14f)
-        val right = width - paddingRight.toFloat() - dp(14f)
-        val top = paddingTop.toFloat() + dp(14f)
-        val bottom = height - paddingBottom.toFloat() - dp(12f)
+        val axisWidth = dp(34f)
+        val left = paddingLeft.toFloat() + axisWidth
+        val right = width - paddingRight.toFloat() - dp(8f)
+        val top = paddingTop.toFloat() + dp(10f)
+        val bottom = height - paddingBottom.toFloat() - dp(26f)
         if (right <= left || bottom <= top) return
 
         val values = samples.mapNotNull { sample -> metric.value(sample)?.takeIf { it.isFinite() } }
-        drawHeader(canvas, left, right, top, values)
-        drawPlot(canvas, left, right, top + dp(72f), bottom - dp(24f), values)
-        drawTimeAxis(canvas, left, right, bottom)
+        val scale = scaleFor(values)
+        drawGrid(canvas, left, right, top, bottom)
+        drawYAxis(canvas, left, top, bottom, scale.first, scale.second)
+        drawSeries(canvas, left, right, top, bottom, values, scale.first, scale.second)
+        drawTimeAxis(canvas, left, right, bottom + dp(18f))
     }
 
-    private fun drawHeader(canvas: Canvas, left: Float, right: Float, top: Float, values: List<Double>) {
-        paint.shader = null
-        paint.typeface = Typeface.DEFAULT_BOLD
-        paint.textSize = sp(12f)
-        paint.color = context.getColor(R.color.text_secondary)
-        canvas.drawText(metric.title.uppercase(), left, top + sp(12f), paint)
-
-        val latest = samples.asReversed().firstNotNullOfOrNull { metric.value(it)?.takeIf(Double::isFinite) }
-        paint.textSize = sp(27f)
-        paint.color = metricColor(latest)
-        canvas.drawText(metric.format(latest), left, top + dp(45f), paint)
-
-        paint.typeface = Typeface.DEFAULT
-        paint.textSize = sp(10f)
-        paint.color = context.getColor(R.color.text_muted)
-        paint.textAlign = Paint.Align.RIGHT
-        val summary = if (values.isEmpty()) {
-            "sem dados observados"
-        } else {
-            "mín ${metric.format(values.minOrNull())}  •  máx ${metric.format(values.maxOrNull())}"
-        }
-        canvas.drawText(summary, right, top + dp(44f), paint)
-        paint.textAlign = Paint.Align.LEFT
-    }
-
-    private fun drawPlot(
+    private fun drawSeries(
         canvas: Canvas,
         left: Float,
         right: Float,
         top: Float,
         bottom: Float,
-        values: List<Double>
+        values: List<Double>,
+        minValue: Double,
+        maxValue: Double
     ) {
-        if (bottom <= top) return
-        drawGrid(canvas, left, right, top, bottom)
-
-        if (values.size < 2) {
+        if (values.isEmpty()) {
             paint.shader = null
             paint.typeface = Typeface.DEFAULT
             paint.textSize = sp(11f)
@@ -96,7 +73,6 @@ class MetricChartView @JvmOverloads constructor(
             return
         }
 
-        val (minValue, maxValue) = scaleFor(values)
         drawZeroLineIfVisible(canvas, left, right, top, bottom, minValue, maxValue)
         val cutoff = nowMs - rangeMs
         val segments = buildSegments()
@@ -178,15 +154,15 @@ class MetricChartView @JvmOverloads constructor(
         paint.style = Paint.Style.FILL
         paint.shader = LinearGradient(
             0f, top, 0f, bottom,
-            withAlpha(color, 58),
-            withAlpha(color, 4),
+            withAlpha(color, 62),
+            withAlpha(color, 5),
             Shader.TileMode.CLAMP
         )
         canvas.drawPath(areaPath, paint)
 
         paint.shader = null
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = dp(2.6f)
+        paint.strokeWidth = dp(2.4f)
         paint.strokeCap = Paint.Cap.ROUND
         paint.strokeJoin = Paint.Join.ROUND
         paint.color = color
@@ -211,11 +187,11 @@ class MetricChartView @JvmOverloads constructor(
         paint.shader = null
         paint.style = Paint.Style.FILL
         paint.color = context.getColor(R.color.surface)
-        canvas.drawCircle(x, y, dp(5.2f), paint)
+        canvas.drawCircle(x, y, dp(6f), paint)
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = dp(2.4f)
+        paint.strokeWidth = dp(2.6f)
         paint.color = color
-        canvas.drawCircle(x, y, dp(5.2f), paint)
+        canvas.drawCircle(x, y, dp(6f), paint)
         paint.style = Paint.Style.FILL
     }
 
@@ -242,8 +218,8 @@ class MetricChartView @JvmOverloads constructor(
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = dp(1f)
         paint.color = context.getColor(R.color.divider)
-        repeat(4) { index ->
-            val y = top + (bottom - top) * index / 3f
+        repeat(5) { index ->
+            val y = top + (bottom - top) * index / 4f
             canvas.drawLine(left, y, right, y, paint)
         }
         repeat(4) { index ->
@@ -251,6 +227,27 @@ class MetricChartView @JvmOverloads constructor(
             canvas.drawLine(x, top, x, bottom, paint)
         }
         paint.style = Paint.Style.FILL
+    }
+
+    private fun drawYAxis(
+        canvas: Canvas,
+        chartLeft: Float,
+        top: Float,
+        bottom: Float,
+        minValue: Double,
+        maxValue: Double
+    ) {
+        paint.shader = null
+        paint.typeface = Typeface.DEFAULT
+        paint.textSize = sp(9.5f)
+        paint.color = context.getColor(R.color.text_secondary)
+        paint.textAlign = Paint.Align.LEFT
+        repeat(5) { index ->
+            val ratio = 1f - (index / 4f)
+            val value = minValue + (maxValue - minValue) * ratio
+            val y = top + (bottom - top) * index / 4f + sp(3f)
+            canvas.drawText(axisLabel(value), dp(2f), y, paint)
+        }
     }
 
     private fun drawZeroLineIfVisible(
@@ -273,24 +270,24 @@ class MetricChartView @JvmOverloads constructor(
         paint.style = Paint.Style.FILL
     }
 
-    private fun drawTimeAxis(canvas: Canvas, left: Float, right: Float, bottom: Float) {
+    private fun drawTimeAxis(canvas: Canvas, left: Float, right: Float, baseline: Float) {
         paint.shader = null
         paint.typeface = Typeface.DEFAULT
         paint.textSize = sp(9f)
         paint.color = context.getColor(R.color.text_muted)
 
         paint.textAlign = Paint.Align.LEFT
-        canvas.drawText("−${formatDuration(rangeMs)}", left, bottom, paint)
+        canvas.drawText("−${formatDuration(rangeMs)}", left, baseline, paint)
         paint.textAlign = Paint.Align.CENTER
-        canvas.drawText("−${formatDuration(rangeMs / 2)}", (left + right) / 2f, bottom, paint)
+        canvas.drawText("−${formatDuration(rangeMs / 2)}", (left + right) / 2f, baseline, paint)
         paint.textAlign = Paint.Align.RIGHT
-        canvas.drawText("agora", right, bottom, paint)
+        canvas.drawText("agora", right, baseline, paint)
         paint.textAlign = Paint.Align.LEFT
     }
 
     private fun scaleFor(values: List<Double>): Pair<Double, Double> {
-        val rawMin = values.minOrNull() ?: return 0.0 to 1.0
-        val rawMax = values.maxOrNull() ?: return 0.0 to 1.0
+        val rawMin = values.minOrNull() ?: return defaultScale()
+        val rawMax = values.maxOrNull() ?: return defaultScale()
         return when (metric) {
             ChartMetric.BATTERY -> 0.0 to 100.0
             ChartMetric.POWER -> {
@@ -312,11 +309,30 @@ class MetricChartView @JvmOverloads constructor(
         }
     }
 
+    private fun defaultScale(): Pair<Double, Double> = when (metric) {
+        ChartMetric.BATTERY -> 0.0 to 100.0
+        ChartMetric.CURRENT -> -1000.0 to 0.0
+        ChartMetric.POWER -> 0.0 to 10.0
+        ChartMetric.TEMPERATURE -> 20.0 to 45.0
+    }
+
     private fun paddedRange(rawMin: Double, rawMax: Double, minimumSpread: Double): Pair<Double, Double> {
         val spread = max(rawMax - rawMin, max(abs(rawMax) * 0.08, minimumSpread))
         return (rawMin - spread * 0.15) to (rawMax + spread * 0.15)
     }
 
+    private fun axisLabel(value: Double): String = when (metric) {
+        ChartMetric.BATTERY -> "${value.toInt()}%"
+        ChartMetric.CURRENT -> {
+            val rounded = value.toInt()
+            if (abs(rounded) >= 1000) String.format("%.1f", rounded / 1000f).replace('.', ',') else rounded.toString()
+        }
+        ChartMetric.POWER -> {
+            val rounded = if (abs(value) >= 10.0) value.toInt().toString() else String.format("%.1f", value).replace('.', ',')
+            rounded
+        }
+        ChartMetric.TEMPERATURE -> String.format("%.0f°", value)
+    }
 
     private fun metricSeriesColor(values: List<Double>): Int = context.getColor(
         when (metric) {

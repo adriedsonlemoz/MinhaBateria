@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.32+33
+
+- Aplicado o novo padrão visual em toda a tela Gráficos, cobrindo Bateria, Corrente, Potência e Temperatura.
+- Cada gráfico agora mostra valor atual destacado, linha de contexto, resumo rápido em quatro blocos e eixo lateral mais legível.
+- O componente de gráfico foi ajustado para priorizar a área útil do traçado, manter lacunas reais e reforçar a leitura temporal.
+- A tela Sessão ganhou um painel técnico redesenhado com seções visuais para tempo, energia, dados elétricos e temperatura/bateria.
+- O botão de detalhes técnicos da Sessão agora alterna o estado visual entre abrir e recolher o painel.
+- Tela de novidades, workflow, identidade, documentação e versão sincronizados para 1.0.32+33.
+
 ## 1.0.31+32
 
 - Redesenhada a tela Sessão conforme o novo mockup aprovado.

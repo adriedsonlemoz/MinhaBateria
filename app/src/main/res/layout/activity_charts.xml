@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="74dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingStart="18dp"
@@ -49,7 +49,11 @@
             android:text="Bateria"
             android:textSize="11sp"
             android:textStyle="bold" />
-        <Space android:layout_width="5dp" android:layout_height="1dp" />
+
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="1dp" />
+
         <TextView
             android:id="@+id/metricCurrent"
             android:layout_width="0dp"
@@ -59,7 +63,11 @@
             android:text="Corrente"
             android:textSize="11sp"
             android:textStyle="bold" />
-        <Space android:layout_width="5dp" android:layout_height="1dp" />
+
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="1dp" />
+
         <TextView
             android:id="@+id/metricPower"
             android:layout_width="0dp"
@@ -69,7 +77,11 @@
             android:text="Potência"
             android:textSize="11sp"
             android:textStyle="bold" />
-        <Space android:layout_width="5dp" android:layout_height="1dp" />
+
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="1dp" />
+
         <TextView
             android:id="@+id/metricTemperature"
             android:layout_width="0dp"
@@ -85,7 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="14dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -99,7 +111,11 @@
             android:text="5 min"
             android:textSize="11sp"
             android:textStyle="bold" />
-        <Space android:layout_width="7dp" android:layout_height="1dp" />
+
+        <Space
+            android:layout_width="7dp"
+            android:layout_height="1dp" />
+
         <TextView
             android:id="@+id/range15"
             android:layout_width="0dp"
@@ -109,7 +125,11 @@
             android:text="15 min"
             android:textSize="11sp"
             android:textStyle="bold" />
-        <Space android:layout_width="7dp" android:layout_height="1dp" />
+
+        <Space
+            android:layout_width="7dp"
+            android:layout_height="1dp" />
+
         <TextView
             android:id="@+id/range60"
             android:layout_width="0dp"
@@ -121,7 +141,7 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="14dp"
@@ -129,14 +149,193 @@
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
-        android:background="@drawable/bg_card">
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <TextView
+            android:id="@+id/chartMetricTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BATERIA"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/chartMetricValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="20%"
+                android:textColor="@color/accent_blue"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/chartMetricMinMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mín 20% • máx 20%"
+                android:textColor="@color/text_muted"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/chartInsightLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Sem variação no período"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_history_metric_row"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/chartStat1Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Atual"
+                    android:textColor="@color/text_muted"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/chartStat1Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="20%"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/chartStat2Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Média"
+                    android:textColor="@color/text_muted"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/chartStat2Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="20%"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/chartStat3Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Variação"
+                    android:textColor="@color/text_muted"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/chartStat3Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="0%"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/chartStat4Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amostra"
+                    android:textColor="@color/text_muted"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/chartStat4Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Estável"
+                    android:textColor="@color/accent_green"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
 
         <com.minhabateria.app.ui.MetricChartView
             android:id="@+id/metricChart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="4dp" />
-    </FrameLayout>
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:paddingTop="4dp"
+            android:paddingBottom="2dp" />
+    </LinearLayout>
 
     <include
         layout="@layout/bottom_tabs"
