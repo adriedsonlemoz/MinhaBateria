@@ -4,9 +4,9 @@ Aplicativo Android nativo em Kotlin para acompanhar dados de bateria e carregame
 
 ## Versão
 
-- versionName: 1.0.34
-- versionCode: 35
-- versão completa: 1.0.34+35
+- versionName: 1.0.35
+- versionCode: 36
+- versão completa: 1.0.35+36
 - package: `com.minhabateria.app`
 
 ## Base técnica
@@ -100,7 +100,7 @@ Wh e mAh são integrados entre amostras válidas ao longo do tempo. Intervalos a
 
 ## Interface
 
-A versão 1.0.34 aplica uma camada única de leitura **leigo → números úteis → técnico** nas telas Agora, Perfil da fonte, Sessão e Gráficos. A informação principal é sempre o estado humano (por exemplo `Carga normal`, `Carga lenta`, `Carga oscilando` ou `Aparelho quente`); os números essenciais aparecem logo depois e os dados técnicos ficam recolhidos em **Ver detalhes técnicos**.
+A versão 1.0.35 mantém uma camada única de leitura **leigo → números úteis → técnico** nas telas Agora, Perfil da fonte, Sessão e Gráficos. A informação principal é sempre o estado humano (por exemplo `Carga normal`, `Carga lenta`, `Carga oscilando` ou `Aparelho quente`); os números essenciais aparecem logo depois e os dados técnicos ficam recolhidos em **Ver detalhes técnicos**.
 
 ### Agora
 
@@ -136,7 +136,7 @@ Os critérios de interpretação estão documentados em [`INTERPRETATION.md`](IN
 - desconectar a fonte encerra a sessão atual;
 - a próxima conexão sempre inicia uma sessão nova;
 - o Histórico salva automaticamente a sessão concluída quando a fonte é desconectada, sem botão manual de salvar;
-- são mantidas até 100 sessões recentes para consulta e futura comparação.
+- são mantidas até 100 sessões recentes para consulta e comparação.
 
 ## Resumo inteligente
 
@@ -172,17 +172,19 @@ O código é dividido por responsabilidade em módulos. Nenhum arquivo de códig
 gradle :app:assembleRelease
 ```
 
-APK final: `Minha-Bateria-1.0.34.apk`
+APK final: `Minha-Bateria-1.0.35.apk`
 
 ## Distribuição no GitHub / Works
 
-O workflow publica somente `Minha-Bateria-1.0.34.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
+O workflow publica somente `Minha-Bateria-1.0.35.apk` como arquivo de entrega. Não usa `actions/upload-artifact` para o APK e não publica source ZIP como saída do Works.
 
 
 ## Comparação de sessões
 
-O Histórico permite selecionar duas sessões para comparar lado a lado os valores observados e estimados, sem escolher automaticamente uma sessão vencedora.
+O Histórico permite selecionar duas sessões e abrir **Comparar cargas**. A tela mostra primeiro um resumo humano do maior resultado observado, depois seis métricas rápidas com barras relativas e diferenças A/B, e mantém corrente, tensão, temperatura, referência nominal, ganho e estabilidade em **Ver detalhes técnicos**. O resumo evita tratar automaticamente o maior total como maior eficiência: duração, nível de bateria, temperatura, cabo, protocolo e uso do aparelho continuam sendo apresentados como fatores que podem alterar o resultado.
+
+Cada sessão salva também possui uma lixeira própria. A exclusão exige confirmação explícita e remove somente aquela sessão do Histórico; se ela estava selecionada para comparação, a seleção é atualizada imediatamente.
 
 ## APK atual
 
-O workflow publica diretamente `Minha-Bateria-1.0.34.apk` na GitHub Release `v1.0.34`.
+O workflow publica diretamente `Minha-Bateria-1.0.35.apk` na GitHub Release `v1.0.35`.

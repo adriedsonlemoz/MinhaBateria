@@ -1,12 +1,14 @@
 package com.minhabateria.app
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.minhabateria.app.history.HistoryEntry
+import com.minhabateria.app.history.HistoryFormatter
 import com.minhabateria.app.history.HistoryStore
 import com.minhabateria.app.monitoring.LocalBatteryMonitorHub
 import com.minhabateria.app.monitoring.MonitoringState
@@ -75,7 +77,7 @@ class HistoryActivity : Activity() {
     private fun refresh() {
         val entries = store.entries()
         selectedIds.retainAll(entries.map { it.id }.toSet())
-        renderer.render(entries, selectedIds, ::toggleSelection)
+        renderer.render(entries, selectedIds, ::toggleSelection, ::confirmDelete)
         updateSelectionControls()
     }
 
@@ -88,6 +90,30 @@ class HistoryActivity : Activity() {
             selectedIds.add(entry.id)
         }
         refresh()
+    }
+
+    private fun confirmDelete(entry: HistoryEntry) {
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Excluir sessão?")
+            .setMessage(
+                "${HistoryFormatter.title(entry)}\n${HistoryFormatter.dateTime(entry.endedAtMs)}\n\n" +
+                    "Essa sessão será removida do histórico. Essa ação não pode ser desfeita."
+            )
+            .setNegativeButton("Cancelar", null)
+            .setPositiveButton("Excluir") { _, _ ->
+                if (store.delete(entry.id)) {
+                    selectedIds.remove(entry.id)
+                    refresh()
+                    Toast.makeText(this, "Sessão excluída.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Não foi possível excluir a sessão.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .create()
+        dialog.setOnShowListener {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.accent_red))
+        }
+        dialog.show()
     }
 
     private fun updateSelectionControls() {

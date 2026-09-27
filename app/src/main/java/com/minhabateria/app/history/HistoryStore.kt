@@ -23,13 +23,29 @@ class HistoryStore(context: Context) {
         val updated = (listOf(entry) + entries().filterNot { it.id == entry.id })
             .sortedByDescending { it.endedAtMs }
             .take(MAX_ENTRIES)
-        val array = JSONArray()
-        updated.forEach { array.put(encode(it)) }
-        preferences.edit().putString(KEY_ENTRIES, array.toString()).apply()
+        write(updated)
+    }
+
+    fun delete(id: String): Boolean {
+        val current = entries()
+        val updated = current.filterNot { it.id == id }
+        if (updated.size == current.size) return false
+        return write(updated, immediate = true)
     }
 
     fun clear() {
         preferences.edit().remove(KEY_ENTRIES).apply()
+    }
+
+
+    private fun write(entries: List<HistoryEntry>, immediate: Boolean = false): Boolean {
+        val array = JSONArray()
+        entries.forEach { array.put(encode(it)) }
+        val editor = preferences.edit().putString(KEY_ENTRIES, array.toString())
+        return if (immediate) editor.commit() else {
+            editor.apply()
+            true
+        }
     }
 
     private fun encode(entry: HistoryEntry): JSONObject = JSONObject().apply {

@@ -19,20 +19,22 @@ class HistoryScreenRenderer(private val activity: Activity) {
     fun render(
         entries: List<HistoryEntry>,
         selectedIds: Set<String> = emptySet(),
-        onToggleSelection: ((HistoryEntry) -> Unit)? = null
+        onToggleSelection: ((HistoryEntry) -> Unit)? = null,
+        onDelete: ((HistoryEntry) -> Unit)? = null
     ) {
         list.removeAllViews()
         count.text = if (entries.size == 1) "1 sessão salva" else "${entries.size} sessões salvas"
         empty.visibility = if (entries.isEmpty()) View.VISIBLE else View.GONE
         entries.forEach { entry ->
-            list.addView(createItem(entry, entry.id in selectedIds, onToggleSelection))
+            list.addView(createItem(entry, entry.id in selectedIds, onToggleSelection, onDelete))
         }
     }
 
     private fun createItem(
         entry: HistoryEntry,
         selected: Boolean,
-        onToggleSelection: ((HistoryEntry) -> Unit)?
+        onToggleSelection: ((HistoryEntry) -> Unit)?,
+        onDelete: ((HistoryEntry) -> Unit)?
     ): View {
         val view = inflater.inflate(R.layout.history_item, list, false)
         text(view, R.id.historyItemTitle).text = HistoryFormatter.title(entry)
@@ -77,6 +79,14 @@ class HistoryScreenRenderer(private val activity: Activity) {
         } else {
             selector.visibility = View.GONE
             action.visibility = View.GONE
+        }
+
+        val delete = view.findViewById<View>(R.id.historyItemDelete)
+        if (onDelete != null) {
+            delete.visibility = View.VISIBLE
+            delete.setOnClickListener { onDelete(entry) }
+        } else {
+            delete.visibility = View.GONE
         }
         return view
     }

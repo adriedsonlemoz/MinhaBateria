@@ -1,4 +1,4 @@
-# Interpretação das medições — Minha Bateria 1.0.34+35
+# Interpretação das medições — Minha Bateria 1.0.35+36
 
 A interface separa quatro origens de informação:
 
@@ -52,3 +52,13 @@ O gráfico de bateria usa escala adaptativa com no mínimo 12 pontos percentuais
 ## Estimativa até 100%
 
 A previsão não é apresentada como certeza. O app prioriza uma estimativa válida fornecida pelo Android. Na ausência dela, só calcula pelo ritmo da sessão depois de pelo menos **2 pontos percentuais de ganho e 2 minutos de carga**. Antes disso mostra que a estimativa está em preparação.
+
+## Comparar cargas
+
+A tela **Comparar cargas** trabalha somente com os dados já salvos em cada sessão. Ela não cria novas medições nem transforma o maior total acumulado em uma conclusão de eficiência.
+
+O resumo principal segue esta prioridade quando os dois lados possuem dados comparáveis: carga acumulada estimada (`mAh`), energia estimada (`Wh`), ganho percentual da bateria e, por último, potência média. A frase usa **“maior resultado observado”** e explica separadamente duração e potência média.
+
+As barras da comparação rápida são relativas apenas entre Sessão A e Sessão B dentro da mesma métrica. O maior valor daquela linha ocupa 100% da barra e o outro é escalado proporcionalmente. Elas não representam porcentagem da capacidade da fonte, eficiência elétrica nem avaliação absoluta de qualidade.
+
+Quando uma sessão dura mais tempo, o texto deixa explícito que o total maior pode ter sido favorecido pela duração. Quando a outra sessão teve maior potência média, isso também aparece no contexto. Diferenças de nível da bateria, temperatura, cabo, protocolo e uso do celular continuam sendo tratadas como fatores que podem alterar o resultado.

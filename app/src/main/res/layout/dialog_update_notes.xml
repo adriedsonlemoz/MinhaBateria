@@ -34,7 +34,7 @@
         android:paddingTop="5dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:text="Versão 1.0.34+35"
+        android:text="Versão 1.0.35+36"
         android:textColor="@color/accent_blue"
         android:textSize="11sp"
         android:textStyle="bold" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:lineSpacingExtra="5dp"
-        android:text="• Agora, Sessão e Gráficos foram reorganizados para mostrar primeiro o que está acontecendo, depois a explicação e só então os dados técnicos.\n\n• O app agora classifica carga normal, lenta, oscilando ou com possível problema usando as medições reais disponíveis.\n\n• Perfil da fonte ficou mais rápido: escolha o tipo, marca, modelo e potência; dados da etiqueta ficam recolhidos por padrão.\n\n• Gráficos ganharam resumo em linguagem simples, período compacto, escala mais segura e detalhes técnicos sob demanda."
+        android:text="• Comparar cargas ganhou uma tela nova com resumo humano, cartões A/B, diferenças visuais e explicação do que influenciou o resultado.\n\n• A comparação rápida destaca duração, tempo carregando, energia, carga, potência média e pico sem esconder os dados técnicos.\n\n• O app evita chamar uma fonte de melhor apenas pelo total acumulado: duração, bateria, temperatura, cabo e uso do celular continuam sendo considerados no texto.\n\n• Agora é possível excluir sessões antigas pelo ícone de lixeira no Histórico, sempre com confirmação antes de apagar."
         android:textColor="@color/text_primary"
         android:textSize="13sp" />
 

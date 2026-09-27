@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="Cada conexão inicia uma sessão. Ao retirar o carregador, o resultado é salvo automaticamente aqui. Toque em duas sessões para compará-las."
+            android:text="Cada conexão inicia uma sessão. Ao retirar a fonte, o resultado é salvo automaticamente. Toque em duas sessões para comparar ou use a lixeira para excluir uma sessão antiga."
             android:textColor="@color/text_secondary"
             android:textSize="11sp" />
     </LinearLayout>

@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.35+36
+
+- Tela Comparar cargas redesenhada conforme o novo mockup, com cartões A/B, resumo humano, comparação rápida e detalhes técnicos sob demanda.
+- Adicionado resumo do maior resultado observado sem classificar automaticamente maior carga acumulada como maior eficiência.
+- Duração, tempo carregando, energia, carga, potência média e pico agora aparecem em cards comparativos com barras relativas A/B.
+- Criado card “O que isso significa” para contextualizar diferenças de duração, potência e condições da sessão.
+- Corrente, tensão, temperatura, referência nominal, ganho, interrupções e estabilidade foram movidos para o painel técnico recolhido.
+- Histórico ganhou lixeira por sessão com confirmação obrigatória antes da exclusão.
+- Excluir uma sessão remove também sua seleção atual para impedir comparação com registro apagado.
+- Tela de novidades, workflow, identidade, README, Works, Release, Validation e versão sincronizados para 1.0.35+36.
+
 ## 1.0.34+35
 
 - Reforma completa de UX/UI nas telas Agora, Perfil da fonte, Sessão e Gráficos, preservando medições e funcionalidades existentes.
